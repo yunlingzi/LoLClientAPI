@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="LoLClientAPI" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin\Debug\LoLClientAPI" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Debug\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="..\LoLClientAPI" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin\Release\LoLClientAPI" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Release\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="..\BbQueue\BbQueue.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\BbQueue\BbQueue.h" />
+		<Unit filename="LoLMemory\HudManager\HudManager.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="LoLMemory\HudManager\HudManager.h" />
+		<Unit filename="LoLProcess\LoLProcess.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="LoLProcess\LoLProcess.h" />
+		<Unit filename="Position\Position.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Position\Position.h" />
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\MemProc\MemChunk.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\MemProc\MemChunk.h" />
+		<Unit filename="..\MemProc\MemProc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\MemProc\MemProc.h" />
+		<Unit filename="..\Scanner\Scanner.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\Scanner\Scanner.h" />
+		<Unit filename="..\Utils\Utils.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\Utils\Utils.h" />
+		<Unit filename="..\Win32Tools\Win32Tools.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\Win32Tools\Win32Tools.h" />
+		<Unit filename="..\Ztring\Ztring.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\Ztring\Ztring.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
