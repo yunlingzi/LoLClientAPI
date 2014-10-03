@@ -3,11 +3,29 @@
 #pragma once
 
 // ---------- Includes ------------
-#include "../MemProc/MemProc.h"
+#include "MemProc/MemProc.h"
 #include "LoLMemory/HudManager/HudManager.h"
+#include <stddef.h>
 
 // ---------- Defines -------------
 
+#define LoLProcess_get_remote_addr(object, field) \
+	(void *) (object->thisAddr + offsetof(typeof(*object), field))
+
+#ifndef API_EXECUTABLE
+	// DLL injection : read from current process
+	#define LoLProcess_get_addr(object, field) LoLProcess_get_remote_addr(object, field)
+#else
+	// Executable : read from target process
+	#define LoLProcess_get_addr(object, field) \
+		(void *) (&object->field); \
+		read_from_memory ( \
+			LoLClientAPI->process->proc, \
+			&object->field, \
+			object->thisAddr + offsetof(typeof(*object), field), \
+			sizeof(object->field) \
+		);
+#endif
 
 // ------ Structure declaration -------
 typedef struct _LoLProcess
@@ -15,7 +33,6 @@ typedef struct _LoLProcess
 	MemProc *process;
 
 	// Memory structures
-	DWORD HudManagerInstanceAddr;
 	HudManager *hud;
 
 
@@ -33,13 +50,13 @@ LoLProcess_alloc (void);
 
 // ----------- Functions ------------
 
-void
+bool
 LoLProcess_init (LoLProcess *LoLProcess);
 
 
 // --------- Destructors ----------
 
 void
-LoLProcess_free (LoLProcess *LoLProcess);
+LoLProcess_free (void);
 
 

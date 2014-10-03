@@ -1,6 +1,8 @@
 #include "HudManager.h"
-#include "../Scanner/Scanner.h"
+#include "Scanner/Scanner.h"
 #include <stdlib.h>
+
+#define _DEBUG_OBJECT__ "HudManager"
 
 HudManager *
 HudManager_new (MemProc *mp)
@@ -91,7 +93,9 @@ HudManager_init (HudManager *this, MemProc *mp)
 			DWORD addr;
 			memcpy(&addr, pHudManagerInstance->data, sizeof(DWORD));
 			addr = read_memory_as_int(mp->proc, addr);
-			this->thisAddr = read_memory_as_int(mp->proc, addr);
+
+			this->thisAddr = read_memory_as_int (mp->proc, addr);
+			debug("HudManager pointer found : 0x%08X", this->thisAddr);
 
 			// Get a copy of the structure in memory
 			if (read_from_memory(mp->proc, this, this->thisAddr, sizeof(*this) - 4) != 0) {

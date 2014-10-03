@@ -3,11 +3,11 @@
 #pragma once
 
 // ---------- Includes ------------
+#include "LoLClientAPI.h"
 #include "Position/Position.h"
-#include "../MemProc/MemProc.h"
+#include "MemProc/MemProc.h"
 
 // ---------- Defines -------------
-
 
 // ------ Structure declaration -------
 #pragma pack(push, 1)
@@ -40,7 +40,7 @@ typedef struct _HudManager
   char field_24;
   short int field_5E;
   char gap_60[164];
-  Position camPos;
+  Position cameraPosition;
 
   DWORD thisAddr;
 
