@@ -3,6 +3,7 @@
 #pragma once
 
 // ---------- Includes ------------
+#include "Utils/Utils.h"
 
 
 // ---------- Defines -------------
@@ -33,6 +34,8 @@ Position_alloc (void);
 void
 Position_init (Position *Position, float x, float y, float z);
 
+bool
+Position_in_map (Position *this);
 
 // --------- Destructors ----------
 

@@ -12,7 +12,13 @@ HudManager_new (MemProc *mp)
 	if ((this = HudManager_alloc()) == NULL)
 		return NULL;
 
-	HudManager_init (this, mp);
+	if (!HudManager_init (this, mp)) {
+		HudManager_free (this);
+		return NULL;
+	}
+
+	// Unit tests
+	HudManagerTest (this);
 
 	return this;
 }
@@ -23,7 +29,7 @@ HudManager_alloc (void)
 	return calloc(1, sizeof(HudManager));
 }
 
-void
+bool
 HudManager_init (HudManager *this, MemProc *mp)
 {
 	MemBlock *mb = NULL;
@@ -104,8 +110,12 @@ HudManager_init (HudManager *this, MemProc *mp)
 
 			// We don't need results anymore
 			bb_queue_free_all (results, buffer_free);
+
+			return true;
 		}
 	}
+
+	return false;
 }
 
 void

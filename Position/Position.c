@@ -36,3 +36,13 @@ Position_free (Position *Position)
 		free (Position);
 	}
 }
+
+
+bool
+Position_in_map (Position *this)
+{
+	return (
+		(this->x > 0 && this->x <= 13600.0)
+	&&  (this->y > 0 && this->y <= 12500.0)
+	);
+}

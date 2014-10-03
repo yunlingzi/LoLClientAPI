@@ -59,9 +59,11 @@ HudManager_alloc (void);
 
 // ----------- Functions ------------
 
-void
+bool
 HudManager_init (HudManager *HudManager, MemProc *mp);
 
+bool
+HudManagerTest (HudManager *hud);
 
 // --------- Destructors ----------
 

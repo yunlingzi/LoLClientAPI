@@ -72,6 +72,7 @@ LoLProcess_free ()
 
 	if (LoLClientAPI != NULL)
 	{
+		HudManager_free (LoLClientAPI->hud);
 		free (LoLClientAPI);
 	}
 }
