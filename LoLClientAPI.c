@@ -116,6 +116,7 @@ check_api (
 /*
  * Description : Set the current used LoLClientAPI instance
  * __in__ LoLProcess *instance : Set the global LoLClientAPI value to this argument
+ * Note : /!\ Use it only if you know what you are doing !
  */
 EXPORT_FUNCTION void
 set_LoLClientAPI (
@@ -128,6 +129,7 @@ set_LoLClientAPI (
 /*
  * Description : Get the current used LoLClientAPI instance
  * Return LoLProcess * : A pointer to the current LoLClientAPI instance
+ * Note : /!\ Use it only if you know what you are doing !
  */
 EXPORT_FUNCTION LoLProcess *
 get_LoLClientAPI (
