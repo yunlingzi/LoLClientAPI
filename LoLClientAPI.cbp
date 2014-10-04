@@ -51,6 +51,21 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="LoLClientAPI.h" />
+		<Unit filename="LoLMemory\HudCamera\HudCamera.h" />
+		<Unit filename="LoLMemory\HudManager\HudCamera\HudCamera.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="LoLMemory\HudManager\HudCamera\HudCamera.h" />
+		<Unit filename="LoLMemory\HudManager\HudCamera\HudCameraTest.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="LoLMemory\HudManager\HudCursorTarget\HudCursorTarget.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="LoLMemory\HudManager\HudCursorTarget\HudCursorTarget.h" />
+		<Unit filename="LoLMemory\HudManager\HudCursorTarget\HudCursorTargetTest.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="LoLMemory\HudManager\HudManager.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -62,6 +77,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="LoLProcess\LoLProcess.h" />
+		<Unit filename="LoLProcess\LoLProcessTest.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="Position\Position.c">
 			<Option compilerVar="CC" />
 		</Unit>

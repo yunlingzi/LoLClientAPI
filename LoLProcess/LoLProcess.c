@@ -96,10 +96,6 @@ void
 LoLProcess_free (
 	LoLProcess *this
 ) {
-	#ifdef API_EXECUTABLE
-		fclose(this->debugOutput);
-	#endif
-
 	if (this != NULL)
 	{
 		HudManager_free (this->hudManager);

@@ -11,7 +11,7 @@ void startInjection (void)
 {
 	// Install LoLClientAPI inside League of Legends.exe process
 	if (!LoLProcess_new ()) {
-		warning("Injection failed.");
+		warning ("Injection failed.");
 		return;
 	}
 
@@ -57,4 +57,6 @@ bool WINAPI DllMain (HMODULE dll, DWORD reason, LPVOID reserved)
 int main (int argc, char **argv)
 {
 	startInjection ();
+
+	endInjection ();
 }
