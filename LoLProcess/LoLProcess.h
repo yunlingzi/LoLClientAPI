@@ -63,6 +63,15 @@ LoLProcess_init (
 	LoLProcess *this
 );
 
+/**
+ * Description : Unit tests checking if the LoLProcess is correct
+ * Return : true on success, false on failure
+ */
+bool
+LoLProcess_test (
+	LoLProcess *this
+);
+
 // --------- Destructors ----------
 
 /**
@@ -73,6 +82,4 @@ void
 LoLProcess_free (
 	LoLProcess *LoLProcess
 );
-
-
 

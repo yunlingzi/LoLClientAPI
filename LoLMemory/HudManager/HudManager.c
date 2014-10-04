@@ -18,9 +18,6 @@ HudManager_new (MemProc *mp)
 		return NULL;
 	}
 
-	// Unit tests
-	HudManagerTest (this);
-
 	return this;
 }
 

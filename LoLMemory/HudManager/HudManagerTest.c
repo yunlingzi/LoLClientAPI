@@ -2,7 +2,7 @@
 #include "LoLClientAPI.h"
 
 bool
-HudManagerTest (HudManager *hud)
+HudManager_test (HudManager *hud)
 {
 	// get_camera_position test
 	Position cameraPosition;

@@ -16,7 +16,6 @@ void startInjection (void)
 	float x, y;
 	get_camera_position(&x, &y);
 	set_camera_position(x + 1000.0, x + 1000.0);
-
 }
 
 
@@ -38,7 +37,7 @@ bool WINAPI DllMain (HMODULE dll, DWORD reason, LPVOID reserved)
 	switch (reason)
 	{
 		case DLL_PROCESS_ATTACH:
-			CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE) startInjection, NULL, 0, NULL);
+			CreateThread (NULL, 0, (LPTHREAD_START_ROUTINE) startInjection, NULL, 0, NULL);
 		break;
 
 		case DLL_PROCESS_DETACH:

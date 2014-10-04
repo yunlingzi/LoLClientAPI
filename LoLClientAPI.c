@@ -31,7 +31,10 @@ get_camera_position (
 	__out__ float * x,
 	__out__ float * y
 ) {
-	check_api ();
+	if (!check_api ()) {
+		dbg ("LoLClientAPI is not installed correctly.");
+		return;
+	}
 
 	Position * cameraPosition = LoLProcess_get_addr (LoLClientAPI->hud, cameraPosition);
 
@@ -50,7 +53,10 @@ set_camera_position (
 	__in__ float x,
 	__in__ float y
 ) {
-	check_api ();
+	if (!check_api ()) {
+		dbg ("LoLClientAPI is not installed correctly.");
+		return;
+	}
 
 	Position * cameraPosition = LoLProcess_get_addr (LoLClientAPI->hud, cameraPosition);
 

@@ -62,7 +62,7 @@ bool
 HudManager_init (HudManager *HudManager, MemProc *mp);
 
 bool
-HudManagerTest (HudManager *hud);
+HudManager_test (HudManager *hud);
 
 // --------- Destructors ----------
 

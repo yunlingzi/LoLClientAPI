@@ -27,6 +27,12 @@ LoLProcess_new (void)
 		return NULL;
 	}
 
+	if (!LoLProcess_test (this)) {
+		dbg ("Test failed.");
+		LoLProcess_free (this);
+		return NULL;
+	}
+
 
 	return this;
 }
@@ -41,7 +47,7 @@ bool
 LoLProcess_init (
 	LoLProcess *this
 ) {
-	// Open debug file, only for DLL (use stdout for executable)
+	// Open debug file, only for DLL (use stdout for executable version)
 	#ifndef API_EXECUTABLE
 	if ((this->debugOutput = file_open("C:/Users/Spl3en/Desktop/C/LoLClientAPI/bin/Debug/output.txt", "a+"))) {
 		dbg_set_output(this->debugOutput);
