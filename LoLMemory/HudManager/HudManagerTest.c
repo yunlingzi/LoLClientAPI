@@ -1,5 +1,5 @@
 #include "LoLMemory/HudManager/HudManager.h"
-
+#include "LoLClientAPI.h"
 
 bool
 HudManagerTest (HudManager *hud)
@@ -12,7 +12,6 @@ HudManagerTest (HudManager *hud)
 		error ("Camera position failed : %f %f", cameraPosition.x, cameraPosition.y);
 		return false;
 	}
-
 
 	return true;
 }

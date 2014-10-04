@@ -1,29 +1,38 @@
 #include "LoLClientAPI.h"
-#include "Utils/Utils.h"
-#include "Ztring/Ztring.h"
 #include "LoLProcess/LoLProcess.h"
-#include <windows.h>
 
-int WINAPI startInjection (void)
+
+/**
+ * Description : 	Function called when the DLL in injected or the executable is launched
+ */
+void startInjection (void)
 {
 	// Install LoLClientAPI inside League of Legends.exe process
-	LoLProcess_new ();
+	if (!LoLProcess_new ()) {
+		warning("Injection failed.");
+		return;
+	}
 
 	float x, y;
 	get_camera_position(&x, &y);
 	set_camera_position(x + 1000.0, x + 1000.0);
 
-	return 0;
 }
 
-int WINAPI endInjection (void)
+
+/**
+ * Description :	Function called when the DLL in ejected.
+ * 					Basically, it cleans the dll and the memory allocated from the LoL process
+ */
+void endInjection (void)
 {
-	LoLProcess_free ();
-	return 0;
+	LoLProcess_free (get_LoLClientAPI());
 }
 
 
-// DLL entry point
+/**
+ * Description :	DLL entry point.
+ */
 bool WINAPI DllMain (HMODULE dll, DWORD reason, LPVOID reserved)
 {
 	switch (reason)
@@ -40,7 +49,10 @@ bool WINAPI DllMain (HMODULE dll, DWORD reason, LPVOID reserved)
 	return true;
 }
 
-// Executable entry point
+
+/**
+ * Description :	Executable entry point.
+ */
 int main (int argc, char **argv)
 {
 	startInjection ();

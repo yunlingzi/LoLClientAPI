@@ -1,55 +1,63 @@
 #include "LoLProcess.h"
+#include "LoLClientAPI.h"
+#include "dbg/dbg.h"
 #include <stdlib.h>
 #include <time.h>
 
 #define _DEBUG_OBJECT__ "LoLProcess"
 
-// Client process handle
-extern LoLProcess *LoLClientAPI;
-FILE * debugOutput = NULL;
-
+/**
+ * Description 	: Allocate a new LoLProcess structure.
+ * Return		: A pointer to an allocated LoLProcess.
+ */
 LoLProcess *
 LoLProcess_new (void)
 {
 	LoLProcess *this;
-	time_t t = time(NULL);
-	struct tm tm = *localtime(&t);
 
-	// Open debug file, only for DLL (use stdout for executable)
-	#ifndef API_EXECUTABLE
-	if ((debugOutput = file_open("C:/Users/Spl3en/Desktop/C/LoLClientAPI/bin/Debug/output.txt", "a+"))) {
-		dbg_set_output(debugOutput);
-	}
-	#endif
-
-	dbg("========================== Injection started at %d-%d-%d %d:%d:%d ==========================",
-		tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
-
-	if ((this = LoLProcess_alloc()) == NULL)
-		return NULL;
-
-	if (!LoLProcess_init(this)) {
-		LoLProcess_free ();
+	if ((this = calloc (1, sizeof(LoLProcess))) == NULL) {
 		return NULL;
 	}
 
-	LoLClientAPI = this;
+	set_LoLClientAPI (this);
+
+	if (!LoLProcess_init (this)) {
+		dbg ("Initialization failed.");
+		LoLProcess_free (this);
+		return NULL;
+	}
+
 
 	return this;
 }
 
-LoLProcess *
-LoLProcess_alloc (void)
-{
-	return calloc(1, sizeof(LoLProcess));
-}
 
+/**
+ * Description : Initialize an allocated LoLProcess structure.
+ * LoLProcess *this : An allocated LoLProcess to initialize.
+ * Return : true on success, false on failure.
+ */
 bool
-LoLProcess_init (LoLProcess *this)
-{
+LoLProcess_init (
+	LoLProcess *this
+) {
+	// Open debug file, only for DLL (use stdout for executable)
+	#ifndef API_EXECUTABLE
+	if ((this->debugOutput = file_open("C:/Users/Spl3en/Desktop/C/LoLClientAPI/bin/Debug/output.txt", "a+"))) {
+		dbg_set_output(this->debugOutput);
+	}
+	#endif
+
+	// Get time and start logging
+	time_t t = time(NULL);
+	struct tm tm = *localtime(&t);
+	dbg("========================== Injection started at %d-%d-%d %d:%d:%d ==========================",
+		tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+
 	// Detect LoL process
 	if ((this->process = memproc_new ("League of Legends.exe", "League of Legends (TM) Client"))) {
 		memproc_refresh_handle (this->process);
+
 		if (memproc_detected (this->process)) {
 			// Initialize memory structures
 			info("Dumping process...");
@@ -63,16 +71,21 @@ LoLProcess_init (LoLProcess *this)
 	return false;
 }
 
+/**
+ * Description : Free an allocated LoLProcess structure.
+ * LoLProcess *this : An allocated LoLProcess to free.
+ */
 void
-LoLProcess_free ()
-{
+LoLProcess_free (
+	LoLProcess *this
+) {
 	#ifdef API_EXECUTABLE
-		fclose(debugOutput);
+		fclose(this->debugOutput);
 	#endif
 
-	if (LoLClientAPI != NULL)
+	if (this != NULL)
 	{
-		HudManager_free (LoLClientAPI->hud);
-		free (LoLClientAPI);
+		HudManager_free (this->hud);
+		free (this);
 	}
 }

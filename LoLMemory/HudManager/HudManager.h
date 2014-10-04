@@ -3,7 +3,6 @@
 #pragma once
 
 // ---------- Includes ------------
-#include "LoLClientAPI.h"
 #include "Position/Position.h"
 #include "MemProc/MemProc.h"
 

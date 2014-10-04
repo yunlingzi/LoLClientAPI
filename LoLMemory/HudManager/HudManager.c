@@ -1,4 +1,5 @@
 #include "HudManager.h"
+#include "LoLClientAPI.h"
 #include "Scanner/Scanner.h"
 #include <stdlib.h>
 

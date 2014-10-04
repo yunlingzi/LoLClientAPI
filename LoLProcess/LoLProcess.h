@@ -36,27 +36,43 @@ typedef struct _LoLProcess
 	HudManager *hud;
 
 
+	// Debug output
+	FILE *debugOutput;
+
+
 }	LoLProcess;
 
 
+// --------- Allocators ---------
 
-// --------- Constructors ---------
-
+/**
+ * Description 	: Allocate a new LoLProcess structure.
+ * Return		: A pointer to an allocated LoLProcess.
+ */
 LoLProcess *
 LoLProcess_new (void);
 
-LoLProcess *
-LoLProcess_alloc (void);
-
 // ----------- Functions ------------
 
+/**
+ * Description : Initialize an allocated LoLProcess structure.
+ * LoLProcess *this : An allocated LoLProcess to initialize.
+ */
 bool
-LoLProcess_init (LoLProcess *LoLProcess);
-
+LoLProcess_init (
+	LoLProcess *this
+);
 
 // --------- Destructors ----------
 
+/**
+ * Description : Free an allocated LoLProcess structure.
+ * LoLProcess *this : An allocated LoLProcess to free.
+ */
 void
-LoLProcess_free (void);
+LoLProcess_free (
+	LoLProcess *LoLProcess
+);
+
 
 
