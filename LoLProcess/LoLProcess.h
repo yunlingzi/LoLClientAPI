@@ -4,13 +4,16 @@
 
 // ---------- Includes ------------
 #include "MemProc/MemProc.h"
+
+// Game memory structures
 #include "LoLMemory/HudManager/HudManager.h"
+
 #include <stddef.h>
 
 // ---------- Defines -------------
 
 #define LoLProcess_get_remote_addr(object, field) \
-	(void *) (object->thisAddr + offsetof(typeof(*object), field))
+	(void *) (object->pThis + offsetof(typeof(*object), field))
 
 #ifndef API_EXECUTABLE
 	// DLL injection : read from current process
@@ -22,7 +25,7 @@
 		read_from_memory ( \
 			LoLClientAPI->process->proc, \
 			&object->field, \
-			object->thisAddr + offsetof(typeof(*object), field), \
+			object->pThis + offsetof(typeof(*object), field), \
 			sizeof(object->field) \
 		);
 #endif
@@ -33,7 +36,7 @@ typedef struct _LoLProcess
 	MemProc *process;
 
 	// Memory structures
-	HudManager *hud;
+	HudManager *hudManager;
 
 
 	// Debug output

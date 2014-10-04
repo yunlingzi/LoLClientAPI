@@ -10,7 +10,7 @@ bool
 LoLProcess_test (
 	LoLProcess *this
 ) {
-	if (!HudManager_test (this->hud)) {
+	if (!HudManager_test (this->hudManager)) {
 		return false;
 	}
 

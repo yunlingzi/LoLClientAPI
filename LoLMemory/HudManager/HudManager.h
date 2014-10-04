@@ -3,45 +3,28 @@
 #pragma once
 
 // ---------- Includes ------------
-#include "Position/Position.h"
 #include "MemProc/MemProc.h"
+#include "./HudCamera/HudCamera.h"
+#include "./HudCursorTarget/HudCursorTarget.h"
 
 // ---------- Defines -------------
+typedef enum
+{
+	HUD_CAMERA,
+	HUD_UNK1,
+	HUD_CURSOR_TARGET,
+
+}	HudObject;
 
 // ------ Structure declaration -------
 #pragma pack(push, 1)
 typedef struct _HudManager
 {
-  int field_0;
-  int field_1;
-  int field_2;
-  int field_3;
-  int field_4;
-  int field_5;
-  int field_6;
-  int field_7;
-  int field_8;
-  int field_9;
-  int field_10;
-  int field_11;
-  int field_12;
-  int field_13;
-  int field_14;
-  int field_15;
-  int field_16;
-  int field_17;
-  int field_18;
-  int field_19;
-  int field_20;
-  int field_21;
-  int field_22;
-  char field_23;
-  char field_24;
-  short int field_5E;
-  char gap_60[164];
-  Position cameraPosition;
+	HudCamera * hudCamera;
+	void *unk1;
+	HudCursorTarget * hudCursorTarget;
 
-  DWORD thisAddr;
+	DWORD pThis;
 
 } HudManager;
 #pragma pack(pop)
@@ -63,6 +46,9 @@ HudManager_init (HudManager *HudManager, MemProc *mp);
 
 bool
 HudManager_test (HudManager *hud);
+
+DWORD
+HudManager_get_object (HudManager *hudManager, MemProc *mp, HudObject object);
 
 // --------- Destructors ----------
 

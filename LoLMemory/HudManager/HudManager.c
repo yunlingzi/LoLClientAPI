@@ -46,16 +46,14 @@ HudManager_init (HudManager *this, MemProc *mp)
 		dbg ("HudManagerInstanceStr found : 0x%08X", mb->data);
 
 		unsigned char pattern[] =
-			/*
-				01629DE0     A1 0846BD03       mov eax, [dword ds:League_of_Legends.3BD4608] <--- pHudManagerInstance
+			/*  01629DE0     A1 0846BD03       mov eax, [dword ds:League_of_Legends.3BD4608] <--- pHudManagerInstance
 				01629DE5     85C0              test eax, eax
 				01629DE7   ▼ 75 26             jnz short League_of_Legends.01629E0F
 				01629DE9     68 302FF001       push offset League_of_Legends.01F02F30 <-- HudManagerInstanceStr
 				01629DEE     68 782FF001       push offset League_of_Legends.01F02F78
-				01629DF3     68 74010000       push 174
+				01629DF3     68 74010000       push 174 <-- HudManager ID
 				01629DF8     68 D82DF001       push offset League_of_Legends.01F02DD8
-				01629DFD     68 C826EE01       push offset League_of_Legends.01EE26C8
-			*/
+				01629DFD     68 C826EE01       push offset League_of_Legends.01EE26C8 */
 			"?????"
 			"??"
 			"??"
@@ -74,7 +72,6 @@ HudManager_init (HudManager *this, MemProc *mp)
 		// Find a reference to HudManagerAddress
 		results = memscan_search (mp, "pHudManagerInstance",
 			pattern,
-
 			"?????"
 			"??"
 			"??"
@@ -96,20 +93,23 @@ HudManager_init (HudManager *this, MemProc *mp)
 
 		if ((pHudManagerInstance = bb_queue_pick_first(results))) {
 			// pHudManagerInstance has been found
-			DWORD addr;
-			memcpy(&addr, pHudManagerInstance->data, sizeof(DWORD));
-			addr = read_memory_as_int(mp->proc, addr);
-
-			this->thisAddr = read_memory_as_int (mp->proc, addr);
-			dbg ("HudManager pointer found : 0x%08X", this->thisAddr);
-
-			// Get a copy of the structure in memory
-			if (read_from_memory(mp->proc, this, this->thisAddr, sizeof(*this) - 4) != 0) {
-				dbg ("(0x%.8x - 0x%.8x) RPM failed.", this->thisAddr);
-			}
+			this->pThis = read_memory_as_int (mp->proc, *((DWORD *)pHudManagerInstance->data));
+			dbg ("pHudManager pointer found : 0x%08X", this->pThis);
 
 			// We don't need results anymore
 			bb_queue_free_all (results, buffer_free);
+
+			// Get objects from HudManager
+			if (!(this->hudCamera = HudCamera_new (HudManager_get_object (this, mp, HUD_CAMERA)))) {
+				dbg ("Cannot get HudCamera.");
+				return false;
+			}
+
+			if (!(this->hudCursorTarget = HudCursorTarget_new (HudManager_get_object (this, mp, HUD_CURSOR_TARGET)))) {
+				dbg ("Cannot get hudCursorTarget.");
+				return false;
+			}
+
 
 			return true;
 		}
@@ -118,11 +118,17 @@ HudManager_init (HudManager *this, MemProc *mp)
 	return false;
 }
 
-void
-HudManager_free (HudManager *HudManager)
+DWORD
+HudManager_get_object (HudManager *hudManager, MemProc *mp, HudObject object)
 {
-	if (HudManager != NULL)
+	return read_memory_as_int (mp->proc, hudManager->pThis + (object * sizeof(DWORD)));
+}
+
+void
+HudManager_free (HudManager *this)
+{
+	if (this != NULL)
 	{
-		free (HudManager);
+		free (this);
 	}
 }

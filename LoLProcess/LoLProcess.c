@@ -62,15 +62,23 @@ LoLProcess_init (
 		now.tm_year + 1900, now.tm_mon + 1, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec);
 
 	// Detect LoL process
-	if ((this->process = memproc_new ("League of Legends.exe", "League of Legends (TM) Client"))) {
+	if ((this->process = memproc_new ("League of Legends.exe", "League of Legends (TM) Client")))
+	{
 		memproc_refresh_handle (this->process);
 
-		if (memproc_detected (this->process)) {
-			// Initialize memory structures
+		if (memproc_detected (this->process))
+		{
+			// Get a copy of the current client memory
 			info("Dumping process...");
 			memproc_dump(this->process, this->process->base_addr + 0x1000, this->process->base_addr + 0xE05000);
 
-			this->hud = HudManager_new (this->process);
+			// Initialize the Hud Manager
+			if (!(this->hudManager = HudManager_new (this->process))) {
+				dbg ("Cannot get hudManager.");
+				return false;
+			}
+
+			// Success
 			return true;
 		}
 	}
@@ -92,7 +100,7 @@ LoLProcess_free (
 
 	if (this != NULL)
 	{
-		HudManager_free (this->hud);
+		HudManager_free (this->hudManager);
 		free (this);
 	}
 }
