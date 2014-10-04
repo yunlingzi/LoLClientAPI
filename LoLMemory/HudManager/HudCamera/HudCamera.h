@@ -74,6 +74,15 @@ HudCamera_init (
 	DWORD pHudCamera
 );
 
+/**
+ * Description : Unit tests checking if a HudCamera is coherent
+ * Return : true on success, false on failure
+ */
+bool
+HudCamera_test (
+	HudCamera *this
+);
+
 // --------- Destructors ----------
 
 /**

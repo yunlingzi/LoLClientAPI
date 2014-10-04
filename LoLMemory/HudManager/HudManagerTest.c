@@ -1,15 +1,21 @@
-#include "LoLMemory/HudManager/HudManager.h"
+#include "HudManager.h"
 #include "LoLClientAPI.h"
 
-bool
-HudManager_test (HudManager *hud)
-{
-	// get_camera_position test
-	Position cameraPosition;
-	get_camera_position(&cameraPosition.x, &cameraPosition.y);
+#define __DEBUG_OBJECT__ "HudManager"
+#include "dbg/dbg.h"
 
-	if (!Position_in_map (&cameraPosition)) {
-		error ("Camera position failed : %f %f", cameraPosition.x, cameraPosition.y);
+
+/*
+ * Description : Unit tests checking if a HudManager is coherent
+ * HudManager *this : The instance to test
+ * Return : true on success, false on failure
+ */
+bool
+HudManager_test (
+	HudManager *this
+) {
+	if (!HudCamera_test (this->hudCamera)) {
+		dbg ("HudCamera unit test failed.");
 		return false;
 	}
 

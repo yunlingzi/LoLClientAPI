@@ -32,7 +32,6 @@ get_camera_position (
 	HudCamera * hudCamera = LoLClientAPI->hudManager->hudCamera;
 	Position * cameraPosition = LoLProcess_get_addr (hudCamera, cameraPosition);
 
-	printf("%x\n", LoLProcess_get_remote_addr (hudCamera, cameraPosition));
 	*x = cameraPosition->x;
 	*y = cameraPosition->y;
 }
@@ -92,7 +91,6 @@ get_cursor_position (
 	HudCursorTarget * hudCursorTarget = LoLClientAPI->hudManager->hudCursorTarget;
 	Position * cursorPosition = LoLProcess_get_addr (hudCursorTarget, posRaw);
 
-	printf("hudCursorTarget->posRaw = %x\n", LoLProcess_get_remote_addr (hudCursorTarget, posRaw));
 	*x = cursorPosition->x;
 	*y = cursorPosition->y;
 }

@@ -6,14 +6,20 @@
 #define __DEBUG_OBJECT__ "HudManager"
 #include "dbg/dbg.h"
 
+
+/*
+ * Description 	: Allocate a new HudManager structure.
+ * MemProc *mp  : Address of an allocated and running MemProc target process
+ * Return		: A pointer to an allocated HudManager.
+ */
 HudManager *
-HudManager_new (MemProc *mp)
-{
+HudManager_new (
+	MemProc *mp
+) {
 	HudManager *this;
 
-	if ((this = HudManager_alloc()) == NULL)
+	if ((this = calloc(1, sizeof(HudManager))) == NULL)
 		return NULL;
-
 
 	if (!HudManager_init (this, mp)) {
 		HudManager_free (this);
@@ -23,15 +29,17 @@ HudManager_new (MemProc *mp)
 	return this;
 }
 
-HudManager *
-HudManager_alloc (void)
-{
-	return calloc(1, sizeof(HudManager));
-}
-
+/*
+ * Description : Initialize an allocated HudManager structure.
+ * HudManager *this : An allocated HudManager to initialize.
+ * MemProc *mp : The target LoL process
+ * Return : true on success, false on failure.
+ */
 bool
-HudManager_init (HudManager *this, MemProc *mp)
-{
+HudManager_init (
+	HudManager *this,
+	MemProc *mp
+) {
 	MemBlock *mb = NULL;
 	Buffer *pHudManagerInstance = NULL;
 
@@ -118,15 +126,31 @@ HudManager_init (HudManager *this, MemProc *mp)
 	return false;
 }
 
+/*
+ * Description : Retrieve the address of a HUD object from the HudManager
+ * HudManager *this : An allocated HudManager
+ * MemProc *mp : the target LoL process
+ * HudObject object : the object requested
+ * Return : DWORD addresss of the object requested in the target process
+ */
 DWORD
-HudManager_get_object (HudManager *hudManager, MemProc *mp, HudObject object)
-{
+HudManager_get_object (
+	HudManager *hudManager,
+	MemProc *mp,
+	HudObject object
+) {
 	return read_memory_as_int (mp->proc, hudManager->pThis + (object * sizeof(DWORD)));
 }
 
+
+/*
+ * Description : Free an allocated HudManager structure.
+ * HudManager *this : An allocated HudManager to free.
+ */
 void
-HudManager_free (HudManager *this)
-{
+HudManager_free (
+	HudManager *this
+) {
 	if (this != NULL)
 	{
 		free (this);

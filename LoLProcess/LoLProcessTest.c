@@ -2,8 +2,9 @@
 #include <stdlib.h>
 
 
-/**
- * Description : Unit tests checking if the LoLProcess is correct
+/*
+ * Description : Unit tests checking if a LoLProcess is coherent
+ * LoLProcess *this : The instance to test
  * Return : true on success, false on failure
  */
 bool

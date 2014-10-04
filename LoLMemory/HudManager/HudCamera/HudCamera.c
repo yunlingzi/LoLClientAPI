@@ -1,6 +1,8 @@
 #include "HudCamera.h"
 #include <stdlib.h>
 
+#define __DEBUG_OBJECT__ "HudCamera"
+#include "dbg/dbg.h"
 
 /**
  * Description 	: Allocate a new HudCamera structure.
@@ -17,6 +19,7 @@ HudCamera_new (
 		return NULL;
 
 	if (!HudCamera_init (this, pHudCamera)) {
+		dbg ("HudCamera initialization failed.");
 		HudCamera_free (this);
 		return NULL;
 	}
