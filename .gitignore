@@ -2,3 +2,5 @@
 *.layout
 bin/
 obj/
+eject.bat
+inject.bat
