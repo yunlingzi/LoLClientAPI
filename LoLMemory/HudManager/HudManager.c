@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 #define __DEBUG_OBJECT__ "HudManager"
+#include "dbg/dbg.h"
 
 HudManager *
 HudManager_new (MemProc *mp)
@@ -12,6 +13,7 @@ HudManager_new (MemProc *mp)
 
 	if ((this = HudManager_alloc()) == NULL)
 		return NULL;
+
 
 	if (!HudManager_init (this, mp)) {
 		HudManager_free (this);
@@ -41,7 +43,7 @@ HudManager_init (HudManager *this, MemProc *mp)
 	if ((mb = bb_queue_pick_first(results))) {
 		// HudManagerInstanceStr has been found
 
-		debug("HudManagerInstanceStr found : 0x%08X", mb->data);
+		dbg ("HudManagerInstanceStr found : 0x%08X", mb->data);
 
 		unsigned char pattern[] =
 			/*
@@ -99,11 +101,11 @@ HudManager_init (HudManager *this, MemProc *mp)
 			addr = read_memory_as_int(mp->proc, addr);
 
 			this->thisAddr = read_memory_as_int (mp->proc, addr);
-			debug("HudManager pointer found : 0x%08X", this->thisAddr);
+			dbg ("HudManager pointer found : 0x%08X", this->thisAddr);
 
 			// Get a copy of the structure in memory
 			if (read_from_memory(mp->proc, this, this->thisAddr, sizeof(*this) - 4) != 0) {
-				warning("(0x%.8x - 0x%.8x) RPM failed.", this->thisAddr);
+				dbg ("(0x%.8x - 0x%.8x) RPM failed.", this->thisAddr);
 			}
 
 			// We don't need results anymore

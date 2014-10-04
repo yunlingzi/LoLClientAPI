@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define _DEBUG_OBJECT_ "LoLProcess"
+#define __DEBUG_OBJECT__ "LoLProcess"
 #include "dbg/dbg.h"
 
 /**
@@ -19,20 +19,22 @@ LoLProcess_new (void)
 		return NULL;
 	}
 
-	set_LoLClientAPI (this);
-
 	if (!LoLProcess_init (this)) {
 		dbg ("Initialization failed.");
 		LoLProcess_free (this);
 		return NULL;
 	}
 
+	// Initialization successful :
+	// Bind the current LoLProcess to the LoLClientAPI instance
+	set_LoLClientAPI (this);
+
 	if (!LoLProcess_test (this)) {
-		dbg ("Test failed.");
+		dbg ("Unit tests failed.");
 		LoLProcess_free (this);
+		set_LoLClientAPI (NULL);
 		return NULL;
 	}
-
 
 	return this;
 }
