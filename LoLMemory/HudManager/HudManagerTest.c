@@ -19,5 +19,10 @@ HudManager_test (
 		return false;
 	}
 
+	if (!HudCursorTarget_test (this->hudCursorTarget)) {
+		dbg ("hudCursorTarget unit test failed.");
+		return false;
+	}
+
 	return true;
 }

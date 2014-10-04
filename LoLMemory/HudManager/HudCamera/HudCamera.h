@@ -50,7 +50,7 @@ typedef struct _HudCamera
 
 // --------- Allocators ---------
 
-/**
+/*
  * Description 	: Allocate a new HudCamera structure.
  * DWORD pHudCamera : Address of HudCamera in the target process
  * Return		: A pointer to an allocated HudCamera.
@@ -62,7 +62,7 @@ HudCamera_new (
 
 // ----------- Functions ------------
 
-/**
+/*
  * Description : Initialize an allocated HudCamera structure.
  * HudCamera *this : An allocated HudCamera to initialize.
  * DWORD pHudCamera : Address of HudCamera in the target process
@@ -74,7 +74,7 @@ HudCamera_init (
 	DWORD pHudCamera
 );
 
-/**
+/*
  * Description : Unit tests checking if a HudCamera is coherent
  * Return : true on success, false on failure
  */
@@ -85,7 +85,7 @@ HudCamera_test (
 
 // --------- Destructors ----------
 
-/**
+/*
  * Description : Free an allocated HudCamera structure.
  * HudCamera *this : An allocated HudCamera to free.
  */

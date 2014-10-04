@@ -6,7 +6,8 @@
 #define __DEBUG_OBJECT__ "LoLProcess"
 #include "dbg/dbg.h"
 
-/**
+
+/*
  * Description 	: Allocate a new LoLProcess structure.
  * Return		: A pointer to an allocated LoLProcess.
  */
@@ -40,7 +41,7 @@ LoLProcess_new (void)
 }
 
 
-/**
+/*
  * Description : Initialize an allocated LoLProcess structure.
  * LoLProcess *this : An allocated LoLProcess to initialize.
  * Return : true on success, false on failure.
@@ -86,7 +87,8 @@ LoLProcess_init (
 	return false;
 }
 
-/**
+
+/*
  * Description : Free an allocated LoLProcess structure.
  * LoLProcess *this : An allocated LoLProcess to free.
  */

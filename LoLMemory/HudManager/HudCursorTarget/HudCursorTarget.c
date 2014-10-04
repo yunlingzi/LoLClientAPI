@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 
-/**
+/*
  * Description 	: Allocate a new HudCursorTarget structure.
  * DWORD pHudCursorTarget : Address of HudCursorTarget in the target process
  * Return		: A pointer to an allocated HudCursorTarget.
@@ -26,7 +26,7 @@ HudCursorTarget_new (
 
 
 
-/**
+/*
  * Description : Initialize an allocated HudCursorTarget structure.
  * HudCursorTarget *this : An allocated HudCursorTarget to initialize.
  * DWORD pHudCursorTarget : Address of HudCursorTarget in the target process
@@ -43,7 +43,7 @@ HudCursorTarget_init (
 }
 
 
-/**
+/*
  * Description : Free an allocated HudCursorTarget structure.
  * HudCursorTarget *this : An allocated HudCursorTarget to free.
  */

@@ -4,7 +4,8 @@
 #define __DEBUG_OBJECT__ "HudCamera"
 #include "dbg/dbg.h"
 
-/**
+
+/*
  * Description 	: Allocate a new HudCamera structure.
  * DWORD pHudCamera : Address of HudCamera in the target process
  * Return		: A pointer to an allocated HudCamera.
@@ -28,7 +29,7 @@ HudCamera_new (
 }
 
 
-/**
+/*
  * Description : Initialize an allocated HudCamera structure.
  * HudCamera *this : An allocated HudCamera to initialize.
  * DWORD pHudCamera : Address of HudCamera in the target process
@@ -45,7 +46,7 @@ HudCamera_init (
 }
 
 
-/**
+/*
  * Description : Free an allocated HudCamera structure.
  * HudCamera *this : An allocated HudCamera to free.
  */

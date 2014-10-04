@@ -48,7 +48,7 @@ typedef struct _LoLProcess
 
 // --------- Allocators ---------
 
-/**
+/*
  * Description 	: Allocate a new LoLProcess structure.
  * Return		: A pointer to an allocated LoLProcess.
  */
@@ -57,7 +57,7 @@ LoLProcess_new (void);
 
 // ----------- Functions ------------
 
-/**
+/*
  * Description : Initialize an allocated LoLProcess structure.
  * LoLProcess *this : An allocated LoLProcess to initialize.
  */
@@ -66,7 +66,7 @@ LoLProcess_init (
 	LoLProcess *this
 );
 
-/**
+/*
  * Description : Unit tests checking if the LoLProcess is correct
  * Return : true on success, false on failure
  */
@@ -77,7 +77,7 @@ LoLProcess_test (
 
 // --------- Destructors ----------
 
-/**
+/*
  * Description : Free an allocated LoLProcess structure.
  * LoLProcess *this : An allocated LoLProcess to free.
  */

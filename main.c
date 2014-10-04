@@ -2,7 +2,7 @@
 #include "LoLProcess/LoLProcess.h"
 
 
-/**
+/*
  * Description :	Function called when the DLL in injected or the executable is launched
  * 					It injects LCAPI into LoL process, find game structures and store them
  *					into a custom structure
@@ -21,7 +21,7 @@ void startInjection (void)
 }
 
 
-/**
+/*
  * Description :	Function called when the DLL in ejected.
  * 					Basically, it cleans the dll and the memory allocated from the LoL process
  */
@@ -31,7 +31,7 @@ void endInjection (void)
 }
 
 
-/**
+/*
  * Description :	DLL entry point.
  */
 bool WINAPI DllMain (HMODULE dll, DWORD reason, LPVOID reserved)
@@ -51,7 +51,7 @@ bool WINAPI DllMain (HMODULE dll, DWORD reason, LPVOID reserved)
 }
 
 
-/**
+/*
  * Description :	Executable entry point.
  */
 int main (int argc, char **argv)
