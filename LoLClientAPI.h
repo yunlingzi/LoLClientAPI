@@ -9,16 +9,14 @@
 #define __DBG_ACTIVATED__ TRUE
 
 // Dependencies
-#include "dbg/dbg.h"
 #include "LoLProcess/LoLProcess.h"
 
 
 // Exported prototypes
 
-
 /**
  * Description : Check if the API has been correctly injected into LoL process
- * Return : true on success, false on failure
+ * Return : true on successfully injected, false on failure
  */
 EXPORT_FUNCTION bool
 check_api (

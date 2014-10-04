@@ -3,7 +3,7 @@
 #include "Scanner/Scanner.h"
 #include <stdlib.h>
 
-#define _DEBUG_OBJECT__ "HudManager"
+#define __DEBUG_OBJECT__ "HudManager"
 
 HudManager *
 HudManager_new (MemProc *mp)

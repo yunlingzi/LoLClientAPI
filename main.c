@@ -3,7 +3,9 @@
 
 
 /**
- * Description : 	Function called when the DLL in injected or the executable is launched
+ * Description :	Function called when the DLL in injected or the executable is launched
+ * 					It injects LCAPI into LoL process, find game structures and store them
+ *					into a custom structure
  */
 void startInjection (void)
 {

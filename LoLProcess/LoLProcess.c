@@ -1,10 +1,10 @@
 #include "LoLProcess.h"
 #include "LoLClientAPI.h"
-#include "dbg/dbg.h"
 #include <stdlib.h>
 #include <time.h>
 
-#define _DEBUG_OBJECT__ "LoLProcess"
+#define _DEBUG_OBJECT_ "LoLProcess"
+#include "dbg/dbg.h"
 
 /**
  * Description 	: Allocate a new LoLProcess structure.
@@ -55,10 +55,9 @@ LoLProcess_init (
 	#endif
 
 	// Get time and start logging
-	time_t t = time(NULL);
-	struct tm tm = *localtime(&t);
+	struct tm now = *localtime((time_t[]) {time(NULL)});
 	dbg("========================== Injection started at %d-%d-%d %d:%d:%d ==========================",
-		tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+		now.tm_year + 1900, now.tm_mon + 1, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec);
 
 	// Detect LoL process
 	if ((this->process = memproc_new ("League of Legends.exe", "League of Legends (TM) Client"))) {

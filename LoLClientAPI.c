@@ -2,7 +2,8 @@
 #include "LoLProcess/LoLProcess.h"
 #include <stdint.h>
 
-#define _DEBUG_OBJECT__ "LoLClientAPI"
+#define __DEBUG_OBJECT__ "LoLClientAPI"
+#include "dbg/dbg.h"
 
 
 // LoLClientAPI singleton
@@ -11,13 +12,13 @@ LoLProcess * LoLClientAPI = NULL;
 
 /**
  * Description : Check if the API has been correctly injected into LoL process
- * Return : true on success, false on failure
+ * Return : true on successfully injected, false on failure
  */
 EXPORT_FUNCTION bool
 check_api (
 	void
 ) {
-	return (LoLClientAPI == NULL);
+	return (LoLClientAPI != NULL);
 }
 
 
