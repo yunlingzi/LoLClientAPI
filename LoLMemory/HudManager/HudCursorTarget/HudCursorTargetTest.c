@@ -1,7 +1,7 @@
 #include "HudCursorTarget.h"
 #include "LoLClientAPI.h"
 
-#define __DEBUG_OBJECT__ "HudCursorTarget"
+#define __DEBUG_OBJECT__ "HudCursorTargetTest"
 #include "dbg/dbg.h"
 
 

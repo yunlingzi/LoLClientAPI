@@ -1,7 +1,7 @@
 #include "HudCamera.h"
 #include "LoLClientAPI.h"
 
-#define __DEBUG_OBJECT__ "HudCamera"
+#define __DEBUG_OBJECT__ "HudCameraTest"
 #include "dbg/dbg.h"
 
 

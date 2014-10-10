@@ -1,5 +1,8 @@
 #include "LoLProcess.h"
-#include <stdlib.h>
+#include "LoLClientAPI.h"
+
+#define __DEBUG_OBJECT__ "LolProcessTest"
+#include "dbg/dbg.h"
 
 
 /*
@@ -12,6 +15,7 @@ LoLProcess_test (
 	LoLProcess *this
 ) {
 	if (!HudManager_test (this->hudManager)) {
+		dbg ("HudManager unit test failed.");
 		return false;
 	}
 

@@ -1,7 +1,7 @@
 #include "HudManager.h"
 #include "LoLClientAPI.h"
 
-#define __DEBUG_OBJECT__ "HudManager"
+#define __DEBUG_OBJECT__ "HudManagerTest"
 #include "dbg/dbg.h"
 
 

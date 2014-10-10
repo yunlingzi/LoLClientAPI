@@ -94,15 +94,3 @@ DestPos_free (
 }
 
 
-/*
- * Description : Unit tests checking if a DestPos is coherent
- * DestPos *this : The instance to test
- * Return : true on success, false on failure
- */
-bool
-DestPos_test (
-	DestPos *this
-) {
-
-	return true;
-}
