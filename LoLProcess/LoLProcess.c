@@ -42,7 +42,8 @@ LoLProcess_new (void)
 
 
 /*
- * Description : Initialize an allocated LoLProcess structure.
+ * Description :	Initialize an allocated LoLProcess structure.
+ *					Read the game structures
  * LoLProcess *this : An allocated LoLProcess to initialize.
  * Return : true on success, false on failure.
  */
@@ -59,7 +60,7 @@ LoLProcess_init (
 
 	// Get time and start logging
 	struct tm now = *localtime((time_t[]) {time(NULL)});
-	dbg("========================== Injection started at %d-%d-%d %d:%d:%d ==========================",
+	dbg("========================== Injection started at %d-%d-%d %02d:%02d:%02d ==========================",
 		now.tm_year + 1900, now.tm_mon + 1, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec);
 
 	// Detect LoL process
@@ -76,6 +77,12 @@ LoLProcess_init (
 			// Initialize the Hud Manager
 			if (!(this->hudManager = HudManager_new (this->process))) {
 				dbg ("Cannot get hudManager.");
+				return false;
+			}
+
+			// Initialize destination position
+			if (!(this->destPos = DestPos_new (this->process))) {
+				dbg ("Cannot get destination position.");
 				return false;
 			}
 

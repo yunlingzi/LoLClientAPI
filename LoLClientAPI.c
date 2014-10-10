@@ -96,6 +96,29 @@ get_cursor_position (
 }
 
 
+/*
+ * Description : Retrieve the current cursor position
+ * __out__ float * x : A pointer to the X position
+ * __out__ float * y : A pointer to the Y position
+ */
+EXPORT_FUNCTION void
+get_destination_position (
+	__out__ float * x,
+	__out__ float * y
+) {
+	if (!check_api ()) {
+		dbg ("LoLClientAPI is not installed correctly.");
+		return;
+	}
+
+	DestPos *destPos = LoLClientAPI->destPos;
+	Position * destinationPosition = LoLProcess_get_addr (destPos, clientDestPosition);
+
+	*x = destinationPosition->x;
+	*y = destinationPosition->y;
+}
+
+
 
 /** =======================================================================================
  ** ================================== LoLClientAPI APIs ==================================

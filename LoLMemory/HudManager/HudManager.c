@@ -48,6 +48,11 @@ HudManager_init (
 		"HudManager::GetInstance: Instance not created yet or already destroyed"
 	);
 
+	if (!results) {
+		dbg ("HudManagerInstanceStr not found.");
+		return false;
+	}
+
 	if ((mb = bb_queue_pick_first(results))) {
 		// HudManagerInstanceStr has been found
 
