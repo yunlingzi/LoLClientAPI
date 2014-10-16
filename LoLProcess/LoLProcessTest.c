@@ -19,10 +19,5 @@ LoLProcess_test (
 		return false;
 	}
 
-	if (!DestPos_test(this->destPos)) {
-		dbg ("DestPos unit test failed.");
-		return false;
-	}
-
 	return true;
 }

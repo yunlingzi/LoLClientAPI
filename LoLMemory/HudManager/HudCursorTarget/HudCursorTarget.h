@@ -13,17 +13,16 @@
 typedef struct _HudCursorTarget
 {
 	char gap_0[12];
-	Position posEntityFocused;
+	Position EntityFocusedPosition;
 	Position posRaw;
-	char gap_24[16];
+	Position rightClickPosition;
+	char gap_30[4];
 	int field_30;
 
 	DWORD pThis;
 
 }	HudCursorTarget;
 #pragma pack(pop)
-
-
 
 // --------- Allocators ---------
 

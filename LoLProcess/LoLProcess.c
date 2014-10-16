@@ -111,12 +111,6 @@ LoLProcess_init (
 				return false;
 			}
 
-			// Initialize destination position
-			if (!(this->destPos = DestPos_new (this->process))) {
-				dbg ("Cannot get destination position.");
-				return false;
-			}
-
 			// Success
 			return true;
 		}
@@ -147,8 +141,8 @@ LoLProcess_exportToCE (void)
 		LoLProcess_get_remote_addr(this->hudManager->hudCursorTarget, posRaw),
 		LoLProcess_get_remote_addr(this->hudManager->hudCursorTarget, posRaw),
 
-		LoLProcess_get_remote_addr(this->destPos, clientDestPosition),
-		LoLProcess_get_remote_addr(this->destPos, clientDestPosition)
+		LoLProcess_get_remote_addr(this->hudManager->hudCursorTarget, rightClickPosition),
+		LoLProcess_get_remote_addr(this->hudManager->hudCursorTarget, rightClickPosition)
 	);
 
 	file_put_contents("LCAPI.ct", cheatEngineOutput, NULL);

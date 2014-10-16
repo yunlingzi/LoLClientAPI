@@ -100,11 +100,11 @@ get_destination_position (
 ) {
 	waitForAPI ();
 
-	DestPos  * destPos             = LoLClientAPI->destPos;
-	Position * destinationPosition = LoLProcess_get_addr (destPos, clientDestPosition);
+	HudCursorTarget * hudCursorTarget = LoLClientAPI->hudManager->hudCursorTarget;
+	Position * rightClickPosition = LoLProcess_get_addr (hudCursorTarget, rightClickPosition);
 
-	*x = destinationPosition->x;
-	*y = destinationPosition->y;
+	*x = rightClickPosition->x;
+	*y = rightClickPosition->y;
 }
 
 

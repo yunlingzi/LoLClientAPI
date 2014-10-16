@@ -43,7 +43,6 @@ typedef struct _LoLProcess
 
 	// Memory structures
 	HudManager *hudManager;
-	DestPos *destPos;
 
 	// Debug output
 	FILE *debugOutput;
