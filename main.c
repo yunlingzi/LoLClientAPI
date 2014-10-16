@@ -14,6 +14,9 @@ void startInjection (void)
 		warning ("Injection failed.");
 		return;
 	}
+
+	// Create cheatengine file
+	LoLProcess_exportToCE ();
 }
 
 

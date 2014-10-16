@@ -99,6 +99,8 @@ LoLProcess_init (
 
 		if (memproc_detected (this->process))
 		{
+			important ("LoL Process base address : %x", this->process->base_addr);
+
 			// Get a copy of the current client memory
 			info("Dumping process...");
 			memproc_dump (this->process, this->process->base_addr + 0x1000, this->process->base_addr + 0xE05000);
@@ -130,9 +132,26 @@ LoLProcess_init (
  * Return : void
  */
 void
-LoLProcess_exportToCE (
-	LoLProcess *this
-) {
+LoLProcess_exportToCE (void)
+{
+	LoLProcess *this = get_LoLClientAPI ();
+
+	char * cheatEngineXmlFormat = file_get_contents("LCAPIFormat.ct");
+
+	char * cheatEngineOutput = malloc (strlen(cheatEngineXmlFormat) + 10000);
+
+	sprintf (cheatEngineOutput, cheatEngineXmlFormat,
+		LoLProcess_get_remote_addr(this->hudManager->hudCamera, cameraPosition),
+		LoLProcess_get_remote_addr(this->hudManager->hudCamera, cameraPosition),
+
+		LoLProcess_get_remote_addr(this->hudManager->hudCursorTarget, posRaw),
+		LoLProcess_get_remote_addr(this->hudManager->hudCursorTarget, posRaw),
+
+		LoLProcess_get_remote_addr(this->destPos, clientDestPosition),
+		LoLProcess_get_remote_addr(this->destPos, clientDestPosition)
+	);
+
+	file_put_contents("LCAPI.ct", cheatEngineOutput, NULL);
 }
 
 

@@ -96,6 +96,14 @@ LoLProcess_setState (
 	LoLProcessState state
 );
 
+/*
+ * Description : Export current memory addresses to CheatEngine
+ * Return : void
+ */
+void
+LoLProcess_exportToCE (void);
+
+
 // --------- Destructors ----------
 
 /*
