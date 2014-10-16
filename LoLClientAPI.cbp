@@ -35,6 +35,7 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-g" />
 					<Add option="-DAPI_EXECUTABLE" />
 					<Add option="-DDEBUG_ACTIVATED" />
 				</Compiler>
@@ -64,10 +65,14 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="LoLClientAPI.h" />
-		<Unit filename="LoLMemory\GameObject\GameObject.c">
+		<Unit filename="LoLMemory\GameObject\GameObject.h" />
+		<Unit filename="LoLMemory\HeroClient\HeroClient.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLMemory\GameObject\GameObject.h" />
+		<Unit filename="LoLMemory\HeroClient\HeroClient.h" />
+		<Unit filename="LoLMemory\HeroClient\HeroClientTest.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="LoLMemory\HudCamera\HudCamera.h" />
 		<Unit filename="LoLMemory\HudManager\HudCamera\HudCamera.c">
 			<Option compilerVar="CC" />
