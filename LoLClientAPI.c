@@ -128,7 +128,6 @@ check_api (
 }
 
 
-
 /*
  * Description : Wait for the API to be in ready state
  * Return : void

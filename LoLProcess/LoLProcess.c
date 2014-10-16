@@ -125,6 +125,18 @@ LoLProcess_init (
 
 
 /*
+ * Description : Export current memory addresses to CheatEngine
+ * LoLProcess *this : An allocated LoLProcess
+ * Return : void
+ */
+void
+LoLProcess_exportToCE (
+	LoLProcess *this
+) {
+}
+
+
+/*
  * Description : Free an allocated LoLProcess structure.
  * LoLProcess *this : An allocated LoLProcess to free.
  */

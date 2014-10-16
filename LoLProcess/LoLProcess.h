@@ -16,19 +16,19 @@
 #define LoLProcess_get_remote_addr(object, field) \
 	(void *) (object->pThis + offsetof(typeof(*object), field))
 
-#ifndef API_EXECUTABLE
-	// DLL injection : read from current process
-	#define LoLProcess_get_addr(object, field) LoLProcess_get_remote_addr(object, field)
-#else
+#ifdef API_EXECUTABLE
 	// Executable : read from target process
 	#define LoLProcess_get_addr(object, field) \
 		(void *) (&object->field); \
 		read_from_memory ( \
 			LoLClientAPI->process->proc, \
 			&object->field, \
-			object->pThis + offsetof(typeof(*object), field), \
+			(DWORD) LoLProcess_get_remote_addr (object, field), \
 			sizeof(object->field) \
 		);
+#else
+	// DLL injection : read from current process
+	#define LoLProcess_get_addr(object, field) LoLProcess_get_remote_addr(object, field)
 #endif
 
 // ------ Structure declaration -------
