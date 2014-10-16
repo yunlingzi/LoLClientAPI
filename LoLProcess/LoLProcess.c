@@ -111,6 +111,12 @@ LoLProcess_init (
 				return false;
 			}
 
+			// Initialize the heroClient
+			if (!(this->heroClient = HeroClient_new (this->process))) {
+				dbg ("Cannot get heroClient.");
+				return false;
+			}
+
 			// Success
 			return true;
 		}

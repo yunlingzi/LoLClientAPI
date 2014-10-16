@@ -56,17 +56,17 @@ HudManager_init (
 	if ((mb = bb_queue_pick_first(results))) {
 		// HudManagerInstanceStr has been found
 
-		dbg ("HudManagerInstanceStr found : 0x%08X", mb->data);
+		dbg ("HudManagerInstanceStr found : 0x%08X", mb->addr);
 
 		unsigned char pattern[] =
-			/*  01629DE0     A1 0846BD03       mov eax, [dword ds:League_of_Legends.3BD4608] <--- pHudManagerInstance
-				01629DE5     85C0              test eax, eax
-				01629DE7   ▼ 75 26             jnz short League_of_Legends.01629E0F
-				01629DE9     68 302FF001       push offset League_of_Legends.01F02F30 <-- HudManagerInstanceStr
-				01629DEE     68 782FF001       push offset League_of_Legends.01F02F78
-				01629DF3     68 74010000       push 174 <-- HudManager ID
-				01629DF8     68 D82DF001       push offset League_of_Legends.01F02DD8
-				01629DFD     68 C826EE01       push offset League_of_Legends.01EE26C8 */
+			/*	A1 0846BD03       mov eax, [dword ds:League_of_Legends.3BD4608] <--- pHudManagerInstance
+				85C0              test eax, eax
+				75 26             jnz short League_of_Legends.01629E0F
+				68 302FF001       push offset League_of_Legends.01F02F30 <-- HudManagerInstanceStr
+				68 782FF001       push offset League_of_Legends.01F02F78
+				68 74010000       push 174 <-- HudManager ID
+				68 D82DF001       push offset League_of_Legends.01F02DD8
+				68 C826EE01       push offset League_of_Legends.01EE26C8 */
 			"?????"
 			"??"
 			"??"
@@ -74,10 +74,12 @@ HudManager_init (
 			"\x68????"
 			"\x68\x74\x01\x00\x00"
 			"\x68????"
-			"\x68????";
+			"\x68????"
+			"\xE8????";
 
 		// Replace ____ with pHudManagerInstance address
-		memcpy(&pattern[10], &mb->addr, 4);
+		int replacePos = str_n_pos(pattern, "____", sizeof(pattern));
+		memcpy(&pattern[replacePos], &mb->addr, 4);
 
 		// We don't need results anymore
 		bb_queue_free_all (results, memblock_free);
@@ -92,6 +94,7 @@ HudManager_init (
 			"x????"
 			"xxxxx"
 			"x????"
+			"x????"
 			"x????",
 
 			"x????"
@@ -102,9 +105,10 @@ HudManager_init (
 			"xxxxx"
 			"xxxxx"
 			"xxxxx"
+			"xxxxx"
 		);
 
-		if ((pHudManagerInstance = bb_queue_pick_first(results))) {
+		if (results && (pHudManagerInstance = bb_queue_pick_first(results))) {
 			// pHudManagerInstance has been found
 			this->pThis = read_memory_as_int (mp->proc, *((DWORD *)pHudManagerInstance->data));
 			dbg ("pHudManager pointer found : 0x%08X", this->pThis);
