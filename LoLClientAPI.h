@@ -56,6 +56,18 @@ get_cursor_position (
 );
 
 
+/*
+ * Description : Retrieve the destination position (right click)
+ * __out__ float * x : A pointer to the X position
+ * __out__ float * y : A pointer to the Y position
+ */
+EXPORT_FUNCTION void
+get_destination_position (
+	__out__ float * x,
+	__out__ float * y
+);
+
+
 /** =======================================================================================
  ** ================================== LoLClientAPI APIs ==================================
  ** ======================================================================================= **/
@@ -64,8 +76,17 @@ get_cursor_position (
  * Description : Check if the API has been correctly injected into LoL process
  * Return : true on successfully injected, false on failure
  */
-EXPORT_FUNCTION bool
+bool
 check_api (
+	void
+);
+
+/*
+ * Description : Wait for the API to be in ready state
+ * Return : void
+ */
+void
+waitForAPI (
 	void
 );
 

@@ -14,16 +14,6 @@ void startInjection (void)
 		warning ("Injection failed.");
 		return;
 	}
-
-	float x, y;
-	get_camera_position (&x, &y);
-	debug ("Previous camera position : {%f, %f}", x, y);
-	set_camera_position (x + 1000.0, x + 1000.0);
-	get_camera_position (&x, &y);
-	debug ("New camera position      : {%f, %f}", x, y);
-
-	get_cursor_position (&x, &y);
-	debug ("Cursor position          : {%f, %f}", x, y);
 }
 
 

@@ -24,13 +24,10 @@ get_camera_position (
 	__out__ float * x,
 	__out__ float * y
 ) {
-	if (!check_api ()) {
-		dbg ("LoLClientAPI is not installed correctly.");
-		return;
-	}
+	waitForAPI ();
 
-	HudCamera * hudCamera = LoLClientAPI->hudManager->hudCamera;
-	Position * cameraPosition = LoLProcess_get_addr (hudCamera, cameraPosition);
+	HudCamera * hudCamera      = LoLClientAPI->hudManager->hudCamera;
+	Position  * cameraPosition = LoLProcess_get_addr (hudCamera, cameraPosition);
 
 	*x = cameraPosition->x;
 	*y = cameraPosition->y;
@@ -47,13 +44,10 @@ set_camera_position (
 	__in__ float x,
 	__in__ float y
 ) {
-	if (!check_api ()) {
-		dbg ("LoLClientAPI is not installed correctly.");
-		return;
-	}
+	waitForAPI ();
 
-	HudCamera * hudCamera = LoLClientAPI->hudManager->hudCamera;
-	Position * cameraPosition = LoLProcess_get_addr (hudCamera, cameraPosition);
+	HudCamera * hudCamera      = LoLClientAPI->hudManager->hudCamera;
+	Position  * cameraPosition = LoLProcess_get_addr (hudCamera, cameraPosition);
 
 	cameraPosition->x = x;
 	cameraPosition->y = y;
@@ -73,6 +67,7 @@ set_camera_position (
  ** ================================== Cursor APIs ==================================
  ** ================================================================================= **/
 
+
 /*
  * Description : Retrieve the current cursor position
  * __out__ float * x : A pointer to the X position
@@ -83,13 +78,10 @@ get_cursor_position (
 	__out__ float * x,
 	__out__ float * y
 ) {
-	if (!check_api ()) {
-		dbg ("LoLClientAPI is not installed correctly.");
-		return;
-	}
+	waitForAPI ();
 
 	HudCursorTarget * hudCursorTarget = LoLClientAPI->hudManager->hudCursorTarget;
-	Position * cursorPosition = LoLProcess_get_addr (hudCursorTarget, posRaw);
+	Position        * cursorPosition  = LoLProcess_get_addr (hudCursorTarget, posRaw);
 
 	*x = cursorPosition->x;
 	*y = cursorPosition->y;
@@ -97,7 +89,7 @@ get_cursor_position (
 
 
 /*
- * Description : Retrieve the current cursor position
+ * Description : Retrieve the destination position (right click)
  * __out__ float * x : A pointer to the X position
  * __out__ float * y : A pointer to the Y position
  */
@@ -106,12 +98,9 @@ get_destination_position (
 	__out__ float * x,
 	__out__ float * y
 ) {
-	if (!check_api ()) {
-		dbg ("LoLClientAPI is not installed correctly.");
-		return;
-	}
+	waitForAPI ();
 
-	DestPos *destPos = LoLClientAPI->destPos;
+	DestPos  * destPos             = LoLClientAPI->destPos;
 	Position * destinationPosition = LoLProcess_get_addr (destPos, clientDestPosition);
 
 	*x = destinationPosition->x;
@@ -124,6 +113,7 @@ get_destination_position (
  ** ================================== LoLClientAPI APIs ==================================
  ** ======================================================================================= **/
 
+
 /*
  * Description : Check if the API has been correctly injected into LoL process
  * Return : true on successfully injected, false on failure
@@ -132,7 +122,25 @@ EXPORT_FUNCTION bool
 check_api (
 	void
 ) {
-	return (LoLClientAPI != NULL);
+	return (
+		(LoLClientAPI != NULL)
+	&&  (LoLClientAPI->state == STATE_READY));
+}
+
+
+
+/*
+ * Description : Wait for the API to be in ready state
+ * Return : void
+ */
+EXPORT_FUNCTION void
+waitForAPI (
+	void
+) {
+	while (!check_api ()) {
+		dbg ("LoLClientAPI is injecting LoLProcess. Please wait...");
+		Sleep (1000);
+	}
 }
 
 

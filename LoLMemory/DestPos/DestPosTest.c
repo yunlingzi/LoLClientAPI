@@ -15,7 +15,7 @@ DestPos_test (
 	DestPos *this
 ) {
 	Position destPosition;
-	get_cursor_position (&destPosition.x, &destPosition.y);
+	get_destination_position (&destPosition.x, &destPosition.y);
 
 	if (!Position_in_map (&destPosition)) {
 		dbg ("Destination position test failed : %f %f", destPosition.x, destPosition.y);

@@ -32,6 +32,11 @@
 #endif
 
 // ------ Structure declaration -------
+typedef enum {
+	STATE_INITIALIZING,
+	STATE_READY
+} LoLProcessState;
+
 typedef struct _LoLProcess
 {
 	MemProc *process;
@@ -42,6 +47,9 @@ typedef struct _LoLProcess
 
 	// Debug output
 	FILE *debugOutput;
+
+	// State
+	LoLProcessState state;
 
 
 }	LoLProcess;
@@ -74,6 +82,18 @@ LoLProcess_init (
 bool
 LoLProcess_test (
 	LoLProcess *this
+);
+
+
+/*
+ * Description : Set the LoLprocess to a given state
+ * LoLProcess *this : An allocated LoLProcess
+ * Return : void
+ */
+void
+LoLProcess_setState (
+	LoLProcess *this,
+	LoLProcessState state
 );
 
 // --------- Destructors ----------
