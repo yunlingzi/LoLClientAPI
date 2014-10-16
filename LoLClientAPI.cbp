@@ -64,13 +64,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="LoLClientAPI.h" />
-		<Unit filename="LoLMemory\DestPos\DestPos.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLMemory\DestPos\DestPos.h" />
-		<Unit filename="LoLMemory\DestPos\DestPosTest.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="LoLMemory\GameObject\GameObject.c">
 			<Option compilerVar="CC" />
 		</Unit>

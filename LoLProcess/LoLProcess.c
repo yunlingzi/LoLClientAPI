@@ -99,7 +99,7 @@ LoLProcess_init (
 
 		if (memproc_detected (this->process))
 		{
-			important ("LoL Process base address : %x", this->process->base_addr);
+			dbg ("LoL Process base address : 0x%08X", this->process->base_addr);
 
 			// Get a copy of the current client memory
 			info("Dumping process...");
