@@ -108,6 +108,31 @@ get_destination_position (
 }
 
 
+/** =======================================================================================
+ ** =================================== Champions APIs ====================================
+ ** ======================================================================================= **/
+
+/*
+ * Description : Retrieve the current champion position
+ * __out__ float * x : A pointer to the X position
+ * __out__ float * y : A pointer to the Y position
+ */
+void
+get_champion_position (
+	__out__ float * x,
+	__out__ float * y
+) {
+	waitForAPI ();
+
+	HeroClient * currentChampion = LoLClientAPI->heroClient;
+	Position * currentChampionPosition = LoLProcess_get_addr (currentChampion, currentPosition);
+
+	*x = currentChampionPosition->x;
+	*y = currentChampionPosition->y;
+}
+
+
+
 
 /** =======================================================================================
  ** ================================== LoLClientAPI APIs ==================================

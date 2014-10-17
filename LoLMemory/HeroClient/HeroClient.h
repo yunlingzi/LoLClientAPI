@@ -20,7 +20,7 @@ typedef struct _HeroClient
 	char gap_1C[8];
 	char summonerName[16];
 	char gap_34[44];
-	Position position;
+	Position currentPosition;
 	char gap_6C[168];
 	int field_1;
 	int field_2;
