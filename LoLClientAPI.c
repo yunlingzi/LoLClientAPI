@@ -132,6 +132,48 @@ get_champion_position (
 }
 
 
+/*
+ * Description : Retrieve the current champion position
+ * __out__ float * currentHP : A pointer to the current HP
+ * __out__ float * maximumHP : A pointer to the maximum HP
+ */
+void
+get_champion_hp (
+	__out__ float * currentHP,
+	__out__ float * maximumHP
+) {
+	waitForAPI ();
+
+	HeroClient * currentChampion = LoLClientAPI->heroClient;
+	float * currentChampionCurrentHP = LoLProcess_get_addr (currentChampion, curHP);
+	float * currentChampionMaximumHP = LoLProcess_get_addr (currentChampion, maxHP);
+
+	*currentHP = *currentChampionCurrentHP;
+	*maximumHP = *currentChampionMaximumHP;
+}
+
+
+/** =======================================================================================
+ ** ==================================== Summoner APIs ====================================
+ ** ======================================================================================= **/
+
+/*
+ * Description : Retrieve the current summoner name
+ * Return : char * The summoner name
+ */
+char *
+get_current_summoner_name (
+	void
+) {
+	waitForAPI ();
+
+	HeroClient * currentChampion = LoLClientAPI->heroClient;
+	char * currentSummonerName = LoLProcess_get_addr (currentChampion, summonerName);
+
+	return currentSummonerName;
+}
+
+
 
 
 /** =======================================================================================

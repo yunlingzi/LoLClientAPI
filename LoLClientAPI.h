@@ -83,6 +83,31 @@ get_champion_position (
 	__out__ float * y
 );
 
+/*
+ * Description : Retrieve the current champion position
+ * __out__ float * currentHP : A pointer to the current HP
+ * __out__ float * maximumHP : A pointer to the maximum HP
+ */
+void
+get_champion_hp (
+	__out__ float * currentHP,
+	__out__ float * maximumHP
+);
+
+
+/** =======================================================================================
+ ** ==================================== Summoner APIs ====================================
+ ** ======================================================================================= **/
+
+/*
+ * Description : Retrieve the current summoner name
+ * Return : char * The summoner name
+ */
+char *
+get_current_summoner_name (
+	void
+);
+
 
 /** =======================================================================================
  ** ================================== LoLClientAPI APIs ==================================

@@ -19,5 +19,10 @@ LoLProcess_test (
 		return false;
 	}
 
+	if (!HeroClient_test (this->heroClient)) {
+		dbg ("HeroClient unit test failed.");
+		return false;
+	}
+
 	return true;
 }

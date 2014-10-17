@@ -15,12 +15,12 @@ HudManager_test (
 	HudManager *this
 ) {
 	if (!HudCamera_test (this->hudCamera)) {
-		dbg ("HudCamera unit test failed.");
+		error ("HudCamera unit test failed.");
 		return false;
 	}
 
 	if (!HudCursorTarget_test (this->hudCursorTarget)) {
-		dbg ("hudCursorTarget unit test failed.");
+		error ("hudCursorTarget unit test failed.");
 		return false;
 	}
 
