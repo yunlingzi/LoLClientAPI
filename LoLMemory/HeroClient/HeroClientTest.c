@@ -19,8 +19,7 @@ HeroClient_test (
 	get_champion_position (&currentPosition.x, &currentPosition.y);
 
 	if (!Position_in_map (&currentPosition)) {
-		error ("Current position test failed : %f %f", currentPosition.x, currentPosition.y);
-		return false;
+		important ("Current position test failed : %f %f", currentPosition.x, currentPosition.y);
 	}
 
 	/* Summoner name test */
