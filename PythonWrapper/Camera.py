@@ -8,6 +8,9 @@ api = LoLClientAPI.LoLClientAPI ();
 threshold   = 200.0
 cameraSpeed = 2
 
+# Disable client camera behavior
+api.set_camera_client_enabled (False);
+
 # Program infinite loop
 while (1):
 

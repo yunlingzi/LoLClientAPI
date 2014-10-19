@@ -78,6 +78,13 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="LoLMemory\HudManager\HudCamera\HudCamera.h" />
+		<Unit filename="LoLMemory\HudManager\HudCamera\HudCameraSettings.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="LoLMemory\HudManager\HudCamera\HudCameraSettings.h" />
+		<Unit filename="LoLMemory\HudManager\HudCamera\HudCameraSettingsTest.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="LoLMemory\HudManager\HudCamera\HudCameraTest.c">
 			<Option compilerVar="CC" />
 		</Unit>
