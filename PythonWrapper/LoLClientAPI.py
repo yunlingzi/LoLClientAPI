@@ -143,6 +143,6 @@ class LoLClientAPI:
 		try:
 			self.hAPI = cdll.LoadLibrary ('./LoLClientAPI.dll');
 		except:
-			print "Cannot find LoLClientAPI.dll.";
+			print("Cannot find LoLClientAPI.dll.");
 			exit(0);
 		

@@ -13,24 +13,24 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add option="-D_DEBUG_" />
 					<Add option="-DDEBUG_ACTIVATED" />
 				</Compiler>
 			</Target>
 			<Target title="ReleaseDLL">
-				<Option output="bin\Release\LoLClientAPI" prefix_auto="1" extension_auto="1" />
+				<Option output="PythonWrapper\LoLClientAPI" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Release\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-DAPI_EXECUTABLE" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
 				</Linker>
 			</Target>
 			<Target title="Executable">
-				<Option output="bin\Release\LoLClientAPI" prefix_auto="1" extension_auto="1" />
+				<Option output="PythonWrapper\LoLClientAPI" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Debug\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -41,7 +41,7 @@
 				</Compiler>
 			</Target>
 			<Target title="DebugDLL">
-				<Option output="bin\Debug\LoLClientAPI" prefix_auto="1" extension_auto="1" />
+				<Option output="PythonWrapper\LoLClientAPI" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Debug\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
