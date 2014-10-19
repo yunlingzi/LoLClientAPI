@@ -7,6 +7,7 @@ api = LoLClientAPI.LoLClientAPI ();
 # Configurations
 threshold   = 200.0
 cameraSpeed = 2
+camera_scroll_speed_bottom = 1.5
 
 # Disable client camera behavior
 api.set_camera_client_enabled (False);
@@ -20,6 +21,11 @@ while (1):
 	cameraX, cameraY = api.get_camera_position ();
 	# Get champion position
 	champX, champY   = api.get_champion_position ();
+	
+	# Fix perspective
+	distance_mouse_cam_y = cameraY - cursorY;
+	if (distance_mouse_cam_y > threshold):
+		cursorY -= (distance_mouse_cam_y * camera_scroll_speed_bottom);
 	
 	# Compute the target position : Between the cursor and the champion
 	targetX = (cursorX + champX) / 2.0;
