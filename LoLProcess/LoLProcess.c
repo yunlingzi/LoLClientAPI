@@ -139,9 +139,14 @@ LoLProcess_init (
 void
 LoLProcess_exportToCE (void)
 {
+	#ifdef DEBUG_ACTIVATED
 	LoLProcess *this = get_LoLClientAPI ();
 
 	char * cheatEngineXmlFormat = file_get_contents("LCAPIFormat.ct");
+	if (!cheatEngineXmlFormat) {
+		important ("CheatEngine file not generated.");
+		return;
+	}
 
 	char * cheatEngineOutput = malloc (strlen(cheatEngineXmlFormat) + 10000);
 
@@ -164,6 +169,7 @@ LoLProcess_exportToCE (void)
 	);
 
 	file_put_contents("LCAPI.ct", cheatEngineOutput, NULL);
+	#endif
 }
 
 

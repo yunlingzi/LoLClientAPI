@@ -94,6 +94,10 @@ get_champion_hp (
 	__out__ float * maximumHP
 );
 
+/*
+ * Description : Retrieve the current champion team
+ * Return : 0 if BLUE team, 1 if PURPLE team
+ */
 int
 get_champion_team (
 	void

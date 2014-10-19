@@ -120,7 +120,7 @@ get_destination_position (
  * __out__ float * x : A pointer to the X position
  * __out__ float * y : A pointer to the Y position
  */
-void
+EXPORT_FUNCTION void
 get_champion_position (
 	__out__ float * x,
 	__out__ float * y
@@ -140,7 +140,7 @@ get_champion_position (
  * __out__ float * currentHP : A pointer to the current HP
  * __out__ float * maximumHP : A pointer to the maximum HP
  */
-void
+EXPORT_FUNCTION void
 get_champion_hp (
 	__out__ float * currentHP,
 	__out__ float * maximumHP
@@ -160,7 +160,7 @@ get_champion_hp (
  * Description : Retrieve the current champion team
  * Return : 0 if BLUE team, 1 if PURPLE team
  */
-int
+EXPORT_FUNCTION int
 get_champion_team (
 	void
 ) {
@@ -191,7 +191,7 @@ get_champion_team (
  * Description : Retrieve the current summoner name
  * Return : char * The summoner name
  */
-char *
+EXPORT_FUNCTION char *
 get_current_summoner_name (
 	void
 ) {
