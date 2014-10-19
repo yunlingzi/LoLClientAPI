@@ -8,3 +8,4 @@ inject.bat
 *.pyc
 *.dll
 *.zip
+*.exe

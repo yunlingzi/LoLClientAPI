@@ -39,6 +39,17 @@ set_camera_position (
 	__in__ float y
 );
 
+/*
+ * Description : Toggle built-in client camera movements
+ *               For instance, camera movements when the cursor is on the border of the screen
+ * __in__ bool enabled : If true, the camera client movements are enabled
+ * Return : void
+ */
+void
+set_camera_client_enabled (
+	__in__ bool enabled
+);
+
 
 /** =================================================================================
  ** ================================== Cursor APIs ==================================

@@ -127,6 +127,11 @@ HudManager_init (
 				return false;
 			}
 
+			if (!(this->hudCameraSettings = HudCameraSettings_new (HudManager_get_object (this, mp, HUD_CAMERA_SETTINGS)))) {
+				dbg ("Cannot get hudCursorTarget.");
+				return false;
+			}
+
 
 			return true;
 		}

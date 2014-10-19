@@ -11,7 +11,7 @@ LoLProcess * LoLClientAPI = NULL;
 
 
 /** =================================================================================
- ** ================================== CAMERA APIs ==================================
+ ** ================================== Camera APIs ==================================
  ** ================================================================================= **/
 
 
@@ -58,12 +58,42 @@ set_camera_position (
 			LoLClientAPI->process->proc,
 			LoLProcess_get_remote_addr (hudCamera, cameraPosition),
 			cameraPosition,
-			sizeof(*cameraPosition),
+			sizeof (*cameraPosition),
 			NULL
 		);
 	#endif
 }
 
+
+/*
+ * Description : Toggle built-in client camera movements
+ *               For instance, camera movements when the cursor is on the border of the screen
+ * __in__ bool enabled : If true, the camera client movements are enabled
+ * Return : void
+ */
+EXPORT_FUNCTION void
+set_camera_client_enabled (
+	__in__ bool enabled
+) {
+	waitForAPI ();
+
+	HudCameraSettings * hudCameraSettings = LoLClientAPI->hudManager->hudCameraSettings;
+	int * cameraActivated = LoLProcess_get_addr (hudCameraSettings, cameraActivated);
+
+	printf("LoLProcess_get_remote_addr (hudCameraSettings, cameraActivated) = %x\n", LoLProcess_get_remote_addr (hudCameraSettings, cameraActivated));
+
+	*cameraActivated = enabled;
+
+	#ifdef API_EXECUTABLE
+		WriteProcessMemory (
+			LoLClientAPI->process->proc,
+			LoLProcess_get_remote_addr (hudCameraSettings, cameraActivated),
+			cameraActivated,
+			sizeof (*cameraActivated),
+			NULL
+		);
+	#endif
+}
 
 /** =================================================================================
  ** ================================== Cursor APIs ==================================

@@ -5,6 +5,7 @@
 // ---------- Includes ------------
 #include "MemProc/MemProc.h"
 #include "./HudCamera/HudCamera.h"
+#include "./HudCamera/HudCameraSettings.h"
 #include "./HudCursorTarget/HudCursorTarget.h"
 
 // ---------- Defines -------------
@@ -13,6 +14,9 @@ typedef enum
 	HUD_CAMERA,
 	HUD_UNK1,
 	HUD_CURSOR_TARGET,
+	HUD_UNK2,
+	HUD_UNK3,
+	HUD_CAMERA_SETTINGS
 
 }	HudObject;
 
@@ -23,6 +27,7 @@ typedef struct _HudManager
 	HudCamera * hudCamera;
 	void *unk1;
 	HudCursorTarget * hudCursorTarget;
+	HudCameraSettings * hudCameraSettings;
 
 	DWORD pThis;
 

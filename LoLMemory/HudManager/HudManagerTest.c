@@ -19,6 +19,11 @@ HudManager_test (
 		return false;
 	}
 
+	if (!HudCameraSettings_test (this->hudCameraSettings)) {
+		error ("HudCameraSettings unit test failed.");
+		return false;
+	}
+
 	if (!HudCursorTarget_test (this->hudCursorTarget)) {
 		error ("hudCursorTarget unit test failed.");
 		return false;
