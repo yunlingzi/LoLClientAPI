@@ -16,7 +16,9 @@ void startInjection (void)
 	}
 
 	// Create cheatengine file
-	LoLProcess_exportToCE ();
+	#ifdef DEBUG_ACTIVATED
+		LoLProcess_exportToCE ();
+	#endif
 }
 
 

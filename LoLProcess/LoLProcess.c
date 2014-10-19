@@ -144,7 +144,6 @@ LoLProcess_exportToCE (void)
 
 	char * cheatEngineXmlFormat = file_get_contents("LCAPIFormat.ct");
 	if (!cheatEngineXmlFormat) {
-		important ("CheatEngine file not generated.");
 		return;
 	}
 
