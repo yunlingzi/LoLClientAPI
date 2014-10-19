@@ -8,6 +8,11 @@
 #include "Position/Position.h"
 
 // ---------- Defines -------------
+#define CLIENT_TEAM_BLUE	0x64
+#define CLIENT_TEAM_PURPLE	0xC8
+#define TEAM_BLUE	0
+#define TEAM_PURPLE	1
+#define TEAM_UNKNOWN 2
 
 
 // ------ Structure declaration -------
@@ -35,7 +40,7 @@ typedef struct _HeroClient
 	int field_13C;
 	int field_140;
 	int field_144;
-	int maxHP;
+	float maxHP;
 	char gap_14C[632];
 	int field_8;
 	int field_9;

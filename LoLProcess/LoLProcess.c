@@ -29,7 +29,7 @@ LoLProcess_new (void)
 	// Initialization successful :
 	// Bind the current LoLProcess to the LoLClientAPI instance
 	set_LoLClientAPI (this);
-	LoLProcess_setState (this, STATE_READY);
+	LoLProcess_setState (this, STATE_TESTING);
 
 	// Unit testing
 	if (!LoLProcess_test (this)) {
@@ -38,6 +38,8 @@ LoLProcess_new (void)
 		set_LoLClientAPI (NULL);
 		return NULL;
 	}
+
+	LoLProcess_setState (this, STATE_READY);
 
 	return this;
 }
@@ -56,10 +58,13 @@ LoLProcess_setState (
 	switch (state)
 	{
 		case STATE_READY:
-			dbg ("Set state = READY");
+			dbg ("API State : READY!");
+		break;
+		case STATE_TESTING:
+			dbg ("API State : TESTING...");
 		break;
 		case STATE_INITIALIZING:
-			dbg ("Set state = INITIALIZING");
+			dbg ("API State : INITIALIZING...");
 		break;
 	}
 
@@ -148,7 +153,14 @@ LoLProcess_exportToCE (void)
 		LoLProcess_get_remote_addr(this->hudManager->hudCursorTarget, posRaw),
 
 		LoLProcess_get_remote_addr(this->hudManager->hudCursorTarget, rightClickPosition),
-		LoLProcess_get_remote_addr(this->hudManager->hudCursorTarget, rightClickPosition)
+		LoLProcess_get_remote_addr(this->hudManager->hudCursorTarget, rightClickPosition),
+
+		LoLProcess_get_remote_addr(this->heroClient, team),
+		LoLProcess_get_remote_addr(this->heroClient, summonerName),
+		LoLProcess_get_remote_addr(this->heroClient, currentPosition),
+		LoLProcess_get_remote_addr(this->heroClient, currentPosition),
+		LoLProcess_get_remote_addr(this->heroClient, curHP),
+		LoLProcess_get_remote_addr(this->heroClient, maxHP)
 	);
 
 	file_put_contents("LCAPI.ct", cheatEngineOutput, NULL);

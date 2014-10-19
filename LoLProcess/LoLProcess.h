@@ -34,6 +34,7 @@
 // ------ Structure declaration -------
 typedef enum {
 	STATE_INITIALIZING,
+	STATE_TESTING,
 	STATE_READY
 } LoLProcessState;
 

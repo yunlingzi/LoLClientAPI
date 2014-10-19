@@ -14,6 +14,7 @@ LoLProcess * LoLClientAPI = NULL;
  ** ================================== CAMERA APIs ==================================
  ** ================================================================================= **/
 
+
 /*
  * Description : Retrieve the current camera position
  * __out__ float * x : A pointer to the X position
@@ -62,6 +63,7 @@ set_camera_position (
 		);
 	#endif
 }
+
 
 /** =================================================================================
  ** ================================== Cursor APIs ==================================
@@ -112,6 +114,7 @@ get_destination_position (
  ** =================================== Champions APIs ====================================
  ** ======================================================================================= **/
 
+
 /*
  * Description : Retrieve the current champion position
  * __out__ float * x : A pointer to the X position
@@ -145,17 +148,44 @@ get_champion_hp (
 	waitForAPI ();
 
 	HeroClient * currentChampion = LoLClientAPI->heroClient;
-	float * currentChampionCurrentHP = LoLProcess_get_addr (currentChampion, curHP);
-	float * currentChampionMaximumHP = LoLProcess_get_addr (currentChampion, maxHP);
+	float *currentChampionCurrentHP = (float *) LoLProcess_get_addr (currentChampion, curHP);
+	float *currentChampionMaximumHP = (float *) LoLProcess_get_addr (currentChampion, maxHP);
 
 	*currentHP = *currentChampionCurrentHP;
 	*maximumHP = *currentChampionMaximumHP;
 }
 
 
+/*
+ * Description : Retrieve the current champion team
+ * Return : 0 if BLUE team, 1 if PURPLE team
+ */
+int
+get_champion_team (
+	void
+) {
+	waitForAPI ();
+
+	HeroClient * currentChampion = LoLClientAPI->heroClient;
+	int *currentChampionTeam = LoLProcess_get_addr (currentChampion, team);
+
+
+	if (*currentChampionTeam == CLIENT_TEAM_BLUE) {
+		return TEAM_BLUE;
+	}
+
+	if (*currentChampionTeam == CLIENT_TEAM_PURPLE) {
+		return TEAM_PURPLE;
+	}
+
+	return TEAM_UNKNOWN;
+}
+
+
 /** =======================================================================================
  ** ==================================== Summoner APIs ====================================
  ** ======================================================================================= **/
+
 
 /*
  * Description : Retrieve the current summoner name
@@ -174,8 +204,6 @@ get_current_summoner_name (
 }
 
 
-
-
 /** =======================================================================================
  ** ================================== LoLClientAPI APIs ==================================
  ** ======================================================================================= **/
@@ -191,7 +219,7 @@ check_api (
 ) {
 	return (
 		(LoLClientAPI != NULL)
-	&&  (LoLClientAPI->state == STATE_READY));
+	&&  (LoLClientAPI->state == STATE_READY || LoLClientAPI->state == STATE_TESTING));
 }
 
 

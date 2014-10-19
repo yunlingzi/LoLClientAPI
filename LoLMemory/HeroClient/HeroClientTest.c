@@ -25,7 +25,6 @@ HeroClient_test (
 
 	/* Summoner name test */
 	char * currentSummonerName = get_current_summoner_name ();
-
 	for (int i = 0; i < sizeof_struct_member(HeroClient, summonerName); i++) {
 		if (currentSummonerName[i] == 0) {
 			break; // End of string reached
@@ -42,7 +41,12 @@ HeroClient_test (
 
 	// 100000 HP seems to be big enough to be reported if the current/maximum HP is bigger
 	if (curHP < 1.0 || maxHP < 1.0 || curHP > 100000.0 || maxHP > 100000.0) {
-		important ("HP test failed : cur=%f max=%f", curHP, maxHP);
+		important ("HP test failed : cur=%f max=%f", this->curHP, this->maxHP);
+	}
+
+	/* Team test */
+	if (get_champion_team () == TEAM_UNKNOWN) {
+		important ("Team test failed : 0x%x (%x)", this->team, &this->team);
 	}
 
 	return true;

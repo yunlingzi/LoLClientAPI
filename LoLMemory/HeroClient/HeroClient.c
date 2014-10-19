@@ -5,6 +5,7 @@
 #define __DEBUG_OBJECT__ "HeroClient"
 #include "dbg/dbg.h"
 
+
 /*
  * Description 	: Allocate a new HeroClient structure.
  * MemProc *mp : The target LoL process
