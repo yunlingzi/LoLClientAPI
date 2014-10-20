@@ -4,6 +4,7 @@
 // ---------- Includes ------------
 #include "Utils/Utils.h"
 #include "MemProc/MemProc.h"
+#include "LoLMemory/Unit/Unit.h"
 #include "LoLMemory/HeroClient/HeroClient.h"
 
 // ---------- Defines -------------
@@ -14,6 +15,11 @@ typedef struct _ChampionArray
 {
 	DWORD start;
 	DWORD end;
+
+	DWORD pThis;
+
+	Unit **champions;
+	int championsCount;
 
 }	ChampionArray;
 

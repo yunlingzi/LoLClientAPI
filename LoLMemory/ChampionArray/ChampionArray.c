@@ -80,12 +80,22 @@ ChampionArray_init (
 
 	if (results && (championArrayEnd = bb_queue_pick_first(results))) {
 		// championArrayEnd has been found
-		this->end   = *((DWORD *) championArrayEnd->data);
-		this->start = this->end - 4;
-		dbg ("championArrayEnd found : 0x%08X / 0x%08X", this->start, this->end);
+		this->pThis = *((DWORD *) championArrayEnd->data) - 4;
+		dbg ("championArray found : 0x%08X", this->pThis);
 
 		// We don't need results anymore
 		bb_queue_free_all (results, buffer_free);
+
+		// Allocate champion array
+		this->start = read_memory_as_int (mp->proc, this->pThis);
+		this->end   = read_memory_as_int (mp->proc, this->pThis + 4);
+
+		this->championsCount = (this->end - this->start) / sizeof(DWORD);
+		this->champions = malloc (sizeof(Unit *) * this->championsCount);
+
+		for (DWORD cur = this->start, pos = 0; cur != this->end; cur += 4, pos++) {
+			this->champions[pos] = Unit_new (read_memory_as_int(mp->proc, cur));
+		}
 
 		return true;
 	}

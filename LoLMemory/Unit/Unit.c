@@ -7,17 +7,19 @@
 
 /*
  * Description 	: Allocate a new Unit structure.
+ * DWORD pUnit : The address of the Unit in the target process
  * Return		: A pointer to an allocated Unit.
  */
 Unit *
-Unit_new (void)
-{
+Unit_new (
+	DWORD pUnit
+) {
 	Unit *this;
 
 	if ((this = calloc (1, sizeof(Unit))) == NULL)
 		return NULL;
 
-	if (!Unit_init (this)) {
+	if (!Unit_init (this, pUnit)) {
 		Unit_free (this);
 		return NULL;
 	}
@@ -29,13 +31,15 @@ Unit_new (void)
 /*
  * Description : Initialize an allocated Unit structure.
  * Unit *this : An allocated Unit to initialize.
+ * DWORD pUnit : The address of the Unit in the target process
  * Return : true on success, false on failure.
  */
 bool
 Unit_init (
-	Unit *this
+	Unit *this,
+	DWORD pUnit
 ) {
-
+	this->pThis = pUnit;
 	return true;
 }
 

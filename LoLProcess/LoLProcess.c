@@ -170,7 +170,10 @@ LoLProcess_exportToCE (void)
 		LoLProcess_get_remote_addr(this->heroClient, currentPosition),
 		LoLProcess_get_remote_addr(this->heroClient, currentPosition),
 		LoLProcess_get_remote_addr(this->heroClient, curHP),
-		LoLProcess_get_remote_addr(this->heroClient, maxHP)
+		LoLProcess_get_remote_addr(this->heroClient, maxHP),
+
+		LoLProcess_get_remote_addr(this->championArray, start),
+		LoLProcess_get_remote_addr(this->championArray, end)
 	);
 
 	file_put_contents("LCAPI.ct", cheatEngineOutput, NULL);

@@ -87,30 +87,25 @@ typedef struct _Unit
 
 /*
  * Description 	: Allocate a new Unit structure.
+ * DWORD pUnit : The address of the Unit in the target process
  * Return		: A pointer to an allocated Unit.
  */
 Unit *
-Unit_new (void);
+Unit_new (
+	DWORD pUnit
+);
 
 // ----------- Functions ------------
 
 /*
  * Description : Initialize an allocated Unit structure.
  * Unit *this : An allocated Unit to initialize.
+ * DWORD pUnit : The address of the Unit in the target process
  */
 bool
 Unit_init (
-	Unit *this
-);
-
-/*
- * Description : Unit tests checking if a Unit is coherent
- * Unit *this : The instance to test
- * Return : true on success, false on failure
- */
-bool
-Unit_test (
-	Unit *this
+	Unit *this,
+	DWORD pUnit
 );
 
 // --------- Destructors ----------
