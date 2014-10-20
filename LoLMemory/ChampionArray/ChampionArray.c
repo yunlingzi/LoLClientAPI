@@ -90,11 +90,11 @@ ChampionArray_init (
 		this->start = read_memory_as_int (mp->proc, this->pThis);
 		this->end   = read_memory_as_int (mp->proc, this->pThis + 4);
 
-		this->championsCount = (this->end - this->start) / sizeof(DWORD);
+		this->championsCount = (this->end - this->start) / 4;
 		this->champions = malloc (sizeof(Unit *) * this->championsCount);
 
 		for (DWORD cur = this->start, pos = 0; cur != this->end; cur += 4, pos++) {
-			this->champions[pos] = Unit_new (read_memory_as_int(mp->proc, cur));
+			this->champions[pos] = Unit_new (mp, read_memory_as_int(mp->proc, cur));
 		}
 
 		return true;
