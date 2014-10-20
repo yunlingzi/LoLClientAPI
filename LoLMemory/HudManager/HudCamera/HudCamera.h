@@ -4,7 +4,7 @@
 // ---------- Includes ------------
 #include "Utils/Utils.h"
 #include "Position/Position.h"
-#include "MemProc/MemProc.h"
+#include <windows.h>
 
 // ---------- Defines -------------
 

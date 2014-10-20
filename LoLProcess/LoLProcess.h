@@ -8,6 +8,7 @@
 // Game memory structures
 #include "LoLMemory/HudManager/HudManager.h"
 #include "LoLMemory/HeroClient/HeroClient.h"
+#include "LoLMemory/ChampionArray/ChampionArray.h"
 
 #include <stddef.h>
 
@@ -45,6 +46,7 @@ typedef struct _LoLProcess
 	// Memory structures
 	HudManager *hudManager;
 	HeroClient *heroClient;
+	ChampionArray *championArray;
 
 	// Debug output
 	FILE *debugOutput;

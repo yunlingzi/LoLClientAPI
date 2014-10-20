@@ -122,6 +122,12 @@ LoLProcess_init (
 				return false;
 			}
 
+			// Initialize the championArray
+			if (!(this->championArray = ChampionArray_new (this->process, this->heroClient))) {
+				dbg ("Cannot get championArray.");
+				return false;
+			}
+
 			// Success
 			return true;
 		}

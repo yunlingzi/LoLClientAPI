@@ -81,6 +81,7 @@ typedef struct _HeroClient
 	int field_29;
 
 	DWORD pThis;
+	DWORD thisStaticPtr;
 
 }	HeroClient;
 #pragma pack(pop)

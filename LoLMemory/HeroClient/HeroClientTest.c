@@ -29,7 +29,7 @@ HeroClient_test (
 			break; // End of string reached
 		}
 
-		if (!(isalnum (currentSummonerName[i]) || isspace(currentSummonerName[i]))) {
+		if (!(isalnum ((int) currentSummonerName[i]) || isspace((int) currentSummonerName[i]))) {
 			important ("Malformed summoner name : %s.", currentSummonerName);
 		}
 	}

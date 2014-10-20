@@ -65,6 +65,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="LoLClientAPI.h" />
+		<Unit filename="LoLMemory\ChampionArray\ChampionArray.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="LoLMemory\ChampionArray\ChampionArray.h" />
 		<Unit filename="LoLMemory\GameObject\GameObject.h" />
 		<Unit filename="LoLMemory\HeroClient\HeroClient.c">
 			<Option compilerVar="CC" />

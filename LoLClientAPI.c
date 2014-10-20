@@ -65,7 +65,7 @@ set_camera_position (
 }
 
 
-/*
+/*a
  * Description : Toggle built-in client camera movements
  *               For instance, camera movements when the cursor is on the border of the screen
  * __in__ bool enabled : If true, the camera client movements are enabled. False otherwise.

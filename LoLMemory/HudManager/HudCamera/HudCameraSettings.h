@@ -3,6 +3,7 @@
 
 // ---------- Includes ------------
 #include "Utils/Utils.h"
+#include "MemProc/MemProc.h"
 
 // ---------- Defines -------------
 

@@ -4,6 +4,7 @@
 // ---------- Includes ------------
 #include "Utils/Utils.h"
 #include "Position/Position.h"
+#include <windows.h>
 
 // ---------- Defines -------------
 
