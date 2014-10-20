@@ -79,9 +79,10 @@ ChampionArray_init (
 	);
 
 	if (results && (championArrayEnd = bb_queue_pick_first(results))) {
-		// heroClientInstance has been found
-		this->pThis = read_memory_as_int (mp->proc, *((DWORD *) championArrayEnd->data)) - 4;
-		dbg ("championArrayEnd found : 0x%08X", this->pThis);
+		// championArrayEnd has been found
+		this->end   = *((DWORD *) championArrayEnd->data);
+		this->start = this->end - 4;
+		dbg ("championArrayEnd found : 0x%08X / 0x%08X", this->start, this->end);
 
 		// We don't need results anymore
 		bb_queue_free_all (results, buffer_free);

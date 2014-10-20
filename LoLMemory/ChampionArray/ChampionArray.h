@@ -15,8 +15,6 @@ typedef struct _ChampionArray
 	DWORD start;
 	DWORD end;
 
-	DWORD pThis;
-
 }	ChampionArray;
 
 
