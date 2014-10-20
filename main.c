@@ -60,4 +60,6 @@ int main (int argc, char **argv)
 	startInjection ();
 
 	endInjection ();
+
+	return 0;
 }
