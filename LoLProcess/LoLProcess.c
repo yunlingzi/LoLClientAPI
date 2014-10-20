@@ -108,7 +108,7 @@ LoLProcess_init (
 
 			// Get a copy of the current client memory
 			info("Dumping process...");
-			memproc_dump (this->process, this->process->base_addr + 0x1000, this->process->base_addr + 0xE05000);
+			memproc_dump (this->process, this->process->base_addr + 0x1000, this->process->base_addr + 0xBA9000 + 0x268000);
 
 			// Initialize the Hud Manager
 			if (!(this->hudManager = HudManager_new (this->process))) {
