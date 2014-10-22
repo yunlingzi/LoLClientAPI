@@ -1,5 +1,5 @@
 from ctypes import *
-
+import win32api
 
 class LoLClientAPI:
 
@@ -57,7 +57,7 @@ class LoLClientAPI:
 	# =================================================================================
 
 	
-	# Get the cursor camera position
+	# Get the cursor in-game position
 	# Returns : {x, y}
 	def get_cursor_position (self):
 	
@@ -71,8 +71,15 @@ class LoLClientAPI:
 		y = c_float()
 		self.hAPI.get_cursor_position (byref(x), byref(y));
 		return (x.value, y.value)
+		
+		
+	# Get the cursor screen absolute position
+	# Returns : {x, y}
+	def get_cursor_screen_position (self):
+		return win32api.GetCursorPos ()
+		
 
-	# Get the destination position (right click)
+	# Get the destination in-game position (right click)
 	# Returns : {x, y}
 	def get_destination_position (self):
 	
