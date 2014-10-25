@@ -58,6 +58,17 @@ ChampionArray_init (
 	HeroClient *heroClient
 );
 
+
+/*
+ * Description : Unit tests checking if a ChampionArray is coherent
+ * ChampionArray *this : The instance to test
+ * Return : true on success, false on failure
+ */
+bool
+ChampionArray_test (
+	ChampionArray *this
+);
+
 // --------- Destructors ----------
 
 /*
