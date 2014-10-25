@@ -156,22 +156,28 @@ LoLProcess_exportToCE (void)
 	char * cheatEngineOutput = malloc (strlen(cheatEngineXmlFormat) + 10000);
 
 	sprintf (cheatEngineOutput, cheatEngineXmlFormat,
+		/* Camera */
 		LoLProcess_get_remote_addr(this->hudManager->hudCamera, cameraPosition),
 		LoLProcess_get_remote_addr(this->hudManager->hudCamera, cameraPosition),
 
+		/* Cursor */
 		LoLProcess_get_remote_addr(this->hudManager->hudCursorTarget, posRaw),
 		LoLProcess_get_remote_addr(this->hudManager->hudCursorTarget, posRaw),
 
+		/* Destination */
 		LoLProcess_get_remote_addr(this->hudManager->hudCursorTarget, rightClickPosition),
 		LoLProcess_get_remote_addr(this->hudManager->hudCursorTarget, rightClickPosition),
 
-		LoLProcess_get_remote_addr(this->heroClient, team),
+		/* HeroClient */
 		LoLProcess_get_remote_addr(this->heroClient, summonerName),
 		LoLProcess_get_remote_addr(this->heroClient, currentPosition),
 		LoLProcess_get_remote_addr(this->heroClient, currentPosition),
+		LoLProcess_get_remote_addr(this->heroClient, team),
 		LoLProcess_get_remote_addr(this->heroClient, curHP),
 		LoLProcess_get_remote_addr(this->heroClient, maxHP),
 
+		/* ChampionArray */
+		this->championArray->championsCount,
 		LoLProcess_get_remote_addr(this->championArray, start),
 		LoLProcess_get_remote_addr(this->championArray, end)
 	);

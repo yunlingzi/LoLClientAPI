@@ -39,7 +39,7 @@ HeroClient_test (
 	get_champion_hp (&curHP, &maxHP);
 
 	// 100000 HP seems to be big enough to be reported if the current/maximum HP is bigger
-	if (curHP < 1.0 || maxHP < 1.0 || curHP > 100000.0 || maxHP > 100000.0) {
+	if (curHP < 0.0 || maxHP < 0.0 || curHP > 100000.0 || maxHP > 100000.0) {
 		important ("HP test failed : cur=%f max=%f", this->curHP, this->maxHP);
 	}
 
