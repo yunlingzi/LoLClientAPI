@@ -80,6 +80,12 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="LoLMemory\GUIMenu\GUIMinimap\GUIMinimap.h" />
+		<Unit filename="LoLMemory\GUIMenu\GUIMinimap\GUIMinimapTest.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="LoLMemory\GUIMenu\GuiMenuTest.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="LoLMemory\GameObject\GameObject.h" />
 		<Unit filename="LoLMemory\HeroClient\HeroClient.c">
 			<Option compilerVar="CC" />
