@@ -10,13 +10,13 @@ camera_scroll_speed_bottom = 1.5
 championWeight = 1.0
 cursorWeight   = 2.0
 
-# Disable client camera behavior
-api.set_camera_client_enabled (False);
-
-
 # ===== Start of the program ======
 # Inject LoLClientAPI in LoLProcess
 api = LoLClientAPI.LoLClientAPI ();
+
+# Disable client camera behavior
+api.set_camera_client_enabled (False);
+
 
 # Program infinite loop
 while (1):
