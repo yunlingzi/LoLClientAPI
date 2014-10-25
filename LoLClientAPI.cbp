@@ -72,6 +72,14 @@
 		<Unit filename="LoLMemory\ChampionArray\ChampionArrayTest.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="LoLMemory\GUIMenu\GUIMenu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="LoLMemory\GUIMenu\GUIMenu.h" />
+		<Unit filename="LoLMemory\GUIMenu\GUIMinimap\GUIMinimap.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="LoLMemory\GUIMenu\GUIMinimap\GUIMinimap.h" />
 		<Unit filename="LoLMemory\GameObject\GameObject.h" />
 		<Unit filename="LoLMemory\HeroClient\HeroClient.c">
 			<Option compilerVar="CC" />

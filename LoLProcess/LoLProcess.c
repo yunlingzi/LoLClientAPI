@@ -128,6 +128,12 @@ LoLProcess_init (
 				return false;
 			}
 
+			// Initialize the GUI Menu
+			if (!(this->guiMenu = GUIMenu_new (this->process))) {
+				dbg ("Cannot get GUIMenu.");
+				return false;
+			}
+
 			// Initialize teammates
 			int teammateId = 0;
 			for (int curChampionIndex = 0; curChampionIndex < this->championArray->championsCount; curChampionIndex++)

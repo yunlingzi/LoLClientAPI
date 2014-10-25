@@ -9,11 +9,11 @@
 #include "LoLMemory/HudManager/HudManager.h"
 #include "LoLMemory/HeroClient/HeroClient.h"
 #include "LoLMemory/ChampionArray/ChampionArray.h"
+#include "LoLMemory/GUIMenu/GUIMenu.h"
 
 #include <stddef.h>
 
 // ---------- Defines -------------
-
 #define LoLProcess_get_remote_addr(object, field) \
 	(void *) (object->pThis + offsetof(typeof(*object), field))
 
@@ -47,13 +47,10 @@ typedef struct _LoLProcess
 	HudManager *hudManager;
 	HeroClient *heroClient;
 	ChampionArray *championArray;
-
-	// Debug output
-	FILE *debugOutput;
+	GUIMenu *guiMenu;
 
 	// State
 	LoLProcessState state;
-
 
 }	LoLProcess;
 

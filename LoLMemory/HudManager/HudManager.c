@@ -132,7 +132,6 @@ HudManager_init (
 				return false;
 			}
 
-
 			return true;
 		}
 	}
