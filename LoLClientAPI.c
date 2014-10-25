@@ -226,6 +226,23 @@ get_teammates_count (
 	return champArray->teammatesCount;
 }
 
+bool
+check_teammate_id (
+	__in__  int teammateId
+) {
+	waitForAPI ();
+
+	ChampionArray * champArray = LoLClientAPI->championArray;
+
+	if (teammateId > champArray->teammatesCount || teammateId < 0) {
+		dbg ("TeammateId (%d) is greater than teammates count (%d).",
+			teammateId, champArray->teammatesCount);
+		return false;
+	}
+
+	return true;
+}
+
 
 /*
  * Description : Retrieve the teammate champion position
@@ -241,15 +258,11 @@ get_teammate_position (
 ) {
 	waitForAPI ();
 
-	ChampionArray * champArray = LoLClientAPI->championArray;
-
-	if (teammateId > champArray->teammatesCount) {
-		dbg ("TeammateId (%d) is greater than teammates count (%d).",
-			teammateId, champArray->teammatesCount);
+	if (!check_teammate_id (teammateId)) {
 		return;
 	}
 
-	Unit * teammate = champArray->teammates[teammateId];
+	Unit * teammate = LoLClientAPI->championArray->teammates[teammateId];
 	Position * teammatePosition = LoLProcess_get_addr (teammate, currentPosition);
 
 	*x = teammatePosition->x;
@@ -271,6 +284,17 @@ get_teammate_hp (
 ) {
 	waitForAPI ();
 
+	if (!check_teammate_id (teammateId)) {
+		return;
+	}
+
+	Unit * teammate = LoLClientAPI->championArray->teammates[teammateId];
+
+	float *teammateCurrentHP = (float *) LoLProcess_get_addr (teammate, curHP);
+	float *teammateMaximumHP = (float *) LoLProcess_get_addr (teammate, maxHP);
+
+	*currentHP = *teammateCurrentHP;
+	*maximumHP = *teammateMaximumHP;
 }
 
 
