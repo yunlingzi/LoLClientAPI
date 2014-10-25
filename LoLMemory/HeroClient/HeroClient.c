@@ -119,8 +119,11 @@ HeroClient_init (
 
 		if (results && (heroClientInstance = bb_queue_pick_first(results))) {
 			// heroClientInstance has been found
+			DWORD pThis = read_memory_as_int (mp->proc, *((DWORD *) heroClientInstance->data));
+			Unit_init (this, mp, pThis);
+
+			this->pThis = pThis;
 			memcpy(&this->thisStaticPtr, heroClientInstance->data, sizeof(DWORD));
-			this->pThis = read_memory_as_int (mp->proc, *((DWORD *) heroClientInstance->data));
 			dbg ("pHeroClient found : 0x%08X", this->pThis);
 
 			// We don't need results anymore

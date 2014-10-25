@@ -142,6 +142,7 @@ get_destination_position (
  ** =================================== Champions APIs ====================================
  ** ======================================================================================= **/
 
+// === Self champion ===
 
 /*
  * Description : Retrieve the current champion position
@@ -197,7 +198,6 @@ get_champion_team (
 	HeroClient * currentChampion = LoLClientAPI->heroClient;
 	int *currentChampionTeam = LoLProcess_get_addr (currentChampion, team);
 
-
 	if (*currentChampionTeam == CLIENT_TEAM_BLUE) {
 		return TEAM_BLUE;
 	}
@@ -207,6 +207,56 @@ get_champion_team (
 	}
 
 	return TEAM_UNKNOWN;
+}
+
+// === TeamMates ===
+
+/*
+ * Description : Retrieve the number of allies
+ * Return : The number of allies in your team
+ */
+int
+get_teammates_count (
+	void
+) {
+	waitForAPI ();
+
+	ChampionArray * champArray = LoLClientAPI->championArray;
+
+	return champArray->teammatesCount;
+}
+
+/*
+ * Description : Retrieve the teammate champion position
+ * __in__  int allyId
+ * __out__ float * x : A pointer to the X position
+ * __out__ float * y : A pointer to the Y position
+ */
+void
+get_teammate_position (
+	__in__  int teammateId,
+	__out__ float * x,
+	__out__ float * y
+) {
+	waitForAPI ();
+
+	ChampionArray * champArray = LoLClientAPI->championArray;
+}
+
+/*
+ * Description : Retrieve teammate champion health points information
+ * __in__  int allyId
+ * __out__ float * currentHP : A pointer to the current HP
+ * __out__ float * maximumHP : A pointer to the maximum HP
+ */
+void
+get_teammate_hp (
+	__in__  int teammateId,
+	__out__ float * currentHP,
+	__out__ float * maximumHP
+) {
+	waitForAPI ();
+
 }
 
 

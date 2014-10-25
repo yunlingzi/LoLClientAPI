@@ -77,6 +77,7 @@ typedef struct _Unit
 
 	DWORD pThis;
 	DWORD thisStaticPtr;
+	int teammateId;
 
 }	Unit;
 #pragma pack(pop)

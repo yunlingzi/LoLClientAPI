@@ -83,6 +83,8 @@ get_destination_position (
  ** =================================== Champions APIs ====================================
  ** ======================================================================================= **/
 
+// === Self champion ===
+
 /*
  * Description : Retrieve the current champion position
  * __out__ float * x : A pointer to the X position
@@ -95,7 +97,7 @@ get_champion_position (
 );
 
 /*
- * Description : Retrieve the current champion position
+ * Description : Retrieve current champion health points information
  * __out__ float * currentHP : A pointer to the current HP
  * __out__ float * maximumHP : A pointer to the maximum HP
  */
@@ -113,6 +115,44 @@ int
 get_champion_team (
 	void
 );
+
+// === TeamMates ===
+
+/*
+ * Description : Retrieve the number of allies
+ * Return : The number of allies in your team
+ */
+int
+get_teammates_count (
+	void
+);
+
+/*
+ * Description : Retrieve the teammate champion position
+ * __in__  int allyId
+ * __out__ float * x : A pointer to the X position
+ * __out__ float * y : A pointer to the Y position
+ */
+void
+get_teammate_position (
+	__in__  int teammateId,
+	__out__ float * x,
+	__out__ float * y
+);
+
+/*
+ * Description : Retrieve teammate champion health points information
+ * __in__  int allyId
+ * __out__ float * currentHP : A pointer to the current HP
+ * __out__ float * maximumHP : A pointer to the maximum HP
+ */
+void
+get_teammate_hp (
+	__in__  int teammateId,
+	__out__ float * currentHP,
+	__out__ float * maximumHP
+);
+
 
 /** =======================================================================================
  ** ==================================== Summoner APIs ====================================

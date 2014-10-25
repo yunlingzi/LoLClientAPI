@@ -93,9 +93,13 @@ ChampionArray_init (
 		this->championsCount = (this->end - this->start) / 4;
 		this->champions = malloc (sizeof(Unit *) * this->championsCount);
 
+		// Initialize champion array
 		for (DWORD cur = this->start, pos = 0; cur != this->end; cur += 4, pos++) {
 			this->champions[pos] = Unit_new (mp, read_memory_as_int(mp->proc, cur));
 		}
+
+		// Count teammates later
+		this->teammatesCount = -1;
 
 		return true;
 	}

@@ -15,6 +15,8 @@ void startInjection (void)
 		return;
 	}
 
+	printf("Count = %d\n", get_teammates_count());
+
 	// Create cheatengine file
 	#ifdef DEBUG_ACTIVATED
 		LoLProcess_exportToCE ();
