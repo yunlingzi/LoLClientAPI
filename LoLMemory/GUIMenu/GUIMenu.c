@@ -107,10 +107,12 @@ GUIMenu_init (
 
 		if (results && (pGUIMenuInstance = bb_queue_pick_first(results))) {
 			// pGUIMenuInstance has been found
-			DWORD pThis = read_memory_as_int (mp->proc, *((DWORD *)pGUIMenuInstance->data));
+			DWORD pStaticThis = *((DWORD *)pGUIMenuInstance->data);
+			DWORD pThis = read_memory_as_int (mp->proc, pStaticThis);
 			read_from_memory (mp->proc, this, pThis, sizeof(this));
 
 			this->pThis = pThis;
+			this->pStaticThis = pStaticThis;
 			dbg ("pGUIMenuInstance pointer found : 0x%08X", this->pThis);
 
 			// We don't need results anymore

@@ -141,6 +141,7 @@ typedef struct _GUIMenu
 	int field_109;
 
 	DWORD pThis;
+	DWORD pStaticThis;
 
 }	GUIMenu;
 #pragma pack(pop)

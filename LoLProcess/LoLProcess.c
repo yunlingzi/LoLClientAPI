@@ -200,7 +200,12 @@ LoLProcess_exportToCE (void)
 		/* ChampionArray */
 		this->championArray->championsCount,
 		LoLProcess_get_remote_addr(this->championArray, start),
-		LoLProcess_get_remote_addr(this->championArray, end)
+		LoLProcess_get_remote_addr(this->championArray, end),
+
+		/* GUIMenu */
+			// GUIMinimap
+			this->guiMenu->pStaticThis,
+			this->guiMenu->pStaticThis
 	);
 
 	file_put_contents("LCAPI.ct", cheatEngineOutput, NULL);
