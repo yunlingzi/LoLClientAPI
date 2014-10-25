@@ -145,17 +145,3 @@ GUIMenu_free (
 		free (this);
 	}
 }
-
-
-/*
- * Description : Unit tests checking if a GUIMenu is coherent
- * GUIMenu *this : The instance to test
- * Return : true on success, false on failure
- */
-bool
-GUIMenu_test (
-	GUIMenu *this
-) {
-
-	return true;
-}
