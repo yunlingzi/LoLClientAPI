@@ -101,7 +101,7 @@ ChampionArray_init (
 		}
 
 		// Count teammates later
-		this->teammatesCount = -1;
+		this->teammatesCount = 0;
 
 		return true;
 	}

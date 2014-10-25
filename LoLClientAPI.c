@@ -226,6 +226,7 @@ get_teammates_count (
 	return champArray->teammatesCount;
 }
 
+
 /*
  * Description : Retrieve the teammate champion position
  * __in__  int allyId
@@ -241,7 +242,20 @@ get_teammate_position (
 	waitForAPI ();
 
 	ChampionArray * champArray = LoLClientAPI->championArray;
+
+	if (teammateId > champArray->teammatesCount) {
+		dbg ("TeammateId (%d) is greater than teammates count (%d).",
+			teammateId, champArray->teammatesCount);
+		return;
+	}
+
+	Unit * teammate = champArray->teammates[teammateId];
+	Position * teammatePosition = LoLProcess_get_addr (teammate, currentPosition);
+
+	*x = teammatePosition->x;
+	*y = teammatePosition->y;
 }
+
 
 /*
  * Description : Retrieve teammate champion health points information
