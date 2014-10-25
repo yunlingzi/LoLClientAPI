@@ -20,6 +20,8 @@ typedef struct _ChampionArray
 
 	Unit **champions;
 	int championsCount;
+
+	Unit **teammates;
 	int teammatesCount;
 
 }	ChampionArray;
