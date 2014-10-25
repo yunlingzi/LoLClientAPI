@@ -42,9 +42,9 @@ GUIMenu_init (
 	MemBlock *mb = NULL;
 	Buffer *pGUIMenuInstance = NULL;
 
-	BbQueue *results = memscan_search_buffer (
+	BbQueue *results = memscan_search_string (
 		mp, "GUIMenuStr",
-		"GUIMenu\0", strlen("GUIMenu") + 1
+		"PktS2CStartGameHandler"
 	);
 
 	if (!results || (bb_queue_get_length (results) <= 0)) {
@@ -60,19 +60,19 @@ GUIMenu_init (
 		/*		833D 5407CB03 00  cmp [dword ds:League_of_Legends.3CB0754], 0  <-- pGUIMenuInstance
 				75 2A             jne short League_of_Legends.014A7F5A
 				68 85D4FA01       push offset League_of_Legends.01FAD485
-				68 C02BFB01       push offset League_of_Legends.01FB2BC0        ; ASCII
+				68 C02BFB01       push offset League_of_Legends.01FB2BC0        ; ASCII "PktS2CStartGameHandler"
 				68 C9040000       push 4C9
-				68 7824FB01       push offset League_of_Legends.01FB2478        ; ASCII
+				68 7824FB01       push offset League_of_Legends.01FB2478        ; ASCII "..."
 				68 182CFB01       push offset League_of_Legends.01FB2C18        ; ASCII "GUIMenu"
 				E8 620C4100       call League_of_Legends.PrintError */
 
 			'?',  '?',  '?',  '?',  '?', '?', 0x00,
 			'?',  '?',
 			0x68, '?',  '?',  '?',  '?',
-			0x68, '?',  '?',  '?',  '?',
+			0x68, '_',  '_',  '_',  '_',
 			0x68, 0xC9, 0x04, 0x00, 0x00,
 			0x68, '?',  '?',  '?',  '?',
-			0x68, '_',  '_',  '_',  '_',
+			0x68, '?',  '?',  '?',  '?',
 			0xE8, '?',  '?',  '?',  '?',
 		};
 
@@ -89,10 +89,10 @@ GUIMenu_init (
 			"???????"
 			"??"
 			"x????"
-			"x????"
+			"xxxxx"
 			"xxxxx"
 			"x????"
-			"xxxxx"
+			"x????"
 			"x????",
 
 			"xx????x"
@@ -116,9 +116,10 @@ GUIMenu_init (
 			// We don't need results anymore
 			bb_queue_free_all (results, buffer_free);
 
+			// Initialize guiMinimap structure
 			if (!(this->guiMinimap = GUIMinimap_new (
-				(DWORD) LoLProcess_get_remote_addr (this, guiMinimapPtr))
-			)) {
+				read_memory_as_int (mp->proc, (DWORD) LoLProcess_get_remote_addr (this, guiMinimap))
+			))) {
 				dbg ("Cannot get guiMinimap.");
 				return false;
 			}

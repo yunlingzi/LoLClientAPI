@@ -19,6 +19,14 @@ typedef struct _Position
 }	Position;
 #pragma pack(pop)
 
+#pragma pack(push, 1)
+typedef struct _Position2D
+{
+	int x;
+	int y;
+}	Position2D;
+#pragma pack(pop)
+
 
 
 // --------- Constructors ---------

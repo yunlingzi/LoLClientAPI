@@ -40,7 +40,7 @@ typedef struct _GUIMenu
 	int field_22;
 	int field_23;
 	int field_24;
-	GUIMinimap * guiMinimapPtr;
+	GUIMinimap * guiMinimap;
 	int field_26;
 	int field_27;
 	int field_28;
@@ -141,8 +141,6 @@ typedef struct _GUIMenu
 	int field_109;
 
 	DWORD pThis;
-
-	GUIMinimap *guiMinimap;
 
 }	GUIMenu;
 #pragma pack(pop)

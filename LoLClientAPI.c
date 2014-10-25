@@ -332,6 +332,24 @@ get_teammate_summoner_name (
  ** ==================================== GUI APIs ===================================
  ** ================================================================================= **/
 
+/*
+ * Description : Retrieve the position of the minimap on the screen
+ * __out__ int * x : A pointer to the X position
+ * __out__ int * y : A pointer to the Y position
+ */
+void
+get_minimap_screen_position (
+	__out__ int * x,
+	__out__ int * y
+) {
+	waitForAPI ();
+
+	GUIMinimap * guiMinimap = LoLClientAPI->guiMenu->guiMinimap;
+	Position2D * minimapScreenPosition = LoLProcess_get_addr (guiMinimap, screenPosition);
+
+	*x = minimapScreenPosition->x;
+	*y = minimapScreenPosition->y;
+}
 
 
 

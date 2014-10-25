@@ -15,14 +15,9 @@ void startInjection (void)
 		return;
 	}
 
-	int i = get_teammates_count();
-	for (int j = 0; j < i; j++) {
-		float x, y;
-		get_teammate_position(j, &x, &y);
-		printf("> %f / %f\n", x, y);
-	}
-
-
+	int x, y;
+	get_minimap_screen_position(&x, &y);
+	printf("%d / %d\n", x, y);
 
 	// Create cheatengine file
 	#ifdef DEBUG_ACTIVATED

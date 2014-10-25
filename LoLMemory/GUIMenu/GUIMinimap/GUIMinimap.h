@@ -19,7 +19,7 @@ typedef struct _GUIMinimap
 	int field_3;
 	int field_4;
 	char gap_BC[32];
-	Position screenPosition;
+	Position2D screenPosition;
 	int field_10;
 	int field_12;
 	char gap_F0[2088];
