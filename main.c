@@ -15,10 +15,6 @@ void startInjection (void)
 		return;
 	}
 
-	int x, y;
-	get_minimap_screen_position(&x, &y);
-	printf("%d / %d\n", x, y);
-
 	// Create cheatengine file
 	#ifdef DEBUG_ACTIVATED
 		LoLProcess_exportToCE ();
