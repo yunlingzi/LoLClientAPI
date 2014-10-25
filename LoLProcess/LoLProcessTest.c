@@ -24,5 +24,10 @@ LoLProcess_test (
 		return false;
 	}
 
+	if (!ChampionArray_test(this->championArray)) {
+		dbg ("ChampionArray unit test failed.");
+		return false;
+	}
+
 	return true;
 }
