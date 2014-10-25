@@ -49,7 +49,7 @@ HeroClient_init (
 	);
 
 	if (!results) {
-		dbg ("HeroClientStr not found.");
+		important ("HeroClientStr not found.");
 		return false;
 	}
 
@@ -120,6 +120,12 @@ HeroClient_init (
 		if (results && (heroClientInstance = bb_queue_pick_first(results))) {
 			// heroClientInstance has been found
 			DWORD pThis = read_memory_as_int (mp->proc, *((DWORD *) heroClientInstance->data));
+
+			if (!pThis) {
+				important ("pHeroClient not found.");
+				return false;
+			}
+
 			Unit_init (this, mp, pThis);
 
 			this->pThis = pThis;
