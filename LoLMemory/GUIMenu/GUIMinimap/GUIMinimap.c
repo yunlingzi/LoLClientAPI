@@ -58,16 +58,3 @@ GUIMinimap_free (
 	}
 }
 
-
-/*
- * Description : Unit tests checking if a GUIMinimap is coherent
- * GUIMinimap *this : The instance to test
- * Return : true on success, false on failure
- */
-bool
-GUIMinimap_test (
-	GUIMinimap *this
-) {
-
-	return true;
-}
