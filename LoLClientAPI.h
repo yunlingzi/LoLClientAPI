@@ -153,6 +153,27 @@ get_teammate_hp (
 	__out__ float * maximumHP
 );
 
+/*
+ * Description : Retrieve teammate champion health points information
+ * __in__  int teammateId : The target teammate ID
+ * __out__ char *teammateSummonerName : A sequence of bytes containing the summoner name (16 bytes maximum)
+ */
+void
+get_teammate_summoner_name (
+	__in__  int teammateId,
+	__out__ char * teammateSummonerName
+);
+
+/*
+ * Description : Check if the target teammate ID is valid. You shouldn't need to call this.
+ * __in__  int teammateId : The target teammate ID
+ * Return : true on success, false otherwise
+ */
+bool
+check_teammate_id (
+	__in__  int teammateId
+);
+
 
 /** =======================================================================================
  ** ==================================== Summoner APIs ====================================

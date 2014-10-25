@@ -226,6 +226,12 @@ get_teammates_count (
 	return champArray->teammatesCount;
 }
 
+
+/*
+ * Description : Check if the target teammate ID is valid
+ * __in__  int teammateId : The target teammate ID
+ * Return : true on success, false otherwise
+ */
 bool
 check_teammate_id (
 	__in__  int teammateId
@@ -246,7 +252,7 @@ check_teammate_id (
 
 /*
  * Description : Retrieve the teammate champion position
- * __in__  int allyId
+ * __in__  int teammateId : The target teammate ID
  * __out__ float * x : A pointer to the X position
  * __out__ float * y : A pointer to the Y position
  */
@@ -272,7 +278,7 @@ get_teammate_position (
 
 /*
  * Description : Retrieve teammate champion health points information
- * __in__  int allyId
+ * __in__  int teammateId : The target teammate ID
  * __out__ float * currentHP : A pointer to the current HP
  * __out__ float * maximumHP : A pointer to the maximum HP
  */
@@ -297,6 +303,29 @@ get_teammate_hp (
 	*maximumHP = *teammateMaximumHP;
 }
 
+
+/*
+ * Description : Retrieve teammate champion health points information
+ * __in__  int teammateId : The target teammate ID
+ * __out__ char *summonerName : A sequence of bytes containing the summoner name of the
+ *                              target teammate (16 bytes maximum)
+ */
+void
+get_teammate_summoner_name (
+	__in__  int teammateId,
+	__out__ char * summonerName
+) {
+	waitForAPI ();
+
+	if (!check_teammate_id (teammateId)) {
+		return;
+	}
+
+	Unit * teammate = LoLClientAPI->championArray->teammates[teammateId];
+	char * teammateSummonerName = (char *) LoLProcess_get_addr (teammate, summonerName);
+
+	strcpy (summonerName, teammateSummonerName);
+}
 
 /** =======================================================================================
  ** ==================================== Summoner APIs ====================================
