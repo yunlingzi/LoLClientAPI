@@ -41,7 +41,7 @@ bool
 Position_in_map (Position *this)
 {
 	return (
-		(this->x >= 0 && this->x <= 14000.0)
-	&&  (this->y >= 0 && this->y <= 14200.0)
+		(this->x >= 0 && this->x <= 16000.0)
+	&&  (this->y >= 0 && this->y <= 16000.0)
 	);
 }
