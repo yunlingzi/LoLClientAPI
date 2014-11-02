@@ -141,6 +141,17 @@ class LoLClientAPI:
 
 		return self.hAPI.get_champion_team ();
 
+	# Retrieve the number of allies
+	# Returns : The number of allies in your team
+	def get_teammates_count (self):
+	
+		# C API declaration :
+		# int get_teammates_count (
+		#	void
+		# )
+
+		return self.hAPI.get_teammates_count ();
+
 		
 	# =================================================================================
 	# ================================= Summoner APIs =================================
