@@ -35,17 +35,19 @@ while (1):
 	# Get champion position
 	championX, championY = api.get_champion_position ();
 	
-	# Fix perspective (http://i.imgur.com/cwpZk3Z.png)
+	# Fix perspective : Move the camera farther to the bottom of the screen
+	# than to the top of the screen http://i.imgur.com/cwpZk3Z.png
 	distance_mouse_cam_y = cameraY - cursorY;
 	if (distance_mouse_cam_y > threshold):
-		# If the cursor is in the bottom part of the screen and superior to threshold value
-		# Decrease slightly the cursorY position
+		# If the cursor is in the bottom part of the screen (positive value) and superior to threshold value
+		# Decrease slightly the cursorY position so it simulates a farther bottom scrolling
 		cursorY -= (distance_mouse_cam_y * camera_scroll_speed_bottom);
-	
+
 	# Sum all the weights
 	sumWeights = championWeight + cursorWeight;
 	
 	# Compute the weighted target position : Between the cursor and the champion
+	# http://puu.sh/cAWUw/c703c6233c.png
 	targetX = (championX * championWeight + cursorX * cursorWeight) / sumWeights;
 	targetY = (championY * championWeight + cursorY * cursorWeight) / sumWeights;
 	
