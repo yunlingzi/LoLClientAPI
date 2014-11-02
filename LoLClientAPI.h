@@ -66,6 +66,16 @@ get_cursor_position (
 	__out__ float * y
 );
 
+/*
+ * Description : Retrieve the position of the cursor on the screen
+ * __out__ int * x : A pointer to the X position
+ * __out__ int * y : A pointer to the Y position
+ */
+EXPORT_FUNCTION void
+get_cursor_screen_position (
+	__out__ int * x,
+	__out__ int * y
+);
 
 /*
  * Description : Retrieve the destination position (right click)
@@ -154,14 +164,14 @@ get_teammate_hp (
 );
 
 /*
- * Description : Retrieve teammate champion health points information
+ * Description : Retrieve teammate summoner name.
  * __in__  int teammateId : The target teammate ID
- * __out__ char *teammateSummonerName : A sequence of bytes containing the summoner name (16 bytes maximum)
+ * Return char * : A sequence of bytes containing the summoner name of the
+ *                 target teammate (16 bytes maximum)
  */
-void
+char *
 get_teammate_summoner_name (
-	__in__  int teammateId,
-	__out__ char * teammateSummonerName
+	__in__  int teammateId
 );
 
 /*

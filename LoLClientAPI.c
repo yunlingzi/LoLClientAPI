@@ -119,6 +119,24 @@ get_cursor_position (
 
 
 /*
+ * Description : Retrieve the position of the cursor on the screen
+ * __out__ int * x : A pointer to the X position
+ * __out__ int * y : A pointer to the Y position
+ */
+EXPORT_FUNCTION void
+get_cursor_screen_position (
+	__out__ int * x,
+	__out__ int * y
+) {
+	POINT point;
+	GetCursorPos (&point);
+
+	*x = point.x;
+	*y = point.y;
+}
+
+
+/*
  * Description : Retrieve the destination position (right click)
  * __out__ float * x : A pointer to the X position
  * __out__ float * y : A pointer to the Y position
@@ -215,7 +233,7 @@ get_champion_team (
  * Description : Retrieve the number of allies
  * Return : The number of allies in your team
  */
-int
+EXPORT_FUNCTION int
 get_teammates_count (
 	void
 ) {
@@ -232,7 +250,7 @@ get_teammates_count (
  * __in__  int teammateId : The target teammate ID
  * Return : true on success, false otherwise
  */
-bool
+EXPORT_FUNCTION bool
 check_teammate_id (
 	__in__  int teammateId
 ) {
@@ -256,7 +274,7 @@ check_teammate_id (
  * __out__ float * x : A pointer to the X position
  * __out__ float * y : A pointer to the Y position
  */
-void
+EXPORT_FUNCTION void
 get_teammate_position (
 	__in__  int teammateId,
 	__out__ float * x,
@@ -282,7 +300,7 @@ get_teammate_position (
  * __out__ float * currentHP : A pointer to the current HP
  * __out__ float * maximumHP : A pointer to the maximum HP
  */
-void
+EXPORT_FUNCTION void
 get_teammate_hp (
 	__in__  int teammateId,
 	__out__ float * currentHP,
@@ -305,26 +323,25 @@ get_teammate_hp (
 
 
 /*
- * Description : Retrieve teammate champion health points information
+ * Description : Retrieve teammate summoner name.
  * __in__  int teammateId : The target teammate ID
- * __out__ char *summonerName : A sequence of bytes containing the summoner name of the
- *                              target teammate (16 bytes maximum)
+ * Return char * : A sequence of bytes containing the summoner name of the
+ *                 target teammate (16 bytes maximum)
  */
-void
+EXPORT_FUNCTION char *
 get_teammate_summoner_name (
-	__in__  int teammateId,
-	__out__ char * summonerName
+	__in__  int teammateId
 ) {
 	waitForAPI ();
 
 	if (!check_teammate_id (teammateId)) {
-		return;
+		return NULL;
 	}
 
 	Unit * teammate = LoLClientAPI->championArray->teammates[teammateId];
 	char * teammateSummonerName = (char *) LoLProcess_get_addr (teammate, summonerName);
 
-	strcpy (summonerName, teammateSummonerName);
+	return teammateSummonerName;
 }
 
 
@@ -337,7 +354,7 @@ get_teammate_summoner_name (
  * __out__ int * x : A pointer to the X position
  * __out__ int * y : A pointer to the Y position
  */
-void
+EXPORT_FUNCTION void
 get_minimap_screen_position (
 	__out__ int * x,
 	__out__ int * y
@@ -359,15 +376,15 @@ get_minimap_screen_position (
  * Description : Check if the mouse is hovering the minimap
  * Return : bool True on success, false otherwise.
  */
-bool
+EXPORT_FUNCTION bool
 is_cursor_hovering_minimap (
 	void
 ) {
 	int minimapX, minimapY;
 	get_minimap_screen_position (&minimapX, &minimapY);
 
-	float cursorX, cursorY;
-	get_cursor_position (&cursorX, &cursorY);
+	int cursorX, cursorY;
+	get_cursor_screen_position (&cursorX, &cursorY);
 
 	return (cursorX >= minimapX && cursorY >= minimapY);
 }
