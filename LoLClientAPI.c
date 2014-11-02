@@ -347,10 +347,30 @@ get_minimap_screen_position (
 	GUIMinimap * guiMinimap = LoLClientAPI->guiMenu->guiMinimap;
 	Position2D * minimapScreenPosition = LoLProcess_get_addr (guiMinimap, screenPosition);
 
-	*x = minimapScreenPosition->x;
-	*y = minimapScreenPosition->y;
+	int windowX, windowY;
+	window_get_position (LoLClientAPI->process->hwnd, &windowX, &windowY);
+
+	*x = windowX + minimapScreenPosition->x;
+	*y = windowY + minimapScreenPosition->y;
 }
 
+
+/*
+ * Description : Check if the mouse is hovering the minimap
+ * Return : bool True on success, false otherwise.
+ */
+bool
+is_cursor_hovering_minimap (
+	void
+) {
+	int minimapX, minimapY;
+	get_minimap_screen_position (&minimapX, &minimapY);
+
+	float cursorX, cursorY;
+	get_cursor_position (&cursorX, &cursorY);
+
+	return (cursorX >= minimapX && cursorY >= minimapY);
+}
 
 
 

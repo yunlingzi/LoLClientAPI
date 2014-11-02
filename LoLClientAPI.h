@@ -191,6 +191,16 @@ get_minimap_screen_position (
 );
 
 
+/*
+ * Description : Check if the mouse is hovering the minimap
+ * Return : bool True on success, false otherwise.
+ */
+bool
+is_cursor_hovering_minimap (
+	void
+);
+
+
 /** =======================================================================================
  ** ==================================== Summoner APIs ====================================
  ** ======================================================================================= **/
