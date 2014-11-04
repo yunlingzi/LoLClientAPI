@@ -30,6 +30,9 @@ class PyLoLCamera:
 	
 	def run (self):
 	
+		# Get current camera position
+		cameraX, cameraY = self.api.get_camera_position ();
+
 		# Program infinite loop
 		while (1):
 
@@ -38,10 +41,10 @@ class PyLoLCamera:
 
 			# Don't do anything if the cursor is hovering the minimap
 			if (self.api.is_cursor_hovering_minimap ()):
-			
+
 				# Handle the event
 				self.hover_minimap_behavior (cameraX, cameraY);
-				
+
 				# Go back to sleep
 				continue;
 
@@ -51,7 +54,7 @@ class PyLoLCamera:
 			cameraX, cameraY = self.api.get_camera_position ();
 			# Get champion position
 			championX, championY = self.api.get_champion_position ();
-			
+
 			# Fix perspective : Move the camera farther to the bottom of the screen
 			# than to the top of the screen http://i.imgur.com/cwpZk3Z.png
 			distanceMouseCamY = cameraY - cursorY;
