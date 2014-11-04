@@ -31,11 +31,12 @@ while (1):
 	if (api.is_cursor_hovering_minimap ()):
 		
 		# If a mouse click is detected, sleep a little
-		if (api.is_left_mouse_button_pressed ()):
+		if (api.is_left_mouse_button_click ()):
+			print "Event!";
 			timeStartSleeping = datetime.now ();
 			
 			# Sleep until sleepSecondsAfterMinimapClick seconds has passed, or space is pressed
-			while (datetime.now () - timeStartSleeping).total_seconds() > sleepSecondsAfterMinimapClick:
+			while (datetime.now () - timeStartSleeping).total_seconds() <= sleepSecondsAfterMinimapClick:
 				time.sleep (0.1);
 				
 				if (api.is_space_pressed ()):

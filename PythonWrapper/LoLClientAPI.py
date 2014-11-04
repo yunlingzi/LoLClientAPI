@@ -6,6 +6,7 @@ class LoLClientAPI:
 
 	# LoLClientAPI DLL handle
 	hAPI = None;
+	leftMouseButtonState = 0;
 	
 	# =================================================================================
 	# ================================== CAMERA APIs ==================================
@@ -75,20 +76,55 @@ class LoLClientAPI:
 	
 	
 	# Check if the left mouse button is pressed
-	# Returns : true if pressed, false if not pressed
+	# Returns : true if pressed, false otherwise
 	def is_left_mouse_button_pressed (self):
-		return win32api.GetAsyncKeyState (win32con.VK_LBUTTON);
+		return win32api.GetKeyState (win32con.VK_LBUTTON) < 0;
 	
+	
+	# Check if the left mouse button has been clicked
+	# Returns : true if clicked, false otherwise
+	def is_left_mouse_button_click (self):
+		if (self.is_left_mouse_button_pressed ()):
+			# The button has been pressed but not released yet
+			self.leftMouseButtonState = 1;
+			return False;
+	
+		if (self.leftMouseButtonState == 1 and not self.is_left_mouse_button_pressed ()):
+			# The button has been pressed but isn't pressed anymore
+			self.leftMouseButtonState = 0;
+			return True;
+		
+		# Nothing detected
+		return False;
 	
 	# Check if the right mouse button is pressed
-	# Returns : true if pressed, false if not pressed
+	# Returns : true if pressed, false otherwise
 	def is_right_mouse_button_pressed (self):
-		return win32api.GetAsyncKeyState (win32con.VK_RBUTTON);
+		return win32api.GetKeyState (win32con.VK_RBUTTON) < 0;
+	
+		
+	# Check if the left mouse button has been clicked
+	# Returns : true if clicked, false otherwise
+	def is_right_mouse_button_click (self):
+		if (self.is_right_mouse_button_pressed ()):
+			# The button has been pressed but not released yet
+			self.rightMouseButtonState = 1;
+			return False;
+	
+		if (self.rightMouseButtonState == 1 and not self.is_right_mouse_button_pressed ()):
+			# The button has been pressed but isn't pressed anymore
+			self.rightMouseButtonState = 0;
+			return True;
+		
+		# Nothing detected
+		return False;
+	
 	
 	# Check if the space key is pressed
-	# Returns : true if pressed, false if not pressed
+	# Returns : true if pressed, false otherwise
 	def is_space_pressed (self):
-		return win32api.GetAsyncKeyState (win32con.VK_SPACE);
+		return win32api.GetKeyState (win32con.VK_SPACE) < 0;
+	
 	
 	# Get the cursor screen absolute position
 	# Returns : {x, y} the cursor screen position
