@@ -71,7 +71,19 @@ class LoLClientAPI:
 		y = c_float()
 		self.hAPI.get_cursor_position (byref(x), byref(y));
 		return (x.value, y.value)
-		
+	
+	
+	# Check if the left mouse button is pressed
+	# Returns : true if pressed, false if not pressed
+	def is_left_mouse_button_pressed (self):
+		return win32api.GetAsyncKeyState (0x01);
+	
+	
+	# Check if the right mouse button is pressed
+	# Returns : true if pressed, false if not pressed
+	def is_right_mouse_button_pressed (self):
+		return win32api.GetAsyncKeyState (0x02);
+	
 		
 	# Get the cursor screen absolute position
 	# Returns : {x, y} the cursor screen position

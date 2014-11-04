@@ -2,9 +2,10 @@ import LoLClientAPI
 import time
 
 # ======= Configurations =======
+sleepSecondsAfterMinimapClick = 1
 threshold   = 200.0
 cameraSpeed = 2
-camera_scroll_speed_bottom = 1.5
+cameraScrollSpeedBottom = 1.5
 
 # Weights
 championWeight = 1.0
@@ -17,7 +18,6 @@ api = LoLClientAPI.LoLClientAPI ();
 # Disable client camera behavior
 api.set_camera_client_enabled (False);
 
-
 # Program infinite loop
 while (1):
 
@@ -26,6 +26,8 @@ while (1):
 	
 	# Don't do anything if the cursor is hovering the minimap
 	if (api.is_cursor_hovering_minimap ()):
+		if (api.is_left_mouse_button_pressed ()):
+			time.sleep (sleepSecondsAfterMinimapClick);
 		continue;
 	
 	# Get cursor position
@@ -37,11 +39,11 @@ while (1):
 	
 	# Fix perspective : Move the camera farther to the bottom of the screen
 	# than to the top of the screen http://i.imgur.com/cwpZk3Z.png
-	distance_mouse_cam_y = cameraY - cursorY;
-	if (distance_mouse_cam_y > threshold):
+	distanceMouseCamY = cameraY - cursorY;
+	if (distanceMouseCamY > threshold):
 		# If the cursor is in the bottom part of the screen (positive value) and superior to threshold value
 		# Decrease slightly the cursorY position so it simulates a farther bottom scrolling
-		cursorY -= (distance_mouse_cam_y * camera_scroll_speed_bottom);
+		cursorY -= (distanceMouseCamY * cameraScrollSpeedBottom);
 
 	# Sum all the weights
 	sumWeights = championWeight + cursorWeight;
