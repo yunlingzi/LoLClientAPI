@@ -1,5 +1,8 @@
+#!/d/Logiciels/Python/2.7/python2.exe
+
 import LoLClientAPI
 import time
+from datetime import datetime
 
 # ======= Configurations =======
 sleepSecondsAfterMinimapClick = 1
@@ -26,8 +29,20 @@ while (1):
 	
 	# Don't do anything if the cursor is hovering the minimap
 	if (api.is_cursor_hovering_minimap ()):
+		
+		# If a mouse click is detected, sleep a little
 		if (api.is_left_mouse_button_pressed ()):
-			time.sleep (sleepSecondsAfterMinimapClick);
+			timeStartSleeping = datetime.now ();
+			
+			# Sleep until sleepSecondsAfterMinimapClick seconds has passed, or space is pressed
+			while (datetime.now () - timeStartSleeping).total_seconds() > sleepSecondsAfterMinimapClick:
+				time.sleep (0.1);
+				
+				if (api.is_space_pressed ()):
+					# Space has been pressed during the sleeping, exit the loop
+					break;
+		
+		# Go back to sleeping
 		continue;
 	
 	# Get cursor position

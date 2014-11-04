@@ -1,5 +1,6 @@
 from ctypes import *
 import win32api
+import win32con
 
 class LoLClientAPI:
 
@@ -76,20 +77,24 @@ class LoLClientAPI:
 	# Check if the left mouse button is pressed
 	# Returns : true if pressed, false if not pressed
 	def is_left_mouse_button_pressed (self):
-		return win32api.GetAsyncKeyState (0x01);
+		return win32api.GetAsyncKeyState (win32con.VK_LBUTTON);
 	
 	
 	# Check if the right mouse button is pressed
 	# Returns : true if pressed, false if not pressed
 	def is_right_mouse_button_pressed (self):
-		return win32api.GetAsyncKeyState (0x02);
+		return win32api.GetAsyncKeyState (win32con.VK_RBUTTON);
 	
-		
+	# Check if the space key is pressed
+	# Returns : true if pressed, false if not pressed
+	def is_space_pressed (self):
+		return win32api.GetAsyncKeyState (win32con.VK_SPACE);
+	
 	# Get the cursor screen absolute position
 	# Returns : {x, y} the cursor screen position
 	def get_cursor_screen_position (self):
 		return win32api.GetCursorPos ()
-		
+
 
 	# Get the destination in-game position (right click)
 	# Returns : {x, y} the destination in game position
