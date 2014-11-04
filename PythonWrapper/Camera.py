@@ -32,7 +32,6 @@ while (1):
 		
 		# If a mouse click is detected, sleep a little
 		if (api.is_left_mouse_button_click ()):
-			print "Event!";
 			timeStartSleeping = datetime.now ();
 			
 			# Sleep until sleepSecondsAfterMinimapClick seconds has passed, or space is pressed

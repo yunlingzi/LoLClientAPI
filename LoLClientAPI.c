@@ -156,6 +156,101 @@ get_destination_position (
 }
 
 
+/*
+ * Description : Check if the left mouse button is pressed
+ * Returns : true if pressed, false otherwise
+ */
+EXPORT_FUNCTION bool
+is_left_mouse_button_pressed (
+	void
+) {
+	return GetKeyState (VK_LBUTTON) < 0;
+}
+
+
+/*
+ * Description : Check if the left mouse button is clicked
+ * Returns : true if pressed, false otherwise
+ */
+EXPORT_FUNCTION bool
+is_left_mouse_button_click (
+	void
+) {
+	static int leftMouseButtonState = 0;
+
+	if (is_left_mouse_button_pressed ()) {
+		// The button has been pressed but not released yet
+		leftMouseButtonState = 1;
+		return false;
+	}
+
+	if (leftMouseButtonState && !is_left_mouse_button_pressed ()) {
+		// The button has been pressed but isn't pressed anymore
+		leftMouseButtonState = 0;
+		return true;
+	}
+
+	// Nothing detected
+	return false;
+}
+
+
+/*
+ * Description : Check if the right mouse button is pressed
+ * Returns : true if pressed, false otherwise
+ */
+EXPORT_FUNCTION bool
+is_right_mouse_button_pressed (
+	void
+) {
+	return GetKeyState (VK_RBUTTON) < 0;
+}
+
+
+/*
+ * Description : Check if the right mouse button is clicked
+ * Returns : true if pressed, false otherwise
+ */
+EXPORT_FUNCTION bool
+is_right_mouse_button_click (
+	void
+) {
+	static int rightMouseButtonState = 0;
+
+	if (is_right_mouse_button_pressed ()) {
+		// The button has been pressed but not released yet
+		rightMouseButtonState = 1;
+		return false;
+	}
+
+	if (rightMouseButtonState && !is_right_mouse_button_pressed ()) {
+		// The button has been pressed but isn't pressed anymore
+		rightMouseButtonState = 0;
+		return true;
+	}
+
+	// Nothing detected
+	return false;
+}
+
+
+
+/** =======================================================================================
+ ** =================================== Keyboard APIs =====================================
+ ** ======================================================================================= **/
+
+/*
+ * Description : Check if the space key is pressed
+ * Returns : true if pressed, false otherwise
+ */
+EXPORT_FUNCTION bool
+is_space_pressed (
+	void
+) {
+	return GetKeyState (VK_SPACE) < 0;
+}
+
+
 /** =======================================================================================
  ** =================================== Champions APIs ====================================
  ** ======================================================================================= **/

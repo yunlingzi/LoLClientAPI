@@ -88,6 +88,56 @@ get_destination_position (
 	__out__ float * y
 );
 
+/*
+ * Description : Check if the left mouse button is pressed
+ * Returns : true if pressed, false otherwise
+ */
+EXPORT_FUNCTION bool
+is_left_mouse_button_pressed (
+	void
+);
+
+/*
+ * Description : Check if the left mouse button is clicked
+ * Returns : true if pressed, false otherwise
+ */
+EXPORT_FUNCTION bool
+is_left_mouse_button_click (
+	void
+);
+
+/*
+ * Description : Check if the right mouse button is pressed
+ * Returns : true if pressed, false otherwise
+ */
+EXPORT_FUNCTION bool
+is_right_mouse_button_pressed (
+	void
+);
+
+/*
+ * Description : Check if the right mouse button is clicked
+ * Returns : true if pressed, false otherwise
+ */
+EXPORT_FUNCTION bool
+is_right_mouse_button_click (
+	void
+);
+
+
+/** =======================================================================================
+ ** =================================== Keyboard APIs =====================================
+ ** ======================================================================================= **/
+
+/*
+ * Description : Check if the space key is pressed
+ * Returns : true if pressed, false otherwise
+ */
+EXPORT_FUNCTION bool
+is_space_pressed (
+	void
+);
+
 
 /** =======================================================================================
  ** =================================== Champions APIs ====================================
