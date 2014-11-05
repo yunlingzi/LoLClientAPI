@@ -7,8 +7,8 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin\Debug\LoLClientAPI" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\Debug\" />
+				<Option output="bin/Debug/LoLClientAPI" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -17,8 +17,8 @@
 				</Compiler>
 			</Target>
 			<Target title="ReleaseDLL">
-				<Option output="PythonWrapper\LoLClientAPI" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\Release\" />
+				<Option output="PythonWrapper/LoLClientAPI" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -30,19 +30,18 @@
 				</Linker>
 			</Target>
 			<Target title="Executable">
-				<Option output="PythonWrapper\LoLClientAPI" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\Debug\" />
+				<Option output="PythonWrapper/LoLClientAPI" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-g" />
 					<Add option="-DAPI_EXECUTABLE" />
 					<Add option="-DDEBUG_ACTIVATED" />
 				</Compiler>
 			</Target>
 			<Target title="DebugDLL">
-				<Option output="PythonWrapper\LoLClientAPI" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\Debug\" />
+				<Option output="PythonWrapper/LoLClientAPI" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -54,128 +53,128 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="..\LoLClientAPI" />
-			<Add directory="..\..\C" />
+			<Add option="-static-libgcc" />
+			<Add option="-static-libstdc++" />
+			<Add directory="../LoLClientAPI" />
+			<Add directory="../../C" />
 		</Compiler>
-		<Unit filename="..\BbQueue\BbQueue.c">
+		<Unit filename="../BbQueue/BbQueue.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="..\BbQueue\BbQueue.h" />
+		<Unit filename="../BbQueue/BbQueue.h" />
+		<Unit filename="../MemProc/MemChunk.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../MemProc/MemChunk.h" />
+		<Unit filename="../MemProc/MemProc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../MemProc/MemProc.h" />
+		<Unit filename="../Scanner/Scanner.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Scanner/Scanner.h" />
+		<Unit filename="../Utils/Utils.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Utils/Utils.h" />
+		<Unit filename="../Win32Tools/Win32Tools.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Win32Tools/Win32Tools.h" />
+		<Unit filename="../Ztring/Ztring.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Ztring/Ztring.h" />
+		<Unit filename="../dbg/dbg.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../dbg/dbg.h" />
 		<Unit filename="LoLClientAPI.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="LoLClientAPI.h" />
-		<Unit filename="LoLMemory\ChampionArray\ChampionArray.c">
+		<Unit filename="LoLMemory/ChampionArray/ChampionArray.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLMemory\ChampionArray\ChampionArray.h" />
-		<Unit filename="LoLMemory\ChampionArray\ChampionArrayTest.c">
+		<Unit filename="LoLMemory/ChampionArray/ChampionArray.h" />
+		<Unit filename="LoLMemory/ChampionArray/ChampionArrayTest.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLMemory\GUIMenu\GUIMenu.c">
+		<Unit filename="LoLMemory/GUIMenu/GUIMenu.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLMemory\GUIMenu\GUIMenu.h" />
-		<Unit filename="LoLMemory\GUIMenu\GUIMinimap\GUIMinimap.c">
+		<Unit filename="LoLMemory/GUIMenu/GUIMenu.h" />
+		<Unit filename="LoLMemory/GUIMenu/GUIMinimap/GUIMinimap.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLMemory\GUIMenu\GUIMinimap\GUIMinimap.h" />
-		<Unit filename="LoLMemory\GUIMenu\GUIMinimap\GUIMinimapTest.c">
+		<Unit filename="LoLMemory/GUIMenu/GUIMinimap/GUIMinimap.h" />
+		<Unit filename="LoLMemory/GUIMenu/GUIMinimap/GUIMinimapTest.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLMemory\GUIMenu\GuiMenuTest.c">
+		<Unit filename="LoLMemory/GUIMenu/GuiMenuTest.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLMemory\GameObject\GameObject.h" />
-		<Unit filename="LoLMemory\HeroClient\HeroClient.c">
+		<Unit filename="LoLMemory/HeroClient/HeroClient.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLMemory\HeroClient\HeroClient.h" />
-		<Unit filename="LoLMemory\HeroClient\HeroClientTest.c">
+		<Unit filename="LoLMemory/HeroClient/HeroClient.h" />
+		<Unit filename="LoLMemory/HeroClient/HeroClientTest.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLMemory\HudCamera\HudCamera.h" />
-		<Unit filename="LoLMemory\HudManager\HudCamera\HudCamera.c">
+		<Unit filename="LoLMemory/HudManager/HudCamera/HudCamera.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLMemory\HudManager\HudCamera\HudCamera.h" />
-		<Unit filename="LoLMemory\HudManager\HudCamera\HudCameraSettings.c">
+		<Unit filename="LoLMemory/HudManager/HudCamera/HudCamera.h" />
+		<Unit filename="LoLMemory/HudManager/HudCamera/HudCameraSettings.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLMemory\HudManager\HudCamera\HudCameraSettings.h" />
-		<Unit filename="LoLMemory\HudManager\HudCamera\HudCameraSettingsTest.c">
+		<Unit filename="LoLMemory/HudManager/HudCamera/HudCameraSettings.h" />
+		<Unit filename="LoLMemory/HudManager/HudCamera/HudCameraSettingsTest.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLMemory\HudManager\HudCamera\HudCameraTest.c">
+		<Unit filename="LoLMemory/HudManager/HudCamera/HudCameraTest.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLMemory\HudManager\HudCursorTarget\HudCursorTarget.c">
+		<Unit filename="LoLMemory/HudManager/HudCursorTarget/HudCursorTarget.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLMemory\HudManager\HudCursorTarget\HudCursorTarget.h" />
-		<Unit filename="LoLMemory\HudManager\HudCursorTarget\HudCursorTargetTest.c">
+		<Unit filename="LoLMemory/HudManager/HudCursorTarget/HudCursorTarget.h" />
+		<Unit filename="LoLMemory/HudManager/HudCursorTarget/HudCursorTargetTest.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLMemory\HudManager\HudManager.c">
+		<Unit filename="LoLMemory/HudManager/HudManager.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLMemory\HudManager\HudManager.h" />
-		<Unit filename="LoLMemory\HudManager\HudManagerTest.c">
+		<Unit filename="LoLMemory/HudManager/HudManager.h" />
+		<Unit filename="LoLMemory/HudManager/HudManagerTest.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLMemory\Unit\Unit.c">
+		<Unit filename="LoLMemory/Unit/Unit.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLMemory\Unit\Unit.h" />
-		<Unit filename="LoLMemory\Unit\UnitTest.c">
+		<Unit filename="LoLMemory/Unit/Unit.h" />
+		<Unit filename="LoLMemory/Unit/UnitTest.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLMemory\Unit\UnitTest.h" />
-		<Unit filename="LoLProcess\LoLProcess.c">
+		<Unit filename="LoLProcess/LoLProcess.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLProcess\LoLProcess.h" />
-		<Unit filename="LoLProcess\LoLProcessTest.c">
+		<Unit filename="LoLProcess/LoLProcess.h" />
+		<Unit filename="LoLProcess/LoLProcessTest.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Position\Position.c">
+		<Unit filename="Position/Position.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Position\Position.h" />
+		<Unit filename="Position/Position.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="..\MemProc\MemChunk.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\MemProc\MemChunk.h" />
-		<Unit filename="..\MemProc\MemProc.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\MemProc\MemProc.h" />
-		<Unit filename="..\Scanner\Scanner.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\Scanner\Scanner.h" />
-		<Unit filename="..\Utils\Utils.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\Utils\Utils.h" />
-		<Unit filename="..\Win32Tools\Win32Tools.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\Win32Tools\Win32Tools.h" />
-		<Unit filename="..\Ztring\Ztring.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\Ztring\Ztring.h" />
-		<Unit filename="..\dbg\dbg.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\dbg\dbg.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

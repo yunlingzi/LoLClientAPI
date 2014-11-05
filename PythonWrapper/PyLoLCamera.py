@@ -13,17 +13,18 @@ class PyLoLCamera:
 	# Weights
 	championWeight = 1.0
 	cursorWeight   = 2.0
+	
+	# Internal states - do not touch after this point
+	oldCameraStored = False
 
 	def __init__ (self):
 		# ===== Start of the program ======
 		# Inject LoLClientAPI in LoLProcess
 		self.api = LoLClientAPI.LoLClientAPI ();
 
-		# Disable client camera behavior
+		# Disable default client camera behavior
+		# (so the camera doesn't move when the cursor reaches the border of the screen)
 		self.api.set_camera_client_enabled (False);
-		
-		# Set default internal states value
-		self.oldCameraStored = False;
 		
 		# Start the main loop
 		self.run ();
