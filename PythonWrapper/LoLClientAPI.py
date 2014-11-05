@@ -81,6 +81,7 @@ class LoLClientAPI:
 		# bool is_left_mouse_button_pressed (
 		#	void
 		# )
+		
 		return self.hAPI.is_left_mouse_button_pressed ();
 	
 	
@@ -103,6 +104,7 @@ class LoLClientAPI:
 		# bool is_right_mouse_button_pressed (
 		#	void
 		# )
+		
 		return self.hAPI.is_right_mouse_button_pressed ();
 	
 	
@@ -126,12 +128,14 @@ class LoLClientAPI:
 		# bool is_space_pressed (
 		#	void
 		# )
+		
 		return self.hAPI.is_space_pressed ();
 	
 	
 	# Get the cursor screen absolute position
 	# Returns : {x, y} the cursor screen position
 	def get_cursor_screen_position (self):
+	
 		return win32api.GetCursorPos ()
 
 
@@ -233,6 +237,7 @@ class LoLClientAPI:
 		# 	__out__ float * x,
 		# 	__out__ float * y
 		# ) 
+		
 		x = c_float()
 		y = c_float()
 		self.hAPI.get_teammate_position (c_int(teammateId), byref(x), byref(y));
@@ -249,6 +254,7 @@ class LoLClientAPI:
 		# 	__out__ float * currentHP,
 		# 	__out__ float * maximumHP
 		# ) 
+		
 		currentHP = c_float()
 		maximumHP = c_float()
 		self.hAPI.get_teammate_hp (c_int(teammateId), byref(currentHP), byref(maximumHP));
@@ -263,6 +269,7 @@ class LoLClientAPI:
 		# char * get_teammate_summoner_name (
 		# 	__in__  int teammateId
 		# )
+		
 		self.hAPI.get_teammate_summoner_name.restype = c_char_p;
 		return self.hAPI.get_teammate_summoner_name (c_int(teammateId));
 
@@ -281,6 +288,7 @@ class LoLClientAPI:
 		# 	__out__ float * x,
 		# 	__out__ float * y
 		# ) 
+		
 		x = c_float()
 		y = c_float()
 		self.hAPI.get_minimap_screen_position (byref(x), byref(y));
@@ -294,6 +302,7 @@ class LoLClientAPI:
 		# void is_cursor_hovering_minimap (
 		# 	void
 		# )
+		
 		return self.hAPI.is_cursor_hovering_minimap ();
 		
 		
@@ -309,6 +318,7 @@ class LoLClientAPI:
 		# char * get_current_summoner_name (
 		#	void
 		# )
+		
 		self.hAPI.get_current_summoner_name.restype = c_char_p;
 		return self.hAPI.get_current_summoner_name ();
 
