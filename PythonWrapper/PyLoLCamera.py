@@ -74,10 +74,10 @@ class PyLoLCamera:
 			
 			# Smoothing : We don't want the camera to jump to the target position too quickly
 			# Increase the camera position value slowly if it's greater than "threshold" value
-			if (abs(targetX - cameraX) > self.threshold):
+			if (abs (targetX - cameraX) > self.threshold):
 				cameraX += ((targetX - cameraX) * 0.001) * self.cameraSpeed;
 
-			if (abs(targetY - cameraY) > self.threshold):
+			if (abs (targetY - cameraY) > self.threshold):
 				cameraY += ((targetY - cameraY) * 0.001) * self.cameraSpeed;
 
 			# Update the new camera position

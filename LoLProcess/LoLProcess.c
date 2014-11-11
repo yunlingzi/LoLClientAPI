@@ -107,7 +107,7 @@ LoLProcess_init (
 			dbg ("LoL Process base address : 0x%08X", this->process->base_addr);
 
 			// Get a copy of the current client memory
-			info("Dumping process...");
+			dbg ("Dumping process...");
 			memproc_dump (this->process, this->process->base_addr + 0x1000, this->process->base_addr + 0xBA9000 + 0x268000);
 
 			// Initialize the Hud Manager
