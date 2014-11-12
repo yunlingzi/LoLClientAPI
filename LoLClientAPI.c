@@ -511,6 +511,28 @@ get_current_summoner_name (
 }
 
 
+/** =================================================================================
+ ** ================================= GameClock APIs ================================
+ ** ================================================================================= **/
+
+
+/*
+ * Description : Get the current game time (as seconds)
+ * Return : float the current time as seconds
+ */
+EXPORT_FUNCTION float
+get_game_time (
+	void
+) {
+	waitForAPI ();
+
+	GameClock * gameClock = LoLClientAPI->gameClock;
+	float *currentTimeSeconds = LoLProcess_get_addr (gameClock, gameTimeSeconds);
+
+	return *currentTimeSeconds;
+}
+
+
 /** =======================================================================================
  ** ================================== LoLClientAPI APIs ==================================
  ** ======================================================================================= **/

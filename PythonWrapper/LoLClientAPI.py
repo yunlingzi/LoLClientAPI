@@ -7,11 +7,11 @@ class LoLClientAPI:
 	hAPI = None;
 	
 	# =================================================================================
-	# ================================== CAMERA APIs ==================================
+	# ================================== Camera APIs ==================================
 	# =================================================================================
 
 	# Get the current camera position
-	# Returns : {x, y} the camera position
+	# Return : {x, y} the camera position
 	def get_camera_position (self):
 	
 		# C API declaration :
@@ -58,7 +58,7 @@ class LoLClientAPI:
 
 	
 	# Get the cursor in-game position
-	# Returns : {x, y} the cursor in game position
+	# Return : {x, y} the cursor in game position
 	def get_cursor_position (self):
 	
 		# C API declaration :
@@ -74,7 +74,7 @@ class LoLClientAPI:
 	
 	
 	# Check if the left mouse button is pressed
-	# Returns : true if pressed, false otherwise
+	# Return : true if pressed, false otherwise
 	def is_left_mouse_button_pressed (self):
 	
 		# C API declaration :
@@ -86,7 +86,7 @@ class LoLClientAPI:
 	
 	
 	# Check if the left mouse button has been clicked
-	# Returns : true if clicked, false otherwise
+	# Return : true if clicked, false otherwise
 	def is_left_mouse_button_click (self):
 	
 		# C API declaration :
@@ -97,7 +97,7 @@ class LoLClientAPI:
 		return self.hAPI.is_left_mouse_button_click ();
 	
 	# Check if the right mouse button is pressed
-	# Returns : true if pressed, false otherwise
+	# Return : true if pressed, false otherwise
 	def is_right_mouse_button_pressed (self):
 	
 		# C API declaration :
@@ -109,7 +109,7 @@ class LoLClientAPI:
 	
 	
 	# Check if the right mouse button has been clicked
-	# Returns : true if clicked, false otherwise
+	# Return : true if clicked, false otherwise
 	def is_right_mouse_button_click (self):
 	
 		# C API declaration :
@@ -121,7 +121,7 @@ class LoLClientAPI:
 	
 	
 	# Check if the space key is pressed
-	# Returns : true if pressed, false otherwise
+	# Return : true if pressed, false otherwise
 	def is_space_pressed (self):
 	
 		# C API declaration :
@@ -133,14 +133,14 @@ class LoLClientAPI:
 	
 	
 	# Get the cursor screen absolute position
-	# Returns : {x, y} the cursor screen position
+	# Return : {x, y} the cursor screen position
 	def get_cursor_screen_position (self):
 	
 		return win32api.GetCursorPos ()
 
 
 	# Get the destination in-game position (right click)
-	# Returns : {x, y} the destination in game position
+	# Return : {x, y} the destination in game position
 	def get_destination_position (self):
 	
 		# C API declaration :
@@ -161,7 +161,7 @@ class LoLClientAPI:
 
 	
 	# Get the position of the current champion
-	# Returns : {x, y} The champion in game position
+	# Return : {x, y} The champion in game position
 	def get_champion_position (self):
 	
 		# C API declaration :
@@ -176,7 +176,7 @@ class LoLClientAPI:
 		return (x.value, y.value)
 
 	# Get the position of the current champion
-	# Returns : {currentHP, maximumHP}
+	# Return : {currentHP, maximumHP}
 	def get_champion_hp (self):
 	
 		# C API declaration :
@@ -191,7 +191,7 @@ class LoLClientAPI:
 		return (currentHP.value, maximumHP.value)
 
 	# Get the position of the current champion
-	# Returns : 0 if BLUE team, 1 if PURPLE team 
+	# Return : 0 if BLUE team, 1 if PURPLE team 
 	def get_champion_team (self):
 	
 		# C API declaration :
@@ -204,7 +204,7 @@ class LoLClientAPI:
 	# ===== Teammates APIs =====
 	
 	# Retrieve the number of allies
-	# Returns : The number of allies in your team
+	# Return : The number of allies in your team
 	def get_teammates_count (self):
 	
 		# C API declaration :
@@ -216,7 +216,7 @@ class LoLClientAPI:
 
 	# Check if the target teammate ID is valid
 	# teammateId : The target teammate ID
-	# Returns : true on success, false otherwise
+	# Return : true on success, false otherwise
 	def check_teammate_id (self, teammateId):
 	
 		# C API declaration :
@@ -228,7 +228,7 @@ class LoLClientAPI:
 
 	# Retrieve the teammate champion position
 	# teammateId : The target teammate ID
-	# Returns : {x, y} The teammate in game position
+	# Return : {x, y} The teammate in game position
 	def get_teammate_position (self, teammateId):
 	
 		# C API declaration :
@@ -245,7 +245,7 @@ class LoLClientAPI:
 
 	# Retrieve teammate champion health points information
 	# teammateId : The target teammate ID
-	# Returns : {currentHP, maximumHP} The current and the maximum HP of the teammate
+	# Return : {currentHP, maximumHP} The current and the maximum HP of the teammate
 	def get_teammate_hp (self, teammateId):
 	
 		# C API declaration :
@@ -262,7 +262,7 @@ class LoLClientAPI:
 
 	# Retrieve teammate champion health points information
 	# teammateId : The target teammate ID
-	# Returns : summonerName A string containing the teammate summoner name (16 bytes maximum)
+	# Return : summonerName A string containing the teammate summoner name (16 bytes maximum)
 	def get_teammate_summoner_name (self, teammateId):
 	
 		# C API declaration :
@@ -275,12 +275,12 @@ class LoLClientAPI:
 
 		
 	# =================================================================================
-	# ================================= Summoner APIs =================================
+	# =================================== GUI APIs ====================================
 	# =================================================================================
 
 		
 	# Retrieve the position of the minimap on the screen
-	# Returns : {x, y} The minimap position on the screen
+	# Return : {x, y} The minimap position on the screen
 	def get_minimap_screen_position (self):
 	
 		# C API declaration :
@@ -295,7 +295,7 @@ class LoLClientAPI:
 		return (x.value, y.value);
 		
 	# Retrieve the position of the minimap on the screen
-	# Returns : {x, y} The minimap position on the screen
+	# Return : {x, y} The minimap position on the screen
 	def is_cursor_hovering_minimap (self):
 	
 		# C API declaration :
@@ -311,7 +311,7 @@ class LoLClientAPI:
 	# =================================================================================
 
 	# Get the name of the current summoner playing
-	# Returns : The name of the current summoner as an ASCII string
+	# Return : The name of the current summoner as an ASCII string
 	def get_current_summoner_name (self):
 	
 		# C API declaration :
@@ -321,6 +321,29 @@ class LoLClientAPI:
 		
 		self.hAPI.get_current_summoner_name.restype = c_char_p;
 		return self.hAPI.get_current_summoner_name ();
+
+		
+	# =================================================================================
+	# ================================= Summoner APIs =================================
+	# =================================================================================
+
+	# Get the current game time (as seconds)
+	# Return : float the current time as seconds
+	def get_game_time (self):
+		
+		# C API declaration :
+		# float get_game_time (
+		#	void
+		# )
+		
+		self.hAPI.get_game_time.restype = c_float;
+		return self.hAPI.get_game_time ();
+	
+	
+		
+	# =================================================================================
+	# ================================== Entry Point ==================================
+	# =================================================================================
 
 	def __init__ (self):
 		# Load LoLClientAPI into LoL process
