@@ -30,15 +30,6 @@ NetAPIClient_new (
 }
 
 /*
-    sub_194BAF0(
-      "E:/jenkins/workspace/game-code-Releases-4-19-public-win32/code/Game/GamePlay/RiotTime/Clock/GameClock.cpp",
-      46,
-      "Riot::`anonymous-namespace'::ValidateGameClockInstance");
-    ::v0 = GetLastError();
-  }
-*/
-
-/*
  * Description : Initialize an allocated NetAPIClient structure.
  * NetAPIClient *this : An allocated NetAPIClient to initialize.
  * MemProc *mp : The target LoL process
