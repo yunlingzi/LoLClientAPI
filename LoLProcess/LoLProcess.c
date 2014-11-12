@@ -119,7 +119,6 @@ LoLProcess_init (
 			// Initialize the heroClient
 			if (!(this->heroClient = HeroClient_new (this->process))) {
 				dbg ("Cannot get heroClient.");
-				return false;
 			}
 
 			// Initialize the championArray
