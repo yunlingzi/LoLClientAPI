@@ -150,6 +150,13 @@
 		<Unit filename="LoLMemory/HudManager/HudManagerTest.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="LoLMemory/NetAPIClient/NetAPIClient.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="LoLMemory/NetAPIClient/NetAPIClient.h" />
+		<Unit filename="LoLMemory/NetAPIClient/NetAPIClientTest.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="LoLMemory/Unit/Unit.c">
 			<Option compilerVar="CC" />
 		</Unit>

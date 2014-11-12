@@ -10,6 +10,7 @@
 #include "LoLMemory/HeroClient/HeroClient.h"
 #include "LoLMemory/ChampionArray/ChampionArray.h"
 #include "LoLMemory/GUIMenu/GUIMenu.h"
+#include "LoLMemory/NetAPIClient/NetAPIClient.h"
 
 #include <stddef.h>
 
@@ -48,6 +49,7 @@ typedef struct _LoLProcess
 	HeroClient *heroClient;
 	ChampionArray *championArray;
 	GUIMenu *guiMenu;
+	NetAPIClient *netApiClient;
 
 	// State
 	LoLProcessState state;

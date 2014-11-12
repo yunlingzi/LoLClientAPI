@@ -25,7 +25,6 @@ typedef enum
 typedef struct _HudManager
 {
 	HudCamera * hudCamera;
-	void *unk1;
 	HudCursorTarget * hudCursorTarget;
 	HudCameraSettings * hudCameraSettings;
 

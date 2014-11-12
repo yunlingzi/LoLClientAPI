@@ -119,9 +119,8 @@ GUIMenu_init (
 			bb_queue_free_all (results, buffer_free);
 
 			// Initialize guiMinimap structure
-			if (!(this->guiMinimap = GUIMinimap_new (
-				read_memory_as_int (mp->proc, (DWORD) LoLProcess_get_remote_addr (this, guiMinimap))
-			))) {
+			DWORD guiMinimapAddress = read_memory_as_int (mp->proc, (DWORD) LoLProcess_get_remote_addr (this, guiMinimap));
+			if (!(this->guiMinimap = GUIMinimap_new (guiMinimapAddress))) {
 				dbg ("Cannot get guiMinimap.");
 				return false;
 			}

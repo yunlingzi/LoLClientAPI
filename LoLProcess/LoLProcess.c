@@ -134,6 +134,12 @@ LoLProcess_init (
 				return false;
 			}
 
+			// Initialize NetAPIClient
+			if (!(this->netApiClient = NetAPIClient_new (this->process))) {
+				dbg ("Cannot get NetAPIClient.");
+				return false;
+			}
+
 			// Initialize teammates
 			int teammateId = 0;
 			for (int curChampionIndex = 0; curChampionIndex < this->championArray->championsCount; curChampionIndex++)
