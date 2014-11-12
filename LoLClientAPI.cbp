@@ -115,6 +115,13 @@
 		<Unit filename="LoLMemory/GUIMenu/GuiMenuTest.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="LoLMemory/GameClock/GameClock.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="LoLMemory/GameClock/GameClock.h" />
+		<Unit filename="LoLMemory/GameClock/GameClockTest.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="LoLMemory/HeroClient/HeroClient.c">
 			<Option compilerVar="CC" />
 		</Unit>

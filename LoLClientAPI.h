@@ -50,6 +50,46 @@ set_camera_client_enabled (
 	__in__ bool enabled
 );
 
+/*
+ * Description : Retrieve the current camera angle in degrees
+ * __out__ float * angleX : A pointer to the X camera angle in degrees
+ * __out__ float * angleY : A pointer to the Y camera angle in degrees
+ */
+void
+get_camera_angle (
+	__out__ float * angleX,
+	__out__ float * angleY
+);
+
+/*
+ * Description : Set the current camera angle in degrees
+ * __in__ float * angleX : A pointer to the X camera angle in degrees
+ * __in__ float * angleY : A pointer to the Y camera angle in degrees
+ */
+void
+set_camera_angle (
+	__in__ float angleX,
+	__in__ float angleY
+);
+
+/*
+ * Description : Retrieve the current camera zoom value
+ * Return : Zoom value
+ */
+float
+get_camera_zoom (
+	void
+);
+
+/*
+ * Description : Set the current camera zoom (500.0 min, 2000.0 max)
+ * __in__ float zoomValue : New zoom value
+ */
+void
+set_camera_zoom (
+	__in__ float zoomValue
+);
+
 
 /** =================================================================================
  ** ================================== Cursor APIs ==================================

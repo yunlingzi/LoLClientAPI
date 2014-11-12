@@ -41,6 +41,7 @@ HudCamera_init (
 	DWORD pHudCamera
 ) {
 	this->pThis = pHudCamera;
+	this->cameraZoom.pThis = pHudCamera + offsetof (HudCamera, cameraZoom);
 
 	return true;
 }

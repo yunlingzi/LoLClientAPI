@@ -120,10 +120,6 @@ HeroClient_init (
 		if (results && (heroClientInstance = bb_queue_pick_first(results))) {
 			// heroClientInstance has been found
 			DWORD pThis = read_memory_as_int (mp->proc, *((DWORD *) heroClientInstance->data));
-			memcpy(&this->thisStaticPtr, heroClientInstance->data, sizeof(DWORD));
-
-			// We don't need results anymore
-			bb_queue_free_all (results, buffer_free);
 
 			if (!pThis) {
 				// We cannot conclude an error occurred because it is a normal behavior in spectator mode
@@ -132,7 +128,11 @@ HeroClient_init (
 			}
 
 			Unit_init (this, mp, pThis);
+			memcpy(&this->thisStaticPtr, heroClientInstance->data, sizeof(DWORD));
 			dbg ("pHeroClient found : 0x%08X", this->pThis);
+
+			// We don't need results anymore
+			bb_queue_free_all (results, buffer_free);
 
 			return true;
 		}

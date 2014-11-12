@@ -51,6 +51,58 @@ class LoLClientAPI:
 		
 		self.hAPI.set_camera_client_enabled (c_bool(enabled));
 
+	# Get the current camera angle in degrees
+	# Return : {angleX, angleY} the camera angle
+	def get_camera_angle (self):
+	
+		# C API declaration :
+		# void get_camera_angle (
+		#	__out__ float * angleX,
+		#	__out__ float * angleY
+		# )
+		
+		angleX = c_float()
+		angleY = c_float()
+		self.hAPI.get_camera_angle (byref(angleX), byref(angleY));
+		return (angleX.value, angleY.value)
+
+
+	# Set the camera position to angleX, angleY
+	# angleX : New angle X
+	# angleY : New angle Y
+	def set_camera_angle (self, angleX, angleY):
+	
+		# C API declaration :
+		# void set_camera_angle (
+		# 	__in__ float angleX,
+		# 	__in__ float angleY
+		# )
+		
+		self.hAPI.set_camera_angle (c_float(angleX), c_float(angleY));
+
+	# Get the current zoom value (1000.0 min, 2250.0 max)
+	# Return : The zoom value
+	def get_camera_zoom (self):
+	
+		# C API declaration :
+		# float get_camera_zoom (
+		#	void
+		# )
+		
+		self.hAPI.get_camera_zoom.restype = c_float;
+		return self.hAPI.get_camera_zoom ();
+
+	# Set the current camera zoom (1000.0 min, 2250.0 max)
+	# zoomValue : New zoom value
+	def set_camera_zoom (self, zoomValue):
+
+		# C API declaration :
+		# void set_camera_zoom (
+		# 	__in__ float zoomValue
+		# )
+
+		self.hAPI.set_camera_zoom (c_float(zoomValue));
+
 
 	# =================================================================================
 	# ================================== Cursor APIs ==================================

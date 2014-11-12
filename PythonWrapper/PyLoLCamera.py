@@ -25,12 +25,12 @@ class PyLoLCamera:
 		# Disable default client camera behavior
 		# (so the camera doesn't move when the cursor reaches the border of the screen)
 		self.api.set_camera_client_enabled (False);
-		
+
 		# Start the main loop
 		self.run ();
-	
+
 	def run (self):
-	
+
 		# Get current camera position
 		cameraX, cameraY = self.api.get_camera_position ();
 
@@ -66,12 +66,12 @@ class PyLoLCamera:
 
 			# Sum all the weights
 			sumWeights = self.championWeight + self.cursorWeight;
-			
+
 			# Compute the weighted target position : Between the cursor and the champion
 			# http://puu.sh/cAWUw/c703c6233c.png
 			targetX = (championX * self.championWeight + cursorX * self.cursorWeight) / sumWeights;
 			targetY = (championY * self.championWeight + cursorY * self.cursorWeight) / sumWeights;
-			
+
 			# Smoothing : We don't want the camera to jump to the target position too quickly
 			# Increase the camera position value slowly if it's greater than "threshold" value
 			if (abs (targetX - cameraX) > self.threshold):
@@ -84,7 +84,7 @@ class PyLoLCamera:
 			self.api.set_camera_position (cameraX, cameraY);
 
 	def hover_minimap_behavior (self, cameraX, cameraY) :
-	
+
 		# If the left mouse button is pressed, keep in memory the current camera position
 		# We would like to restore it once the left mouse button is released
 		if (self.api.is_left_mouse_button_pressed () and not self.oldCameraStored):
@@ -103,7 +103,7 @@ class PyLoLCamera:
 				if (self.api.is_space_pressed ()):
 					# Space has been pressed during the sleeping, exit the loop
 					break;
-			
+
 			# Restore the old camera position
 			self.api.set_camera_position (self.oldCameraX, self.oldCameraY);
 			self.oldCameraStored = False;

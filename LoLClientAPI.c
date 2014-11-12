@@ -94,6 +94,100 @@ set_camera_client_enabled (
 }
 
 
+/*
+ * Description : Retrieve the current camera angle in degrees
+ * __out__ float * angleX : A pointer to the X camera angle in degrees
+ * __out__ float * angleY : A pointer to the Y camera angle in degrees
+ */
+EXPORT_FUNCTION void
+get_camera_angle (
+	__out__ float * angleX,
+	__out__ float * angleY
+) {
+	waitForAPI ();
+
+	HudCamera * hudCamera = LoLClientAPI->hudManager->hudCamera;
+	HudCameraAngle * hudCameraAngle = LoLProcess_get_addr (hudCamera, cameraAngle);
+
+	*angleX = hudCameraAngle->x;
+	*angleY = hudCameraAngle->y;
+}
+
+
+/*
+ * Description : Set the current camera angle in degrees
+ * __in__ float * angleX : A pointer to the X camera angle in degrees
+ * __in__ float * angleY : A pointer to the Y camera angle in degrees
+ */
+EXPORT_FUNCTION void
+set_camera_angle (
+	__in__ float angleX,
+	__in__ float angleY
+) {
+	waitForAPI ();
+
+	HudCamera * hudCamera = LoLClientAPI->hudManager->hudCamera;
+	HudCameraAngle * cameraAngle = LoLProcess_get_addr (hudCamera, cameraAngle);
+
+	cameraAngle->x = angleX;
+	cameraAngle->y = angleY;
+
+	#ifdef API_EXECUTABLE
+		WriteProcessMemory (
+			LoLClientAPI->process->proc,
+			LoLProcess_get_remote_addr (hudCamera, cameraAngle),
+			cameraAngle,
+			sizeof (*cameraAngle),
+			NULL
+		);
+	#endif
+}
+
+
+/*
+ * Description : Retrieve the current camera zoom value
+ * Return : The zoom value
+ */
+EXPORT_FUNCTION float
+get_camera_zoom (
+	void
+) {
+	waitForAPI ();
+
+	HudCamera * hudCamera = LoLClientAPI->hudManager->hudCamera;
+	HudCameraZoom * cameraZoom = LoLProcess_get_addr (hudCamera, cameraZoom);
+
+	return cameraZoom->curValue;
+}
+
+
+/*
+ * Description : Set the current camera zoom (1000.0 min, 2250.0 max)
+ * __in__ float zoomValue : New zoom value
+ */
+EXPORT_FUNCTION void
+set_camera_zoom (
+	__in__ float zoomValue
+) {
+	waitForAPI ();
+
+	HudCamera * hudCamera = LoLClientAPI->hudManager->hudCamera;
+	HudCameraZoom * cameraZoom = LoLProcess_get_addr (hudCamera, cameraZoom);
+
+	cameraZoom->targetValue = zoomValue;
+
+	#ifdef API_EXECUTABLE
+		WriteProcessMemory (
+			LoLClientAPI->process->proc,
+			LoLProcess_get_remote_addr (hudCamera, cameraZoom),
+			cameraZoom,
+			sizeof (*cameraZoom),
+			NULL
+		);
+	#endif
+}
+
+
 /** =================================================================================
  ** ================================== Cursor APIs ==================================
  ** ================================================================================= **/
