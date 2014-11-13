@@ -58,6 +58,9 @@
 			<Add directory="../LoLClientAPI" />
 			<Add directory="../../C" />
 		</Compiler>
+		<Linker>
+			<Add library="ntdll" />
+		</Linker>
 		<Unit filename="../BbQueue/BbQueue.c">
 			<Option compilerVar="CC" />
 		</Unit>
