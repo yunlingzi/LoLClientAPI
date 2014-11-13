@@ -60,7 +60,7 @@ ChampionArray_init (
 
 	// Put HeroClientInstance address in the pattern
 	int replacePos = str_n_pos(pattern, "____", sizeof(pattern));
-	memcpy(&pattern[replacePos], &heroClient->thisStaticPtr, 4);
+	memcpy(&pattern[replacePos], &heroClient->thisStatic, 4);
 
 	// Find a reference to ChampionArrayEnd
 	BbQueue *results = memscan_search (mp, "ChampionArrayEnd",
@@ -96,7 +96,7 @@ ChampionArray_init (
 
 		// Initialize champion array
 		for (DWORD cur = this->start, pos = 0; cur != this->end; cur += 4, pos++) {
-			this->champions[pos] = Unit_new (mp, read_memory_as_int(mp->proc, cur));
+			this->champions[pos] = Unit_new (mp, cur);
 			this->teammates[pos] = NULL;
 		}
 

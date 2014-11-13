@@ -43,11 +43,30 @@ Unit_init (
 	MemProc *mp,
 	DWORD pUnit
 ) {
-	read_from_memory (mp->proc, this, pUnit, sizeof(Unit));
+	DWORD pThis = read_memory_as_int(mp->proc, pUnit);
+	read_from_memory (mp->proc, this, pThis, sizeof(Unit));
 
-	this->pThis = pUnit;
+	this->pThis = pThis;
+	this->thisStatic = pUnit;
 
-	dbg ("Unit <%s> detected. (0x%08X)", this->summonerName, pUnit);
+	// Fix <address><Object> reference summoner name
+	if (strcmp(&this->summonerName[4], "Object") == 0) {
+		// Rare case when the summoner name is actually <sname{1...3}><\0><Object>
+		if (this->summonerName[0] != 0
+		 && this->summonerName[1] != 0
+		 && this->summonerName[2] != 0
+		 && this->summonerName[3] != 0) {
+			DWORD summonerNameAddress;
+			memcpy(&summonerNameAddress, this->summonerName, 4);
+			read_from_memory (mp->proc, this->summonerName, summonerNameAddress, sizeof(this->summonerName));
+		}
+	}
+
+	if (pThis) {
+		dbg ("Unit <%.16s> detected. (0x%08X)", this->summonerName, pUnit);
+	} else {
+		warning ("Unit <0x%08X> not found.", pUnit);
+	}
 
 	return true;
 }

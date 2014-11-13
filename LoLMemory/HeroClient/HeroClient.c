@@ -49,7 +49,7 @@ HeroClient_init (
 	);
 
 	if (!results) {
-		important ("HeroClientStr not found.");
+		fail ("HeroClientStr not found.");
 		return false;
 	}
 
@@ -119,16 +119,16 @@ HeroClient_init (
 
 		if (results && (heroClientInstance = bb_queue_pick_first(results))) {
 			// heroClientInstance has been found
-			DWORD pThis = read_memory_as_int (mp->proc, *((DWORD *) heroClientInstance->data));
+			DWORD thisStatic = *((DWORD *) heroClientInstance->data);
 
-			if (!pThis) {
+			Unit_init (this, mp, thisStatic);
+
+			if (!this->pThis) {
 				// We cannot conclude an error occurred because it is a normal behavior in spectator mode
 				warning ("pHeroClient not found. Are you in spectator mode ?");
 				return true;
 			}
 
-			Unit_init (this, mp, pThis);
-			memcpy(&this->thisStaticPtr, heroClientInstance->data, sizeof(DWORD));
 			dbg ("pHeroClient found : 0x%08X", this->pThis);
 
 			// We don't need results anymore

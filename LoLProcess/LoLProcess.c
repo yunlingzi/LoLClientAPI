@@ -58,13 +58,13 @@ LoLProcess_setState (
 	switch (state)
 	{
 		case STATE_READY:
-			dbg ("API State : READY!");
+			dbg ("====== API State : READY! ====== \n");
 		break;
 		case STATE_TESTING:
-			dbg ("API State : TESTING...");
+			dbg ("====== API State : TESTING... ====== \n");
 		break;
 		case STATE_INITIALIZING:
-			dbg ("API State : INITIALIZING...");
+			dbg ("====== API State : INITIALIZING... ====== \n");
 		break;
 	}
 

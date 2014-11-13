@@ -18,7 +18,7 @@ HudCursorTarget_test (
 	get_cursor_position (&cursorPosition.x, &cursorPosition.y);
 
 	if (!Position_in_map (&cursorPosition)) {
-		important ("Cursor position test failed : %f %f", cursorPosition.x, cursorPosition.y);
+		fail ("Cursor position test failed : %f %f", cursorPosition.x, cursorPosition.y);
 	}
 
 	return true;

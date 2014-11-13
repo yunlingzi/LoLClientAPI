@@ -76,7 +76,7 @@ typedef struct _Unit
 	int field_29;
 
 	DWORD pThis;
-	DWORD thisStaticPtr;
+	DWORD thisStatic;
 	int teammateId;
 
 }	Unit;

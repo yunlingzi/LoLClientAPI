@@ -19,7 +19,7 @@ HeroClient_test (
 	get_champion_position (&currentPosition.x, &currentPosition.y);
 
 	if (!Position_in_map (&currentPosition)) {
-		important ("Current position test failed : %f %f", currentPosition.x, currentPosition.y);
+		fail ("Current position test failed : %f %f", currentPosition.x, currentPosition.y);
 	}
 
 	/* Summoner name test */
@@ -30,7 +30,7 @@ HeroClient_test (
 		}
 
 		if (!(isalnum ((int) currentSummonerName[i]) || isspace((int) currentSummonerName[i]))) {
-			important ("Malformed summoner name : %s.", currentSummonerName);
+			fail ("Malformed summoner name : %s.", currentSummonerName);
 		}
 	}
 
@@ -40,12 +40,12 @@ HeroClient_test (
 
 	// 100000 HP seems to be big enough to be reported if the current/maximum HP is bigger
 	if (curHP < 0.0 || maxHP < 0.0 || curHP > 100000.0 || maxHP > 100000.0) {
-		important ("HP test failed : cur=%f max=%f", this->curHP, this->maxHP);
+		fail ("HP test failed : cur=%f max=%f", this->curHP, this->maxHP);
 	}
 
 	/* Team test */
 	if (get_champion_team () == TEAM_UNKNOWN) {
-		important ("Team test failed : 0x%x (%x)", this->team, &this->team);
+		fail ("Team test failed : 0x%x (%x)", this->team, &this->team);
 	}
 
 	return true;

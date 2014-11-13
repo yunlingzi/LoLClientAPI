@@ -15,22 +15,22 @@ ChampionArray_test (
 	ChampionArray *this
 ) {
 	if (this->end == 0 || this->start == 0) {
-		important ("ChampionArray boundaries is egal to zero, test failed.");
+		fail ("ChampionArray boundaries is egal to zero, test failed.");
 		return false;
 	}
 
 	if (this->end < this->start) {
-		important ("Wrong championArray boundaries, test failed.");
+		fail ("Wrong championArray boundaries, test failed.");
 		return false;
 	}
 
 	if (this->championsCount > 12) {
-		important ("The number of champions seems a bit weird : %d players.", this->championsCount);
+		fail ("The number of champions seems a bit weird : %d players.", this->championsCount);
 	}
 
 	for (int i = 0; i < this->championsCount; i++) {
 		if (! Unit_test(this->champions[i])) {
-			important ("Unit test Unit ID=%d failed.", i);
+			fail ("Unit test Unit ID=%d failed.", i);
 			return false;
 		}
 	}

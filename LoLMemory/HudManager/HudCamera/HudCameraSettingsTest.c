@@ -15,7 +15,7 @@ HudCameraSettings_test (
 	HudCameraSettings *this
 ) {
 	if (!(this->cameraActivated == 0 || this->cameraActivated == 1)) {
-		important ("Camera activated wrong status : %d\n", this->cameraActivated);
+		fail ("Camera activated wrong status : %d\n", this->cameraActivated);
 	}
 
 	return true;

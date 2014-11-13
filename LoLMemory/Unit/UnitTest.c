@@ -23,7 +23,7 @@ Unit_test (
 	get_champion_position (&currentPosition.x, &currentPosition.y);
 
 	if (!Position_in_map (&currentPosition)) {
-		important ("Current position test failed : %f %f", currentPosition.x, currentPosition.y);
+		fail ("Current position test failed : %f %f", currentPosition.x, currentPosition.y);
 	}
 	*/
 
@@ -36,7 +36,7 @@ Unit_test (
 		}
 
 		if (!(isalnum ((int) currentSummonerName[i]) || isspace((int) currentSummonerName[i]))) {
-			important ("Malformed summoner name : %s.", currentSummonerName);
+			fail ("Malformed summoner name : %s.", currentSummonerName);
 		}
 	}
 	*/

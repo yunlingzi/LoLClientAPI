@@ -18,7 +18,7 @@ GUIMinimap_test (
 	get_minimap_screen_position (&screenPosition.x, &screenPosition.y);
 
 	if (screenPosition.x == 0 && screenPosition.y == 0) {
-		important ("GUIMinimap position test failed : %f %f", screenPosition.x, screenPosition.y);
+		fail ("GUIMinimap position test failed : %f %f", screenPosition.x, screenPosition.y);
 	}
 
 	return true;
