@@ -87,8 +87,9 @@ LoLProcess_init (
 
 	// Open debug file, only for DLL (use stdout for executable version)
 	#ifndef API_EXECUTABLE
-	if ((this->debugOutput = file_open("C:/Users/Spl3en/Desktop/C/LoLClientAPI/bin/Debug/output.txt", "a+"))) {
-		dbg_set_output(this->debugOutput);
+	FILE *debugOutput = file_open ("C:/Users/Spl3en/Desktop/C/LoLClientAPI/DLL_Output.txt", "a+");
+	if (debugOutput) {
+		dbg_set_output (debugOutput);
 	}
 	#endif
 
@@ -148,6 +149,8 @@ LoLProcess_init (
 			// Success
 			return true;
 		}
+	} else {
+		fail ("League of Legends process not detected.");
 	}
 
 	return false;
