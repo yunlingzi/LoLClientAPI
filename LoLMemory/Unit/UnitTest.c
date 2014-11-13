@@ -15,20 +15,16 @@ Unit_test (
 	Unit *this
 ) {
 	/* Current position test */
-	// Position currentPosition;
+	Position currentPosition;
 
 	// TODO : Find a way to identify each Unit
-
-	/*
-	get_champion_position (&currentPosition.x, &currentPosition.y);
+	get_teammate_position (this->teammateId, &currentPosition.x, &currentPosition.y);
 
 	if (!Position_in_map (&currentPosition)) {
 		fail ("Current position test failed : %f %f", currentPosition.x, currentPosition.y);
 	}
-	*/
 
 	/* Unit name test */
-	/*
 	char * currentSummonerName = get_current_summoner_name ();
 	for (int i = 0; i < sizeof_struct_member(HeroClient, summonerName); i++) {
 		if (currentSummonerName[i] == 0) {
@@ -39,7 +35,6 @@ Unit_test (
 			fail ("Malformed summoner name : %s.", currentSummonerName);
 		}
 	}
-	*/
 
 	return true;
 }

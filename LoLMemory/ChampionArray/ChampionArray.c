@@ -44,6 +44,8 @@ ChampionArray_init (
 ) {
 	Buffer *championArrayEnd = NULL;
 
+	this->heroClient = heroClient;
+
 	unsigned char pattern[] =
 	/*	A1 8808CA03       mov eax, [dword ds:League_of_Legends.HeroClientInstance]
 		47                inc edi
@@ -102,6 +104,21 @@ ChampionArray_init (
 
 		// Count teammates later
 		this->teammatesCount = 0;
+
+		int teammateId = 0;
+		for (int curChampionIndex = 0; curChampionIndex < this->championsCount; curChampionIndex++)
+		{
+			Unit * champion = this->champions[curChampionIndex];
+
+			if (heroClient->pThis == 0 || (
+				(champion->pThis != heroClient->pThis)
+			&&  (champion->team  == heroClient->team))) {
+				// Champion-team and self-team is the same : They are teammates
+				this->teammates[teammateId] = champion;
+				this->teammatesCount++;
+				champion->teammateId = teammateId++;
+			}
+		}
 
 		return true;
 	}

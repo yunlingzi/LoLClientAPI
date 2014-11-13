@@ -24,6 +24,8 @@ typedef struct _ChampionArray
 	Unit **teammates;
 	int teammatesCount;
 
+	Unit *heroClient;
+
 }	ChampionArray;
 
 

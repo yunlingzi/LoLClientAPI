@@ -145,21 +145,6 @@ LoLProcess_init (
 				return false;
 			}
 
-			// Initialize teammates
-			int teammateId = 0;
-			for (int curChampionIndex = 0; curChampionIndex < this->championArray->championsCount; curChampionIndex++)
-			{
-				Unit * champion = this->championArray->champions[curChampionIndex];
-
-				if ((champion->pThis != this->heroClient->pThis)
-				&&  (champion->team  == this->heroClient->team)) {
-					// Champion-team and self-team is the same : They are teammates
-					this->championArray->teammates[teammateId] = champion;
-					this->championArray->teammatesCount++;
-					champion->teammateId = teammateId++;
-				}
-			}
-
 			// Success
 			return true;
 		}
