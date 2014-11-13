@@ -1,5 +1,5 @@
 #include "LoLProcess.h"
-#include "LoLClientAPI.h"
+#include "LoLServerAPI/LoLServerInterface.h"
 
 #define __DEBUG_OBJECT__ "LolProcessTest"
 #include "dbg/dbg.h"

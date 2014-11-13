@@ -1,5 +1,5 @@
 #include "NetAPIClient.h"
-#include "LoLClientAPI.h"
+#include "LoLServerAPI/LoLServerInterface.h"
 
 #define __DEBUG_OBJECT__ "NetAPIClientTest"
 #include "dbg/dbg.h"

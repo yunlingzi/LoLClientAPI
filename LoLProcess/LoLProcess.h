@@ -24,7 +24,7 @@
 	#define LoLProcess_get_addr(object, field) \
 		(void *) (&object->field); \
 		read_from_memory ( \
-			LoLClientAPI->process->proc, \
+			client->process->proc, \
 			&object->field, \
 			(DWORD) LoLProcess_get_remote_addr (object, field), \
 			sizeof(object->field) \

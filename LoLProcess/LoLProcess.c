@@ -1,5 +1,5 @@
 #include "LoLProcess.h"
-#include "LoLClientAPI.h"
+#include "LoLServerAPI/LoLServerInterface.h"
 #include <stdlib.h>
 #include <time.h>
 
@@ -27,15 +27,15 @@ LoLProcess_new (void)
 	}
 
 	// Initialization successful :
-	// Bind the current LoLProcess to the LoLClientAPI instance
-	set_LoLClientAPI (this);
+	// Bind the current LoLProcess to the LoLServerAPI instance
+	set_LoLProcess (this);
 	LoLProcess_setState (this, STATE_TESTING);
 
 	// Unit testing
 	if (!LoLProcess_test (this)) {
 		dbg ("Unit tests failed.");
 		LoLProcess_free (this);
-		set_LoLClientAPI (NULL);
+		set_LoLProcess (NULL);
 		return NULL;
 	}
 
@@ -87,7 +87,7 @@ LoLProcess_init (
 
 	// Open debug file, only for DLL (use stdout for executable version)
 	#ifndef API_EXECUTABLE
-	FILE *debugOutput = file_open ("C:/Users/Spl3en/Desktop/C/LoLClientAPI/DLL_Output.txt", "a+");
+	FILE *debugOutput = file_open ("C:/Users/Spl3en/Desktop/C/LoLServerAPI/DLL_Output.txt", "w+");
 	if (debugOutput) {
 		dbg_set_output (debugOutput);
 	}
@@ -165,8 +165,8 @@ LoLProcess_init (
 void
 LoLProcess_exportToCE (void)
 {
-	#ifdef DEBUG_ACTIVATED
-	LoLProcess *this = get_LoLClientAPI ();
+	#ifdef EXPORT_TO_CHEATENGINE
+	LoLProcess *this = get_LoLProcess ();
 
 	char * cheatEngineXmlFormat = file_get_contents("LCAPIFormat.ct");
 	if (!cheatEngineXmlFormat) {

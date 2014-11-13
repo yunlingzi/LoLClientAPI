@@ -1,5 +1,5 @@
 #include "HudCameraSettings.h"
-#include "LoLClientAPI.h"
+#include "LoLServerAPI/LoLServerInterface.h"
 
 #define __DEBUG_OBJECT__ "HudCameraSettingsTest"
 #include "dbg/dbg.h"

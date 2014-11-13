@@ -1,5 +1,5 @@
 #include "HeroClient.h"
-#include "LoLClientAPI.h"
+#include "LoLServerAPI/LoLServerInterface.h"
 
 #define __DEBUG_OBJECT__ "HeroClientTest"
 #include "dbg/dbg.h"
@@ -14,6 +14,11 @@ bool
 HeroClient_test (
 	HeroClient *this
 ) {
+	if (this->pThis == 0) {
+		warn ("HeroClient not detected. (Spectator mode ?)");
+		return true;
+	}
+
 	/* Current position test */
 	Position currentPosition;
 	get_champion_position (&currentPosition.x, &currentPosition.y);

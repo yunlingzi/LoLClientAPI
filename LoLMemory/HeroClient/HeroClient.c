@@ -125,7 +125,7 @@ HeroClient_init (
 
 			if (!this->pThis) {
 				// We cannot conclude an error occurred because it is a normal behavior in spectator mode
-				warning ("pHeroClient not found. Are you in spectator mode ?");
+				warn ("pHeroClient not found. Are you in spectator mode ?");
 				return true;
 			}
 

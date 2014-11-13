@@ -1,5 +1,5 @@
 #include "ChampionArray.h"
-#include "LoLClientAPI.h"
+#include "LoLServerAPI/LoLServerInterface.h"
 
 #define __DEBUG_OBJECT__ "ChampionArrayTest"
 #include "dbg/dbg.h"
@@ -29,7 +29,9 @@ ChampionArray_test (
 	}
 
 	for (int i = 0; i < this->championsCount; i++) {
-		if (! Unit_test(this->champions[i])) {
+		dbg ("Testing %.16s ...", this->champions[i]->summonerName);
+
+		if (! Unit_test (this->champions[i])) {
 			fail ("Unit test Unit ID=%d failed.", i);
 			return false;
 		}

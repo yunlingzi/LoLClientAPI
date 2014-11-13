@@ -65,7 +65,7 @@ Unit_init (
 	if (pThis) {
 		dbg ("Unit <%.16s> detected. (0x%08X)", this->summonerName, pUnit);
 	} else {
-		warning ("Unit <0x%08X> not found.", pUnit);
+		warn ("Unit <0x%08X> not found.", pUnit);
 	}
 
 	return true;

@@ -6,8 +6,8 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="DLLStandAlone">
-				<Option output="bin/Debug/LoLClientAPI" prefix_auto="1" extension_auto="1" />
+			<Target title="Standalone">
+				<Option output="LoLClientAPI_StandAlone" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="3" />
 				<Option compiler="gcc" />
@@ -35,8 +35,10 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-g" />
 					<Add option="-DAPI_EXECUTABLE" />
 					<Add option="-DDEBUG_ACTIVATED" />
+					<Add option="-DEXPORT_TO_CHEATENGINE" />
 				</Compiler>
 			</Target>
 			<Target title="DebugDLL">
@@ -48,6 +50,7 @@
 					<Add option="-g" />
 					<Add option="-DAPI_EXECUTABLE" />
 					<Add option="-DDEBUG_ACTIVATED" />
+					<Add option="-DEXPORT_TO_CHEATENGINE" />
 				</Compiler>
 			</Target>
 		</Build>
@@ -60,30 +63,25 @@
 		</Compiler>
 		<Linker>
 			<Add library="ntdll" />
+			<Add library="wsock32" />
 		</Linker>
 		<Unit filename="../BbQueue/BbQueue.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../BbQueue/BbQueue.h" />
-		<Unit filename="../MemProc/MemChunk.c">
+		<Unit filename="../Console/Console.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../MemProc/MemChunk.h" />
-		<Unit filename="../MemProc/MemProc.c">
+		<Unit filename="../Console/Console.h" />
+		<Unit filename="../EasySocket/EasySocket.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../MemProc/MemProc.h" />
-		<Unit filename="../Scanner/Scanner.c">
-			<Option compilerVar="CC" />
-		</Unit>
+		<Unit filename="../EasySocket/EasySocket.h" />
 		<Unit filename="../Scanner/Scanner.h" />
 		<Unit filename="../Utils/Utils.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../Utils/Utils.h" />
-		<Unit filename="../Win32Tools/Win32Tools.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="../Win32Tools/Win32Tools.h" />
 		<Unit filename="../Ztring/Ztring.c">
 			<Option compilerVar="CC" />
@@ -93,99 +91,21 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../dbg/dbg.h" />
-		<Unit filename="LoLClientAPI.c">
+		<Unit filename="LoLAPI/LoLAPIPacket.h" />
+		<Unit filename="LoLAPI/LoLAPIRequest.h" />
+		<Unit filename="LoLClientAPI/LoLClientAPI.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLClientAPI.h" />
-		<Unit filename="LoLMemory/ChampionArray/ChampionArray.c">
+		<Unit filename="LoLClientAPI/LoLClientAPI.h" />
+		<Unit filename="LoLClientAPI/LoLClientInterface.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLMemory/ChampionArray/ChampionArray.h" />
-		<Unit filename="LoLMemory/ChampionArray/ChampionArrayTest.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLMemory/GUIMenu/GUIMenu.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLMemory/GUIMenu/GUIMenu.h" />
-		<Unit filename="LoLMemory/GUIMenu/GUIMinimap/GUIMinimap.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLMemory/GUIMenu/GUIMinimap/GUIMinimap.h" />
-		<Unit filename="LoLMemory/GUIMenu/GUIMinimap/GUIMinimapTest.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLMemory/GUIMenu/GuiMenuTest.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLMemory/GameClock/GameClock.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLMemory/GameClock/GameClock.h" />
-		<Unit filename="LoLMemory/GameClock/GameClockTest.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLMemory/HeroClient/HeroClient.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLMemory/HeroClient/HeroClient.h" />
-		<Unit filename="LoLMemory/HeroClient/HeroClientTest.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLMemory/HudManager/HudCamera/HudCamera.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLMemory/HudManager/HudCamera/HudCamera.h" />
-		<Unit filename="LoLMemory/HudManager/HudCamera/HudCameraSettings.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLMemory/HudManager/HudCamera/HudCameraSettings.h" />
-		<Unit filename="LoLMemory/HudManager/HudCamera/HudCameraSettingsTest.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLMemory/HudManager/HudCamera/HudCameraTest.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLMemory/HudManager/HudCursorTarget/HudCursorTarget.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLMemory/HudManager/HudCursorTarget/HudCursorTarget.h" />
-		<Unit filename="LoLMemory/HudManager/HudCursorTarget/HudCursorTargetTest.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLMemory/HudManager/HudManager.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLMemory/HudManager/HudManager.h" />
-		<Unit filename="LoLMemory/HudManager/HudManagerTest.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLMemory/NetAPIClient/NetAPIClient.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLMemory/NetAPIClient/NetAPIClient.h" />
-		<Unit filename="LoLMemory/NetAPIClient/NetAPIClientTest.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLMemory/Unit/Unit.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLMemory/Unit/Unit.h" />
-		<Unit filename="LoLMemory/Unit/UnitTest.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLProcess/LoLProcess.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="LoLProcess/LoLProcess.h" />
-		<Unit filename="LoLProcess/LoLProcessTest.c">
-			<Option compilerVar="CC" />
-		</Unit>
+		<Unit filename="LoLClientAPI/LoLClientInterface.h" />
 		<Unit filename="Position/Position.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Position/Position.h" />
-		<Unit filename="main.c">
+		<Unit filename="mainClient.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>

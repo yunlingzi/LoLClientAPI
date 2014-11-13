@@ -1,5 +1,5 @@
 #include "GUIMenu.h"
-#include "LoLClientAPI.h"
+#include "LoLServerAPI/LoLServerInterface.h"
 
 #define __DEBUG_OBJECT__ "GUIMenuTest"
 #include "dbg/dbg.h"
