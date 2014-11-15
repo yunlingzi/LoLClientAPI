@@ -25,7 +25,7 @@ get_camera_position (
 	__out__ float * x,
 	__out__ float * y
 ) {
-	waitForAPI ();
+	wait_api ();
 
 	HudCamera * hudCamera      = client->hudManager->hudCamera;
 	Position  * cameraPosition = LoLProcess_get_addr (hudCamera, cameraPosition);
@@ -45,7 +45,7 @@ set_camera_position (
 	__in__ float x,
 	__in__ float y
 ) {
-	waitForAPI ();
+	wait_api ();
 
 	HudCamera * hudCamera      = client->hudManager->hudCamera;
 	Position  * cameraPosition = LoLProcess_get_addr (hudCamera, cameraPosition);
@@ -75,7 +75,7 @@ EXPORT_FUNCTION void
 set_camera_client_enabled (
 	__in__ bool enabled
 ) {
-	waitForAPI ();
+	wait_api ();
 
 	HudCameraSettings * hudCameraSettings = client->hudManager->hudCameraSettings;
 	int * cameraActivated = LoLProcess_get_addr (hudCameraSettings, cameraActivated);
@@ -104,7 +104,7 @@ get_camera_angle (
 	__out__ float * angleX,
 	__out__ float * angleY
 ) {
-	waitForAPI ();
+	wait_api ();
 
 	HudCamera * hudCamera = client->hudManager->hudCamera;
 	HudCameraAngle * hudCameraAngle = LoLProcess_get_addr (hudCamera, cameraAngle);
@@ -124,7 +124,7 @@ set_camera_angle (
 	__in__ float angleX,
 	__in__ float angleY
 ) {
-	waitForAPI ();
+	wait_api ();
 
 	HudCamera * hudCamera = client->hudManager->hudCamera;
 	HudCameraAngle * cameraAngle = LoLProcess_get_addr (hudCamera, cameraAngle);
@@ -152,7 +152,7 @@ EXPORT_FUNCTION float
 get_camera_zoom (
 	void
 ) {
-	waitForAPI ();
+	wait_api ();
 
 	HudCamera * hudCamera = client->hudManager->hudCamera;
 	HudCameraZoom * cameraZoom = LoLProcess_get_addr (hudCamera, cameraZoom);
@@ -169,7 +169,7 @@ EXPORT_FUNCTION void
 set_camera_zoom (
 	__in__ float zoomValue
 ) {
-	waitForAPI ();
+	wait_api ();
 
 	HudCamera * hudCamera = client->hudManager->hudCamera;
 	HudCameraZoom * cameraZoom = LoLProcess_get_addr (hudCamera, cameraZoom);
@@ -203,7 +203,7 @@ get_cursor_position (
 	__out__ float * x,
 	__out__ float * y
 ) {
-	waitForAPI ();
+	wait_api ();
 
 	HudCursorTarget * hudCursorTarget = client->hudManager->hudCursorTarget;
 	Position        * cursorPosition  = LoLProcess_get_addr (hudCursorTarget, posRaw);
@@ -241,7 +241,7 @@ get_destination_position (
 	__out__ float * x,
 	__out__ float * y
 ) {
-	waitForAPI ();
+	wait_api ();
 
 	HudCursorTarget * hudCursorTarget = client->hudManager->hudCursorTarget;
 	Position * rightClickPosition = LoLProcess_get_addr (hudCursorTarget, rightClickPosition);
@@ -363,7 +363,7 @@ get_champion_position (
 	__out__ float * x,
 	__out__ float * y
 ) {
-	waitForAPI ();
+	wait_api ();
 
 	HeroClient * currentChampion = client->heroClient;
 	Position * currentChampionPosition = LoLProcess_get_addr (currentChampion, currentPosition);
@@ -383,7 +383,7 @@ get_champion_hp (
 	__out__ float * currentHP,
 	__out__ float * maximumHP
 ) {
-	waitForAPI ();
+	wait_api ();
 
 	HeroClient * currentChampion = client->heroClient;
 	float *currentChampionCurrentHP = (float *) LoLProcess_get_addr (currentChampion, curHP);
@@ -402,7 +402,7 @@ EXPORT_FUNCTION int
 get_champion_team (
 	void
 ) {
-	waitForAPI ();
+	wait_api ();
 
 	HeroClient * currentChampion = client->heroClient;
 	int *currentChampionTeam = LoLProcess_get_addr (currentChampion, team);
@@ -428,7 +428,7 @@ EXPORT_FUNCTION int
 get_teammates_count (
 	void
 ) {
-	waitForAPI ();
+	wait_api ();
 
 	ChampionArray * champArray = client->championArray;
 
@@ -445,7 +445,7 @@ EXPORT_FUNCTION bool
 check_teammate_id (
 	__in__  int teammateId
 ) {
-	waitForAPI ();
+	wait_api ();
 
 	ChampionArray * champArray = client->championArray;
 
@@ -471,7 +471,7 @@ get_teammate_position (
 	__out__ float * x,
 	__out__ float * y
 ) {
-	waitForAPI ();
+	wait_api ();
 
 	if (!check_teammate_id (teammateId)) {
 		return;
@@ -497,7 +497,7 @@ get_teammate_hp (
 	__out__ float * currentHP,
 	__out__ float * maximumHP
 ) {
-	waitForAPI ();
+	wait_api ();
 
 	if (!check_teammate_id (teammateId)) {
 		return;
@@ -516,23 +516,24 @@ get_teammate_hp (
 /*
  * Description : Retrieve teammate summoner name.
  * __in__  int teammateId : The target teammate ID
- * Return char * : A sequence of bytes containing the summoner name of the
- *                 target teammate (16 bytes maximum)
+ * __in__ char * summonerName : A sequence of bytes containing the summoner name of the
+ *                              target teammate (16 bytes maximum)
  */
-EXPORT_FUNCTION char *
+EXPORT_FUNCTION void
 get_teammate_summoner_name (
-	__in__  int teammateId
+	__in__  int teammateId,
+	__in__ char * summonerName
 ) {
-	waitForAPI ();
+	wait_api ();
 
 	if (!check_teammate_id (teammateId)) {
-		return NULL;
+		return;
 	}
 
 	Unit * teammate = client->championArray->teammates[teammateId];
 	char * teammateSummonerName = (char *) LoLProcess_get_addr (teammate, summonerName);
 
-	return teammateSummonerName;
+	memcpy (summonerName, teammateSummonerName, 16);
 }
 
 
@@ -550,7 +551,7 @@ get_minimap_screen_position (
 	__out__ int * x,
 	__out__ int * y
 ) {
-	waitForAPI ();
+	wait_api ();
 
 	GUIMinimap * guiMinimap = client->guiMenu->guiMinimap;
 	Position2D * minimapScreenPosition = LoLProcess_get_addr (guiMinimap, screenPosition);
@@ -590,18 +591,19 @@ is_cursor_hovering_minimap (
 
 /*
  * Description : Retrieve the current summoner name
- * Return : char * The summoner name
+ * __in__ char * summonerName : A sequence of bytes containing the summoner name of the
+ *                              target teammate (16 bytes maximum)
  */
-EXPORT_FUNCTION char *
+EXPORT_FUNCTION void
 get_current_summoner_name (
-	void
+	__in__ char * summonerName
 ) {
-	waitForAPI ();
+	wait_api ();
 
 	HeroClient * currentChampion = client->heroClient;
 	char * currentSummonerName = LoLProcess_get_addr (currentChampion, summonerName);
 
-	return currentSummonerName;
+	memcpy (summonerName, currentSummonerName, 16);
 }
 
 
@@ -618,7 +620,7 @@ EXPORT_FUNCTION float
 get_game_time (
 	void
 ) {
-	waitForAPI ();
+	wait_api ();
 
 	GameClock * gameClock = client->gameClock;
 	float *currentTimeSeconds = LoLProcess_get_addr (gameClock, gameTimeSeconds);
@@ -628,7 +630,7 @@ get_game_time (
 
 
 /** =======================================================================================
- ** ================================== client APIs ==================================
+ ** ==================================== Internal APIs ====================================
  ** ======================================================================================= **/
 
 
@@ -651,12 +653,12 @@ check_api (
  * Return : void
  */
 EXPORT_FUNCTION void
-waitForAPI (
+wait_api (
 	void
 ) {
 	while (!check_api ()) {
 		dbg ("client is injecting LoLProcess. Please wait...");
-		Sleep (1000);
+		Sleep (100);
 	}
 }
 

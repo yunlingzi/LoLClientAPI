@@ -5,6 +5,7 @@
 #include "Utils/Utils.h"
 #include "EasySocket/EasySocket.h"
 #include "LoLAPI/LoLAPI.h"
+#include "LoLAPI/LoLAPIPacket.h"
 
 // ---------- Defines -------------
 
@@ -14,6 +15,7 @@ typedef struct _LoLClientAPI
 {
 	EasySocket * clientSocket;
 	bool closed;
+	bool ready;
 
 }	LoLClientAPI;
 
@@ -47,6 +49,20 @@ LoLClientAPI_init (
 bool
 LoLClientAPI_test (
 	LoLClientAPI *this
+);
+
+/*
+ * Description : Send to the LoLServerAPI a given request
+ * LoLClientAPI *this : An allocated LoLClientAPI
+ * LoLAPIPacket *packet : A packet to send
+ * int packetSize : The size of the packet
+ * Return : bool true on success, false otherwise
+ */
+bool
+LoLClientAPI_send (
+	LoLClientAPI *this,
+	LoLAPIPacket *packet,
+	int packetSize
 );
 
 // --------- Destructors ----------

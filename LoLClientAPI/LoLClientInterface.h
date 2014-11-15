@@ -328,9 +328,17 @@ get_game_time (
  ** ================================================================================= **/
 
 /*
- * Description : Set a new client api
+ * Description : Set a new client api and initialize it to a ready state
  */
 void
-set_api (
+set_api_ready (
 	LoLClientAPI * clientAPI
+);
+
+/*
+ * Description : Wait for the API to be in a ready state
+ */
+void
+check_api (
+	void
 );

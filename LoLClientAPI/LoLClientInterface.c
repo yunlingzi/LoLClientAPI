@@ -22,22 +22,16 @@ get_camera_position (
 	__out__ float * x,
 	__out__ float * y
 ) {
-	PositionPacket packet;
-	int packetSize;
-	LoLAPIRequest request = REQUEST_GET_CAMERA_POSITION;
+	check_api ();
 
-	es_send (api->clientSocket, &request, sizeof(request));
-	unsigned char * answer = es_recv (api->clientSocket, &packetSize);
+	LoLAPIPacket packet = {
+		.request = REQUEST_GET_CAMERA_POSITION
+	};
 
-	if (packetSize != sizeof(packet)) {
-		warn ("%s: Malformed packet received.", __FUNCTION__);
-		return;
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		*x = packet.gamePositionPacket.pos.x;
+		*y = packet.gamePositionPacket.pos.y;
 	}
-
-	memcpy (&packet, answer, packetSize);
-
-	*x = packet.position.x;
-	*y = packet.position.y;
 }
 
 
@@ -51,6 +45,15 @@ set_camera_position (
 	__in__ float x,
 	__in__ float y
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_SET_CAMERA_POSITION,
+		.gamePositionPacket.pos.x = x,
+		.gamePositionPacket.pos.y = y
+	};
+
+	LoLClientAPI_send (api, &packet, sizeof(packet));
 }
 
 
@@ -64,6 +67,14 @@ EXPORT_FUNCTION void
 set_camera_client_enabled (
 	__in__ bool enabled
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_SET_CAMERA_CLIENT_ENABLED,
+		.booleanPacket.value = enabled
+	};
+
+	LoLClientAPI_send (api, &packet, sizeof(packet));
 }
 
 
@@ -77,6 +88,16 @@ get_camera_angle (
 	__out__ float * angleX,
 	__out__ float * angleY
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_GET_CAMERA_ANGLE
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		*angleX = packet.anglePacket.x;
+		*angleY = packet.anglePacket.y;
+	}
 }
 
 
@@ -90,6 +111,15 @@ set_camera_angle (
 	__in__ float angleX,
 	__in__ float angleY
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_SET_CAMERA_ANGLE,
+		.anglePacket.x = angleX,
+		.anglePacket.y = angleY
+	};
+
+	LoLClientAPI_send (api, &packet, sizeof(packet));
 }
 
 
@@ -101,6 +131,15 @@ EXPORT_FUNCTION float
 get_camera_zoom (
 	void
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_GET_CAMERA_ZOOM
+	};
+
+	LoLClientAPI_send (api, &packet, sizeof(packet));
+
+	return packet.floatPacket.value;
 }
 
 
@@ -112,6 +151,14 @@ EXPORT_FUNCTION void
 set_camera_zoom (
 	__in__ float zoomValue
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_SET_CAMERA_ZOOM,
+		.floatPacket.value = zoomValue
+	};
+
+	LoLClientAPI_send (api, &packet, sizeof(packet));
 }
 
 
@@ -130,6 +177,16 @@ get_cursor_position (
 	__out__ float * x,
 	__out__ float * y
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_GET_CURSOR_POSITION
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		*x = packet.gamePositionPacket.pos.x;
+		*y = packet.gamePositionPacket.pos.y;
+	}
 }
 
 
@@ -143,6 +200,16 @@ get_cursor_screen_position (
 	__out__ int * x,
 	__out__ int * y
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_GET_CURSOR_SCREEN_POSITION
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		*x = packet.gamePositionPacket.pos.x;
+		*y = packet.gamePositionPacket.pos.y;
+	}
 }
 
 
@@ -156,6 +223,16 @@ get_destination_position (
 	__out__ float * x,
 	__out__ float * y
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_GET_DESTINATION_POSITION
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		*x = packet.gamePositionPacket.pos.x;
+		*y = packet.gamePositionPacket.pos.y;
+	}
 }
 
 
@@ -167,6 +244,17 @@ EXPORT_FUNCTION bool
 is_left_mouse_button_pressed (
 	void
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_IS_LEFT_MOUSE_BUTTON_PRESSED
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		return packet.booleanPacket.value;
+	}
+
+	return false;
 }
 
 
@@ -178,6 +266,17 @@ EXPORT_FUNCTION bool
 is_left_mouse_button_click (
 	void
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_IS_LEFT_MOUSE_BUTTON_CLICK
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		return packet.booleanPacket.value;
+	}
+
+	return false;
 }
 
 
@@ -189,6 +288,17 @@ EXPORT_FUNCTION bool
 is_right_mouse_button_pressed (
 	void
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_IS_RIGHT_MOUSE_BUTTON_PRESSED
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		return packet.booleanPacket.value;
+	}
+
+	return false;
 }
 
 
@@ -200,6 +310,17 @@ EXPORT_FUNCTION bool
 is_right_mouse_button_click (
 	void
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_IS_RIGHT_MOUSE_BUTTON_CLICK
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		return packet.booleanPacket.value;
+	}
+
+	return false;
 }
 
 
@@ -216,6 +337,17 @@ EXPORT_FUNCTION bool
 is_space_pressed (
 	void
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_IS_SPACE_PRESSED
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		return packet.booleanPacket.value;
+	}
+
+	return false;
 }
 
 
@@ -236,6 +368,16 @@ get_champion_position (
 	__out__ float * x,
 	__out__ float * y
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_GET_CHAMPION_POSITION
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		*x = packet.gamePositionPacket.pos.x;
+		*y = packet.gamePositionPacket.pos.y;
+	}
 }
 
 
@@ -249,6 +391,16 @@ get_champion_hp (
 	__out__ float * currentHP,
 	__out__ float * maximumHP
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_GET_CHAMPION_HP
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		*currentHP = packet.hpPacket.curHP;
+		*maximumHP = packet.hpPacket.maxHP;
+	}
 }
 
 
@@ -260,6 +412,17 @@ EXPORT_FUNCTION int
 get_champion_team (
 	void
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_GET_CHAMPION_TEAM
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		return packet.intPacket.value;
+	}
+
+	return -1;
 }
 
 // === TeamMates ===
@@ -272,6 +435,17 @@ EXPORT_FUNCTION int
 get_teammates_count (
 	void
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_GET_TEAMMATES_COUNT
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		return packet.intPacket.value;
+	}
+
+	return -1;
 }
 
 
@@ -284,6 +458,17 @@ EXPORT_FUNCTION bool
 check_teammate_id (
 	__in__  int teammateId
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_CHECK_TEAMMATE_ID
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		return packet.booleanPacket.value;
+	}
+
+	return false;
 }
 
 
@@ -299,6 +484,17 @@ get_teammate_position (
 	__out__ float * x,
 	__out__ float * y
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_GET_TEAMMATE_POSITION,
+		.teammateId = teammateId
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		*x = packet.gamePositionPacket.pos.x;
+		*y = packet.gamePositionPacket.pos.y;
+	}
 }
 
 
@@ -314,6 +510,17 @@ get_teammate_hp (
 	__out__ float * currentHP,
 	__out__ float * maximumHP
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_GET_TEAMMATE_HP,
+		.teammateId = teammateId
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		*currentHP = packet.hpPacket.curHP;
+		*maximumHP = packet.hpPacket.maxHP;
+	}
 }
 
 
@@ -327,6 +534,18 @@ EXPORT_FUNCTION char *
 get_teammate_summoner_name (
 	__in__  int teammateId
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_GET_TEAMMATE_SUMMONER_NAME,
+		.teammateId = teammateId
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		return strdup (packet.stringPacket.str);
+	}
+
+	return NULL;
 }
 
 
@@ -344,6 +563,16 @@ get_minimap_screen_position (
 	__out__ int * x,
 	__out__ int * y
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_GET_MINIMAP_SCREEN_POSITION
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		*x = packet.screenPositionPacket.x;
+		*y = packet.screenPositionPacket.y;
+	}
 }
 
 
@@ -355,9 +584,18 @@ EXPORT_FUNCTION bool
 is_cursor_hovering_minimap (
 	void
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_IS_CURSOR_HOVERING_MINIMAP
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		return packet.booleanPacket.value;
+	}
+
+	return false;
 }
-
-
 
 
 /** =======================================================================================
@@ -373,6 +611,17 @@ EXPORT_FUNCTION char *
 get_current_summoner_name (
 	void
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_GET_CURRENT_SUMMONER_NAME
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		return strdup (packet.stringPacket.str);
+	}
+
+	return NULL;
 }
 
 
@@ -389,6 +638,17 @@ EXPORT_FUNCTION float
 get_game_time (
 	void
 ) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_GET_GAME_TIME
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		return packet.floatPacket.value;
+	}
+
+	return -1.0;
 }
 
 
@@ -398,11 +658,24 @@ get_game_time (
  ** ================================================================================= **/
 
 /*
- * Description : Set a new client api
+ * Description : Wait for the API to be in a ready state
  */
 void
-set_api (
+check_api (
+	void
+) {
+	while (!(api != NULL && api->ready == true)) {
+		Sleep (10);
+	}
+}
+
+/*
+ * Description : Set a new client api and initialize it to a ready state
+ */
+void
+set_api_ready (
 	LoLClientAPI * clientAPI
 ) {
 	api = clientAPI;
+	api->ready = true;
 }

@@ -48,7 +48,6 @@ class LoLClientAPI:
 		# void set_camera_client_enabled (
 		# 	__in__ bool enabled
 		# )
-		
 		self.hAPI.set_camera_client_enabled (c_bool(enabled));
 
 	# Get the current camera angle in degrees

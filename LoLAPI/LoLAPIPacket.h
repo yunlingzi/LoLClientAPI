@@ -3,16 +3,22 @@
 
 // ---------- Includes ------------
 #include "Position/Position.h"
+#include "LoLAPIRequest.h"
+
 
 // ---------- Defines -------------
 
 
 // ------ Structure declaration -------
+typedef struct _GamePositionPacket{
+	Position pos;
 
-typedef struct _PositionPacket{
-	Position position;
+}	GamePositionPacket;
 
-}	PositionPacket;
+typedef struct _ScreenPositionPacket
+{
+	int x, y;
+}	ScreenPositionPacket;
 
 typedef struct _AnglePacket{
 	float y;
@@ -45,6 +51,26 @@ typedef struct _HpPacket
 }	HpPacket;
 
 typedef struct _BooleanPacket{
-	bool boolean;
+	bool value;
 
 }	BooleanPacket;
+
+
+typedef struct _LoLAPIPacket
+{
+	LoLAPIRequest request;
+
+	union {
+		GamePositionPacket gamePositionPacket;
+		ScreenPositionPacket screenPositionPacket;
+		AnglePacket anglePacket;
+		FloatPacket floatPacket;
+		IntPacket intPacket;
+		StringPacket stringPacket;
+		HpPacket hpPacket;
+		BooleanPacket booleanPacket;
+	};
+
+	int teammateId;
+
+}	LoLAPIPacket;

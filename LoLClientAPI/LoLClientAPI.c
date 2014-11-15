@@ -23,9 +23,56 @@ LoLClientAPI_new (void)
 		return NULL;
 	}
 
-	set_api (this);
-
 	return this;
+}
+
+
+/*
+ * Description : Send to the LoLServerAPI a given request
+ * LoLClientAPI *this : An allocated LoLClientAPI
+ * LoLAPIPacket *packet : A packet to send
+ * int packetSize : The size of the packet
+ * Return : bool true on success, false otherwise
+ */
+bool
+LoLClientAPI_send (
+	LoLClientAPI *this,
+	LoLAPIPacket *packet,
+	int packetSize
+) {
+	LoLAPIRequest originalRequest = packet->request;
+
+	if (!LoLAPIRequest_is_valid (originalRequest)) {
+		warn ("Request sent to APIServer isn't valid : %d", originalRequest);
+		return false;
+	}
+
+	es_send (this->clientSocket, packet, packetSize);
+
+	if (!es_recv_buffer (this->clientSocket, packet, packetSize)) {
+		warn ("%s: Malformed packet received.", __FUNCTION__);
+		return false;
+	}
+
+	if (packet->request == REQUEST_FAIL) {
+		warn ("Request failed (REQUEST_FAIL received).");
+		return false;
+	}
+
+	if (!LoLAPIRequest_is_valid (packet->request)) {
+		warn ("Request received from the APIServer isn't valid : %d", packet->request);
+		return false;
+	}
+
+	// Check if the received answer type is the same than the requested one
+	if (packet->request != originalRequest) {
+		warn ("%s : Received a wrong request. (client = %s / server = %s)", __FUNCTION__,
+			LoLAPIRequest_to_string (originalRequest),
+			LoLAPIRequest_to_string (packet->request)
+		);
+	}
+
+	return true;
 }
 
 
@@ -47,14 +94,14 @@ LoLClientAPI_init (
 		warn ("LoLServerAPI not found.");
 		return false;
 	}
-	this->closed = true;
+	this->closed = false;
 
 	// Receive status
 	int answerSize;
 	unsigned char * answer = es_recv (this->clientSocket, &answerSize);
 
 	if (answerSize <= 0 || strcmp (answer, LOLAPI_STATUS_READY)) {
-		warn ("Malformed LoLAPIServer response.");
+		warn ("Malformed LoLAPIServer status response.");
 		return false;
 	}
 

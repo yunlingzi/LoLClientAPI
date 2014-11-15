@@ -252,12 +252,13 @@ get_teammate_hp (
 /*
  * Description : Retrieve teammate summoner name.
  * __in__  int teammateId : The target teammate ID
- * Return char * : A sequence of bytes containing the summoner name of the
- *                 target teammate (16 bytes maximum)
+ * __in__ char * summonerName : A sequence of bytes containing the summoner name of the
+ *                              target teammate (16 bytes maximum)
  */
-char *
+void
 get_teammate_summoner_name (
-	__in__  int teammateId
+	__in__  int teammateId,
+	__in__ char * summonerName
 );
 
 /*
@@ -304,10 +305,12 @@ is_cursor_hovering_minimap (
 /*
  * Description : Retrieve the current summoner name
  * Return : char * The summoner name
+ * __in__ char * summonerName : A sequence of bytes containing the summoner name of the
+ *                              target teammate (16 bytes maximum)
  */
-char *
+void
 get_current_summoner_name (
-	void
+	__in__ char * summonerName
 );
 
 
@@ -343,7 +346,7 @@ check_api (
  * Return : void
  */
 void
-waitForAPI (
+wait_api (
 	void
 );
 

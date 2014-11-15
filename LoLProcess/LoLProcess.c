@@ -87,7 +87,7 @@ LoLProcess_init (
 
 	// Open debug file, only for DLL (use stdout for executable version)
 	#ifndef API_EXECUTABLE
-	FILE *debugOutput = file_open ("C:/Users/Spl3en/Desktop/C/LoLServerAPI/DLL_Output.txt", "w+");
+	FILE *debugOutput = file_open ("C:/Users/Spl3en/Desktop/C/LoLClientAPI/DLL_Output.txt", "w+");
 	if (debugOutput) {
 		dbg_set_output (debugOutput);
 	}

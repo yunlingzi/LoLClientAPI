@@ -15,10 +15,13 @@ typedef enum _LoLAPIRequest
 	REQUEST_GET_CAMERA_POSITION,
 	REQUEST_SET_CAMERA_POSITION,
 	REQUEST_SET_CAMERA_CLIENT_ENABLED,
+	REQUEST_GET_CAMERA_ANGLE,
 	REQUEST_SET_CAMERA_ANGLE,
+	REQUEST_GET_CAMERA_ZOOM,
 	REQUEST_SET_CAMERA_ZOOM,
 
 	// Cursor APIs
+	REQUEST_GET_CURSOR_POSITION,
 	REQUEST_GET_CURSOR_SCREEN_POSITION,
 	REQUEST_GET_DESTINATION_POSITION,
 	REQUEST_IS_LEFT_MOUSE_BUTTON_PRESSED,
@@ -51,5 +54,31 @@ typedef enum _LoLAPIRequest
 	// Game APIs
 	REQUEST_GET_GAME_TIME,
 
+
+	// Error status
+	REQUEST_FAIL,
+
+	REQUEST_API_COUNT
+
 } 	LoLAPIRequest;
 
+
+/*
+ * Description : Convert a LoLAPIRequest to string
+ * LoLAPIRequest request : The LoLApiRequest to convert
+ * Return : char * the string
+ */
+char *
+LoLAPIRequest_to_string (
+	LoLAPIRequest request
+);
+
+/*
+ * Description : Check if a LoLAPIRequest is valid
+ * LoLAPIRequest *this : An allocated LoLAPIRequest
+ * Return : bool true on success, false otherwise
+ */
+bool
+LoLAPIRequest_is_valid (
+	LoLAPIRequest request
+);

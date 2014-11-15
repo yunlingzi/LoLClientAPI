@@ -106,6 +106,9 @@
 		<Unit filename="../dbg/dbg.h" />
 		<Unit filename="LoLAPI/LoLAPI.h" />
 		<Unit filename="LoLAPI/LoLAPIPacket.h" />
+		<Unit filename="LoLAPI/LoLAPIRequest.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="LoLAPI/LoLAPIRequest.h" />
 		<Unit filename="LoLMemory/ChampionArray/ChampionArray.c">
 			<Option compilerVar="CC" />

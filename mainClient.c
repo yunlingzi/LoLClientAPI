@@ -1,5 +1,6 @@
 #include "LoLProcess/LoLProcess.h"
 #include "LoLClientAPI/LoLClientAPI.h"
+#include "LoLClientAPI/LoLClientInterface.h"
 
 #define __DEBUG_OBJECT__ "LoLServerAPI::EntryPoint"
 #include "dbg/dbg.h"
@@ -16,9 +17,7 @@ void startClient (void)
 {
 	connection = LoLClientAPI_new ();
 
-	float x, y;
-	get_camera_position (&x, &y);
-	printf("Camera position = %f / %f\n", x, y);
+	set_api_ready (connection);
 }
 
 
