@@ -2,7 +2,7 @@
 #include "LoLClientAPI/LoLClientAPI.h"
 #include "LoLClientAPI/LoLClientInterface.h"
 
-#define __DEBUG_OBJECT__ "LoLServerAPI::EntryPoint"
+#define __DEBUG_OBJECT__ "EntryPoint"
 #include "dbg/dbg.h"
 
 
@@ -15,7 +15,15 @@ LoLClientAPI * connection = NULL;
  */
 void startClient (void)
 {
-	connection = LoLClientAPI_new ();
+	while (connection == NULL) {
+		connection = LoLClientAPI_new ();
+		if (connection == NULL) {
+			dbg ("LoLServerAPI is not ready yet ? Retrying to connect to LoLServerAPI in 3 seconds...");
+			Sleep (3000);
+		}
+	}
+
+	dbg ("LoLServerAPI found ! Continue...");
 
 	set_api_ready (connection);
 }

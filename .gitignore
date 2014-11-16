@@ -10,3 +10,4 @@ inject.bat
 *.zip
 *.exe
 *.txt
+Release/

@@ -31,7 +31,7 @@ HeroClient_test (
 	char currentSummonerName[16];
 
 	get_current_summoner_name (currentSummonerName);
-	for (int i = 0; i < sizeof_struct_member(HeroClient, summonerName); i++) {
+	for (unsigned int i = 0; i < sizeof_struct_member(HeroClient, summonerName); i++) {
 		if (currentSummonerName[i] == 0) {
 			break; // End of string reached
 		}

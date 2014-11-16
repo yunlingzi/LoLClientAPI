@@ -237,9 +237,13 @@ void
 LoLServerAPI_free (
 	LoLServerAPI *this
 ) {
-	if (this != NULL) {
+	if (this != NULL)
+	{
 		LoLProcess_free (get_LoLProcess ());
 		es_close (this->serverSocket);
+
+		Sleep (1000);
+
 		free (this);
 	}
 }
