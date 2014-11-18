@@ -161,6 +161,14 @@
 		<Unit filename="LoLMemory/HudManager/HudManagerTest.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="LoLMemory/MaestroGameController/MaestroGameController.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="LoLMemory/MaestroGameController/MaestroGameController.h" />
+		<Unit filename="LoLMemory/MaestroGameController/MaestroMessageAgent/MaestroMessageAgent.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="LoLMemory/MaestroGameController/MaestroMessageAgent/MaestroMessageAgent.h" />
 		<Unit filename="LoLMemory/NetAPIClient/NetAPIClient.c">
 			<Option compilerVar="CC" />
 		</Unit>

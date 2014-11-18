@@ -240,7 +240,10 @@ LoLServerAPI_free (
 	if (this != NULL)
 	{
 		LoLProcess_free (get_LoLProcess ());
-		es_close (this->serverSocket);
+
+		if (this->serverSocket) {
+			es_close (this->serverSocket);
+		}
 
 		Sleep (1000);
 

@@ -72,6 +72,15 @@ LoLProcess_setState (
 	this->state = state;
 }
 
+bool
+LoLProcess_get_maestro_module (
+	LoLProcess *this
+) {
+	MODULE_INFORMATION_TABLE * moduleTable = QueryModuleInformationProcess ();
+
+	return true;
+}
+
 
 /*
  * Description :	Initialize an allocated LoLProcess structure.
@@ -108,9 +117,12 @@ LoLProcess_init (
 		{
 			dbg ("LoL Process base address : 0x%08X", this->process->base_addr);
 
-			// Get a copy of the current client memory
+			// Get a copy of the current client memory - base module only
 			dbg ("Dumping process PID = %d...", this->process->pid);
 			memproc_dump_sections (this->process, this->process->base_addr + 0x1000, 2);
+
+			// Get a Maestro module copy
+			LoLProcess_get_maestro_module (this);
 
 			// Initialize the Hud Manager
 			if (!(this->hudManager = HudManager_new (this->process))) {

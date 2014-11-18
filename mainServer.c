@@ -1,7 +1,7 @@
 #include "LoLProcess/LoLProcess.h"
 #include "LoLServerAPI/LoLServerAPI.h"
 
-#define __DEBUG_OBJECT__ "LoLServerAPI::EntryPoint"
+#define __DEBUG_OBJECT__ "EntryPoint"
 #include "dbg/dbg.h"
 
 // Connection with the client
@@ -24,8 +24,7 @@ void startInjection (void)
 	LoLProcess_exportToCE ();
 
 	// Instanciate and listen for a connection
-	connection = LoLServerAPI_new ();
-	if (!connection) {
+	if ((connection = LoLServerAPI_new ()) == NULL) {
 		warn ("API server connection error.");
 		return;
 	}

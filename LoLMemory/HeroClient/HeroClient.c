@@ -92,6 +92,7 @@ HeroClient_init (
 		// Find a reference to HudManagerAddress
 		results = memscan_search (mp, "HeroClientInstance",
 			pattern,
+
 			"?????"
 			"??"
 			"??"
@@ -119,20 +120,18 @@ HeroClient_init (
 
 		if (results && (heroClientInstance = bb_queue_pick_first(results))) {
 			// heroClientInstance has been found
-			DWORD thisStatic = *((DWORD *) heroClientInstance->data);
+			Unit_init (this, mp, *((DWORD *) heroClientInstance->data));
 
-			Unit_init (this, mp, thisStatic);
+			// We don't need results anymore
+			bb_queue_free_all (results, buffer_free);
 
 			if (!this->pThis) {
 				// We cannot conclude an error occurred because it is a normal behavior in spectator mode
 				warn ("pHeroClient not found. Are you in spectator mode ?");
-				return true;
 			}
-
-			dbg ("pHeroClient found : 0x%08X", this->pThis);
-
-			// We don't need results anymore
-			bb_queue_free_all (results, buffer_free);
+			else {
+				dbg ("pHeroClient found : 0x%08X", this->pThis);
+			}
 
 			return true;
 		}
