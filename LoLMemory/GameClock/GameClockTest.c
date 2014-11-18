@@ -14,6 +14,12 @@ bool
 GameClock_test (
 	GameClock *this
 ) {
+	float gameTime = get_game_time ();
+
+	if (gameTime <= 0.0 || gameTime >= 3600.0 * 3) {
+		// 3 hours should be enough...
+		return false;
+	}
 
 	return true;
 }
