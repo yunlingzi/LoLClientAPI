@@ -34,13 +34,13 @@ set_camera_position (
 );
 
 /*
- * Description : Toggle built-in client camera movements
+ * Description : Toggle the built-in client camera movements
  *               For instance, camera movements when the cursor is on the border of the screen
  * __in__ bool enabled : If true, the camera client movements are enabled
  * Return : void
  */
 void
-set_camera_client_enabled (
+set_default_camera_enabled (
 	__in__ bool enabled
 );
 
@@ -328,10 +328,19 @@ get_game_time (
  ** ================================================================================= **/
 
 /*
+ * Description : Eject the API from the LoL process
+ * Return : true on success, false on failure
+ */
+bool
+eject_api (
+	void
+);
+
+/*
  * Description : Get the last error returned by the API.
  * Returns : An error code based on the last error received
  */
-EXPORT_FUNCTION int
+int
 get_last_error (
 	void
 );

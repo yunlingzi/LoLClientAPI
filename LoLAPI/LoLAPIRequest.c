@@ -14,7 +14,7 @@ struct LoLAPIRequestStringAssociation {
 	#define associate(x) [x] = {x, STRINGIFY(x)}
 	associate (REQUEST_GET_CAMERA_POSITION),
 	associate (REQUEST_SET_CAMERA_POSITION),
-	associate (REQUEST_SET_CAMERA_CLIENT_ENABLED),
+	associate (REQUEST_SET_DEFAULT_CAMERA_ENABLED),
 	associate (REQUEST_GET_CAMERA_ANGLE),
 	associate (REQUEST_SET_CAMERA_ANGLE),
 	associate (REQUEST_GET_CAMERA_ZOOM),
@@ -53,6 +53,9 @@ struct LoLAPIRequestStringAssociation {
 
 	// Game APIs
 	associate (REQUEST_GET_GAME_TIME),
+
+	// Internal APIs
+	associate (REQUEST_EJECT_API),
 
 	// Error status
 	associate (REQUEST_FAIL)

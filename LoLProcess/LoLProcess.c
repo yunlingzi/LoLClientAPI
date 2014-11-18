@@ -76,7 +76,7 @@ bool
 LoLProcess_get_maestro_module (
 	LoLProcess *this
 ) {
-	MODULE_INFORMATION_TABLE * moduleTable = QueryModuleInformationProcess ();
+	// MODULE_INFORMATION_TABLE * moduleTable = QueryModuleInformationProcess ();
 
 	return true;
 }
@@ -236,6 +236,13 @@ LoLProcess_free (
 	if (this != NULL)
 	{
 		HudManager_free (this->hudManager);
+		HeroClient_free (this->heroClient);
+		ChampionArray_free (this->championArray);
+		GUIMenu_free (this->guiMenu);
+		NetAPIClient_free (this->netApiClient);
+		GameClock_free (this->gameClock);
+		memproc_free (this->process);
+
 		free (this);
 	}
 }

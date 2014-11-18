@@ -58,19 +58,19 @@ set_camera_position (
 
 
 /*a
- * Description : Toggle built-in client camera movements
+ * Description : Toggle the built-in client camera movements
  *               For instance, camera movements when the cursor is on the border of the screen
  * __in__ bool enabled : If true, the camera client movements are enabled. False otherwise.
  * Return : void
  */
 EXPORT_FUNCTION void
-set_camera_client_enabled (
+set_default_camera_enabled (
 	__in__ bool enabled
 ) {
 	check_api ();
 
 	LoLAPIPacket packet = {
-		.request = REQUEST_SET_CAMERA_CLIENT_ENABLED,
+		.request = REQUEST_SET_DEFAULT_CAMERA_ENABLED,
 		.booleanPacket.value = enabled
 	};
 
@@ -656,6 +656,33 @@ get_game_time (
 /** =================================================================================
  ** ================================== Internal APIs ================================
  ** ================================================================================= **/
+
+/*
+ * Description : Eject the API from the LoL process
+ */
+EXPORT_FUNCTION bool
+eject_api (
+	void
+) {
+	check_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_EJECT_API
+	};
+
+	LoLClientAPI_send (api, &packet, sizeof(packet));
+
+	// Check exit status
+	if (strcmp (packet.stringPacket.str, LOLAPI_STATUS_EXIT) != 0) {
+		warn ("Malformed LoLAPIServer exit status response.");
+		return false;
+	}
+
+	// Sleep a bit so we let time for the server to exit gracefully
+	Sleep (2000);
+	return true;
+}
+
 
 /*
  * Description : Get the last error returned by the API.

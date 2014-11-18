@@ -16,6 +16,7 @@ typedef struct _LoLServerAPI
 {
 	EasySocket * serverSocket;
 	bool closed;
+	bool running;
 
 }	LoLServerAPI;
 
@@ -57,6 +58,16 @@ LoLServerAPI_main (
  */
 bool
 LoLServerAPI_test (
+	LoLServerAPI *this
+);
+
+/*
+ * Description : Clean the memory from the LoLProcess before ejecting the server DLL
+ * LoLServerAPI *this : An allocated LoLServerAPI
+ * Return : void
+ */
+void
+LoLServerAPI_eject (
 	LoLServerAPI *this
 );
 

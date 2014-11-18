@@ -39,16 +39,16 @@ class LoLClientAPI:
 		
 		self.hAPI.set_camera_position (c_float(x), c_float(y));
 
-	# Toggle built-in client camera movements
+	# Toggle the built-in client camera movements
 	# For instance, camera movements when the cursor is on the border of the screen
 	# enabled : boolean, If true, the camera client movements are enabled. False otherwise.
-	def set_camera_client_enabled (self, enabled):
+	def set_default_camera_enabled (self, enabled):
 	
 		# C API declaration :
-		# void set_camera_client_enabled (
+		# void set_default_camera_enabled (
 		# 	__in__ bool enabled
 		# )
-		self.hAPI.set_camera_client_enabled (c_bool(enabled));
+		self.hAPI.set_default_camera_enabled (c_bool(enabled));
 
 	# Get the current camera angle in degrees
 	# Return : {angleX, angleY} the camera angle
@@ -393,13 +393,25 @@ class LoLClientAPI:
 	
 		
 	# =================================================================================
+	# ================================= Internal APIs =================================
+	# =================================================================================
+	def eject_api (self):
+		
+		# C API declaration :
+		# void eject_api (
+		#	void
+		# )
+		
+		self.hAPI.eject_api ();
+		
+	# =================================================================================
 	# ================================== Entry Point ==================================
 	# =================================================================================
 
 	def __init__ (self):
 		# Load LoLClientAPI into LoL process
 		try:
-			self.hAPI = cdll.LoadLibrary ('./LoLClientAPI.dll');
+			self.hAPI = cdll.LoadLibrary ('./bin/LoLClientAPI.dll');
 		except:
 			print("Cannot find LoLClientAPI.dll.");
 			exit(0);

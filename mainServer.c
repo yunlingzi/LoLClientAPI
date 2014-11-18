@@ -12,10 +12,12 @@ LoLServerAPI * connection = NULL;
  * 					It injects LCAPI into LoL process, find game structures and store them
  *					into a custom structure
  */
-void startInjection (void)
+EXPORT_FUNCTION void startInjection (void)
 {
+	LoLProcess *LoL;
+
 	// Install LoLServerAPI inside League of Legends.exe process
-	if (!LoLProcess_new ()) {
+	if ((LoL = LoLProcess_new ()) == NULL) {
 		warn ("Injection failed.");
 		return;
 	}
@@ -32,20 +34,20 @@ void startInjection (void)
 	// Answer requests
 	LoLServerAPI_main (connection);
 
-	// Confirm connection closed
-	connection->closed = true;
+	// Clean and exit
+	dbg ("ServerAPI cleaning memory...");
+	LoLProcess_free (LoL);
+	LoLServerAPI_free (connection);
+	dbg ("ServerAPI stopped working normally.");
 }
 
 
 /*
  * Description :	Function called when the DLL in ejected.
- * 					Basically, it cleans the dll and the memory allocated from the LoL process
  */
-void endInjection (void)
+EXPORT_FUNCTION void endInjection (void)
 {
-	LoLServerAPI_free (connection);
 }
-
 
 /*
  * Description :	DLL entry point.

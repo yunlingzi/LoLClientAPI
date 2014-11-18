@@ -1,5 +1,6 @@
 #include "LoLClientAPI.h"
 #include "LoLClientInterface.h"
+#include "LoLAPI/LoLAPIRequest.h"
 #include <stdlib.h>
 
 // ---------- Debugging -------------
@@ -48,7 +49,10 @@ LoLClientAPI_send (
 	}
 
 	// Send packet to the server ...
-	es_send (this->clientSocket, packet, packetSize);
+	if (es_send (this->clientSocket, packet, packetSize) == -1) {
+		warn ("Error when sending the packet <%s>.", LoLAPIRequest_to_string (packet->request));
+		return false;
+	}
 
 	// And receive its response
 	if (!es_recv_buffer (this->clientSocket, packet, packetSize)) {
@@ -96,8 +100,7 @@ LoLClientAPI_init (
 	es_init ();
 
 	// Initiate the connection
-	this->clientSocket = es_client_new_from_ip ("127.0.0.1", LOLAPI_PORT);
-	if (this->clientSocket == ES_ERROR_MALLOC || this->clientSocket == ES_ERROR_CONNECT) {
+	if ((this->clientSocket = es_client_new_from_ip ("127.0.0.1", LOLAPI_PORT)) == NULL) {
 		warn ("LoLServerAPI not found.");
 		this->clientSocket = NULL;
 		return false;

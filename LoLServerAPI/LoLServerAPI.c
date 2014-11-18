@@ -7,6 +7,9 @@
 #include "dbg/dbg.h"
 
 
+// Global connection with the client
+LoLServerAPI * serverAPI = NULL;
+
 /*
  * Description 	: Handle a request from the client
  * EasySocketListened *client : A pointer to the client data
@@ -34,8 +37,8 @@ LoLServerAPI_handle_request (
 			set_camera_position (packet.gamePositionPacket.pos.x, packet.gamePositionPacket.pos.y);
 		break;
 
-		case REQUEST_SET_CAMERA_CLIENT_ENABLED:
-			set_camera_client_enabled (packet.booleanPacket.value);
+		case REQUEST_SET_DEFAULT_CAMERA_ENABLED:
+			set_default_camera_enabled (packet.booleanPacket.value);
 		break;
 
 		case REQUEST_GET_CAMERA_ANGLE:
@@ -126,6 +129,7 @@ LoLServerAPI_handle_request (
 			get_teammate_summoner_name (packet.teammateId, packet.stringPacket.str);
 		break;
 
+
 		// Minimap APIs
 		case REQUEST_GET_MINIMAP_SCREEN_POSITION:
 			get_minimap_screen_position (&packet.screenPositionPacket.x, &packet.screenPositionPacket.y);
@@ -147,6 +151,16 @@ LoLServerAPI_handle_request (
 			packet.floatPacket.value = get_game_time ();
 		break;
 
+
+		// Internal APIs
+		case REQUEST_EJECT_API:
+			LoLServerAPI_eject (serverAPI);
+			strncpy (packet.stringPacket.str, LOLAPI_STATUS_EXIT, sizeof(packet.stringPacket.str));
+			es_send (EASY_SOCKET (client), &packet, sizeof (packet));
+			es_close (EASY_SOCKET(client));
+			return;
+		break;
+
 		default :
 			dbg ("Unhandled request = %x", packet.request);
 		break;
@@ -163,6 +177,7 @@ LoLServerAPI_handle_request (
 void LoLServerAPI_client_finish (
 	EasySocketListened *client
 ) {
+	Sleep (1000);
 	es_listener_free (client, free);
 }
 
@@ -184,7 +199,22 @@ LoLServerAPI_new (void)
 		return NULL;
 	}
 
+	serverAPI = this;
+
 	return this;
+}
+
+
+/*
+ * Description : Clean the memory from the LoLProcess before ejecting the server DLL
+ * LoLServerAPI *this : An allocated LoLServerAPI
+ * Return : void
+ */
+void
+LoLServerAPI_eject (
+	LoLServerAPI *this
+) {
+	this->running = false;
 }
 
 
@@ -204,6 +234,7 @@ LoLServerAPI_init (
         return false;
 	}
 
+	es_set_blocking (this->serverSocket, false);
 	this->closed = false;
 
 	return true;
@@ -220,13 +251,19 @@ LoLServerAPI_main (
 	LoLServerAPI *this
 ) {
 	EasySocketListened *client = NULL;
+	this->running = true;
 
-	do {
-		if ((client = es_accept (this->serverSocket, 1024)) != NULL) {
-			es_send (EASY_SOCKET(client), "READY", -1);
+	while (this->running)
+	{
+		if ((client = es_accept (this->serverSocket, 1024, true)) != NULL)
+		{
+			es_set_blocking (EASY_SOCKET(client), true);
+			es_send (EASY_SOCKET(client), LOLAPI_STATUS_READY, -1);
 			es_listener (client, LoLServerAPI_handle_request, LoLServerAPI_client_finish);
 		}
-	} while (client != NULL);
+
+		Sleep (1000);
+	}
 }
 
 /*
@@ -239,13 +276,9 @@ LoLServerAPI_free (
 ) {
 	if (this != NULL)
 	{
-		LoLProcess_free (get_LoLProcess ());
-
 		if (this->serverSocket) {
 			es_close (this->serverSocket);
 		}
-
-		Sleep (1000);
 
 		free (this);
 	}
