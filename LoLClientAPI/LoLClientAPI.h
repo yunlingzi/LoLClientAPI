@@ -11,11 +11,22 @@
 
 
 // ------ Structure declaration -------
+typedef enum _LoLClientAPIError
+{
+	API_NO_ERROR,
+	API_RECV_ERROR,
+	API_REQUEST_FAIL,
+	API_REQUEST_INVALID,
+	API_REQUEST_UNSYNCHRONIZED
+
+} LoLClientAPIError;
+
 typedef struct _LoLClientAPI
 {
 	EasySocket * clientSocket;
-	bool closed;
 	bool ready;
+
+	LoLClientAPIError lastError;
 
 }	LoLClientAPI;
 

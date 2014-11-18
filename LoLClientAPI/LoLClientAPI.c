@@ -47,29 +47,37 @@ LoLClientAPI_send (
 		return false;
 	}
 
+	// Send packet to the server ...
 	es_send (this->clientSocket, packet, packetSize);
 
+	// And receive its response
 	if (!es_recv_buffer (this->clientSocket, packet, packetSize)) {
-		warn ("%s: Malformed packet received.", __FUNCTION__);
+		warn ("Error when receiving the last packet.");
+		this->lastError = API_RECV_ERROR;
 		return false;
 	}
 
 	if (packet->request == REQUEST_FAIL) {
 		warn ("Request failed (REQUEST_FAIL received).");
+		this->lastError = API_REQUEST_FAIL;
 		return false;
 	}
 
 	if (!LoLAPIRequest_is_valid (packet->request)) {
-		warn ("Request received from the APIServer isn't valid : %d", packet->request);
+		warn ("Request received from the APIServer isn't supported : %d", packet->request);
+		this->lastError = API_REQUEST_INVALID;
 		return false;
 	}
 
 	// Check if the received answer type is the same than the requested one
 	if (packet->request != originalRequest) {
-		warn ("%s : Received a wrong request. (client = %s / server = %s)", __FUNCTION__,
+		warn ("Received not the queried request. (client = %s / server = %s)",
 			LoLAPIRequest_to_string (originalRequest),
 			LoLAPIRequest_to_string (packet->request)
 		);
+
+		this->lastError = API_REQUEST_UNSYNCHRONIZED;
+		return false;
 	}
 
 	return true;
@@ -86,21 +94,20 @@ LoLClientAPI_init (
 	LoLClientAPI *this
 ) {
 	es_init ();
-	this->closed = true;
 
 	// Initiate the connection
 	this->clientSocket = es_client_new_from_ip ("127.0.0.1", LOLAPI_PORT);
 	if (this->clientSocket == ES_ERROR_MALLOC || this->clientSocket == ES_ERROR_CONNECT) {
 		warn ("LoLServerAPI not found.");
+		this->clientSocket = NULL;
 		return false;
 	}
-	this->closed = false;
 
 	// Receive status
 	int answerSize;
 	unsigned char * answer = es_recv (this->clientSocket, &answerSize);
 
-	if (answerSize <= 0 || strcmp (answer, LOLAPI_STATUS_READY)) {
+	if (answerSize <= 0 || strcmp (answer, LOLAPI_STATUS_READY) != 0) {
 		warn ("Malformed LoLAPIServer status response.");
 		return false;
 	}
@@ -119,7 +126,7 @@ LoLClientAPI_free (
 ) {
 	if (this != NULL)
 	{
-		if (!this->closed) {
+		if (this->clientSocket != NULL) {
 			es_close (this->clientSocket);
 		}
 

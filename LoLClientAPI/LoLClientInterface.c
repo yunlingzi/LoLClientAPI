@@ -658,6 +658,19 @@ get_game_time (
  ** ================================================================================= **/
 
 /*
+ * Description : Get the last error returned by the API.
+ * Returns : An error code based on the last error received
+ */
+EXPORT_FUNCTION int
+get_last_error (
+	void
+) {
+	LoLClientAPIError lastError = api->lastError;
+	api->lastError = API_NO_ERROR;
+	return lastError;
+}
+
+/*
  * Description : Wait for the API to be in a ready state
  */
 void
