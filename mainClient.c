@@ -16,9 +16,8 @@ LoLClientAPI * connection = NULL;
 void startClient (void)
 {
 	while (connection == NULL) {
-		connection = LoLClientAPI_new ();
-		if (connection == NULL) {
-			dbg ("LoLServerAPI is not ready yet ? Retrying to connect to LoLServerAPI in 3 seconds...");
+		if ((connection = LoLClientAPI_new ()) == NULL) {
+			dbg ("LoLServerAPI is not ready yet, retrying to connect to LoLServerAPI in 3 seconds...");
 			Sleep (3000);
 		}
 	}

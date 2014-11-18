@@ -29,12 +29,12 @@ ChampionArray_test (
 	}
 
 	for (int i = 0; i < this->championsCount; i++) {
-		dbg ("Testing %.16s ...", this->champions[i]->summonerName);
 
 		if (! Unit_test (this->champions[i])) {
 			fail ("Unit test Unit ID=%d failed.", i);
 			return false;
 		}
+		debug ("[OK] Unit <%.16s> test success.", this->champions[i]->summonerName);
 	}
 
 	return true;

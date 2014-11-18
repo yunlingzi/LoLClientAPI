@@ -33,11 +33,12 @@ LoLProcess_new (void)
 
 	// Unit testing
 	if (!LoLProcess_test (this)) {
-		dbg ("Unit tests failed.");
+		dbg ("LoLProcess unit test failed.");
 		LoLProcess_free (this);
 		set_LoLProcess (NULL);
 		return NULL;
 	}
+	debug ("[OK] LoLProcess test success.");
 
 	LoLProcess_setState (this, STATE_READY);
 
@@ -58,13 +59,13 @@ LoLProcess_setState (
 	switch (state)
 	{
 		case STATE_READY:
-			dbg ("====== API State : READY! ====== \n");
+			dbg ("====== API State : READY! ====== ");
 		break;
 		case STATE_TESTING:
-			dbg ("====== API State : TESTING... ====== \n");
+			dbg ("====== API State : TESTING... ====== ");
 		break;
 		case STATE_INITIALIZING:
-			dbg ("====== API State : INITIALIZING... ====== \n");
+			dbg ("====== API State : INITIALIZING... ====== ");
 		break;
 	}
 

@@ -18,6 +18,7 @@ GUIMenu_test (
 		dbg ("GUIMinimap test unit failed.");
 		return false;
 	}
+	debug ("[OK] GUIMinimap test success.");
 
 	return true;
 }
