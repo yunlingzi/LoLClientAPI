@@ -134,6 +134,11 @@ LoLProcess_init (
 	FILE *debugOutput = file_open ("C:/Users/Spl3en/Desktop/C/LoLClientAPI/DLL_Output.txt", "w+");
 	if (debugOutput) {
 		dbg_set_output (debugOutput);
+	} else {
+		debugOutput = file_open ("./LoLClientAPI-Log.txt", "w+");
+		if (debugOutput) {
+			dbg_set_output (debugOutput);
+		}
 	}
 
 	// Get time and start logging

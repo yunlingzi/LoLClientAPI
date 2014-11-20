@@ -11,9 +11,6 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="3" />
 				<Option compiler="gcc" />
-				<Compiler>
-					<Add option="-DDEBUG_ACTIVATED" />
-				</Compiler>
 			</Target>
 			<Target title="Executable">
 				<Option output="PythonWrapper/LoLServerAPI" prefix_auto="1" extension_auto="1" />
@@ -33,9 +30,7 @@
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-Wextra" />
 					<Add option="-g" />
-					<Add option="-DAPI_EXECUTABLE" />
 					<Add option="-DDEBUG_ACTIVATED" />
 					<Add option="-DEXPORT_TO_CHEATENGINE" />
 				</Compiler>
@@ -183,10 +178,10 @@
 		<Unit filename="LoLMemory/Unit/UnitTest.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLProcess/LoL.c">
+		<Unit filename="LoLProcess/LoLModule.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LoLProcess/LoL.h" />
+		<Unit filename="LoLProcess/LoLModule.h" />
 		<Unit filename="LoLProcess/LoLProcess.c">
 			<Option compilerVar="CC" />
 		</Unit>
