@@ -131,7 +131,7 @@ LoLProcess_init (
 	LoLProcess_setState (this, STATE_INITIALIZING);
 
 	// Open debug file, only for DLL (use stdout for executable version)
-	FILE *debugOutput = file_open ("C:/Users/Spl3en/Desktop/C/LoLClientAPI/DLL_Output.txt", "w+");
+	FILE *debugOutput = file_open ("C:/Users/Spl3en/Desktop/C/LoLClientAPI/LoLClientAPI-Log.txt", "w+");
 	if (debugOutput) {
 		dbg_set_output (debugOutput);
 	} else {
