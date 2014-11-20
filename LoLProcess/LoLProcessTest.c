@@ -14,29 +14,10 @@ bool
 LoLProcess_test (
 	LoLProcess *this
 ) {
-	if (!HudManager_test (this->hudManager)) {
-		dbg ("HudManager test failed.");
+	if (!LoLModule_test (this->lol)) {
+		dbg ("LoL module test fail.");
 		return false;
 	}
-	debug ("[OK] HudManager test success.");
-
-	if (!HeroClient_test (this->heroClient)) {
-		dbg ("HeroClient test failed.");
-		return false;
-	}
-	debug ("[OK] HeroClient test success.");
-
-	if (!ChampionArray_test (this->championArray)) {
-		dbg ("ChampionArray test failed.");
-		return false;
-	}
-	debug ("[OK] ChampionArray test success.");
-
-	if (!GUIMenu_test (this->guiMenu)) {
-		dbg ("GUIMenu unit test failed.");
-		return false;
-	}
-	debug ("[OK] GUIMenu test success.");
 
 	return true;
 }

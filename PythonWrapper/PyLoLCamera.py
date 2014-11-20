@@ -24,7 +24,7 @@ class PyLoLCamera:
 
 		# Disable default client camera behavior
 		# (so the camera doesn't move when the cursor reaches the border of the screen)
-		self.api.set_camera_client_enabled (False);
+		self.api.set_default_camera_enabled (False);
 
 		# Start the main loop
 		self.run ();

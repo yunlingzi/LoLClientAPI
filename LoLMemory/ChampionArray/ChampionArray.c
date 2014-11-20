@@ -7,21 +7,23 @@
 
 /*
  * Description 	: Allocate a new ChampionArray structure.
- * MemProc *mp : The target LoL process
  * HeroClient *heroClient : The HeroClient instance
+ * DWORD baseAddress : Base address of the module
+ * DWORD sizeOfModule : Size of the module
  * Return		: A pointer to an allocated ChampionArray.
  */
 ChampionArray *
 ChampionArray_new (
-	MemProc *mp,
-	HeroClient *heroClient
+	HeroClient *heroClient,
+	DWORD baseAddress,
+	DWORD sizeOfModule
 ) {
 	ChampionArray *this;
 
 	if ((this = calloc (1, sizeof(ChampionArray))) == NULL)
 		return NULL;
 
-	if (!ChampionArray_init (this, mp, heroClient)) {
+	if (!ChampionArray_init (this, heroClient, baseAddress, sizeOfModule)) {
 		ChampionArray_free (this);
 		return NULL;
 	}
@@ -34,16 +36,16 @@ ChampionArray_new (
  * Description : Initialize an allocated ChampionArray structure.
  * ChampionArray *this : An allocated ChampionArray to initialize.
  * HeroClient *heroClient : The HeroClient instance
- * MemProc *mp : The target LoL process
+ * DWORD baseAddress : Base address of the module
+ * DWORD sizeOfModule : Size of the module
  */
 bool
 ChampionArray_init (
 	ChampionArray *this,
-	MemProc *mp,
-	HeroClient *heroClient
+	HeroClient *heroClient,
+	DWORD baseAddress,
+	DWORD sizeOfModule
 ) {
-	Buffer *championArrayEnd = NULL;
-
 	this->heroClient = heroClient;
 
 	unsigned char pattern[] =
@@ -54,24 +56,28 @@ ChampionArray_init (
 		3BF2              cmp esi, edx
 	*/  {
 		'?', '_', '_', '_', '_',
-		0x47,
+		'?',
 		0x8B, '?', '?', '?', '?', '?',
 		0x83, 0xC6, 0x04,
 		0x3B, 0xF2
 	};
 
+	dbg ("heroClient->thisStatic = %x", heroClient->thisStatic);
+	dbg ("heroClient->pThis = %x", heroClient->pThis);
+
 	// Put HeroClientInstance address in the pattern
-	int replacePos = str_n_pos(pattern, "____", sizeof(pattern));
+	int replacePos = str_n_pos (pattern, "____", sizeof(pattern));
 	memcpy(&pattern[replacePos], &heroClient->thisStatic, 4);
 
 	// Find a reference to ChampionArrayEnd
-	BbQueue *results = memscan_search (mp, "ChampionArrayEnd",
+	DWORD championArrayEnd = mem_scanner ("ChampionArrayEnd",
+		baseAddress, sizeOfModule,
 		pattern,
 		"?xxxx"
-		"x"
-		"x?????"
+		"?"
+		"??????"
 		"xxx"
-		"xx",
+		"??",
 
 		"xxxxx"
 		"x"
@@ -80,17 +86,17 @@ ChampionArray_init (
 		"xx"
 	);
 
-	if (results && (championArrayEnd = bb_queue_pick_first(results))) {
+	if (championArrayEnd)
+	{
+		DWORD championArrayStart = championArrayEnd - 4;
+
 		// championArrayEnd has been found
-		this->pThis = *((DWORD *) championArrayEnd->data) - 4;
+		this->pThis = championArrayStart;
 		dbg ("championArray found : 0x%08X", this->pThis);
 
-		// We don't need results anymore
-		bb_queue_free_all (results, buffer_free);
-
 		// Allocate champion array
-		this->start = read_memory_as_int (mp->proc, this->pThis);
-		this->end   = read_memory_as_int (mp->proc, this->pThis + 4);
+		this->start = *((DWORD *) championArrayStart);
+		this->end   = *((DWORD *) championArrayEnd);
 
 		this->championsCount = (this->end - this->start) / 4;
 		this->champions = malloc (sizeof(Unit *) * this->championsCount);
@@ -98,7 +104,7 @@ ChampionArray_init (
 
 		// Initialize champion array
 		for (DWORD cur = this->start, pos = 0; cur != this->end; cur += 4, pos++) {
-			this->champions[pos] = Unit_new (mp, cur);
+			this->champions[pos] = Unit_new (cur);
 			this->teammates[pos] = NULL;
 		}
 
@@ -123,7 +129,9 @@ ChampionArray_init (
 		return true;
 	}
 
-	return true;
+	dbg ("ChampionArray not found.");
+
+	return false;
 }
 
 

@@ -14,7 +14,7 @@
 #pragma pack(push, 1)
 typedef struct _Unit
 {
-	int field_0;
+	void * (*vftable)();
 	char gap_4[20];
 	int team;
 	char gap_1C[8];
@@ -31,6 +31,8 @@ typedef struct _Unit
 	char gap_12C[4];
 	int field_6;
 	int field_7;
+	void *field_30;
+	void *field_31;
 	float curHP;
 	int field_13C;
 	int field_140;
@@ -94,7 +96,6 @@ typedef struct _Unit
  */
 Unit *
 Unit_new (
-	MemProc *mp,
 	DWORD pUnit
 );
 
@@ -104,12 +105,10 @@ Unit_new (
  * Description : Initialize an allocated Unit structure.
  * Unit *this : An allocated Unit to initialize.
  * DWORD pUnit : The address of the Unit in the target process
- * MemProc *mp  : Handle to the target process
  */
 bool
 Unit_init (
 	Unit *this,
-	MemProc *mp,
 	DWORD pUnit
 );
 

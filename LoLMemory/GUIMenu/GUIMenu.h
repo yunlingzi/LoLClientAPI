@@ -152,25 +152,30 @@ typedef struct _GUIMenu
 
 /*
  * Description 	: Allocate a new GUIMenu structure.
- * MemProc *mp : The target LoL process
+ * DWORD baseAddress : Base address of the module
+ * DWORD sizeOfModule : Size of the module
  * Return		: A pointer to an allocated GUIMenu.
  */
 GUIMenu *
 GUIMenu_new (
-	MemProc *mp
+	DWORD baseAddress,
+	DWORD sizeOfModule
 );
 
 // ----------- Functions ------------
 
 /*
  * Description : Initialize an allocated GUIMenu structure.
- * MemProc *mp : The target LoL process
  * GUIMenu *this : An allocated GUIMenu to initialize.
+ * DWORD baseAddress : Base address of the module
+ * DWORD sizeOfModule : Size of the module
+ * Return : true on success, false on failure.
  */
 bool
 GUIMenu_init (
 	GUIMenu *this,
-	MemProc *mp
+	DWORD baseAddress,
+	DWORD sizeOfModule
 );
 
 /*

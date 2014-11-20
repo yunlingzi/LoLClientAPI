@@ -354,9 +354,18 @@ set_api_ready (
 );
 
 /*
- * Description : Wait for the API to be in a ready state
+ * Description : Check if the API has been correctly injected into LoL process (nonblocking)
+ * Return : true on successfully injected, false on failure
+ */
+bool
+check_api (
+	void
+);
+
+/*
+ * Description : Wait for the API to be in a ready state (blocking)
  */
 void
-check_api (
+wait_api (
 	void
 );

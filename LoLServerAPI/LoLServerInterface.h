@@ -333,7 +333,7 @@ get_game_time (
  ** ======================================================================================= **/
 
 /*
- * Description : Check if the API has been correctly injected into LoL process
+ * Description : Check if the API has been correctly injected into LoL process (nonblocking)
  * Return : true on successfully injected, false on failure
  */
 bool
@@ -342,8 +342,7 @@ check_api (
 );
 
 /*
- * Description : Wait for the API to be in ready state
- * Return : void
+ * Description : Wait for the API to be in a ready state (blocking)
  */
 void
 wait_api (
@@ -353,8 +352,7 @@ wait_api (
 
 /*
  * Description : Set the current used LoLServerAPI instance
- * __in__ LoLProcess *instance : Set the global LoLServerAPI value to this argument
- * Note : /!\ Use it only if you know what you are doing !
+ * __in__ LoLProcess *instance : Set the global LoLServerAPI value to this argument (not exported in the DLL)
  */
 void
 set_LoLProcess (
@@ -363,8 +361,7 @@ set_LoLProcess (
 
 /*
  * Description : Get the current used LoLServerAPI instance
- * Return LoLProcess * : A pointer to the current LoLServerAPI instance
- * Note : /!\ Use it only if you know what you are doing !
+ * Return LoLProcess * : A pointer to the current LoLServerAPI instance (not exported in the DLL)
  */
 LoLProcess *
 get_LoLProcess (

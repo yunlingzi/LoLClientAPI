@@ -7,13 +7,11 @@
 
 /*
  * Description 	: Allocate a new Unit structure.
- * MemProc *mp  : Handle to the target process
  * DWORD pUnit : The address of the Unit in the target process
  * Return		: A pointer to an allocated Unit.
  */
 Unit *
 Unit_new (
-	MemProc *mp,
 	DWORD pUnit
 ) {
 	Unit *this;
@@ -21,7 +19,7 @@ Unit_new (
 	if ((this = calloc (1, sizeof(Unit))) == NULL)
 		return NULL;
 
-	if (!Unit_init (this, mp, pUnit)) {
+	if (!Unit_init (this, pUnit)) {
 		Unit_free (this);
 		return NULL;
 	}
@@ -32,7 +30,6 @@ Unit_new (
 
 /*
  * Description : Initialize an allocated Unit structure.
- * MemProc *mp  : Handle to the target process
  * Unit *this : An allocated Unit to initialize.
  * DWORD pUnit : The address of the Unit in the target process
  * Return : true on success, false on failure.
@@ -40,13 +37,11 @@ Unit_new (
 bool
 Unit_init (
 	Unit *this,
-	MemProc *mp,
 	DWORD pUnit
 ) {
-	DWORD pThis = read_memory_as_int(mp->proc, pUnit);
-	read_from_memory (mp->proc, this, pThis, sizeof(Unit));
+	memcpy (this, *((DWORD **) pUnit), sizeof(Unit));
 
-	this->pThis = pThis;
+	this->pThis = *((DWORD *) pUnit);
 	this->thisStatic = pUnit;
 
 	// Fix <address><Object> reference summoner name
@@ -57,12 +52,12 @@ Unit_init (
 		 && this->summonerName[2] != 0
 		 && this->summonerName[3] != 0) {
 			DWORD summonerNameAddress;
-			memcpy(&summonerNameAddress, this->summonerName, 4);
-			read_from_memory (mp->proc, this->summonerName, summonerNameAddress, sizeof(this->summonerName));
+			memcpy (&summonerNameAddress, this->summonerName, 4);
+			memcpy (this->summonerName, (DWORD *) summonerNameAddress, sizeof(this->summonerName));
 		}
 	}
 
-	if (pThis) {
+	if (this->pThis) {
 		dbg ("Unit <%.16s> detected. (0x%08X)", this->summonerName, pUnit);
 	} else {
 		warn ("Unit <0x%08X> not found.", pUnit);

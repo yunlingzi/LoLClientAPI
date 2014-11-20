@@ -23,12 +23,14 @@ typedef struct _MaestroGameController
 
 /*
  * Description 	: Allocate a new MaestroGameController structure.
- * MemProc *mp  : The target LoL process
+ * DWORD baseAddress : Base address of the module
+ * DWORD sizeOfModule : Size of the module
  * Return		: A pointer to an allocated MaestroGameController.
  */
 MaestroGameController *
 MaestroGameController_new (
-	MemProc *mp
+	DWORD baseAddress,
+	DWORD sizeOfModule
 );
 
 // ----------- Functions ------------
@@ -36,13 +38,15 @@ MaestroGameController_new (
 /*
  * Description : Initialize an allocated MaestroGameController structure.
  * MaestroGameController *this : An allocated MaestroGameController to initialize.
- * MemProc *mp : The target LoL process
+ * DWORD baseAddress : Base address of the module
+ * DWORD sizeOfModule : Size of the module
  * Return : true on success, false on failure.
  */
 bool
 MaestroGameController_init (
 	MaestroGameController *this,
-	MemProc *mp
+	DWORD baseAddress,
+	DWORD sizeOfModule
 );
 
 /*

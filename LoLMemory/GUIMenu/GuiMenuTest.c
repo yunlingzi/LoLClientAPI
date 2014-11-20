@@ -14,11 +14,11 @@ bool
 GUIMenu_test (
 	GUIMenu *this
 ) {
-	if (!(GUIMinimap_test(this->guiMinimap))) {
+	if (!(GUIMinimap_test (this->guiMinimap))) {
 		dbg ("GUIMinimap test unit failed.");
 		return false;
 	}
-	debug ("[OK] GUIMinimap test success.");
+	dbg ("[OK] GUIMinimap test success.");
 
 	return true;
 }

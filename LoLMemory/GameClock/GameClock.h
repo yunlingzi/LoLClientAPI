@@ -57,12 +57,14 @@ typedef struct _GameClock
 
 /*
  * Description 	: Allocate a new GameClock structure.
- * MemProc *mp  : Address of an allocated and running MemProc target process
+ * DWORD baseAddress : Base address of the module
+ * DWORD sizeOfModule : Size of the module
  * Return		: A pointer to an allocated GameClock.
  */
 GameClock *
 GameClock_new (
-	MemProc *mp
+	DWORD baseAddress,
+	DWORD sizeOfModule
 );
 
 
@@ -71,13 +73,15 @@ GameClock_new (
 /*
  * Description : Initialize an allocated GameClock structure.
  * GameClock *this : An allocated GameClock to initialize.
- * MemProc *mp : The target LoL process
+ * DWORD baseAddress : Base address of the module
+ * DWORD sizeOfModule : Size of the module
  * Return : true on success, false on failure.
  */
 bool
 GameClock_init (
 	GameClock *this,
-	MemProc *mp
+	DWORD baseAddress,
+	DWORD sizeOfModule
 );
 
 /*

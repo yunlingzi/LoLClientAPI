@@ -183,6 +183,10 @@
 		<Unit filename="LoLMemory/Unit/UnitTest.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="LoLProcess/LoL.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="LoLProcess/LoL.h" />
 		<Unit filename="LoLProcess/LoLProcess.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -190,6 +194,10 @@
 		<Unit filename="LoLProcess/LoLProcessTest.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="LoLProcess/Maestro.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="LoLProcess/Maestro.h" />
 		<Unit filename="LoLServerAPI/LoLServerAPI.c">
 			<Option compilerVar="CC" />
 		</Unit>

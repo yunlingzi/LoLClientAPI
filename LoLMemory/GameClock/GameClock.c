@@ -8,19 +8,21 @@
 
 /*
  * Description 	: Allocate a new GameClock structure.
- * MemProc *mp  : Address of an allocated and running MemProc target process
+ * DWORD baseAddress : Base address of the module
+ * DWORD sizeOfModule : Size of the module
  * Return		: A pointer to an allocated GameClock.
  */
 GameClock *
 GameClock_new (
-	MemProc *mp
+	DWORD baseAddress,
+	DWORD sizeOfModule
 ) {
 	GameClock *this;
 
 	if ((this = calloc(1, sizeof(GameClock))) == NULL)
 		return NULL;
 
-	if (!GameClock_init (this, mp)) {
+	if (!GameClock_init (this, baseAddress, sizeOfModule)) {
 		GameClock_free (this);
 		return NULL;
 	}
@@ -31,113 +33,60 @@ GameClock_new (
 /*
  * Description : Initialize an allocated GameClock structure.
  * GameClock *this : An allocated GameClock to initialize.
- * MemProc *mp : The target LoL process
+ * DWORD baseAddress : Base address of the module
+ * DWORD sizeOfModule : Size of the module
  * Return : true on success, false on failure.
  */
 bool
 GameClock_init (
 	GameClock *this,
-	MemProc *mp
+	DWORD baseAddress,
+	DWORD sizeOfModule
 ) {
-	MemBlock *mb = NULL;
-	Buffer *pGameClockInstance = NULL;
+	unsigned char pattern[] = {
+		/*	8B0D A891D503     mov ecx, [dword ds:League_of_Legends.GameClockInstance]
+			8B01              mov eax, [dword ds:ecx]
+			8B40 08           mov eax, [dword ds:eax+8]
+			FFD0              call eax
+			51                push ecx
+			DDD8              fstp st 	*/
+			0x8B, 0x0D, '?', '?', '?', '?',
+			0x8B, 0x01,
+			0x8B, 0x40, 0x08,
+			0xFF, 0xD0,
+			0x51,
+			0xDD, 0xD8
+	};
 
-	BbQueue *results = memscan_search_string (
-		mp, "GameClockInstanceStr",
-		"sGameClockInstance && sGameClockInstance->IsInitialized()"
+	// Find a reference to GameClockInstance
+	DWORD gameClockInstance = mem_scanner ("GameClockInstance",
+		baseAddress, sizeOfModule,
+		pattern,
+
+		"xx????"
+		"xx"
+		"xxx"
+		"xx"
+		"x"
+		"xx",
+
+		"xx????"
+		"xx"
+		"xxx"
+		"xx"
+		"x"
+		"xx"
 	);
 
-	if (!results) {
-		dbg ("GameClockInstanceStr not found.");
-		return false;
+	if (gameClockInstance) {
+		// gameClockInstance has been found
+		dbg ("GameClockInstance found : 0x%08X", gameClockInstance);
+		this->pThis = *((DWORD *) gameClockInstance);
+
+		return true;
 	}
 
-	if ((mb = bb_queue_pick_first(results))) {
-		// GameClockInstanceStr has been found
-
-		dbg ("GameClockInstanceStr found : 0x%08X", mb->addr);
-
-		unsigned char pattern[] = {
-		/*	8B0D E46A5503   mov ecx, [dword ds:League_of_Legends.GameClockInstance]
-			85C9            test ecx, ecx
-			74 0B           je short League_of_Legends.00D468CF
-			8B01            mov eax, [dword ds:ecx]
-			8B40 20         mov eax, [dword ds:eax+20]
-			FFD0            call eax 									  ; gameClockInstance->isInitialized()
-			84C0            test al, al
-			75 26           jne short League_of_Legends.00D468F5
-			68 A8BE8B01     push offset League_of_Legends.018BBEA8        ; ASCII "Riot::`anonymous-namespace'::ValidateGameClockInstance"
-			6A 2E           push 2E
-			68 00BE8B01     push offset League_of_Legends.018BBE00        ; ASCII
-			33D2            xor edx, edx
-			B9 6CBE8B01     mov ecx, offset League_of_Legends.018BBE6C    ; ASCII "sGameClockInstance && sGameClockInstance->IsInitialized()"
-			E8 09524100     call League_of_Legends.0115BAF0 */
-
-			0x8B, '?', '?', '?', '?', '?',
-			0x85, '?',
-			0x74, '?',
-			'?',  '?',
-			'?',  '?', '?',
-			0xFF, '?',
-			0x84, '?',
-			0x75, '?',
-			0x68, '?', '?', '?', '?',
-			0x6A, '?',
-			0x68, '?', '?', '?', '?',
-			0x33, '?',
-			0xB9, '_', '_', '_', '_'
-		};
-
-		// Replace ____ with pGameClockInstance address
-		int replacePos = str_n_pos(pattern, "____", sizeof(pattern));
-		memcpy(&pattern[replacePos], &mb->addr, 4);
-
-		// We don't need results anymore
-		bb_queue_free_all (results, memblock_free);
-
-		// Find a reference to GameClockAddress
-		results = memscan_search (mp, "pGameClockInstance",
-			pattern,
-			"x?????"
-			"x?"
-			"x?"
-			"??"
-			"???"
-			"x?"
-			"x?"
-			"x?"
-			"x????"
-			"x?"
-			"x????"
-			"x?"
-			"xxxxx",
-
-			"xx????"
-			"xx"
-			"xx"
-			"xx"
-			"xxx"
-			"xx"
-			"xx"
-			"xx"
-			"xxxxx"
-			"xx"
-			"xxxxx"
-			"xx"
-			"xxxxx"
-		);
-
-		if (results && (pGameClockInstance = bb_queue_pick_first(results))) {
-			// pGameClockInstance has been found
-			this->pThis = read_memory_as_int (mp->proc, *((DWORD *)pGameClockInstance->data));
-			dbg ("pGameClock pointer found : 0x%08X", this->pThis);
-
-			// We don't need results anymore
-			bb_queue_free_all (results, buffer_free);
-
-			return true;
-		}
-	}
+	dbg ("GameClockInstance not found");
 
 	return false;
 }

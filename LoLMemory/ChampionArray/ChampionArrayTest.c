@@ -34,7 +34,7 @@ ChampionArray_test (
 			fail ("Unit test Unit ID=%d failed.", i);
 			return false;
 		}
-		debug ("[OK] Unit <%.16s> test success.", this->champions[i]->summonerName);
+		dbg ("[OK] Unit <%.16s> test success.", this->champions[i]->summonerName);
 	}
 
 	return true;

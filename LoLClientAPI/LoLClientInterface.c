@@ -22,7 +22,7 @@ get_camera_position (
 	__out__ float * x,
 	__out__ float * y
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_GET_CAMERA_POSITION
@@ -45,7 +45,7 @@ set_camera_position (
 	__in__ float x,
 	__in__ float y
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_SET_CAMERA_POSITION,
@@ -67,7 +67,7 @@ EXPORT_FUNCTION void
 set_default_camera_enabled (
 	__in__ bool enabled
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_SET_DEFAULT_CAMERA_ENABLED,
@@ -88,7 +88,7 @@ get_camera_angle (
 	__out__ float * angleX,
 	__out__ float * angleY
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_GET_CAMERA_ANGLE
@@ -111,7 +111,7 @@ set_camera_angle (
 	__in__ float angleX,
 	__in__ float angleY
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_SET_CAMERA_ANGLE,
@@ -131,7 +131,7 @@ EXPORT_FUNCTION float
 get_camera_zoom (
 	void
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_GET_CAMERA_ZOOM
@@ -151,7 +151,7 @@ EXPORT_FUNCTION void
 set_camera_zoom (
 	__in__ float zoomValue
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_SET_CAMERA_ZOOM,
@@ -177,7 +177,7 @@ get_cursor_position (
 	__out__ float * x,
 	__out__ float * y
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_GET_CURSOR_POSITION
@@ -200,7 +200,7 @@ get_cursor_screen_position (
 	__out__ int * x,
 	__out__ int * y
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_GET_CURSOR_SCREEN_POSITION
@@ -223,7 +223,7 @@ get_destination_position (
 	__out__ float * x,
 	__out__ float * y
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_GET_DESTINATION_POSITION
@@ -244,7 +244,7 @@ EXPORT_FUNCTION bool
 is_left_mouse_button_pressed (
 	void
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_IS_LEFT_MOUSE_BUTTON_PRESSED
@@ -266,7 +266,7 @@ EXPORT_FUNCTION bool
 is_left_mouse_button_click (
 	void
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_IS_LEFT_MOUSE_BUTTON_CLICK
@@ -288,7 +288,7 @@ EXPORT_FUNCTION bool
 is_right_mouse_button_pressed (
 	void
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_IS_RIGHT_MOUSE_BUTTON_PRESSED
@@ -310,7 +310,7 @@ EXPORT_FUNCTION bool
 is_right_mouse_button_click (
 	void
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_IS_RIGHT_MOUSE_BUTTON_CLICK
@@ -337,7 +337,7 @@ EXPORT_FUNCTION bool
 is_space_pressed (
 	void
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_IS_SPACE_PRESSED
@@ -368,7 +368,7 @@ get_champion_position (
 	__out__ float * x,
 	__out__ float * y
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_GET_CHAMPION_POSITION
@@ -391,7 +391,7 @@ get_champion_hp (
 	__out__ float * currentHP,
 	__out__ float * maximumHP
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_GET_CHAMPION_HP
@@ -412,7 +412,7 @@ EXPORT_FUNCTION int
 get_champion_team (
 	void
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_GET_CHAMPION_TEAM
@@ -435,7 +435,7 @@ EXPORT_FUNCTION int
 get_teammates_count (
 	void
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_GET_TEAMMATES_COUNT
@@ -458,7 +458,7 @@ EXPORT_FUNCTION bool
 check_teammate_id (
 	__in__  int teammateId
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_CHECK_TEAMMATE_ID
@@ -484,7 +484,7 @@ get_teammate_position (
 	__out__ float * x,
 	__out__ float * y
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_GET_TEAMMATE_POSITION,
@@ -510,7 +510,7 @@ get_teammate_hp (
 	__out__ float * currentHP,
 	__out__ float * maximumHP
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_GET_TEAMMATE_HP,
@@ -534,7 +534,7 @@ EXPORT_FUNCTION char *
 get_teammate_summoner_name (
 	__in__  int teammateId
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_GET_TEAMMATE_SUMMONER_NAME,
@@ -563,7 +563,7 @@ get_minimap_screen_position (
 	__out__ int * x,
 	__out__ int * y
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_GET_MINIMAP_SCREEN_POSITION
@@ -584,7 +584,7 @@ EXPORT_FUNCTION bool
 is_cursor_hovering_minimap (
 	void
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_IS_CURSOR_HOVERING_MINIMAP
@@ -611,7 +611,7 @@ EXPORT_FUNCTION char *
 get_current_summoner_name (
 	void
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_GET_CURRENT_SUMMONER_NAME
@@ -638,7 +638,7 @@ EXPORT_FUNCTION float
 get_game_time (
 	void
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_GET_GAME_TIME
@@ -664,7 +664,7 @@ EXPORT_FUNCTION bool
 eject_api (
 	void
 ) {
-	check_api ();
+	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_EJECT_API
@@ -697,14 +697,26 @@ get_last_error (
 	return lastError;
 }
 
+
 /*
- * Description : Wait for the API to be in a ready state
+ * Description : Check if the API has been correctly injected into LoL process
+ * Return : true on successfully injected, false on failure
  */
-void
+EXPORT_FUNCTION bool
 check_api (
 	void
 ) {
-	while (!(api != NULL && api->ready == true)) {
+	return (api != NULL && api->ready == true);
+}
+
+/*
+ * Description : Wait for the API to be in a ready state (blocking)
+ */
+EXPORT_FUNCTION void
+wait_api (
+	void
+) {
+	while (!check_api ()) {
 		Sleep (10);
 	}
 }

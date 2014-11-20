@@ -27,7 +27,7 @@ get_camera_position (
 ) {
 	wait_api ();
 
-	HudCamera * hudCamera      = lolClient->hudManager->hudCamera;
+	HudCamera * hudCamera      = lolClient->lol->hudManager->hudCamera;
 	Position  * cameraPosition = LoLProcess_get_addr (hudCamera, cameraPosition);
 
 	*x = cameraPosition->x;
@@ -47,21 +47,11 @@ set_camera_position (
 ) {
 	wait_api ();
 
-	HudCamera * hudCamera      = lolClient->hudManager->hudCamera;
+	HudCamera * hudCamera      = lolClient->lol->hudManager->hudCamera;
 	Position  * cameraPosition = LoLProcess_get_addr (hudCamera, cameraPosition);
 
 	cameraPosition->x = x;
 	cameraPosition->y = y;
-
-	#ifdef API_EXECUTABLE
-		WriteProcessMemory (
-			lolClient->process->proc,
-			LoLProcess_get_remote_addr (hudCamera, cameraPosition),
-			cameraPosition,
-			sizeof (*cameraPosition),
-			NULL
-		);
-	#endif
 }
 
 
@@ -77,20 +67,10 @@ set_default_camera_enabled (
 ) {
 	wait_api ();
 
-	HudCameraSettings * hudCameraSettings = lolClient->hudManager->hudCameraSettings;
+	HudCameraSettings * hudCameraSettings = lolClient->lol->hudManager->hudCameraSettings;
 	int * cameraActivated = LoLProcess_get_addr (hudCameraSettings, cameraActivated);
 
 	*cameraActivated = enabled;
-
-	#ifdef API_EXECUTABLE
-		WriteProcessMemory (
-			lolClient->process->proc,
-			LoLProcess_get_remote_addr (hudCameraSettings, cameraActivated),
-			cameraActivated,
-			sizeof (*cameraActivated),
-			NULL
-		);
-	#endif
 }
 
 
@@ -106,7 +86,7 @@ get_camera_angle (
 ) {
 	wait_api ();
 
-	HudCamera * hudCamera = lolClient->hudManager->hudCamera;
+	HudCamera * hudCamera = lolClient->lol->hudManager->hudCamera;
 	HudCameraAngle * hudCameraAngle = LoLProcess_get_addr (hudCamera, cameraAngle);
 
 	*angleX = hudCameraAngle->x;
@@ -126,21 +106,11 @@ set_camera_angle (
 ) {
 	wait_api ();
 
-	HudCamera * hudCamera = lolClient->hudManager->hudCamera;
+	HudCamera * hudCamera = lolClient->lol->hudManager->hudCamera;
 	HudCameraAngle * cameraAngle = LoLProcess_get_addr (hudCamera, cameraAngle);
 
 	cameraAngle->x = angleX;
 	cameraAngle->y = angleY;
-
-	#ifdef API_EXECUTABLE
-		WriteProcessMemory (
-			lolClient->process->proc,
-			LoLProcess_get_remote_addr (hudCamera, cameraAngle),
-			cameraAngle,
-			sizeof (*cameraAngle),
-			NULL
-		);
-	#endif
 }
 
 
@@ -154,7 +124,7 @@ get_camera_zoom (
 ) {
 	wait_api ();
 
-	HudCamera * hudCamera = lolClient->hudManager->hudCamera;
+	HudCamera * hudCamera = lolClient->lol->hudManager->hudCamera;
 	HudCameraZoom * cameraZoom = LoLProcess_get_addr (hudCamera, cameraZoom);
 
 	return cameraZoom->curValue;
@@ -171,20 +141,10 @@ set_camera_zoom (
 ) {
 	wait_api ();
 
-	HudCamera * hudCamera = lolClient->hudManager->hudCamera;
+	HudCamera * hudCamera = lolClient->lol->hudManager->hudCamera;
 	HudCameraZoom * cameraZoom = LoLProcess_get_addr (hudCamera, cameraZoom);
 
 	cameraZoom->targetValue = zoomValue;
-
-	#ifdef API_EXECUTABLE
-		WriteProcessMemory (
-			lolClient->process->proc,
-			LoLProcess_get_remote_addr (hudCamera, cameraZoom),
-			cameraZoom,
-			sizeof (*cameraZoom),
-			NULL
-		);
-	#endif
 }
 
 
@@ -205,7 +165,7 @@ get_cursor_position (
 ) {
 	wait_api ();
 
-	HudCursorTarget * hudCursorTarget = lolClient->hudManager->hudCursorTarget;
+	HudCursorTarget * hudCursorTarget = lolClient->lol->hudManager->hudCursorTarget;
 	Position        * cursorPosition  = LoLProcess_get_addr (hudCursorTarget, posRaw);
 
 	*x = cursorPosition->x;
@@ -243,7 +203,7 @@ get_destination_position (
 ) {
 	wait_api ();
 
-	HudCursorTarget * hudCursorTarget = lolClient->hudManager->hudCursorTarget;
+	HudCursorTarget * hudCursorTarget = lolClient->lol->hudManager->hudCursorTarget;
 	Position * rightClickPosition = LoLProcess_get_addr (hudCursorTarget, rightClickPosition);
 
 	*x = rightClickPosition->x;
@@ -365,7 +325,7 @@ get_champion_position (
 ) {
 	wait_api ();
 
-	HeroClient * currentChampion = lolClient->heroClient;
+	HeroClient * currentChampion = lolClient->lol->heroClient;
 	Position * currentChampionPosition = LoLProcess_get_addr (currentChampion, currentPosition);
 
 	*x = currentChampionPosition->x;
@@ -385,7 +345,7 @@ get_champion_hp (
 ) {
 	wait_api ();
 
-	HeroClient * currentChampion = lolClient->heroClient;
+	HeroClient * currentChampion = lolClient->lol->heroClient;
 	float *currentChampionCurrentHP = (float *) LoLProcess_get_addr (currentChampion, curHP);
 	float *currentChampionMaximumHP = (float *) LoLProcess_get_addr (currentChampion, maxHP);
 
@@ -404,7 +364,7 @@ get_champion_team (
 ) {
 	wait_api ();
 
-	HeroClient * currentChampion = lolClient->heroClient;
+	HeroClient * currentChampion = lolClient->lol->heroClient;
 	int *currentChampionTeam = LoLProcess_get_addr (currentChampion, team);
 
 	if (*currentChampionTeam == CLIENT_TEAM_BLUE) {
@@ -430,7 +390,7 @@ get_teammates_count (
 ) {
 	wait_api ();
 
-	ChampionArray * champArray = lolClient->championArray;
+	ChampionArray * champArray = lolClient->lol->championArray;
 
 	return champArray->teammatesCount;
 }
@@ -447,7 +407,7 @@ check_teammate_id (
 ) {
 	wait_api ();
 
-	ChampionArray * champArray = lolClient->championArray;
+	ChampionArray * champArray = lolClient->lol->championArray;
 
 	if (teammateId > champArray->teammatesCount || teammateId < 0) {
 		dbg ("TeammateId (%d) is greater than teammates count (%d).",
@@ -477,7 +437,7 @@ get_teammate_position (
 		return;
 	}
 
-	Unit * teammate = lolClient->championArray->teammates[teammateId];
+	Unit * teammate = lolClient->lol->championArray->teammates[teammateId];
 	Position * teammatePosition = LoLProcess_get_addr (teammate, currentPosition);
 
 	*x = teammatePosition->x;
@@ -503,7 +463,7 @@ get_teammate_hp (
 		return;
 	}
 
-	Unit * teammate = lolClient->championArray->teammates[teammateId];
+	Unit * teammate = lolClient->lol->championArray->teammates[teammateId];
 
 	float *teammateCurrentHP = (float *) LoLProcess_get_addr (teammate, curHP);
 	float *teammateMaximumHP = (float *) LoLProcess_get_addr (teammate, maxHP);
@@ -530,7 +490,7 @@ get_teammate_summoner_name (
 		return;
 	}
 
-	Unit * teammate = lolClient->championArray->teammates[teammateId];
+	Unit * teammate = lolClient->lol->championArray->teammates[teammateId];
 	char * teammateSummonerName = (char *) LoLProcess_get_addr (teammate, summonerName);
 
 	memcpy (summonerName, teammateSummonerName, 16);
@@ -553,11 +513,11 @@ get_minimap_screen_position (
 ) {
 	wait_api ();
 
-	GUIMinimap * guiMinimap = lolClient->guiMenu->guiMinimap;
+	GUIMinimap * guiMinimap = lolClient->lol->guiMenu->guiMinimap;
 	Position2D * minimapScreenPosition = LoLProcess_get_addr (guiMinimap, screenPosition);
 
 	int windowX, windowY;
-	window_get_position (lolClient->process->hwnd, &windowX, &windowY);
+	window_get_position (lolClient->hwnd, &windowX, &windowY);
 
 	*x = windowX + minimapScreenPosition->x;
 	*y = windowY + minimapScreenPosition->y;
@@ -600,7 +560,7 @@ get_current_summoner_name (
 ) {
 	wait_api ();
 
-	HeroClient * currentChampion = lolClient->heroClient;
+	HeroClient * currentChampion = lolClient->lol->heroClient;
 	char * currentSummonerName = LoLProcess_get_addr (currentChampion, summonerName);
 
 	memcpy (summonerName, currentSummonerName, 16);
@@ -622,7 +582,7 @@ get_game_time (
 ) {
 	wait_api ();
 
-	GameClock * gameClock = lolClient->gameClock;
+	GameClock * gameClock = lolClient->lol->gameClock;
 	float *currentTimeSeconds = LoLProcess_get_addr (gameClock, gameTimeSeconds);
 
 	return *currentTimeSeconds;
@@ -649,8 +609,7 @@ check_api (
 
 
 /*
- * Description : Wait for the API to be in ready state
- * Return : void
+ * Description : Wait for the API to be in a ready state (blocking)
  */
 EXPORT_FUNCTION void
 wait_api (
@@ -668,7 +627,7 @@ wait_api (
  * __in__ LoLProcess *instance : Set the global lolClient value to this argument
  * Note : /!\ Use it only if you know what you are doing !
  */
-EXPORT_FUNCTION void
+void
 set_LoLProcess (
 	__in__ LoLProcess *instance
 ) {
@@ -681,7 +640,7 @@ set_LoLProcess (
  * Return LoLProcess * : A pointer to the current lolClient instance
  * Note : /!\ Use it only if you know what you are doing !
  */
-EXPORT_FUNCTION LoLProcess *
+LoLProcess *
 get_LoLProcess (
 	void
 ) {

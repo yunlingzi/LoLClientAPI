@@ -7,18 +7,21 @@
 
 /*
  * Description 	: Allocate a new MaestroGameController structure.
+ * DWORD baseAddress : Base address of the module
+ * DWORD sizeOfModule : Size of the module
  * Return		: A pointer to an allocated MaestroGameController.
  */
 MaestroGameController *
 MaestroGameController_new (
-	MemProc *mp
+	DWORD baseAddress,
+	DWORD sizeOfModule
 ) {
 	MaestroGameController *this;
 
 	if ((this = calloc (1, sizeof(MaestroGameController))) == NULL)
 		return NULL;
 
-	if (!MaestroGameController_init (this, mp)) {
+	if (!MaestroGameController_init (this, baseAddress, sizeOfModule)) {
 		MaestroGameController_free (this);
 		return NULL;
 	}
@@ -31,92 +34,98 @@ MaestroGameController_new (
 /*
  * Description : Initialize an allocated MaestroGameController structure.
  * MaestroGameController *this : An allocated MaestroGameController to initialize.
- * MemProc *mp : The target LoL process
+ * DWORD baseAddress : Base address of the module
+ * DWORD sizeOfModule : Size of the module
  * Return : true on success, false on failure.
  */
 bool
 MaestroGameController_init (
 	MaestroGameController *this,
-	MemProc *mp
+	DWORD baseAddress,
+	DWORD sizeOfModule
 ) {
-	MemBlock *mb = NULL;
-	Buffer *maestroGameControllerInstance = NULL;
-
-	BbQueue *results = memscan_search_string (
-		mp, "MaestroGameControllerStr",
-		"MaestroGameControllerStruct is not yet initialized"
+	DWORD result = memscan_string (
+		"MaestroGameControllerStr",
+		baseAddress, sizeOfModule,
+		"MaestroGameControllerStruct is not yet initialized."
 	);
 
-	if (!results) {
+	if (!result) {
 		fail ("MaestroGameControllerStr not found.");
 		return false;
 	}
 
-	if ((mb = bb_queue_pick_first (results))) {
-		// MaestroGameControllerStr has been found
-		dbg ("MaestroGameControllerStr found : 0x%08X", mb->addr);
+	// MaestroGameControllerStr has been found
+	dbg ("MaestroGameControllerStr found : 0x%08X", result);
 
-		unsigned char pattern[] = {
-			/*	8B0D E848895D     mov ecx, [dword ds:RiotLauncher.5D8948E8]
-				85C9              test ecx, ecx
-				75 3F             jne short RiotLauncher.5D74EA0C
-				68 6040875D       push offset RiotLauncher.5D874060
-				68 3C36875D       push offset RiotLauncher.5D87363C
-				8D85 FCFBFFFF     lea eax, [ebp-404]
-				68 00040000       push 400
-				50                push eax
-				E8 98D70000       call RiotLauncher.5D75C180 */
-			'?',  '?', '?', '?', '?', '?',
-			'?',  '?',
-			0x75, '?',
-			0x68, '_', '_', '_', '_',
-			0x68, '?', '?', '?', '?',
-			'?',  '?', '?', '?', '?', '?',
-			0x68, '?', '?', '?', '?',
-			'?',
-			0xE8, '?', '?', '?', '?'
-		};
+	unsigned char pattern[] = {
+		/*	8B0D E848895D     mov ecx, [dword ds:RiotLauncher.5D8948E8]
+			85C9              test ecx, ecx
+			75 3F             jne short RiotLauncher.5D74EA0C
+			68 6040875D       push offset RiotLauncher.5D874060
+			68 3C36875D       push offset RiotLauncher.5D87363C
+			8D85 FCFBFFFF     lea eax, [ebp-404]
+			68 00040000       push 400
+			50                push eax
+			E8 98D70000       call RiotLauncher.5D75C180 */
+		'?',  '?', '?', '?', '?', '?',
+		'?',  '?',
+		0x75, '?',
+		0x68, '_', '_', '_', '_',
+		0x68, '?', '?', '?', '?',
+		'?',  '?', '?', '?', '?', '?',
+		0x68, '?', '?', '?', '?',
+		'?',
+		0xE8, '?', '?', '?', '?'
+	};
 
-		// Replace ____ with MaestroGameControllerStr address
-		int replacePos = str_n_pos(pattern, "____", sizeof(pattern));
-		memcpy(&pattern[replacePos], &mb->addr, 4);
+	// Replace ____ with MaestroGameControllerStr address
+	int replacePos = str_n_pos(pattern, "____", sizeof(pattern));
+	memcpy(&pattern[replacePos], &result, 4);
 
-		// We don't need results anymore
-		bb_queue_free_all (results, memblock_free);
+	// Find a reference to HudManagerAddress
+	DWORD maestroGameControllerInstance = mem_scanner ("MaestroGameControllerInstance",
+		baseAddress, sizeOfModule,
+		pattern,
 
-		// Find a reference to HudManagerAddress
-		results = memscan_search (mp, "MaestroGameControllerInstance",
-			pattern,
+		"??????"
+		"??"
+		"x?"
+		"xxxxx"
+		"x????"
+		"??????"
+		"x????"
+		"?"
+		"x????",
 
-			"??????"
-			"??"
-			"x?"
-			"xxxxx"
-			"x????"
-			"??????"
-			"x????"
-			"?"
-			"x????",
+		"xx????"
+		"xx"
+		"xx"
+		"xxxxx"
+		"xxxxx"
+		"xxxxxx"
+		"xxxxx"
+		"x"
+		"xxxxx"
+	);
 
-			"xx????"
-			"xx"
-			"xx"
-			"xxxxx"
-			"xxxxx"
-			"xxxxxx"
-			"xxxxx"
-			"x"
-			"xxxxx"
-		);
+	if (maestroGameControllerInstance) {
+		// maestroGameControllerInstance has been found
+		this->pThis = *((DWORD *) maestroGameControllerInstance);
 
-		if (results && (maestroGameControllerInstance = bb_queue_pick_first(results))) {
-
-			return true;
+		if (!this->pThis) {
+			// We cannot conclude an error occurred because it is a normal behavior in spectator mode
+			warn ("MaestroGameControllerInstance not found.");
 		}
+		else {
+			dbg ("MaestroGameControllerInstance found : 0x%08X", this->pThis);
+		}
+
+		return true;
 	}
 
 
-	return true;
+	return false;
 }
 
 

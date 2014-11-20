@@ -6,33 +6,14 @@
 #include "MemProc/MemProc.h"
 
 // Game memory structures
-#include "LoLMemory/HudManager/HudManager.h"
-#include "LoLMemory/HeroClient/HeroClient.h"
-#include "LoLMemory/ChampionArray/ChampionArray.h"
-#include "LoLMemory/GUIMenu/GUIMenu.h"
-#include "LoLMemory/NetAPIClient/NetAPIClient.h"
-#include "LoLMemory/GameClock/GameClock.h"
-
-#include <stddef.h>
+#include "LoLProcess/Maestro.h"
+#include "LoLProcess/LoLModule.h"
 
 // ---------- Defines -------------
-#define LoLProcess_get_remote_addr(object, field) \
+// DLL injection : read from current process
+#define LoLProcess_get_addr(object, field) \
 	(void *) (object->pThis + offsetof(typeof(*object), field))
 
-#ifdef API_EXECUTABLE
-	// Executable : read from target process
-	#define LoLProcess_get_addr(object, field) \
-		(void *) (&object->field); \
-		read_from_memory ( \
-			lolClient->process->proc, \
-			&object->field, \
-			(DWORD) LoLProcess_get_remote_addr (object, field), \
-			sizeof(object->field) \
-		);
-#else
-	// DLL injection : read from current process
-	#define LoLProcess_get_addr(object, field) LoLProcess_get_remote_addr(object, field)
-#endif
 
 // ------ Structure declaration -------
 typedef enum {
@@ -43,15 +24,11 @@ typedef enum {
 
 typedef struct _LoLProcess
 {
-	MemProc *process;
+	Maestro *maestro;
+	LoLModule *lol;
 
-	// Memory structures
-	HudManager *hudManager;
-	HeroClient *heroClient;
-	ChampionArray *championArray;
-	GUIMenu *guiMenu;
-	NetAPIClient *netApiClient;
-	GameClock *gameClock;
+	// Window handle
+	HWND hwnd;
 
 	// State
 	LoLProcessState state;
@@ -92,6 +69,7 @@ LoLProcess_test (
 /*
  * Description : Set the LoLprocess to a given state
  * LoLProcess *this : An allocated LoLProcess
+ * LoLProcessState state : Set the state of the LoLProcess
  * Return : void
  */
 void

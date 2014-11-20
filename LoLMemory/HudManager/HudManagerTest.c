@@ -18,19 +18,19 @@ HudManager_test (
 		fail ("HudCamera unit test failed.");
 		return false;
 	}
-	debug ("[OK] HudCamera test success.");
+	dbg ("[OK] HudCamera test success.");
 
 	if (!HudCameraSettings_test (this->hudCameraSettings)) {
 		fail ("HudCameraSettings unit test failed.");
 		return false;
 	}
-	debug ("[OK] HudCameraSettings test success.");
+	dbg ("[OK] HudCameraSettings test success.");
 
 	if (!HudCursorTarget_test (this->hudCursorTarget)) {
 		fail ("HudCursorTarget unit test failed.");
 		return false;
 	}
-	debug ("[OK] HudCursorTarget test success.");
+	dbg ("[OK] HudCursorTarget test success.");
 
 	return true;
 }

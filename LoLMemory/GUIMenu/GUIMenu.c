@@ -8,19 +8,21 @@
 
 /*
  * Description 	: Allocate a new GUIMenu structure.
- * MemProc *mp : The target LoL process
+ * DWORD baseAddress : Base address of the module
+ * DWORD sizeOfModule : Size of the module
  * Return		: A pointer to an allocated GUIMenu.
  */
 GUIMenu *
 GUIMenu_new (
-	MemProc *mp
+	DWORD baseAddress,
+	DWORD sizeOfModule
 ) {
 	GUIMenu *this;
 
 	if ((this = calloc (1, sizeof(GUIMenu))) == NULL)
 		return NULL;
 
-	if (!GUIMenu_init (this, mp)) {
+	if (!GUIMenu_init (this, baseAddress, sizeOfModule)) {
 		GUIMenu_free (this);
 		return NULL;
 	}
@@ -32,102 +34,97 @@ GUIMenu_new (
 /*
  * Description : Initialize an allocated GUIMenu structure.
  * GUIMenu *this : An allocated GUIMenu to initialize.
+ * DWORD baseAddress : Base address of the module
+ * DWORD sizeOfModule : Size of the module
  * Return : true on success, false on failure.
  */
 bool
 GUIMenu_init (
 	GUIMenu *this,
-	MemProc *mp
+	DWORD baseAddress,
+	DWORD sizeOfModule
 ) {
-	MemBlock *mb = NULL;
-	Buffer *pGUIMenuInstance = NULL;
-
-	BbQueue *results = memscan_search_string (
-		mp, "GUIMenuStr",
-		"PktS2CStartGameHandler"
+	DWORD GUIMenuStr = memscan_string (
+		"GUIMenuStr",
+		baseAddress, sizeOfModule,
+		"GAMESTATE_GAMELOOP GUIMenuDraw"
 	);
 
-	if (!results || (bb_queue_get_length (results) <= 0)) {
+	if (!GUIMenuStr) {
 		dbg ("GUIMenuStr not found.");
 		return false;
 	}
 
-	if ((mb = bb_queue_pick_first (results))) {
-		// HudManagerInstanceStr has been found
-		dbg ("GUIMenuStr found : 0x%08X", mb->addr);
+	// HudManagerInstanceStr has been found
+	dbg ("GUIMenuStr found : 0x%08X", GUIMenuStr);
 
-		unsigned char pattern[] = {
-		/*		833D 5407CB03 00  cmp [dword ds:League_of_Legends.3CB0754], 0  <-- pGUIMenuInstance
-				75 2A             jne short League_of_Legends.014A7F5A
-				68 85D4FA01       push offset League_of_Legends.01FAD485
-				68 C02BFB01       push offset League_of_Legends.01FB2BC0        ; ASCII "PktS2CStartGameHandler"
-				68 C9040000       push 4C9
-				68 7824FB01       push offset League_of_Legends.01FB2478        ; ASCII "..."
-				68 182CFB01       push offset League_of_Legends.01FB2C18        ; ASCII "GUIMenu"
-				E8 620C4100       call League_of_Legends.PrintError */
+	unsigned char pattern[] = {
+		/*	68 A41C0902       push offset League_of_Legends.02091CA4                   ; ASCII "GAMESTATE_GAMELOOP GUIMenuDraw\n"
+			FF35 D47E4A02     push [dword ds:League_of_Legends.24A7ED4]
+			83C8 01           or eax, 00000001
+			50                push eax
+			6A 03             push 3
+			E8 F305ECFF       call League_of_Legends.015DA170
+			83C4 10           add esp, 10
+			833D 547ED503 00  cmp [dword ds:League_of_Legends.GUIMenuInstance], 0 */
+		0x68, '_', '_', '_', '_',
+		'?', '?', '?', '?', '?', '?',
+		'?', '?', '?',
+		'?',
+		'?', 0x03,
+		0xE8, '?', '?', '?', '?',
+		'?', '?', '?',
+		'?', '?', '?', '?', '?', '?', 0x00
+	};
 
-			'?',  '?',  '?',  '?',  '?', '?', 0x00,
-			'?',  '?',
-			0x68, '?',  '?',  '?',  '?',
-			0x68, '_',  '_',  '_',  '_',
-			0x68, '?',  '?',  '?',  '?',
-			0x68, '?',  '?',  '?',  '?',
-			0x68, '?',  '?',  '?',  '?',
-			0xE8, '?',  '?',  '?',  '?',
-		};
+	// Replace ____ with pHudManagerInstance address
+	int replacePos = str_n_pos(pattern, "____", sizeof(pattern));
+	memcpy(&pattern[replacePos], &GUIMenuStr, 4);
 
-		// Replace ____ with pHudManagerInstance address
-		int replacePos = str_n_pos(pattern, "____", sizeof(pattern));
-		memcpy(&pattern[replacePos], &mb->addr, 4);
+	// Find a reference to GUIMenuInstance
+	DWORD GUIMenuInstance = mem_scanner ("GUIMenuInstance",
+		baseAddress, sizeOfModule,
+		pattern,
 
-		// We don't need results anymore
-		bb_queue_free_all (results, memblock_free);
+		"xxxxx"
+		"??????"
+		"???"
+		"?"
+		"?x"
+		"x????"
+		"???"
+		"??????x",
 
-		// Find a reference to GUIMenuInstance
-		results = memscan_search (mp, "pGUIMenuInstance",
-			pattern,
-			"???????"
-			"??"
-			"x????"
-			"xxxxx"
-			"x????"
-			"x????"
-			"x????"
-			"x????",
+		"xxxxx"
+		"xxxxxx"
+		"xxx"
+		"x"
+		"xx"
+		"xxxxx"
+		"xxx"
+		"xx????x"
+	);
 
-			"xx????x"
-			"xx"
-			"xxxxx"
-			"xxxxx"
-			"xxxxx"
-			"xxxxx"
-			"xxxxx"
-			"xxxxx"
-		);
+	if (GUIMenuInstance)
+	{
+		// GUIMenuInstance has been found
+		dbg ("GUIMenuInstance found : 0x%08X", GUIMenuInstance);
 
-		if (results && (pGUIMenuInstance = bb_queue_pick_first(results))) {
-			// pGUIMenuInstance has been found
-			DWORD pStaticThis = *((DWORD *)pGUIMenuInstance->data);
-			DWORD pThis = read_memory_as_int (mp->proc, pStaticThis);
-			read_from_memory (mp->proc, this, pThis, sizeof(this));
+		// Initialize GUIMenu
+		memcpy (this, *((DWORD **) GUIMenuInstance), sizeof(GUIMenu));
+		this->pThis = *((DWORD *) GUIMenuInstance);
+		this->pStaticThis = GUIMenuInstance;
 
-			this->pThis = pThis;
-			this->pStaticThis = pStaticThis;
-			dbg ("pGUIMenuInstance pointer found : 0x%08X", this->pThis);
-
-			// We don't need results anymore
-			bb_queue_free_all (results, buffer_free);
-
-			// Initialize guiMinimap structure
-			DWORD guiMinimapAddress = read_memory_as_int (mp->proc, (DWORD) LoLProcess_get_remote_addr (this, guiMinimap));
-			if (!(this->guiMinimap = GUIMinimap_new (guiMinimapAddress))) {
-				dbg ("Cannot get guiMinimap.");
-				return false;
-			}
-
-			return true;
+		// Initialize guiMinimap structure
+		if (!(this->guiMinimap = GUIMinimap_new ((DWORD) this->guiMinimap))) {
+			dbg ("Cannot get guiMinimap.");
+			return false;
 		}
+
+		return true;
 	}
+
+	dbg ("GUIMenuInstance not found.");
 
 	return false;
 }

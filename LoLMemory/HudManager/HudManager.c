@@ -8,19 +8,21 @@
 
 /*
  * Description 	: Allocate a new HudManager structure.
- * MemProc *mp  : Address of an allocated and running MemProc target process
+ * DWORD baseAddress : Base address of the module
+ * DWORD sizeOfModule : Size of the module
  * Return		: A pointer to an allocated HudManager.
  */
 HudManager *
 HudManager_new (
-	MemProc *mp
+	DWORD baseAddress,
+	DWORD sizeOfModule
 ) {
 	HudManager *this;
 
 	if ((this = calloc(1, sizeof(HudManager))) == NULL)
 		return NULL;
 
-	if (!HudManager_init (this, mp)) {
+	if (!HudManager_init (this, baseAddress, sizeOfModule)) {
 		HudManager_free (this);
 		return NULL;
 	}
@@ -31,108 +33,105 @@ HudManager_new (
 /*
  * Description : Initialize an allocated HudManager structure.
  * HudManager *this : An allocated HudManager to initialize.
- * MemProc *mp : The target LoL process
+ * DWORD baseAddress : Base address of the module
+ * DWORD sizeOfModule : Size of the module
  * Return : true on success, false on failure.
  */
 bool
 HudManager_init (
 	HudManager *this,
-	MemProc *mp
+	DWORD baseAddress,
+	DWORD sizeOfModule
 ) {
-	MemBlock *mb = NULL;
-	Buffer *pHudManagerInstance = NULL;
-
-	BbQueue *results = memscan_search_string (
-		mp, "HudManagerInstanceStr",
-		"HudManager::GetInstance: Instance not created yet or already destroyed"
+	DWORD hudManagerInstance;
+	DWORD hudManagerInstanceStr = memscan_string (
+		"HudManagerInstanceStr",
+		baseAddress, sizeOfModule,
+		"GAMESTATE_GAMELOOP HUDDraw"
 	);
 
-	if (!results) {
+	if (!hudManagerInstanceStr) {
 		dbg ("HudManagerInstanceStr not found.");
 		return false;
 	}
 
-	if ((mb = bb_queue_pick_first(results))) {
-		// HudManagerInstanceStr has been found
+	// HudManagerInstanceStr has been found
+	dbg ("HudManagerInstanceStr found : 0x%08X", hudManagerInstanceStr);
 
-		dbg ("HudManagerInstanceStr found : 0x%08X", mb->addr);
+	unsigned char pattern [] = {
+		/*	68 681C0202       push offset League_of_Legends.02021C68                           ; ASCII "GAMESTATE_GAMELOOP HUDDraw\n"
+			FF35 8C55CE03     push [dword ds:League_of_Legends.3CE558C]
+			83C8 01           or eax, 00000001
+			50                push eax
+			6A 03             push 3
+			E8 2006ECFF       call League_of_Legends.0156A170
+			83C4 10           add esp, 10
+			8B0D 248DCE03     mov ecx, [dword ds:League_of_Legends.3CE8D24] */
 
-		unsigned char pattern[] =
-			/*	A1 0846BD03       mov eax, [dword ds:League_of_Legends.3BD4608] <--- pHudManagerInstance
-				85C0              test eax, eax
-				75 26             jnz short League_of_Legends.01629E0F
-				68 302FF001       push offset League_of_Legends.01F02F30 <-- HudManagerInstanceStr
-				68 782FF001       push offset League_of_Legends.01F02F78
-				68 74010000       push 174 <-- HudManager ID
-				68 D82DF001       push offset League_of_Legends.01F02DD8
-				68 C826EE01       push offset League_of_Legends.01EE26C8 */
-			"?????"
-			"??"
-			"??"
-			"\x68____"
-			"\x68????"
-			"\x68\x74\x01\x00\x00"
-			"\x68????"
-			"\x68????"
-			"\xE8????";
+		0x68, '_', '_', '_', '_',
+		'?', '?', '?', '?', '?', '?',
+		'?', '?', '?',
+		'?',
+		'?', 0x03,
+		0xE8, '?', '?', '?', '?',
+		'?', '?', '?',
+		'?', '?', '?', '?', '?', '?'
+	};
 
-		// Replace ____ with pHudManagerInstance address
-		int replacePos = str_n_pos(pattern, "____", sizeof(pattern));
-		memcpy(&pattern[replacePos], &mb->addr, 4);
+	// Replace ____ with hudManagerInstanceStr address
+	int replacePos = str_n_pos(pattern, "____", sizeof(pattern));
+	memcpy(&pattern[replacePos], &hudManagerInstanceStr, 4);
 
-		// We don't need results anymore
-		bb_queue_free_all (results, memblock_free);
+	// Find a reference to HudManagerAddress
+	hudManagerInstance = mem_scanner ("hudManagerInstance",
+		baseAddress, sizeOfModule,
+		pattern,
 
-		// Find a reference to HudManagerAddress
-		results = memscan_search (mp, "pHudManagerInstance",
-			pattern,
-			"?????"
-			"??"
-			"??"
-			"xxxxx"
-			"x????"
-			"xxxxx"
-			"x????"
-			"x????"
-			"x????",
+		"xxxxx"
+		"??????"
+		"???"
+		"?"
+		"?x"
+		"x????"
+		"???"
+		"??????",
 
-			"x????"
-			"xx"
-			"xx"
-			"xxxxx"
-			"xxxxx"
-			"xxxxx"
-			"xxxxx"
-			"xxxxx"
-			"xxxxx"
-		);
+		"xxxxx"
+		"xxxxxx"
+		"xxx"
+		"x"
+		"xx"
+		"xxxxx"
+		"xxx"
+		"xx????"
+	);
 
-		if (results && (pHudManagerInstance = bb_queue_pick_first(results))) {
-			// pHudManagerInstance has been found
-			this->pThis = read_memory_as_int (mp->proc, *((DWORD *)pHudManagerInstance->data));
-			dbg ("pHudManager pointer found : 0x%08X", this->pThis);
+	if (hudManagerInstance)
+	{
+		// hudManagerInstance has been found
+		this->pThis = hudManagerInstance;
+		dbg ("pHudManager pointer found : 0x%08X", this->pThis);
 
-			// We don't need results anymore
-			bb_queue_free_all (results, buffer_free);
-
-			// Get objects from HudManager
-			if (!(this->hudCamera = HudCamera_new (HudManager_get_object (this, mp, HUD_CAMERA)))) {
-				dbg ("Cannot get HudCamera.");
-				return false;
-			}
-
-			if (!(this->hudCursorTarget = HudCursorTarget_new (HudManager_get_object (this, mp, HUD_CURSOR_TARGET)))) {
-				dbg ("Cannot get hudCursorTarget.");
-				return false;
-			}
-
-			if (!(this->hudCameraSettings = HudCameraSettings_new (HudManager_get_object (this, mp, HUD_CAMERA_SETTINGS)))) {
-				dbg ("Cannot get hudCursorTarget.");
-				return false;
-			}
-
-			return true;
+		// Get objects from HudManager
+		if (!(this->hudCamera = HudCamera_new (HudManager_get_object (this, HUD_CAMERA)))) {
+			dbg ("Cannot get HudCamera.");
+			return false;
 		}
+		dbg ("HudCamera found at 0x%08X", this->hudCamera->pThis);
+
+		if (!(this->hudCursorTarget = HudCursorTarget_new (HudManager_get_object (this, HUD_CURSOR_TARGET)))) {
+			dbg ("Cannot get hudCursorTarget.");
+			return false;
+		}
+		dbg ("hudCursorTarget found at 0x%08X", this->hudCursorTarget->pThis);
+
+		if (!(this->hudCameraSettings = HudCameraSettings_new (HudManager_get_object (this, HUD_CAMERA_SETTINGS)))) {
+			dbg ("Cannot get hudCursorTarget.");
+			return false;
+		}
+		dbg ("hudCameraSettings found at 0x%08X", this->hudCameraSettings->pThis);
+
+		return true;
 	}
 
 	return false;
@@ -148,10 +147,11 @@ HudManager_init (
 DWORD
 HudManager_get_object (
 	HudManager *hudManager,
-	MemProc *mp,
 	HudObject object
 ) {
-	return read_memory_as_int (mp->proc, hudManager->pThis + (object * sizeof(DWORD)));
+	DWORD * hudObjects = *((DWORD **) hudManager->pThis);
+
+	return hudObjects [object];
 }
 
 

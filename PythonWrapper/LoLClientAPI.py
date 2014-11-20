@@ -395,6 +395,8 @@ class LoLClientAPI:
 	# =================================================================================
 	# ================================= Internal APIs =================================
 	# =================================================================================
+	
+	# Eject the API from the LoL Process. You have to call this function before ejecting the DLL.
 	def eject_api (self):
 		
 		# C API declaration :
@@ -402,7 +404,28 @@ class LoLClientAPI:
 		#	void
 		# )
 		
-		self.hAPI.eject_api ();
+		return self.hAPI.eject_api ();
+	
+	# Wait for the API to be in a ready state. (blocking)
+	def wait_api (self):
+		
+		# C API declaration :
+		# void wait_api (
+		#	void
+		# )
+		
+		self.hAPI.wait_api ();
+	
+	# Check if the API is in a ready state. (nonblocking)
+	# Return : true if ready, false otherwise
+	def check_api (self):
+		
+		# C API declaration :
+		# bool check_api (
+		#	void
+		# )
+		
+		return self.hAPI.check_api ();
 		
 	# =================================================================================
 	# ================================== Entry Point ==================================

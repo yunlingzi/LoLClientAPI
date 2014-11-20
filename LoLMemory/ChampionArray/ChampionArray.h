@@ -3,7 +3,6 @@
 
 // ---------- Includes ------------
 #include "Utils/Utils.h"
-#include "MemProc/MemProc.h"
 #include "LoLMemory/Unit/Unit.h"
 #include "LoLMemory/HeroClient/HeroClient.h"
 
@@ -34,14 +33,16 @@ typedef struct _ChampionArray
 
 /*
  * Description 	: Allocate a new ChampionArray structure.
- * MemProc *mp : The target LoL process
  * HeroClient *heroClient : The HeroClient instance
+ * DWORD baseAddress : Base address of the module
+ * DWORD sizeOfModule : Size of the module
  * Return		: A pointer to an allocated ChampionArray.
  */
 ChampionArray *
 ChampionArray_new (
-	MemProc *mp,
-	HeroClient *heroClient
+	HeroClient *heroClient,
+	DWORD baseAddress,
+	DWORD sizeOfModule
 );
 
 // ----------- Functions ------------
@@ -51,13 +52,15 @@ ChampionArray_new (
  * Description : Initialize an allocated ChampionArray structure.
  * ChampionArray *this : An allocated ChampionArray to initialize.
  * HeroClient *heroClient : The HeroClient instance
- * MemProc *mp : The target LoL process
+ * DWORD baseAddress : Base address of the module
+ * DWORD sizeOfModule : Size of the module
  */
 bool
 ChampionArray_init (
 	ChampionArray *this,
-	MemProc *mp,
-	HeroClient *heroClient
+	HeroClient *heroClient,
+	DWORD baseAddress,
+	DWORD sizeOfModule
 );
 
 

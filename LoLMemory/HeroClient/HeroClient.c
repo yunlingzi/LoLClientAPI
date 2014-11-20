@@ -8,19 +8,21 @@
 
 /*
  * Description 	: Allocate a new HeroClient structure.
- * MemProc *mp : The target LoL process
+ * DWORD baseAddress : Base address of the module
+ * DWORD sizeOfModule : Size of the module
  * Return		: A pointer to an allocated HeroClient.
  */
 HeroClient *
 HeroClient_new (
-	MemProc *mp
+	DWORD baseAddress,
+	DWORD sizeOfModule
 ) {
 	HeroClient *this;
 
 	if ((this = calloc (1, sizeof(HeroClient))) == NULL)
 		return NULL;
 
-	if (!HeroClient_init (this, mp)) {
+	if (!HeroClient_init (this, baseAddress, sizeOfModule)) {
 		HeroClient_free (this);
 		return NULL;
 	}
@@ -32,113 +34,87 @@ HeroClient_new (
 /*
  * Description : Initialize an allocated HeroClient structure.
  * HeroClient *this : An allocated HeroClient to initialize.
- * MemProc *mp : The target LoL process
- * Return : true on success, false on failure.
+ * DWORD baseAddress : Base address of the module
+ * DWORD sizeOfModule : Size of the module
  */
 bool
 HeroClient_init (
 	HeroClient *this,
-	MemProc *mp
+	DWORD baseAddress,
+	DWORD sizeOfModule
 ) {
-	MemBlock *mb = NULL;
-	Buffer *heroClientInstance = NULL;
-
-	BbQueue *results = memscan_search_string (
-		mp, "HeroClientStr",
-		"!Player || Player != this"
+	DWORD heroClientStr = memscan_string (
+		"HeroClientStr",
+		baseAddress, sizeOfModule,
+		"MINIONS_KILLED"
 	);
 
-	if (!results) {
+	if (!heroClientStr) {
 		fail ("HeroClientStr not found.");
 		return false;
 	}
 
-	if ((mb = bb_queue_pick_first (results))) {
-		// HeroClientStr has been found
-		dbg ("HeroClientStr found : 0x%08X", mb->addr);
+	// HeroClientStr has been found
+	dbg ("HeroClientStr found : 0x%08X", heroClientStr);
 
-		unsigned char pattern[] =
-			/*	     A1 8808A603       mov eax, [dword ds:League_of_Legends.3A60888] <-- HeroClientInstance
-				     85C0              test eax, eax
-				   ▼ 74 25             je short League_of_Legends.0131272A
-				     3BC7              cmp eax, edi
-				   ▼ 75 21             jne short League_of_Legends.0131272A
-				     68 65D4D501       push offset League_of_Legends.01D5D465
-				     68 103CD701       push offset League_of_Legends.01D73C10
-				     68 72050000       push 572
-				     68 403AD701       push offset League_of_Legends.01D73A40
-				     68 303CD701       push offset League_of_Legends.01D73C30             ; ASCII "!Player || Player != this"
-				     E8 29653500       call League_of_Legends.01668C50
-			*/
-			"?????"
-			"??"
-			"??"
-			"??"
-			"??"
-			"\x68????"
-			"\x68????"
-			"\x68????"
-			"\x68????"
-			"\x68____"
-			"\xE8????";
+	unsigned char pattern [] = {
+		/*	68 047CFF01       push offset League_of_Legends.01FF7C04        ; ASCII "MINIONS_KILLED"
+			8D4D D8           lea ecx, [ebp-28]
+			E8 A257FFFF       call League_of_Legends.014D48A0
+			C745 FC 00000000  mov [dword ss:ebp-4], 0
+			8D45 D8           lea eax, [ebp-28]
+			8B0D 487FCE03     mov ecx, [dword ds:League_of_Legends.3CE7F48] */
+		0x68, '_', '_', '_', '_',
+		'?', '?', '?',
+		0xE8, '?', '?', '?', '?',
+		'?', '?', '?', '?', '?', '?', '?',
+		'?', '?', '?',
+		0x8B, 0x0D, '?', '?', '?', '?'
+	};
 
-		// Replace ____ with HeroClientStr address
-		int replacePos = str_n_pos(pattern, "____", sizeof(pattern));
-		memcpy(&pattern[replacePos], &mb->addr, 4);
+	// Replace ____ with HeroClientStr address
+	int replacePos = str_n_pos(pattern, "____", sizeof(pattern));
+	memcpy(&pattern[replacePos], &heroClientStr, 4);
 
-		// We don't need results anymore
-		bb_queue_free_all (results, memblock_free);
+	// Find a reference to HeroClient
+	DWORD heroClientInstance = mem_scanner ("HeroClientInstance",
+		baseAddress, sizeOfModule,
+		pattern,
 
-		// Find a reference to HudManagerAddress
-		results = memscan_search (mp, "HeroClientInstance",
-			pattern,
+		"xxxxx"
+		"???"
+		"x????"
+		"???????"
+		"???"
+		"xx????",
 
-			"?????"
-			"??"
-			"??"
-			"??"
-			"??"
-			"x????"
-			"x????"
-			"x????"
-			"x????"
-			"xxxxx"
-			"x????",
+		"xxxxx"
+		"xxx"
+		"xxxxx"
+		"xxxxxxx"
+		"xxx"
+		"xx????"
+	);
 
-			"x????"
-			"xx"
-			"xx"
-			"xx"
-			"xx"
-			"xxxxx"
-			"xxxxx"
-			"xxxxx"
-			"xxxxx"
-			"xxxxx"
-			"xxxxx"
-		);
+	if (heroClientInstance)
+	{
+		// heroClientInstance has been found
+		dbg ("HeroClientInstance found : 0x%08X", heroClientInstance);
 
-		if (results && (heroClientInstance = bb_queue_pick_first(results))) {
-			// heroClientInstance has been found
-			Unit_init (this, mp, *((DWORD *) heroClientInstance->data));
+		Unit_init (this, heroClientInstance);
 
-			// We don't need results anymore
-			bb_queue_free_all (results, buffer_free);
-
-			if (!this->pThis) {
-				// We cannot conclude an error occurred because it is a normal behavior in spectator mode
-				warn ("pHeroClient not found. Are you in spectator mode ?");
-			}
-			else {
-				dbg ("pHeroClient found : 0x%08X", this->pThis);
-			}
-
-			return true;
+		if (!this->pThis) {
+			// We cannot conclude an error occurred because it is a normal behavior in spectator mode
+			warn ("HeroClientInstance not initialized. Are you in spectator mode ?");
 		}
+
+		return true;
 	}
 
+	dbg ("HeroClientInstance not found.");
 
-	return true;
+
+	return false;
 }
 
 

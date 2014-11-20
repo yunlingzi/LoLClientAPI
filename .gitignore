@@ -2,12 +2,11 @@
 *.layout
 bin/
 obj/
-eject.bat
-inject.bat
 *.ct
 *.pyc
 *.dll
 *.zip
 *.exe
 *.txt
+*.bat
 Release/
