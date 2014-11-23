@@ -14,7 +14,7 @@ EULA infringement, section III E :
     any communication between the Software and Riot Games, or that collect information about 
     the Game by reading areas of memory used by the Software to store information about the Game.
 
-Use this tool at your own risk.
+**Use this tool at your own risk.**
 
 
 ![?](http://i.cubeupload.com/AJ6uDr.gif) Presentation
@@ -27,11 +27,12 @@ The APIs provided shouldn't help too much for botting and cheating in the game.
 Thus, you can't control your champion, unzoom farther than possible or use items with this API.
 
 
-![?](http://i.cubeupload.com/AJ6uDr.gif) Available APIs
+:arrow_right: Available APIs
 ------------
 If you want to take a closer look at the prototypes, all the available APIs are exported in the [LoLClientInterface header](https://github.com/Spl3en/LoLClientAPI/blob/master/LoLClientAPI/LoLClientInterface.h).
 
-    ** ================================== Camera APIs ================================== **
+##### Camera APIs
+
 API Prototype | Description
 -------- | -------------
 ```get_camera_position``` | Retrieve the current camera position  
@@ -42,7 +43,7 @@ API Prototype | Description
 ```get_camera_zoom``` | Retrieve the current camera zoom value
 ```set_camera_zoom``` | Set the current camera zoom (500.0 min, 2000.0 max)
 
-    ** ================================== Cursor APIs ================================== **
+##### Cursor APIs
 API Prototype | Description
 -------- | -------------
 ```get_cursor_position``` | Retrieve the current cursor position
@@ -53,12 +54,12 @@ API Prototype | Description
 ```is_right_mouse_button_pressed``` | Check if the right mouse button is pressed
 ```is_right_mouse_button_click``` | Check if the right mouse button is clicked
 
-    ** ================================== Keyboard APIs ================================== **
+##### Keyboard APIs
 API Prototype | Description
 -------- | -------------
 ```is_space_pressed``` | Check if the space key is pressed
 
-    ** ================================== Champions APIs ================================== **
+##### Champions APIs
 API Prototype | Description
 -------- | -------------
 ```get_champion_position``` | Retrieve the current champion position
@@ -70,23 +71,23 @@ API Prototype | Description
 ```get_teammate_summoner_name``` | Retrieve teammate summoner name
 ```check_teammate_id``` | Check if the target teammate ID is valid. You shouldn't need to call this.
 
-    ** ================================== GUI APIs ================================== **
+##### GUI APIs
 API Prototype | Description
 -------- | -------------
 ```get_minimap_screen_position``` | Retrieve the position of the minimap on the screen
 ```is_cursor_hovering_minimap``` | Check if the mouse is hovering the minimap
 
-    ** ================================== Summoner APIs ================================== **
+##### Summoner APIs
 API Prototype | Description
 -------- | -------------
 ```get_current_summoner_name``` | Retrieve the current summoner name
 
-    ** ================================== Game APIs ================================== **
+##### Game APIs
 API Prototype | Description
 -------- | -------------
 ```get_game_time``` | Get the current game time (as seconds)
 
-    ** ================================== Internal APIs ================================== **
+##### Internal APIs
 API Prototype | Description
 -------- | -------------
 ```eject_api``` | Eject the API from the LoL process
@@ -94,6 +95,6 @@ API Prototype | Description
 ```set_api_ready``` | Set a new client api and initialize it to a ready state
 ```check_api``` | Wait for the API to be in a ready state
     
-![?](http://i.cubeupload.com/AJ6uDr.gif) Internal representation of LoLClientAPI system
+![?](http://i.cubeupload.com/UvkfRQ.png) Internal representation of LoLClientAPI system
 ------------
 ![LoLClientAPI Overview](http://i.cubeupload.com/I3xY3Q.png)
