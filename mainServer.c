@@ -9,7 +9,7 @@ LoLServerAPI * connection = NULL;
 
 /*
  * Description :	Function called when the DLL in injected or the executable is launched
- * 					It injects LCAPI into LoL process, find game structures and store them
+ * 					It installs LCAPI into LoL process, find game structures and store them
  *					into a custom structure
  */
 EXPORT_FUNCTION void startInjection (void)
