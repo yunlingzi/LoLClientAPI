@@ -183,6 +183,10 @@ LoLProcess_exportToCE (void)
 		LoLProcess_get_addr (this->lol->hudManager->hudCamera, cameraPosition),
 
 		/* Cursor */
+		LoLProcess_get_addr (this->lol->hudManager->hudCursorTarget, rightClickPosition),
+		LoLProcess_get_addr (this->lol->hudManager->hudCursorTarget, rightClickPosition),
+		LoLProcess_get_addr (this->lol->hudManager->hudCursorTarget, EntityFocusedPosition),
+		LoLProcess_get_addr (this->lol->hudManager->hudCursorTarget, EntityFocusedPosition),
 		LoLProcess_get_addr (this->lol->hudManager->hudCursorTarget, posRaw),
 		LoLProcess_get_addr (this->lol->hudManager->hudCursorTarget, posRaw),
 
@@ -210,6 +214,7 @@ LoLProcess_exportToCE (void)
 	);
 
 	file_put_contents("C:/Users/Spl3en/Desktop/C/LoLClientAPI/LCAPI.ct", cheatEngineOutput, NULL);
+	dbg ("Addresses exported to CheatEngine.");
 	#endif
 }
 
