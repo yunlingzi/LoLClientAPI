@@ -8,6 +8,7 @@
 // Game memory structures
 #include "LoLProcess/Maestro.h"
 #include "LoLProcess/LoLModule.h"
+#include "HookEngine/HookEngine.h"
 
 // ---------- Defines -------------
 // DLL injection : read from current process
@@ -27,9 +28,6 @@ typedef struct _LoLProcess
 	Maestro *maestro;
 	LoLModule *lol;
 
-	// Client API path
-	char *clientAPIPath;
-
 	// Window handle
 	HWND hwnd;
 
@@ -37,7 +35,7 @@ typedef struct _LoLProcess
 	LoLProcessState state;
 
 	// Hook engine handle
-	HMODULE hookEngine;
+	HookEngine *hookEngine;
 
 }	LoLProcess;
 

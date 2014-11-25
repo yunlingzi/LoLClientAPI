@@ -87,6 +87,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../dbg/dbg.h" />
+		<Unit filename="HookEngine/HookEngine.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="HookEngine/HookEngine.h" />
 		<Unit filename="LoLAPI/LoLAPI.h" />
 		<Unit filename="LoLAPI/LoLAPIPacket.h" />
 		<Unit filename="LoLAPI/LoLAPIRequest.c">

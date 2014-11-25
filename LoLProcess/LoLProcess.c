@@ -75,6 +75,42 @@ LoLProcess_setState (
 
 
 /*
+ * Description :
+ * LoLProcess *this : An allocated LoLProcess
+ * Return : void
+ */
+bool
+LoLProcess_load_hook_engine (
+	LoLProcess *this,
+	wchar_t *serverApiPath
+) {
+	char dllPath [PATH_MAX];
+	wchar_t * lastSlash = wcsrchr (serverApiPath, '\\');
+	wchar_t * dllName = (lastSlash != NULL) ? &lastSlash[1] : serverApiPath;
+
+	/* C:\Users\Spl3en\Desktop\C\LoLClientAPI\Release\bin\LoLServerAPI.dll
+	                                                      `-> \0           */
+	dllName[0] = '\0';
+	if (wcstombs (dllPath, serverApiPath, PATH_MAX) == PATH_MAX - 1) {
+		dbg ("Error while retrieving the path of the LoLServerAPI.");
+		return false;
+	}
+
+	// Load hook engine
+	char * hookEngineDllPath = str_dup_printf ("%sNtHookEngine.dll", dllPath);
+	this->hookEngine = HookEngine_new (hookEngineDllPath);
+	free (hookEngineDllPath);
+
+	if (!this->hookEngine) {
+		dbg ("Hook Engine didn't initialize correctly");
+		return false;
+	}
+
+	return true;
+}
+
+
+/*
  * Description : Scan different modules of the League of Legends.exe process
  * LoLProcess *this : An allocated LoLProcess
  * Return : true on success, false otherwise
@@ -100,17 +136,14 @@ LoLProcess_scan_modules (
 
 		// LoLServerAPI.dll
 		if (_wcsicmp (moduleEntry->BaseName.Buffer, L"LoLServerAPI.dll") == 0) {
-			char buffer [PATH_MAX];
-			wchar_t * dllPath = moduleEntry->FullName.Buffer;
 			dbg ("LoLServerAPI module found : 0x%08X (size = 0x%08X)", baseAddress, sizeOfModule);
-			wchar_t * dllFilename = ((wcsrchr(dllPath, '\\')) != NULL) ? &(wcsrchr(dllPath, '\\'))[1] : dllPath;
-			if (dllFilename != NULL)
-				*dllFilename = 0;
-			if (wcstombs (buffer, dllPath, PATH_MAX) == PATH_MAX - 1) {
-				dbg ("Error while retrieving the path of the LoLServerAPI. Please report this error to spl3en.contact@gmail.com");
+			// Load NtHookEngine
+			// NtHookEngine is in the same path than LoLServerAPI.
+			// Retrieve the path and load NtHookEngine
+			if (!LoLProcess_load_hook_engine (this, moduleEntry->FullName.Buffer)) {
+				dbg ("Error when loading NtHookEngine.");
 				return false;
 			}
-			dbg ("LoLServerAPI Path = %s", buffer);
 		}
 
 		// RiotLauncher.dll
