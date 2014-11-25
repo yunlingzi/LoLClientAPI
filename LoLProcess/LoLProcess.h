@@ -27,11 +27,17 @@ typedef struct _LoLProcess
 	Maestro *maestro;
 	LoLModule *lol;
 
+	// Client API path
+	char *clientAPIPath;
+
 	// Window handle
 	HWND hwnd;
 
 	// State
 	LoLProcessState state;
+
+	// Hook engine handle
+	HMODULE hookEngine;
 
 }	LoLProcess;
 

@@ -2,6 +2,7 @@
 #include "LoLServerAPI/LoLServerInterface.h"
 #include <stdlib.h>
 #include <time.h>
+#include <limits.h>
 
 #define __DEBUG_OBJECT__ "LoLProcess"
 #include "dbg/dbg.h"
@@ -97,6 +98,22 @@ LoLProcess_scan_modules (
 		DWORD baseAddress  = (DWORD) moduleEntry->BaseAddress;
 		DWORD sizeOfModule = (DWORD) moduleEntry->SizeOfImage - 1;
 
+		// LoLServerAPI.dll
+		if (_wcsicmp (moduleEntry->BaseName.Buffer, L"LoLServerAPI.dll") == 0) {
+			char buffer [PATH_MAX];
+			wchar_t * dllPath = moduleEntry->FullName.Buffer;
+			dbg ("LoLServerAPI module found : 0x%08X (size = 0x%08X)", baseAddress, sizeOfModule);
+			wchar_t * dllFilename = ((wcsrchr(dllPath, '\\')) != NULL) ? &(wcsrchr(dllPath, '\\'))[1] : dllPath;
+			if (dllFilename != NULL)
+				*dllFilename = 0;
+			if (wcstombs (buffer, dllPath, PATH_MAX) == PATH_MAX - 1) {
+				dbg ("Error while retrieving the path of the LoLServerAPI. Please report this error to spl3en.contact@gmail.com");
+				return false;
+			}
+			dbg ("LoLServerAPI Path = %s", buffer);
+		}
+
+		// RiotLauncher.dll
 		if (_wcsicmp (moduleEntry->BaseName.Buffer, L"RiotLauncher.dll") == 0) {
 			dbg ("Maestro module found : 0x%08X (size = 0x%08X)", baseAddress, sizeOfModule);
 			if ((this->maestro = Maestro_new (baseAddress, sizeOfModule)) == NULL) {
@@ -105,6 +122,7 @@ LoLProcess_scan_modules (
 			}
 		}
 
+		// League Of Legends.exe
 		else if (_wcsicmp (moduleEntry->BaseName.Buffer, L"League of Legends.exe") == 0) {
 			dbg ("LoL module found : 0x%08X (size = 0x%08X)", baseAddress, sizeOfModule);
 			if ((this->lol = LoLModule_new (baseAddress, sizeOfModule)) == NULL) {

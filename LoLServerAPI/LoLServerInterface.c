@@ -621,7 +621,6 @@ wait_api (
 	}
 }
 
-
 /*
  * Description : Set the current used lolClient instance
  * __in__ LoLProcess *instance : Set the global lolClient value to this argument
