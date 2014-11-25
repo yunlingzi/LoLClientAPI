@@ -98,3 +98,9 @@ API Prototype | Description
 ![?](http://i.cubeupload.com/UvkfRQ.png) Internal representation of LoLClientAPI system
 ------------
 ![LoLClientAPI Overview](http://i.cubeupload.com/I3xY3Q.png)
+
+:+1: Credits
+-------------
+
+* Daniel Pistelli - Hook Engine : http://www.codeproject.com/Articles/21414/Powerful-x-x-Mini-Hook-Engine
+* DLL injector : https://code.google.com/p/injector/
