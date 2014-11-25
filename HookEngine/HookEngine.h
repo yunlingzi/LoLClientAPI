@@ -51,15 +51,32 @@ HookEngine_test (
 	HookEngine *this
 );
 
+
+/*
+ * Description : Hook a target function
+ * HookEngine *this : An allocated HookEngine
+ * HMODULE module : Module containing the target function
+ * char * functionName : Function name in the module
+ * ULONG_PTR NewFunction : Pointer to the new function replacing the old one
+ * Return : true on success, false on failure
+ */
+ULONG_PTR
+HookEngine_hook_name (
+	HMODULE module,
+	char * functionName,
+	ULONG_PTR NewFunction
+);
+
+
 /*
  * Description : Hook a target function
  * HookEngine *this : An allocated HookEngine
  * ULONG_PTR OriginalFunction : Pointer to the original function hooked
- * ULONG_PTR NewFunction : Pointer to the new function remplacing the old one
+ * ULONG_PTR NewFunction : Pointer to the new function replacing the old one
  * Return : true on success, false on failure
  */
 bool
-(__cdecl * HookEngine_hook) (
+HookEngine_hook (
 	ULONG_PTR OriginalFunction,
 	ULONG_PTR NewFunction
 );
@@ -70,7 +87,7 @@ bool
  * ULONG_PTR Function : Pointer to the original function hooked to unhook
  */
 void
-(__cdecl * HookEngine_unhook) (
+HookEngine_unhook (
 	ULONG_PTR Function
 );
 
@@ -82,7 +99,7 @@ void
  * Return : ULONG_PTR a pointer to the original function
  */
 ULONG_PTR
-(__cdecl * HookEngine_get_original_function) (
+HookEngine_get_original_function (
 	ULONG_PTR Hook
 );
 

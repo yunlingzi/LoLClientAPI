@@ -15,7 +15,7 @@ HeroClient_test (
 	HeroClient *this
 ) {
 	if (this->pThis == 0) {
-		warn ("HeroClient not detected. (Spectator mode ?)");
+		warn ("[FAIL] HeroClient not detected. (Spectator mode ?)");
 		return true;
 	}
 

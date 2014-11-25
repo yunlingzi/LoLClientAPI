@@ -62,9 +62,6 @@ ChampionArray_init (
 		0x3B, 0xF2
 	};
 
-	dbg ("heroClient->thisStatic = %x", heroClient->thisStatic);
-	dbg ("heroClient->pThis = %x", heroClient->pThis);
-
 	// Put HeroClientInstance address in the pattern
 	int replacePos = str_n_pos (pattern, "____", sizeof(pattern));
 	memcpy(&pattern[replacePos], &heroClient->thisStatic, 4);

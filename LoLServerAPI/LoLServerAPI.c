@@ -214,6 +214,8 @@ void
 LoLServerAPI_eject (
 	LoLServerAPI *this
 ) {
+	Maestro_remove_hooks ();
+
 	this->running = false;
 }
 

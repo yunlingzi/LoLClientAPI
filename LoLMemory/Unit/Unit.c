@@ -39,10 +39,21 @@ Unit_init (
 	Unit *this,
 	DWORD pUnit
 ) {
-	memcpy (this, *((DWORD **) pUnit), sizeof(Unit));
+	DWORD pThis = *((DWORD *) pUnit);
 
-	this->pThis = *((DWORD *) pUnit);
+	if (pThis != 0) {
+		memcpy (this, *((DWORD **) pUnit), sizeof(Unit));
+	}
+
+	this->pThis = pThis;
 	this->thisStatic = pUnit;
+
+	if (pThis == 0) {
+		dbg ("Unit not initialized.");
+		// We return true because we might want to keep thisStatic variable
+		// even if the unit is not initliazed
+		return true;
+	}
 
 	// Fix <address><Object> reference summoner name
 	if (strcmp(&this->summonerName[4], "Object") == 0) {

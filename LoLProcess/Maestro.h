@@ -17,7 +17,7 @@ typedef struct _Maestro
 	// Maestro structures
 	MaestroGameController *maestroGameController;
 
-
+	// Original hooked functions
 
 }	Maestro;
 
@@ -38,6 +38,27 @@ Maestro_new (
 );
 
 // ----------- Functions ------------
+
+/*
+ * Description : Set hooks in Maestro module
+ * Maestro *this : An allocated Maestro to initialize.
+ * Return : true on success, false on failure.
+ */
+bool
+Maestro_set_hooks (
+	Maestro *this
+);
+
+/*
+ * Description : Remove hooks in Maestro module
+ * Maestro *this : An allocated Maestro to initialize.
+ * Return : true on success, false on failure.
+ */
+void
+Maestro_remove_hooks (
+	void
+);
+
 
 /*
  * Description : Initialize an allocated Maestro structure.
@@ -61,6 +82,9 @@ bool
 Maestro_test (
 	Maestro *this
 );
+
+
+// --------- Hooked functions -----
 
 // --------- Destructors ----------
 

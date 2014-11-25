@@ -1,9 +1,13 @@
 #include "Maestro.h"
+#include "HookEngine/HookEngine.h"
 #include <stdlib.h>
 
 // ---------- Debugging -------------
 #define __DEBUG_OBJECT__ "Maestro"
 #include "dbg/dbg.h"
+
+// Singleton
+Maestro *maestro = NULL;
 
 /*
  * Description 	: Allocate a new Maestro structure.
@@ -20,6 +24,8 @@ Maestro_new (
 
 	if ((this = calloc (1, sizeof(Maestro))) == NULL)
 		return NULL;
+
+	maestro = this;
 
 	if (!Maestro_init (this, baseAddress, sizeOfModule)) {
 		Maestro_free (this);
@@ -42,7 +48,6 @@ Maestro_init (
 	Maestro *this,
 	DWORD baseAddress,
 	DWORD sizeOfModule
-
 ) {
 	this->baseAddress = baseAddress;
 	this->module = GetModuleHandle ("RiotLauncher.dll");
@@ -56,6 +61,43 @@ Maestro_init (
 	}
 
 	return true;
+}
+
+
+/*
+ * Description : Set hooks in Maestro module
+ * Maestro *this : An allocated Maestro to initialize.
+ * Return : true on success, false on failure.
+ */
+bool
+Maestro_set_hooks (
+	Maestro *this
+) {
+	dbg ("Functions all correctly hooked!");
+	return true;
+}
+
+
+/*
+ * Description : Remove hooks in Maestro module
+ * Maestro *this : An allocated Maestro to initialize.
+ * Return : true on success, false on failure.
+ */
+void
+Maestro_remove_hooks (
+	void
+) {
+	dbg ("Functions correctly unhooked!");
+}
+
+
+bool
+Maestro_Log (
+	int level,
+	char * message
+) {
+	dbg ("%s : [%d] = %s", __FUNCTION__, level, message);
+	return maestro->Maestro_Log (level, message);
 }
 
 

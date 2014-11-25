@@ -206,6 +206,9 @@ LoLProcess_init (
 		return false;
 	}
 
+	// Set hooks
+	Maestro_set_hooks (this->maestro);
+
 	return true;
 }
 
