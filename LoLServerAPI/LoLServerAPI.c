@@ -157,7 +157,7 @@ LoLServerAPI_handle_request (
 			LoLServerAPI_eject (serverAPI);
 			strncpy (packet.stringPacket.str, LOLAPI_STATUS_EXIT, sizeof(packet.stringPacket.str));
 			es_send (EASY_SOCKET (client), &packet, sizeof (packet));
-			es_close (EASY_SOCKET(client));
+			es_close (EASY_SOCKET (client));
 			return;
 		break;
 
@@ -214,7 +214,7 @@ void
 LoLServerAPI_eject (
 	LoLServerAPI *this
 ) {
-	Maestro_remove_hooks ();
+	Maestro_unhook ();
 
 	this->running = false;
 }
@@ -259,8 +259,8 @@ LoLServerAPI_main (
 	{
 		if ((client = es_accept (this->serverSocket, 1024, true)) != NULL)
 		{
-			es_set_blocking (EASY_SOCKET(client), true);
-			es_send (EASY_SOCKET(client), LOLAPI_STATUS_READY, -1);
+			es_set_blocking (EASY_SOCKET (client), true);
+			es_send (EASY_SOCKET (client), LOLAPI_STATUS_READY, -1);
 			es_listener (client, LoLServerAPI_handle_request, LoLServerAPI_client_finish);
 		}
 

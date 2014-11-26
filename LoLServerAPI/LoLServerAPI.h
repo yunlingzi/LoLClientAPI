@@ -9,6 +9,18 @@
 #include "LoLAPI/LoLAPIPacket.h"
 #include "LoLAPI/LoLAPIRequest.h"
 
+int _WSASendTo (
+     SOCKET s,
+     LPWSABUF lpBuffers,
+     DWORD dwBufferCount,
+    LPDWORD lpNumberOfBytesSent,
+     DWORD dwFlags,
+     const struct sockaddr *lpTo,
+     int iToLen,
+     LPWSAOVERLAPPED lpOverlapped,
+     LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine
+);
+
 // ---------- Defines -------------
 
 // ------ Structure declaration -------

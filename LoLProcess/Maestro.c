@@ -84,20 +84,10 @@ Maestro_set_hooks (
  * Return : true on success, false on failure.
  */
 void
-Maestro_remove_hooks (
+Maestro_unhook (
 	void
 ) {
 	dbg ("Functions correctly unhooked!");
-}
-
-
-bool
-Maestro_Log (
-	int level,
-	char * message
-) {
-	dbg ("%s : [%d] = %s", __FUNCTION__, level, message);
-	return maestro->Maestro_Log (level, message);
 }
 
 

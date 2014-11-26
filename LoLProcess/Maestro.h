@@ -55,7 +55,7 @@ Maestro_set_hooks (
  * Return : true on success, false on failure.
  */
 void
-Maestro_remove_hooks (
+Maestro_unhook (
 	void
 );
 
