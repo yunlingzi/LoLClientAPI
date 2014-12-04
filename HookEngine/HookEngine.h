@@ -3,6 +3,7 @@
 
 // ---------- Includes ------------
 #include "Utils/Utils.h"
+#include "BbQueue/BbQueue.h"
 
 // ---------- Defines -------------
 
@@ -11,6 +12,8 @@
 typedef struct _HookEngine
 {
 	HMODULE module;
+
+	BbQueue *hookFunctions;
 
 }	HookEngine;
 
@@ -91,6 +94,14 @@ HookEngine_unhook (
 	ULONG_PTR Function
 );
 
+/*
+ * Description : Unhook all the registred hooked function
+ * Return : void
+ */
+void
+HookEngine_unhook_all (
+	void
+);
 
 /*
  * Description : Retrieve a pointer to the original function

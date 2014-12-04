@@ -10,6 +10,7 @@
 // Global connection with the client
 LoLServerAPI * serverAPI = NULL;
 
+
 /*
  * Description 	: Handle a request from the client
  * EasySocketListened *client : A pointer to the client data
@@ -214,7 +215,9 @@ void
 LoLServerAPI_eject (
 	LoLServerAPI *this
 ) {
-	Maestro_unhook ();
+	HookEngine_unhook_all ();
+
+	dbg ("Functions correctly unhooked!");
 
 	this->running = false;
 }

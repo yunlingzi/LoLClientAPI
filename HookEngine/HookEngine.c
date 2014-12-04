@@ -45,6 +45,9 @@ ULONG_PTR
 
 // --- Implemented functions
 
+// Singleton
+HookEngine *hookEngine = NULL;
+
 /*
  * Description 	: Allocate a new HookEngine structure.
  * char * hookEngineDllPath : DLL path of NtHookEngine.dll
@@ -63,6 +66,8 @@ HookEngine_new (
 		HookEngine_free (this);
 		return NULL;
 	}
+
+	hookEngine = this;
 
 	return this;
 }
@@ -100,6 +105,8 @@ HookEngine_init (
 		return false;
 	}
 
+	this->hookFunctions = bb_queue_new ();
+
 	dbg ("HookEngine initialized correctly.");
 
 	return true;
@@ -109,21 +116,28 @@ HookEngine_init (
 /*
  * Description : Hook a target function
  * HookEngine *this : An allocated HookEngine
- * ULONG_PTR OriginalFunction : Pointer to the original function hooked
- * ULONG_PTR NewFunction : Pointer to the new function remplacing the old one
+ * ULONG_PTR originalFunction : Pointer to the original function hooked
+ * ULONG_PTR newFunction : Pointer to the new function remplacing the old one
  * Return : true on success, false on failure
  */
 bool
 HookEngine_hook (
-	ULONG_PTR OriginalFunction,
-	ULONG_PTR NewFunction
+	ULONG_PTR originalFunction,
+	ULONG_PTR newFunction
 ) {
 	if (!_HookEngine_hook) {
 		dbg ("HookEngine is not initialized correctly");
 		return false;
 	}
 
-	return _HookEngine_hook (OriginalFunction, NewFunction);
+	if (!_HookEngine_hook (originalFunction, newFunction)) {
+		dbg ("Failed to hook 0x%08X by 0x%08X", originalFunction, newFunction);
+		return false;
+	}
+
+	bb_queue_add (hookEngine->hookFunctions, (void *) originalFunction);
+
+	return true;
 }
 
 /*
@@ -160,13 +174,28 @@ HookEngine_hook_name (
 /*
  * Description : Unhook a target function
  * HookEngine *this : An allocated HookEngine
- * ULONG_PTR Function : Pointer to the original function hooked to unhook
+ * ULONG_PTR function : Pointer to the original function hooked to unhook
  */
 void
 HookEngine_unhook (
-	ULONG_PTR Function
+	ULONG_PTR function
 ) {
-	return _HookEngine_unhook (Function);
+	return _HookEngine_unhook (function);
+}
+
+
+/*
+ * Description : Unhook all the registred hooked function
+ * Return : void
+ */
+void
+HookEngine_unhook_all (
+	void
+) {
+	while (bb_queue_get_length (hookEngine->hookFunctions)) {
+		ULONG_PTR function = (ULONG_PTR) bb_queue_get_first (hookEngine->hookFunctions);
+		HookEngine_unhook (function);
+	}
 }
 
 

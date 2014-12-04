@@ -6,9 +6,6 @@
 #define __DEBUG_OBJECT__ "Maestro"
 #include "dbg/dbg.h"
 
-// Singleton
-Maestro *maestro = NULL;
-
 /*
  * Description 	: Allocate a new Maestro structure.
  * DWORD baseAddress : Base address of the module
@@ -24,8 +21,6 @@ Maestro_new (
 
 	if ((this = calloc (1, sizeof(Maestro))) == NULL)
 		return NULL;
-
-	maestro = this;
 
 	if (!Maestro_init (this, baseAddress, sizeOfModule)) {
 		Maestro_free (this);
