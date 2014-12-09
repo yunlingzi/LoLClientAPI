@@ -231,22 +231,8 @@ EXPORT_FUNCTION bool
 is_left_mouse_button_click (
 	void
 ) {
-	static int leftMouseButtonState = 0;
-
-	if (is_left_mouse_button_pressed ()) {
-		// The button has been pressed but not released yet
-		leftMouseButtonState = 1;
-		return false;
-	}
-
-	if (leftMouseButtonState && !is_left_mouse_button_pressed ()) {
-		// The button has been pressed but isn't pressed anymore
-		leftMouseButtonState = 0;
-		return true;
-	}
-
-	// Nothing detected
-	return false;
+	// Works similarly than keyboard keys
+	return is_key_pressed (VK_LBUTTON);
 }
 
 
@@ -270,22 +256,8 @@ EXPORT_FUNCTION bool
 is_right_mouse_button_click (
 	void
 ) {
-	static int rightMouseButtonState = 0;
-
-	if (is_right_mouse_button_pressed ()) {
-		// The button has been pressed but not released yet
-		rightMouseButtonState = 1;
-		return false;
-	}
-
-	if (rightMouseButtonState && !is_right_mouse_button_pressed ()) {
-		// The button has been pressed but isn't pressed anymore
-		rightMouseButtonState = 0;
-		return true;
-	}
-
-	// Nothing detected
-	return false;
+	// Works similarly than keyboard keys
+	return is_key_pressed (VK_RBUTTON);
 }
 
 
@@ -304,18 +276,21 @@ is_key_pressed (
 	int key
 ) {
 	static KeyState state = KEY_STATE_RELEASED;
+	bool keyPressed = GetKeyState (key) < 0;
 
-	if (GetKeyState (key) < 0) {
+	if (keyPressed) {
+		// The key has been pressed but not released yet
 		state = KEY_STATE_PRESSED;
+		return false;
 	}
 
-	else {
-		// On release, trigger the event
-		if (state == KEY_STATE_PRESSED) {
-			return true;
-		}
+	// On release, trigger the event
+	if (!keyPressed && state == KEY_STATE_PRESSED) {
+		state = KEY_STATE_RELEASED;
+		return true;
 	}
 
+	// Nothing happened
 	return false;
 }
 

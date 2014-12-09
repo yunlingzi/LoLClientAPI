@@ -6,18 +6,15 @@ import win32con
 class PyLoLCamera:
 
 	# ======= Configurations ========
-	threshold   = 200.0
+	threshold   = 300.0
 	cameraSpeed = 2
 	cameraScrollSpeedBottom = 1.5
-	sleepSecondsAfterMinimapClick = 3
+	sleepSecondsAfterMinimapClick = 10
 
 	# Weights
 	championWeight = 1.0
 	cursorWeight   = 2.0
 	
-	# Internal states - do not touch after this point
-	oldCameraStored = False
-
 	def __init__ (self):
 		# ===== Start of the program ======
 		# Inject LoLClientAPI in LoLProcess
@@ -86,13 +83,6 @@ class PyLoLCamera:
 
 	def hover_minimap_behavior (self, cameraX, cameraY) :
 
-		# If the left mouse button is pressed, keep in memory the current camera position
-		# We would like to restore it once the left mouse button is released
-		if (self.api.is_left_mouse_button_pressed () and not self.oldCameraStored):
-			self.oldCameraX = cameraX;
-			self.oldCameraY = cameraY;
-			self.oldCameraStored = True;
-
 		# If a mouse click is detected, sleep a little
 		if (self.api.is_left_mouse_button_click ()):
 			timeStartSleeping = datetime.now ();
@@ -103,12 +93,13 @@ class PyLoLCamera:
 
 				if (self.api.is_key_pressed (win32con.VK_SPACE)):
 					# Space has been pressed during the sleeping, exit the loop
-					print "Stop!"
+					spacePressed = True;
 					break;
 
-			# Restore the old camera position
-			self.api.set_camera_position (self.oldCameraX, self.oldCameraY);
-			self.oldCameraStored = False;
+			# Restore the camera position to the champion position
+			championX, championY = self.api.get_champion_position ();
+			self.api.set_camera_position (championX, championY);
+			
 
 if __name__ == '__main__':
 	PyLoLCamera ();
