@@ -171,16 +171,18 @@ class LoLClientAPI:
 		return self.hAPI.is_right_mouse_button_click ();
 	
 	
-	# Check if the space key is pressed
+	# Check if the given key is pressed
+	# key : ASCII code of the character pressed.
+	#           For special characters, please refer to http://www.kbdedit.com/manual/low_level_vk_list.html
 	# Return : true if pressed, false otherwise
-	def is_space_pressed (self):
+	def is_key_pressed (self, key):
 	
 		# C API declaration :
-		# bool is_space_pressed (
-		#	void
+		# bool is_key_pressed (
+		#	int key
 		# )
 		
-		return self.hAPI.is_space_pressed ();
+		return self.hAPI.is_key_pressed (c_int(key));
 	
 	
 	# Get the cursor screen absolute position

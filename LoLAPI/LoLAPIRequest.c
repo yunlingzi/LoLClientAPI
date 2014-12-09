@@ -30,7 +30,7 @@ struct LoLAPIRequestStringAssociation {
 	associate (REQUEST_IS_RIGHT_MOUSE_BUTTON_CLICK),
 
 	// Keyboard APIs
-	associate (REQUEST_IS_SPACE_PRESSED),
+	associate (REQUEST_IS_KEY_PRESSED),
 
 	// Champion APIs
 	associate (REQUEST_GET_CHAMPION_POSITION),

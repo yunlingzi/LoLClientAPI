@@ -1,6 +1,7 @@
 import LoLClientAPI
 import time
 from datetime import datetime
+import win32con
 
 class PyLoLCamera:
 
@@ -8,7 +9,7 @@ class PyLoLCamera:
 	threshold   = 200.0
 	cameraSpeed = 2
 	cameraScrollSpeedBottom = 1.5
-	sleepSecondsAfterMinimapClick = 1
+	sleepSecondsAfterMinimapClick = 3
 
 	# Weights
 	championWeight = 1.0
@@ -100,8 +101,9 @@ class PyLoLCamera:
 			while (datetime.now () - timeStartSleeping).total_seconds() <= self.sleepSecondsAfterMinimapClick:
 				time.sleep (0.1);
 
-				if (self.api.is_space_pressed ()):
+				if (self.api.is_key_pressed (win32con.VK_SPACE)):
 					# Space has been pressed during the sleeping, exit the loop
+					print "Stop!"
 					break;
 
 			# Restore the old camera position

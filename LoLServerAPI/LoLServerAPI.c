@@ -90,10 +90,9 @@ LoLServerAPI_handle_request (
 
 
 		// Keyboard APIs
-		case REQUEST_IS_SPACE_PRESSED:
-			packet.booleanPacket.value = is_space_pressed ();
+		case REQUEST_IS_KEY_PRESSED:
+			packet.booleanPacket.value = is_key_pressed (packet.intPacket.value);
 		break;
-
 
 		// Champion APIs
 		case REQUEST_GET_CHAMPION_POSITION:
@@ -160,6 +159,11 @@ LoLServerAPI_handle_request (
 			es_send (EASY_SOCKET (client), &packet, sizeof (packet));
 			es_close (EASY_SOCKET (client));
 			return;
+		break;
+
+
+		// Errors
+		case REQUEST_FAIL :
 		break;
 
 		default :

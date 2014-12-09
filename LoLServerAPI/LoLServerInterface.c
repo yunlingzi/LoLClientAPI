@@ -293,18 +293,6 @@ is_right_mouse_button_click (
  ** =================================== Keyboard APIs =====================================
  ** ======================================================================================= **/
 
-
-/*
- * Description : Check if the space key is pressed
- * Returns : true if pressed, false otherwise
- */
-EXPORT_FUNCTION bool
-is_space_pressed (
-	void
-) {
-	return is_key_pressed (VK_SPACE);
-}
-
 /*
  * Description : Check if the given key is pressed
  * int key : ASCII code of the character pressed.
