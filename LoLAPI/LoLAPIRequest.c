@@ -5,13 +5,13 @@
 #define __DEBUG_OBJECT__ "LoLAPIRequest"
 #include "dbg/dbg.h"
 
-
 struct LoLAPIRequestStringAssociation {
 	LoLAPIRequest request;
 	char *string;
 } association [REQUEST_API_COUNT] = {
-	// Camera APIs
 	#define associate(x) [x] = {x, STRINGIFY(x)}
+
+	// Camera APIs
 	associate (REQUEST_GET_CAMERA_POSITION),
 	associate (REQUEST_SET_CAMERA_POSITION),
 	associate (REQUEST_SET_DEFAULT_CAMERA_ENABLED),

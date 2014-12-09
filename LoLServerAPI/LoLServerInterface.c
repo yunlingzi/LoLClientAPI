@@ -302,7 +302,33 @@ EXPORT_FUNCTION bool
 is_space_pressed (
 	void
 ) {
-	return GetKeyState (VK_SPACE) < 0;
+	return is_key_pressed (VK_SPACE);
+}
+
+/*
+ * Description : Check if the given key is pressed
+ * int key : ASCII code of the character pressed.
+ *           For special characters, please refer to http://www.kbdedit.com/manual/low_level_vk_list.html
+ * Returns : true if pressed, false otherwise
+ */
+EXPORT_FUNCTION bool
+is_key_pressed (
+	int key
+) {
+	static KeyState state = KEY_STATE_RELEASED;
+
+	if (GetKeyState (key) < 0) {
+		state = KEY_STATE_PRESSED;
+	}
+
+	else {
+		// On release, trigger the event
+		if (state == KEY_STATE_PRESSED) {
+			return true;
+		}
+	}
+
+	return false;
 }
 
 

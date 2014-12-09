@@ -4,6 +4,7 @@
 // ---------- Includes ------------
 #include "Utils/Utils.h"
 #include "LoLProcess/LoLProcess.h"
+#include "Keyboard/KeyState.h"
 
 // ---------- Defines -------------
 
@@ -174,6 +175,16 @@ is_space_pressed (
 	void
 );
 
+/*
+ * Description : Check if the given key is pressed
+ * int key : ASCII code of the character pressed.
+ *           For special characters, please refer to http://www.kbdedit.com/manual/low_level_vk_list.html
+ * Returns : true if pressed, false otherwise
+ */
+EXPORT_FUNCTION bool
+is_key_pressed (
+	int key
+);
 
 /** =======================================================================================
  ** =================================== Champions APIs ====================================
