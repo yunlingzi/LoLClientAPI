@@ -91,8 +91,13 @@ LoLServerAPI_handle_request (
 
 		// Keyboard APIs
 		case REQUEST_IS_KEY_PRESSED:
-			packet.booleanPacket.value = is_key_pressed (packet.intPacket.value);
+			packet.booleanPacket.value = is_key_pressed (packet.bytePacket.value);
 		break;
+
+		case REQUEST_IS_KEY_TYPED:
+			packet.booleanPacket.value = is_key_typed (packet.bytePacket.value);
+		break;
+
 
 		// Champion APIs
 		case REQUEST_GET_CHAMPION_POSITION:
@@ -168,6 +173,9 @@ LoLServerAPI_handle_request (
 
 		default :
 			dbg ("Unhandled request = %x", packet.request);
+			if (LoLAPIRequest_is_valid (packet.request)) {
+				dbg ("Unhandle request = %s", LoLAPIRequest_to_string (packet.request));
+			}
 		break;
 	}
 
@@ -275,6 +283,7 @@ LoLServerAPI_main (
 	}
 }
 
+
 /*
  * Description : Free an allocated LoLServerAPI structure.
  * LoLServerAPI *this : An allocated LoLServerAPI to free.
@@ -303,6 +312,10 @@ bool
 LoLServerAPI_test (
 	LoLServerAPI *this
 ) {
+	if (!this) {
+		fail ("Instance is NULL");
+		return false;
+	}
 
 	return true;
 }

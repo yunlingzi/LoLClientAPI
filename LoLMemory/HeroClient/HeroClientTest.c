@@ -14,6 +14,11 @@ bool
 HeroClient_test (
 	HeroClient *this
 ) {
+	if (!this) {
+		fail ("Instance is NULL");
+		return false;
+	}
+
 	if (this->pThis == 0) {
 		warn ("[FAIL] HeroClient not detected. (Spectator mode ?)");
 		return true;

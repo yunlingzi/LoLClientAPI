@@ -14,6 +14,11 @@ bool
 ChampionArray_test (
 	ChampionArray *this
 ) {
+	if (!this) {
+		fail ("Instance is NULL");
+		return false;
+	}
+
 	if (this->end == 0 || this->start == 0) {
 		fail ("ChampionArray boundaries is egal to zero, test failed.");
 		return false;

@@ -14,6 +14,10 @@ bool
 NetAPIClient_test (
 	NetAPIClient *this
 ) {
+	if (!this) {
+		fail ("Instance is NULL");
+		return false;
+	}
 
 	return true;
 }

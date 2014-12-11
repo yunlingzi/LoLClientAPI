@@ -154,6 +154,10 @@ bool
 MaestroGameController_test (
 	MaestroGameController *this
 ) {
+	if (!this) {
+		fail ("Instance is NULL");
+		return false;
+	}
 
 	return true;
 }

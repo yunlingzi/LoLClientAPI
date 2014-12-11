@@ -31,6 +31,7 @@ typedef enum _LoLAPIRequest
 
 	// Keyboard APIs
 	REQUEST_IS_KEY_PRESSED,
+	REQUEST_IS_KEY_TYPED,
 
 	// Champion APIs
 	REQUEST_GET_CHAMPION_POSITION,
@@ -59,6 +60,7 @@ typedef enum _LoLAPIRequest
 
 	// Error status
 	REQUEST_FAIL,
+	REQUEST_UNDEFINED,
 
 	REQUEST_API_COUNT
 

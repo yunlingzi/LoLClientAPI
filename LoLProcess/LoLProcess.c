@@ -35,11 +35,10 @@ LoLProcess_new (void)
 	// Unit testing
 	if (!LoLProcess_test (this)) {
 		dbg ("LoLProcess unit test failed.");
-		LoLProcess_free (this);
-		set_LoLProcess (NULL);
-		return NULL;
 	}
-	dbg ("[OK] LoLProcess test success.");
+	else {
+		dbg ("[OK] LoLProcess test success.");
+	}
 
 	LoLProcess_setState (this, STATE_READY);
 
@@ -75,29 +74,16 @@ LoLProcess_setState (
 
 
 /*
- * Description :
+ * Description : Load the Hook Engine into the LoL process
  * LoLProcess *this : An allocated LoLProcess
  * Return : void
  */
 bool
 LoLProcess_load_hook_engine (
-	LoLProcess *this,
-	wchar_t *serverApiPath
+	LoLProcess *this
 ) {
-	char dllPath [PATH_MAX];
-	wchar_t * lastSlash = wcsrchr (serverApiPath, '\\');
-	wchar_t * dllName = (lastSlash != NULL) ? &lastSlash[1] : serverApiPath;
-
-	/* C:\Users\Spl3en\Desktop\C\LoLClientAPI\Release\bin\LoLServerAPI.dll
-	                                                      `-> \0           */
-	dllName[0] = '\0';
-	if (wcstombs (dllPath, serverApiPath, PATH_MAX) == PATH_MAX - 1) {
-		dbg ("Error while retrieving the path of the LoLServerAPI.");
-		return false;
-	}
-
 	// Load hook engine
-	char * hookEngineDllPath = str_dup_printf ("%sNtHookEngine.dll", dllPath);
+	char * hookEngineDllPath = str_dup_printf ("%sbin/NtHookEngine.dll", this->clientApiPath);
 	this->hookEngine = HookEngine_new (hookEngineDllPath);
 	free (hookEngineDllPath);
 
@@ -134,18 +120,6 @@ LoLProcess_scan_modules (
 		DWORD baseAddress  = (DWORD) moduleEntry->BaseAddress;
 		DWORD sizeOfModule = (DWORD) moduleEntry->SizeOfImage - 1;
 
-		// LoLServerAPI.dll
-		if (_wcsicmp (moduleEntry->BaseName.Buffer, L"LoLServerAPI.dll") == 0) {
-			dbg ("LoLServerAPI module found : 0x%08X (size = 0x%08X)", baseAddress, sizeOfModule);
-			// Load NtHookEngine
-			// NtHookEngine is in the same path than LoLServerAPI.
-			// Retrieve the path and load NtHookEngine
-			if (!LoLProcess_load_hook_engine (this, moduleEntry->FullName.Buffer)) {
-				dbg ("Error when loading NtHookEngine.");
-				return false;
-			}
-		}
-
 		// RiotLauncher.dll
 		if (_wcsicmp (moduleEntry->BaseName.Buffer, L"RiotLauncher.dll") == 0) {
 			dbg ("Maestro module found : 0x%08X (size = 0x%08X)", baseAddress, sizeOfModule);
@@ -181,16 +155,27 @@ LoLProcess_init (
 	// Init state
 	LoLProcess_setState (this, STATE_INITIALIZING);
 
-	// Open debug file, only for DLL (use stdout for executable version)
-	FILE *debugOutput = file_open ("C:/Users/Spl3en/Desktop/C/LoLClientAPI/LoLClientAPI-Log.txt", "w+");
-	if (debugOutput) {
-		dbg_set_output (debugOutput);
-	} else {
-		debugOutput = file_open ("./LoLClientAPI-Log.txt", "w+");
-		if (debugOutput) {
-			dbg_set_output (debugOutput);
-		}
+	// Get current module path
+	char serverApiPath [MAX_PATH] = {0};
+	GetModuleFileName (GetModuleHandle ("LoLServerAPI.dll"), serverApiPath, sizeof(serverApiPath));
+
+	char * lastSlash = strrchr (serverApiPath, '\\');
+	char * dllName = (lastSlash != NULL) ? &lastSlash[1] : serverApiPath;
+	dllName [0] = '\0';
+	this->clientApiPath = str_dup_printf ("%s../", serverApiPath);
+	if (!this->clientApiPath || !strlen (serverApiPath)) {
+		MessageBoxA (NULL, "LoLClientAPI cannot initialize correctly", "Error", 0);
+		return false;
 	}
+
+	// Open debug file, only for DLL (use stdout for executable version)
+	char *logFilePath   = str_dup_printf ("%sLoLClientAPI-Log.txt", this->clientApiPath);
+	this->debugOutput = file_open (logFilePath, "w+");
+	if (this->debugOutput) {
+		dbg_set_output (this->debugOutput);
+	}
+	dbg ("clientApiPath set to <%s>", this->clientApiPath);
+	free (logFilePath);
 
 	// Get time and start logging
 	struct tm now = *localtime ((time_t[]) {time(NULL)});
@@ -199,6 +184,12 @@ LoLProcess_init (
 
 	// Detect window
 	this->hwnd = get_hwnd_from_title ("League of Legends (TM) Client");
+
+	// Load Hook Engine
+	if (!LoLProcess_load_hook_engine (this)) {
+		dbg ("Error when loading NtHookEngine.");
+		return false;
+	}
 
 	// Detect LoL modules
 	if (!LoLProcess_scan_modules (this)) {

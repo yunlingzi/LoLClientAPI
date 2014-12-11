@@ -18,6 +18,11 @@ ChampionArray_new (
 	DWORD baseAddress,
 	DWORD sizeOfModule
 ) {
+	if (!heroClient) {
+		// We can't detect ChampionArray without heroClient
+		return NULL;
+	}
+
 	ChampionArray *this;
 
 	if ((this = calloc (1, sizeof(ChampionArray))) == NULL)

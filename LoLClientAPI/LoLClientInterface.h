@@ -164,12 +164,14 @@ is_right_mouse_button_click (
  ** ======================================================================================= **/
 
 /*
- * Description : Check if the space key is pressed
+ * Description : Check if the given key is pressed
+ * unsigned char key : ASCII code of the character pressed.
+ *                     For special characters, please refer to http://www.kbdedit.com/manual/low_level_vk_list.html
  * Returns : true if pressed, false otherwise
  */
 EXPORT_FUNCTION bool
-is_space_pressed (
-	void
+is_key_pressed (
+	__in__ unsigned char key
 );
 
 

@@ -110,6 +110,10 @@ bool
 Maestro_test (
 	Maestro *this
 ) {
+	if (!this) {
+		fail ("Instance is NULL");
+		return false;
+	}
 
 	return true;
 }

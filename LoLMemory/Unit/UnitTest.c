@@ -14,6 +14,11 @@ bool
 Unit_test (
 	Unit *this
 ) {
+	if (!this) {
+		fail ("Instance is NULL");
+		return false;
+	}
+
 	/* Current position test */
 	/*
 	// TODO : Find a way to identify each Unit

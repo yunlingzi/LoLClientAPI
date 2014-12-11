@@ -171,20 +171,6 @@ class LoLClientAPI:
 		return self.hAPI.is_right_mouse_button_click ();
 	
 	
-	# Check if the given key is pressed
-	# key : ASCII code of the character pressed.
-	#           For special characters, please refer to http://www.kbdedit.com/manual/low_level_vk_list.html
-	# Return : true if pressed, false otherwise
-	def is_key_pressed (self, key):
-	
-		# C API declaration :
-		# bool is_key_pressed (
-		#	int key
-		# )
-		
-		return self.hAPI.is_key_pressed (c_int(key));
-	
-	
 	# Get the cursor screen absolute position
 	# Return : {x, y} the cursor screen position
 	def get_cursor_screen_position (self):
@@ -208,6 +194,38 @@ class LoLClientAPI:
 		return (x.value, y.value)
 
 		
+	# =================================================================================
+	# ================================ Keyboard APIs =================================
+	# =================================================================================
+
+	
+	# Check if the given key is pressed
+	# key : ASCII code of the character pressed.
+	#       For special characters, please refer to http://www.kbdedit.com/manual/low_level_vk_list.html
+	# Return : true if pressed, false otherwise
+	def is_key_pressed (self, key):
+	
+		# C API declaration :
+		# bool is_key_pressed (
+		#	unsigned char key
+		# )
+		
+		return self.hAPI.is_key_pressed (c_ubyte(key));
+	
+	# Check if the given key is pressed
+	# key : ASCII code of the character pressed.
+	#       For special characters, please refer to http://www.kbdedit.com/manual/low_level_vk_list.html
+	# Return : true if pressed, false otherwise
+	def is_key_typed (self, key):
+	
+		# C API declaration :
+		# bool is_key_typed (
+		#	unsigned char key
+		# )
+		
+		return self.hAPI.is_key_typed (c_ubyte(key));
+	
+	
 	# =================================================================================
 	# ================================ Champions APIs =================================
 	# =================================================================================

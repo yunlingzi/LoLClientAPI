@@ -236,6 +236,10 @@ bool
 HookEngine_test (
 	HookEngine *this
 ) {
+	if (!this) {
+		fail ("Instance is NULL");
+		return false;
+	}
 
 	return true;
 }

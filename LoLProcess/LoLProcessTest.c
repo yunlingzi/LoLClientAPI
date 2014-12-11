@@ -14,10 +14,17 @@ bool
 LoLProcess_test (
 	LoLProcess *this
 ) {
-	if (!LoLModule_test (this->lol)) {
-		dbg ("LoL module test fail.");
+	bool result = true;
+
+	if (!this) {
+		fail ("Instance is NULL");
 		return false;
 	}
 
-	return true;
+	if (!LoLModule_test (this->lol)) {
+		fail ("LoL module test fail.");
+		result = false;
+	}
+
+	return result;
 }

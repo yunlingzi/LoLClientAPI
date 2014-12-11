@@ -37,6 +37,12 @@ typedef struct _LoLProcess
 	// Hook engine handle
 	HookEngine *hookEngine;
 
+	// File handle to debug output
+	FILE *debugOutput;
+
+	// Path to the client API
+	char * clientApiPath;
+
 }	LoLProcess;
 
 
@@ -89,6 +95,15 @@ LoLProcess_setState (
 void
 LoLProcess_exportToCE (void);
 
+/*
+ * Description : Load the Hook Engine into the LoL process
+ * LoLProcess *this : An allocated LoLProcess
+ * Return : void
+ */
+bool
+LoLProcess_load_hook_engine (
+	LoLProcess *this
+);
 
 // --------- Destructors ----------
 

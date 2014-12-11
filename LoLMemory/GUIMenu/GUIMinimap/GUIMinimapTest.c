@@ -14,6 +14,11 @@ bool
 GUIMinimap_test (
 	GUIMinimap *this
 ) {
+	if (!this) {
+		fail ("Instance is NULL");
+		return false;
+	}
+
 	Position2D screenPosition;
 	get_minimap_screen_position (&screenPosition.x, &screenPosition.y);
 

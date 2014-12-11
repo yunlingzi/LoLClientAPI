@@ -331,19 +331,45 @@ is_right_mouse_button_click (
 
 /*
  * Description : Check if the given key is pressed
- * int key : ASCII code of the character pressed.
- *           For special characters, please refer to http://www.kbdedit.com/manual/low_level_vk_list.html
+ * __in__ unsigned char key : ASCII code of the character pressed.
+ *                            For special characters, please refer to http://www.kbdedit.com/manual/low_level_vk_list.html
  * Returns : true if pressed, false otherwise
  */
 EXPORT_FUNCTION bool
 is_key_pressed (
-	int key
+	__in__ unsigned char key
 ) {
 	wait_api ();
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_IS_KEY_PRESSED,
-		.intPacket.value = key
+		.bytePacket.value = key
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		return packet.booleanPacket.value;
+	}
+
+	return false;
+}
+
+
+
+/*
+ * Description : Check if the given key has been pressed and released
+ * unsigned char key : ASCII code of the character typed.
+ *                     For special characters, please refer to http://www.kbdedit.com/manual/low_level_vk_list.html
+ * Returns : true if typed, false otherwise
+ */
+EXPORT_FUNCTION bool
+is_key_typed (
+	unsigned char key
+) {
+	wait_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_IS_KEY_TYPED,
+		.bytePacket.value = key
 	};
 
 	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {

@@ -60,7 +60,6 @@ LoLModule_init (
 	// Initialize the championArray
 	if (!(this->championArray = ChampionArray_new (this->heroClient, baseAddress, sizeOfModule))) {
 		dbg ("Cannot get championArray.");
-		return false;
 	}
 
 	// Initialize the GUI Menu
@@ -110,30 +109,44 @@ bool
 LoLModule_test (
 	LoLModule *this
 ) {
+	bool result = true;
+
+	if (!this) {
+		fail ("Instance is NULL");
+		return false;
+	}
 
 	if (!HudManager_test (this->hudManager)) {
-		dbg ("HudManager test failed.");
-		return false;
+		fail ("HudManager test failed.");
+		result = false;
 	}
-	dbg ("[OK] HudManager test success.");
+	else {
+		dbg ("[OK] HudManager test success.");
+	}
 
 	if (!HeroClient_test (this->heroClient)) {
-		dbg ("HeroClient test failed.");
-		return false;
+		fail ("HeroClient test failed.");
+		result = false;
 	}
-	dbg ("[OK] HeroClient test success.");
+	else {
+		dbg ("[OK] HeroClient test success.");
+	}
 
 	if (!ChampionArray_test (this->championArray)) {
-		dbg ("ChampionArray test failed.");
-		return false;
+		fail ("ChampionArray test failed.");
+		result = false;
 	}
-	dbg ("[OK] ChampionArray test success.");
+	else {
+		dbg ("[OK] ChampionArray test success.");
+	}
 
 	if (!GUIMenu_test (this->guiMenu)) {
-		dbg ("GUIMenu unit test failed.");
-		return false;
+		fail ("GUIMenu unit test failed.");
+		result = false;
 	}
-	dbg ("[OK] GUIMenu test success.");
+	else {
+		dbg ("[OK] GUIMenu test success.");
+	}
 
-	return true;
+	return result;
 }

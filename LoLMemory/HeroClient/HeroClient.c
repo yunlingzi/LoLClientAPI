@@ -43,11 +43,41 @@ HeroClient_init (
 	DWORD baseAddress,
 	DWORD sizeOfModule
 ) {
-	DWORD heroClientStr = memscan_string (
-		"HeroClientStr",
-		baseAddress, sizeOfModule,
-		"MINIONS_KILLED"
-	);
+	if (!this) {
+		fail ("Instance is NULL");
+		return false;
+	}
+
+	bool correctHeroClientStr = false;
+	DWORD heroClientStr = NULL;
+	DWORD currentAddress = baseAddress;
+	DWORD currentSizeOfModule = sizeOfModule;
+
+	// Find the correct instance of "MINIONS_KILLED"
+	while (!correctHeroClientStr) {
+		correctHeroClientStr = true;
+
+		heroClientStr = memscan_string (
+			"HeroClientStr",
+			currentAddress, currentSizeOfModule,
+			"MINIONS_KILLED"
+		);
+
+		if (heroClientStr) {
+			if (*(char *)(heroClientStr - 1) == '"') {
+				// The debug string '[..].GetHeroStat("MINIONS_KILLED")->[...]' also exists in the binary
+				correctHeroClientStr = false;
+			}
+
+			else if (*(char *)(heroClientStr - 1) == '_') {
+				// NEUTRAL_MINIONS_KILLED also exists in the binary
+				correctHeroClientStr = false;
+			}
+
+			currentSizeOfModule = currentSizeOfModule - (heroClientStr - currentAddress + 1);
+			currentAddress = heroClientStr + 1;
+		}
+	}
 
 	if (!heroClientStr) {
 		fail ("HeroClientStr not found.");
@@ -112,7 +142,6 @@ HeroClient_init (
 	}
 
 	dbg ("HeroClientInstance not found.");
-
 
 	return false;
 }

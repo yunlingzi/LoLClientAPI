@@ -14,6 +14,11 @@ bool
 GameClock_test (
 	GameClock *this
 ) {
+	if (!this) {
+		fail ("Instance is NULL");
+		return false;
+	}
+
 	float gameTime = get_game_time ();
 
 	if (gameTime <= 0.0 || gameTime >= 3600.0 * 3) {

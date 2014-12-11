@@ -266,32 +266,44 @@ is_right_mouse_button_click (
  ** ======================================================================================= **/
 
 /*
- * Description : Check if the given key is pressed
- * int key : ASCII code of the character pressed.
- *           For special characters, please refer to http://www.kbdedit.com/manual/low_level_vk_list.html
- * Returns : true if pressed, false otherwise
+ * Description : Check if the given key has been pressed and released
+ * unsigned char key : ASCII code of the character typed.
+ *                     For special characters, please refer to http://www.kbdedit.com/manual/low_level_vk_list.html
+ * Returns : true if typed, false otherwise
  */
 EXPORT_FUNCTION bool
-is_key_pressed (
-	int key
+is_key_typed (
+	unsigned char key
 ) {
-	static KeyState state = KEY_STATE_RELEASED;
-	bool keyPressed = GetKeyState (key) < 0;
+	static KeyState states[256] = {[0 ... 255] = KEY_STATE_RELEASED};
+	bool keyPressed = is_key_pressed (key);
 
 	if (keyPressed) {
 		// The key has been pressed but not released yet
-		state = KEY_STATE_PRESSED;
+		states[key] = KEY_STATE_PRESSED;
 		return false;
 	}
 
 	// On release, trigger the event
-	if (!keyPressed && state == KEY_STATE_PRESSED) {
-		state = KEY_STATE_RELEASED;
+	if (!keyPressed && states[key] == KEY_STATE_PRESSED) {
+		states[key] = KEY_STATE_RELEASED;
 		return true;
 	}
 
-	// Nothing happened
 	return false;
+}
+
+/*
+ * Description : Check if the given key is pressed
+ * unsigned char key : ASCII code of the character pressed.
+ *                     For special characters, please refer to http://www.kbdedit.com/manual/low_level_vk_list.html
+ * Returns : true if pressed, false otherwise
+ */
+EXPORT_FUNCTION bool
+is_key_pressed (
+	unsigned char key
+) {
+	return GetKeyState (key) < 0;
 }
 
 
@@ -315,7 +327,7 @@ get_champion_position (
 	wait_api ();
 
 	HeroClient * currentChampion = lolClient->lol->heroClient;
-	Position * currentChampionPosition = LoLProcess_get_addr (currentChampion, currentPosition);
+	Position   * currentChampionPosition = LoLProcess_get_addr (currentChampion, currentPosition);
 
 	*x = currentChampionPosition->x;
 	*y = currentChampionPosition->y;

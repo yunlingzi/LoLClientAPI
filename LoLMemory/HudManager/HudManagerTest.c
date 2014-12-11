@@ -14,6 +14,11 @@ bool
 HudManager_test (
 	HudManager *this
 ) {
+	if (!this) {
+		fail ("Instance is NULL");
+		return false;
+	}
+
 	if (!HudCamera_test (this->hudCamera)) {
 		fail ("HudCamera unit test failed.");
 		return false;

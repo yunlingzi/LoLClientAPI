@@ -31,6 +31,11 @@ typedef struct _FloatPacket{
 
 }	FloatPacket;
 
+typedef struct _BytePacket{
+	byte value;
+
+}	BytePacket;
+
 typedef struct _IntPacket
 {
 	int value;
@@ -66,6 +71,7 @@ typedef struct _LoLAPIPacket
 		AnglePacket anglePacket;
 		FloatPacket floatPacket;
 		IntPacket intPacket;
+		BytePacket bytePacket;
 		StringPacket stringPacket;
 		HpPacket hpPacket;
 		BooleanPacket booleanPacket;
