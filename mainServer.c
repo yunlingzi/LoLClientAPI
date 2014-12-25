@@ -13,7 +13,7 @@ LoLServerAPI * connection = NULL;
  * 					It installs LCAPI into LoL process, find game structures and store them
  *					into a custom structure
  */
-EXPORT_FUNCTION void startInjection (void)
+void startInjection (void)
 {
 	LoLProcess *LoL;
 
@@ -46,7 +46,7 @@ EXPORT_FUNCTION void startInjection (void)
 /*
  * Description :	Function called when the DLL in ejected.
  */
-EXPORT_FUNCTION void endInjection (void)
+void endInjection (void)
 {
 }
 

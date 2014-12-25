@@ -1,5 +1,6 @@
 *.depend
 *.layout
+*.cscope_file_list
 bin/
 obj/
 *.ct

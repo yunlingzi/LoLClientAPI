@@ -1,12 +1,13 @@
 #include "LoLServerAPI/LoLServerInterface.h"
 #include "LoLProcess/LoLProcess.h"
+#include "Keyboard/Keyboard.h"
 #include <stdint.h>
 
 #define __DEBUG_OBJECT__ "LoLServerInterface"
 #include "dbg/dbg.h"
 
 
-// Singleton
+// Singleton containing all the client information
 LoLProcess * lolClient = NULL;
 
 
@@ -219,7 +220,7 @@ EXPORT_FUNCTION bool
 is_left_mouse_button_pressed (
 	void
 ) {
-	return GetKeyState (VK_LBUTTON) < 0;
+	return is_key_pressed (VK_LBUTTON) < 0;
 }
 
 
@@ -232,7 +233,7 @@ is_left_mouse_button_click (
 	void
 ) {
 	// Works similarly than keyboard keys
-	return is_key_pressed (VK_LBUTTON);
+	return is_key_typed (VK_LBUTTON);
 }
 
 
@@ -244,7 +245,7 @@ EXPORT_FUNCTION bool
 is_right_mouse_button_pressed (
 	void
 ) {
-	return GetKeyState (VK_RBUTTON) < 0;
+	return is_key_pressed (VK_RBUTTON) < 0;
 }
 
 
@@ -257,7 +258,7 @@ is_right_mouse_button_click (
 	void
 ) {
 	// Works similarly than keyboard keys
-	return is_key_pressed (VK_RBUTTON);
+	return is_key_typed (VK_RBUTTON);
 }
 
 
@@ -275,22 +276,7 @@ EXPORT_FUNCTION bool
 is_key_typed (
 	unsigned char key
 ) {
-	static KeyState states[256] = {[0 ... 255] = KEY_STATE_RELEASED};
-	bool keyPressed = is_key_pressed (key);
-
-	if (keyPressed) {
-		// The key has been pressed but not released yet
-		states[key] = KEY_STATE_PRESSED;
-		return false;
-	}
-
-	// On release, trigger the event
-	if (!keyPressed && states[key] == KEY_STATE_PRESSED) {
-		states[key] = KEY_STATE_RELEASED;
-		return true;
-	}
-
-	return false;
+	return Keyboard_is_key_typed (key);
 }
 
 /*
@@ -303,7 +289,7 @@ EXPORT_FUNCTION bool
 is_key_pressed (
 	unsigned char key
 ) {
-	return GetKeyState (key) < 0;
+	return Keyboard_is_key_pressed (key);
 }
 
 

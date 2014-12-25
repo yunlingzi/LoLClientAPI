@@ -62,6 +62,15 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../EasySocket/EasySocket.h" />
+		<Unit filename="../HookEngine/HookEngine.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../HookEngine/HookEngine.h" />
+		<Unit filename="../Keyboard/KeyState.h" />
+		<Unit filename="../Keyboard/Keyboard.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Keyboard/Keyboard.h" />
 		<Unit filename="../MemProc/MemChunk.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -90,9 +99,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../dbg/dbg.h" />
-		<Unit filename="HookEngine/HookEngine.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="HookEngine/HookEngine.h" />
 		<Unit filename="Keyboard/KeyState.h" />
 		<Unit filename="LoLAPI/LoLAPI.h" />

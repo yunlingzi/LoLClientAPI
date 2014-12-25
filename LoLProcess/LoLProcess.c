@@ -83,7 +83,7 @@ LoLProcess_load_hook_engine (
 	LoLProcess *this
 ) {
 	// Load hook engine
-	char * hookEngineDllPath = str_dup_printf ("%sbin/NtHookEngine.dll", this->clientApiPath);
+	char * hookEngineDllPath = str_dup_printf ("%sbin/NtHookEngine.dll", this->appPath);
 	this->hookEngine = HookEngine_new (hookEngineDllPath);
 	free (hookEngineDllPath);
 
@@ -155,26 +155,22 @@ LoLProcess_init (
 	// Init state
 	LoLProcess_setState (this, STATE_INITIALIZING);
 
-	// Get current module path
-	char serverApiPath [MAX_PATH] = {0};
-	GetModuleFileName (GetModuleHandle ("LoLServerAPI.dll"), serverApiPath, sizeof(serverApiPath));
-
-	char * lastSlash = strrchr (serverApiPath, '\\');
-	char * dllName = (lastSlash != NULL) ? &lastSlash[1] : serverApiPath;
-	dllName [0] = '\0';
-	this->clientApiPath = str_dup_printf ("%s../", serverApiPath);
-	if (!this->clientApiPath || !strlen (serverApiPath)) {
+	// Get the application path from the module path
+	char *serverApiPath = get_module_path ("LoLServerAPI.dll");
+	this->appPath = str_dup_printf ("%s../", serverApiPath);
+	if (!this->appPath || !strlen (serverApiPath)) {
 		MessageBoxA (NULL, "LoLClientAPI cannot initialize correctly", "Error", 0);
 		return false;
 	}
+	free (serverApiPath);
 
-	// Open debug file, only for DLL (use stdout for executable version)
-	char *logFilePath   = str_dup_printf ("%sLoLClientAPI-Log.txt", this->clientApiPath);
+	// Open debug file
+	char *logFilePath = str_dup_printf ("%sLoLClientAPI-Log.txt", this->appPath);
 	this->debugOutput = file_open (logFilePath, "w+");
 	if (this->debugOutput) {
 		dbg_set_output (this->debugOutput);
 	}
-	dbg ("clientApiPath set to <%s>", this->clientApiPath);
+	dbg ("appPath set to <%s>", this->appPath);
 	free (logFilePath);
 
 	// Get time and start logging

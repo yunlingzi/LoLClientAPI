@@ -40,8 +40,8 @@ typedef struct _LoLProcess
 	// File handle to debug output
 	FILE *debugOutput;
 
-	// Path to the client API
-	char * clientApiPath;
+	// Path to the application
+	char * appPath;
 
 }	LoLProcess;
 
