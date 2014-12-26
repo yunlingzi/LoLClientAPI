@@ -9,9 +9,9 @@ LoLServerAPI * connection = NULL;
 
 
 /*
- * Description :	Function called when the DLL in injected or the executable is launched
+ * Description :	Function called when the DLL in injected in League of Legends.exe process.
  * 					It installs LCAPI into LoL process, find game structures and store them
- *					into a custom structure
+ *					into a LoLProcess structure.
  */
 void startInjection (void)
 {
@@ -23,16 +23,16 @@ void startInjection (void)
 		return;
 	}
 
-	// Create CheatEngine file
+	// Create CheatEngine file (optional)
 	LoLProcess_exportToCE ();
 
-	// Instanciate and listen for a connection
+	// Instanciate and listen to a connection
 	if ((connection = LoLServerAPI_new ()) == NULL) {
 		warn ("API server connection error.");
 		return;
 	}
 
-	// Answer requests
+	// Answer to requests
 	LoLServerAPI_main (connection);
 
 	// Clean and exit
@@ -41,7 +41,6 @@ void startInjection (void)
 	LoLServerAPI_free (connection);
 	dbg ("ServerAPI stopped working normally.");
 }
-
 
 /*
  * Description :	Function called when the DLL in ejected.
@@ -68,7 +67,6 @@ bool WINAPI DllMain (HMODULE dll, DWORD reason, LPVOID reserved)
 
 	return true;
 }
-
 
 /*
  * Description :	Executable entry point.
