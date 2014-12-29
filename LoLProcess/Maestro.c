@@ -8,8 +8,8 @@
 
 /*
  * Description 	: Allocate a new Maestro structure.
- * DWORD baseAddress : Base address of the module
- * DWORD sizeOfModule : Size of the module
+ * DWORD baseAddress : Base address of the Maestro module
+ * DWORD sizeOfModule : Size of the Maestro module
  * Return		: A pointer to an allocated Maestro.
  */
 Maestro *
@@ -60,22 +60,7 @@ Maestro_init (
 
 
 /*
- * Description : Set hooks in Maestro module
- * Maestro *this : An allocated Maestro to initialize.
- * Return : true on success, false on failure.
- */
-bool
-Maestro_set_hooks (
-	Maestro *this
-) {
-	dbg ("Functions all correctly hooked!");
-	return true;
-}
-
-
-/*
  * Description : Remove hooks in Maestro module
- * Maestro *this : An allocated Maestro to initialize.
  * Return : true on success, false on failure.
  */
 void

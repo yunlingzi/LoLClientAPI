@@ -1,4 +1,5 @@
 #include "LoLModule.h"
+#include "HookEngine/HookEngine.h"
 #include <stdlib.h>
 
 // ---------- Debugging -------------
@@ -71,6 +72,12 @@ LoLModule_init (
 	// Initialize GameClock
 	if (!(this->gameClock = GameClock_new (baseAddress, sizeOfModule))) {
 		dbg ("Cannot get GameClock.");
+		return false;
+	}
+
+	// Initialize HudChat
+	if (!(this->hudChat = HudChat_new (baseAddress, sizeOfModule))) {
+		dbg ("Cannot get HudChat.");
 		return false;
 	}
 
