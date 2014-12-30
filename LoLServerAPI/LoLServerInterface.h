@@ -343,6 +343,30 @@ get_game_time (
 
 
 /** =======================================================================================
+ ** ====================================== Chat APIs ======================================
+ ** ======================================================================================= **/
+
+/*
+ * Description : Get the next line of the chat received since the last time called.
+ * Return : char * : A line of chat, or NULL if no message has been posted since the last time called.
+ */
+char *
+get_chat_message (
+	void
+);
+
+/*
+ * Description : Log a message to the HudChat
+ * char * message : A message to add in the chat
+ * int messageLength : The length of the message, or -1 to calculate the length
+ */
+void
+log_chat_message (
+	char * message,
+	int messageLength
+);
+
+/** =======================================================================================
  ** ================================== LoLServerAPI APIs ==================================
  ** ======================================================================================= **/
 

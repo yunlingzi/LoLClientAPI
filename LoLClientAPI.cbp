@@ -13,11 +13,9 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-g" />
 					<Add option="-DDEBUG_ACTIVATED" />
 				</Compiler>
-				<Linker>
-					<Add option="-s" />
-				</Linker>
 			</Target>
 			<Target title="Executable">
 				<Option output="PythonWrapper/LoLClientAPI" prefix_auto="1" extension_auto="1" />
@@ -67,12 +65,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../EasySocket/EasySocket.h" />
-		<Unit filename="../Scanner/Scanner.h" />
 		<Unit filename="../Utils/Utils.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../Utils/Utils.h" />
-		<Unit filename="../Win32Tools/Win32Tools.h" />
 		<Unit filename="../Ztring/Ztring.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -95,10 +91,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="LoLClientAPI/LoLClientInterface.h" />
-		<Unit filename="Position/Position.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Position/Position.h" />
 		<Unit filename="mainClient.c">
 			<Option compilerVar="CC" />
 		</Unit>

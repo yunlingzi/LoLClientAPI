@@ -12,6 +12,8 @@
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-O2" />
+					<Add option="-g" />
 					<Add option="-DDEBUG_ACTIVATED" />
 				</Compiler>
 			</Target>
@@ -185,6 +187,14 @@
 		<Unit filename="LoLMemory/NetAPIClient/NetAPIClientTest.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="LoLMemory/PlayerHUD/HudChat/HudChat.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="LoLMemory/PlayerHUD/HudChat/HudChat.h" />
+		<Unit filename="LoLMemory/PlayerHUD/PlayerHUD.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="LoLMemory/PlayerHUD/PlayerHUD.h" />
 		<Unit filename="LoLMemory/Unit/Unit.c">
 			<Option compilerVar="CC" />
 		</Unit>

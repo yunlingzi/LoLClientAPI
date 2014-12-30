@@ -55,6 +55,10 @@ typedef enum _LoLAPIRequest
 	// Game APIs
 	REQUEST_GET_GAME_TIME,
 
+	// Chat APIs
+	REQUEST_GET_CHAT_MESSAGE,
+	REQUEST_LOG_CHAT_MESSAGE,
+
 	// Internal APIs
 	REQUEST_EJECT_API,
 

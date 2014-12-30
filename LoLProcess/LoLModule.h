@@ -9,7 +9,7 @@
 #include "LoLMemory/GUIMenu/GUIMenu.h"
 #include "LoLMemory/NetAPIClient/NetAPIClient.h"
 #include "LoLMemory/GameClock/GameClock.h"
-#include "LoLMemory/HudChat/HudChat.h"
+#include "LoLMemory/PlayerHUD/PlayerHUD.h"
 #include "MemProc/MemProc.h"
 
 // ---------- Defines -------------
@@ -27,7 +27,7 @@ typedef struct _LoLModule
 	GUIMenu *guiMenu;
 	NetAPIClient *netApiClient;
 	GameClock *gameClock;
-	HudChat *hudChat;
+	PlayerHUD *playerHUD;
 
 }	LoLModule;
 

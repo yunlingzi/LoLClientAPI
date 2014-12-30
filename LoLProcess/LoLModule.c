@@ -76,7 +76,7 @@ LoLModule_init (
 	}
 
 	// Initialize HudChat
-	if (!(this->hudChat = HudChat_new (baseAddress, sizeOfModule))) {
+	if (!(this->playerHUD = PlayerHUD_new (baseAddress, sizeOfModule))) {
 		dbg ("Cannot get HudChat.");
 		return false;
 	}

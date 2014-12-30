@@ -20,6 +20,8 @@ LoLServerAPI_handle_request (
 	EasySocketListened *client
 ) {
 	LoLAPIPacket packet;
+	void *object = NULL;
+	size_t objectSize = 0;
 	memcpy (&packet, client->buffer, sizeof(packet));
 
 	if (!LoLAPIRequest_is_valid (packet.request)) {
@@ -131,7 +133,7 @@ LoLServerAPI_handle_request (
 		break;
 
 		case REQUEST_GET_TEAMMATE_SUMMONER_NAME:
-			get_teammate_summoner_name (packet.teammateId, packet.stringPacket.str);
+			get_teammate_summoner_name (packet.teammateId, packet.bufferPacket.buffer);
 		break;
 
 
@@ -147,8 +149,24 @@ LoLServerAPI_handle_request (
 
 		// Summoner APIs
 		case REQUEST_GET_CURRENT_SUMMONER_NAME:
-			get_current_summoner_name (packet.stringPacket.str);
+			get_current_summoner_name (packet.bufferPacket.buffer);
 		break;
+
+
+		// Chat APIs
+		case REQUEST_GET_CHAT_MESSAGE:
+			if ((object = get_chat_message ()) != NULL) {
+				objectSize = strlen (object);
+				packet.objectPacket.size = objectSize;
+			}
+		break;
+
+		case REQUEST_LOG_CHAT_MESSAGE: {
+			// Receive the chat message right after the first packet
+			char * message = calloc (1, packet.objectPacket.size + 1);
+			es_recv_buffer (EASY_SOCKET (client), message, packet.objectPacket.size);
+			log_chat_message (message, packet.objectPacket.size);
+		} break;
 
 
 		// Game APIs
@@ -160,7 +178,7 @@ LoLServerAPI_handle_request (
 		// Internal APIs
 		case REQUEST_EJECT_API:
 			LoLServerAPI_eject (serverAPI);
-			strncpy (packet.stringPacket.str, LOLAPI_STATUS_EXIT, sizeof(packet.stringPacket.str));
+			strncpy (packet.bufferPacket.buffer, LOLAPI_STATUS_EXIT, sizeof(packet.bufferPacket.buffer));
 			es_send (EASY_SOCKET (client), &packet, sizeof (packet));
 			es_close (EASY_SOCKET (client));
 			return;
@@ -172,15 +190,21 @@ LoLServerAPI_handle_request (
 		break;
 
 		default :
-			dbg ("Unhandled request = %x", packet.request);
 			if (LoLAPIRequest_is_valid (packet.request)) {
-				dbg ("Unhandle request = %s", LoLAPIRequest_to_string (packet.request));
+				dbg ("Unhandled request = %s", LoLAPIRequest_to_string (packet.request));
+			} else {
+				dbg ("Unhandled request = %x", packet.request);
 			}
 		break;
 	}
 
-	// Answer
-	es_send (EASY_SOCKET (client), &packet, sizeof (packet));
+	// Answer to the client the initial packet
+	es_send (EASY_SOCKET (client), &packet, sizeof(packet));
+
+	// Send a dynamic sized object right after the initial packet if the object is initialized
+	if (object != NULL && objectSize != 0) {
+		es_send (EASY_SOCKET (client), object, objectSize);
+	}
 }
 
 /*

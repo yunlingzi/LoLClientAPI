@@ -42,11 +42,17 @@ typedef struct _IntPacket
 
 }	IntPacket;
 
-typedef struct _StringPacket
+typedef struct _BufferPacket
 {
-	char str [16];
+	char buffer [16];
 
-} 	StringPacket;
+} 	BufferPacket;
+
+typedef struct _ObjectPacket
+{
+	int size;
+
+} 	ObjectPacket;
 
 typedef struct _HpPacket
 {
@@ -64,6 +70,7 @@ typedef struct _BooleanPacket{
 typedef struct _LoLAPIPacket
 {
 	LoLAPIRequest request;
+	int teammateId;
 
 	union {
 		GamePositionPacket gamePositionPacket;
@@ -72,11 +79,10 @@ typedef struct _LoLAPIPacket
 		FloatPacket floatPacket;
 		IntPacket intPacket;
 		BytePacket bytePacket;
-		StringPacket stringPacket;
+		BufferPacket bufferPacket;
+		ObjectPacket objectPacket;
 		HpPacket hpPacket;
 		BooleanPacket booleanPacket;
 	};
-
-	int teammateId;
 
 }	LoLAPIPacket;

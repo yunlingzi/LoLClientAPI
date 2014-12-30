@@ -29,6 +29,55 @@ LoLClientAPI_new (void)
 
 
 /*
+ * Description : Receive packet from the LoLServerAPI
+ * LoLClientAPI *this : An allocated LoLClientAPI
+ * LoLAPIPacket *packet : A packet to recieve
+ * int packetSize : The size of the packet
+ * Return : bool true on success, false otherwise
+ */
+bool
+LoLClientAPI_recv (
+	LoLClientAPI *this,
+	LoLAPIPacket *packet,
+	int packetSize
+) {
+	LoLAPIRequest originalRequest = packet->request;
+
+	// And receive its response
+	if (!es_recv_buffer (this->clientSocket, packet, packetSize)) {
+		warn ("Error when receiving the last packet (API_RECV_ERROR).");
+		this->lastError = API_RECV_ERROR;
+		return false;
+	}
+
+	if (packet->request == REQUEST_FAIL) {
+		warn ("Request failed received (REQUEST_FAIL).");
+		this->lastError = API_REQUEST_FAIL;
+		return false;
+	}
+
+	if (!LoLAPIRequest_is_valid (packet->request)) {
+		warn ("Request received from the APIServer isn't supported : %d (API_REQUEST_INVALID).", packet->request);
+		this->lastError = API_REQUEST_INVALID;
+		return false;
+	}
+
+	// Check if the received answer type is the same than the requested one
+	if (packet->request != originalRequest) {
+		warn ("Not received the queried request. Client = <%s>, Server = <%s>) (API_REQUEST_UNSYNCHRONIZED).",
+			LoLAPIRequest_to_string (originalRequest),
+			LoLAPIRequest_to_string (packet->request)
+		);
+
+		this->lastError = API_REQUEST_UNSYNCHRONIZED;
+		return false;
+	}
+
+	return true;
+}
+
+
+/*
  * Description : Send to the LoLServerAPI a given request
  * LoLClientAPI *this : An allocated LoLClientAPI
  * LoLAPIPacket *packet : A packet to send
@@ -41,46 +90,16 @@ LoLClientAPI_send (
 	LoLAPIPacket *packet,
 	int packetSize
 ) {
-	LoLAPIRequest originalRequest = packet->request;
-
-	if (!LoLAPIRequest_is_valid (originalRequest)) {
-		warn ("Request sent to APIServer isn't valid : %d", originalRequest);
+	if (!LoLAPIRequest_is_valid (packet->request)) {
+		warn ("Request sent to APIServer isn't valid : %d (API_REQUEST_INVALID).", packet->request);
+		this->lastError = API_REQUEST_INVALID;
 		return false;
 	}
 
 	// Send packet to the server ...
 	if (es_send (this->clientSocket, packet, packetSize) == -1) {
-		warn ("Error when sending the packet <%s>.", LoLAPIRequest_to_string (packet->request));
-		return false;
-	}
-
-	// And receive its response
-	if (!es_recv_buffer (this->clientSocket, packet, packetSize)) {
-		warn ("Error when receiving the last packet.");
-		this->lastError = API_RECV_ERROR;
-		return false;
-	}
-
-	if (packet->request == REQUEST_FAIL) {
-		warn ("Request failed (REQUEST_FAIL received).");
-		this->lastError = API_REQUEST_FAIL;
-		return false;
-	}
-
-	if (!LoLAPIRequest_is_valid (packet->request)) {
-		warn ("Request received from the APIServer isn't supported : %d", packet->request);
-		this->lastError = API_REQUEST_INVALID;
-		return false;
-	}
-
-	// Check if the received answer type is the same than the requested one
-	if (packet->request != originalRequest) {
-		warn ("Received not the queried request. (client = %s / server = %s)",
-			LoLAPIRequest_to_string (originalRequest),
-			LoLAPIRequest_to_string (packet->request)
-		);
-
-		this->lastError = API_REQUEST_UNSYNCHRONIZED;
+		warn ("Error when sending the packet <%s> (API_SEND_ERROR).", LoLAPIRequest_to_string (packet->request));
+		this->lastError = API_SEND_ERROR;
 		return false;
 	}
 

@@ -14,6 +14,7 @@
 typedef enum _LoLClientAPIError
 {
 	API_NO_ERROR,
+	API_SEND_ERROR,
 	API_RECV_ERROR,
 	API_REQUEST_FAIL,
 	API_REQUEST_INVALID,
@@ -71,6 +72,20 @@ LoLClientAPI_test (
  */
 bool
 LoLClientAPI_send (
+	LoLClientAPI *this,
+	LoLAPIPacket *packet,
+	int packetSize
+);
+
+/*
+ * Description : Receive packet from the LoLServerAPI
+ * LoLClientAPI *this : An allocated LoLClientAPI
+ * LoLAPIPacket *packet : A packet to recieve
+ * int packetSize : The size of the packet
+ * Return : bool true on success, false otherwise
+ */
+bool
+LoLClientAPI_recv (
 	LoLClientAPI *this,
 	LoLAPIPacket *packet,
 	int packetSize

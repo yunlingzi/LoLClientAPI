@@ -58,6 +58,10 @@ struct LoLAPIRequestStringAssociation {
 	// Game APIs
 	associate (REQUEST_GET_GAME_TIME),
 
+	// Chat APIs
+	associate (REQUEST_GET_CHAT_MESSAGE),
+	associate (REQUEST_LOG_CHAT_MESSAGE),
+
 	// Internal APIs
 	associate (REQUEST_EJECT_API),
 

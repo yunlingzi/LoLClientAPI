@@ -577,6 +577,58 @@ get_game_time (
 
 
 /** =======================================================================================
+ ** ====================================== Chat APIs ======================================
+ ** ======================================================================================= **/
+
+/*
+ * Description : Get the next line of the chat received since the last time called.
+ * Return : char * : A line of chat, or NULL if no message has been posted since the last time called.
+ */
+char *
+get_chat_message (
+	void
+) {
+	wait_api ();
+
+	HudChat * hudChat = lolClient->lol->playerHUD->hudChat;
+
+	// No new message
+	if (bb_queue_get_length (&hudChat->chatMessages) <= 0) {
+		return NULL;
+	}
+
+	// Return the first message of the queue (FIFO)
+	return bb_queue_get_first (&hudChat->chatMessages);
+}
+
+/*
+ * Description : Log a message to the HudChat
+ * char * message : A message to add in the chat
+ * int messageLength : The length of the message
+ */
+void
+log_chat_message (
+	char * message,
+	int messageLength
+) {
+	wait_api ();
+
+	HudChat * hudChat = lolClient->lol->playerHUD->hudChat;
+
+	// Check if the HudChat pointer is correct
+	if (!hudChat->pThis) {
+		warn ("Cannot add message until a reference to the HudChat has been found.");
+		return;
+	}
+
+	if (messageLength == -1) {
+		messageLength = strlen (message);
+	}
+
+	HudChat_addMessage ((void *) hudChat->pThis, message, messageLength);
+}
+
+/** =======================================================================================
  ** ==================================== Internal APIs ====================================
  ** ======================================================================================= **/
 

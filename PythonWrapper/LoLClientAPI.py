@@ -333,7 +333,7 @@ class LoLClientAPI:
 
 	# Retrieve teammate champion health points information
 	# teammateId : The target teammate ID
-	# Return : summonerName A string containing the teammate summoner name (16 bytes maximum)
+	# Return : A string containing the teammate summoner name (16 bytes maximum)
 	def get_teammate_summoner_name (self, teammateId):
 	
 		# C API declaration :
@@ -410,6 +410,34 @@ class LoLClientAPI:
 		self.hAPI.get_game_time.restype = c_float;
 		return self.hAPI.get_game_time ();
 	
+		
+	# =================================================================================
+	# =================================== Chat APIs ===================================
+	# =================================================================================
+
+	# Get the next line of the chat received since the last time called.
+	# Return : A line of chat, or NULL if no message has been posted since the last time called.
+	def get_chat_message (self):
+		
+		# C API declaration :
+		# char * get_chat_message (
+		#	void
+		# )
+		
+		self.hAPI.get_chat_message.restype = c_char_p;
+		return self.hAPI.get_chat_message ();
+
+	# Log a message to the HudChat
+	# message : a string containing the message to send.
+	def log_chat_message (self, message):
+		
+		# C API declaration :
+		# void log_chat_message (
+		#	char * message
+		# )
+		
+		return self.hAPI.log_chat_message (c_char_p (message));
+
 	
 		
 	# =================================================================================

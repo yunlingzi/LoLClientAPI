@@ -78,17 +78,16 @@ GameClock_init (
 		"xx"
 	);
 
-	if (gameClockInstance) {
-		// gameClockInstance has been found
-		dbg ("GameClockInstance found : 0x%08X", gameClockInstance);
-		this->pThis = *((DWORD *) gameClockInstance);
-
-		return true;
+	if (!gameClockInstance) {
+		dbg ("GameClockInstance not found");
+		return false;
 	}
 
-	dbg ("GameClockInstance not found");
+	// gameClockInstance has been found
+	dbg ("GameClockInstance found : 0x%08X", gameClockInstance);
+	this->pThis = *((DWORD *) gameClockInstance);
 
-	return false;
+	return true;
 }
 
 
