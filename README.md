@@ -87,6 +87,12 @@ API Prototype | Description
 -------- | -------------
 ```get_game_time``` | Get the current game time (as seconds)
 
+##### Chat APIs
+API Prototype | Description
+-------- | -------------
+```get_chat_message``` | Get the next line of the chat received since the last time called
+```log_chat_message``` | Log a message to the HudChat (only for you)
+    
 ##### Internal APIs
 API Prototype | Description
 -------- | -------------
