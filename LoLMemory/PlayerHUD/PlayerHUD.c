@@ -44,6 +44,12 @@ PlayerHUD_init (
 	DWORD baseAddress,
 	DWORD sizeOfModule
 ) {
+	/* Not far from the strings :
+		game_spellcaststatus_outofmana
+		game_spellcaststatus_cooldown
+		game_spellcaststatus_disabled
+		game_spellcaststatus_notlearned
+	*/
 	unsigned char pattern[] = {
 		/*  57                     push edi
 			8B3D 1C908C01          mov edi, [playerHUDInstance]
@@ -85,8 +91,8 @@ PlayerHUD_init (
 	memcpy (this, *((DWORD **) playerHUDInstance), sizeof(PlayerHUD));
 	this->pThis = *((DWORD *) playerHUDInstance);
 
-	// Instanciate playerHudChat :
-	if ((this->hudChat = HudChat_new (baseAddress, (DWORD) this->hudChat)) == NULL) {
+	// Instanciate playerHudChat
+	if ((this->hudChat = HudChat_new (baseAddress, sizeOfModule, (DWORD) this->hudChat)) == NULL) {
 		warn ("HudChat not found.");
 		return false;
 	}

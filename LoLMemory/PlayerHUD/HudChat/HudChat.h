@@ -27,11 +27,13 @@ typedef struct _HudChat
  * Description 	: Allocate a new HudChat structure.
  * DWORD baseAddress : Base address of the module
  * DWORD hudChatInstance : The address of hudChat
+ * DWORD sizeOfModule : Size of the module
  * Return		: A pointer to an allocated HudChat.
  */
 HudChat *
 HudChat_new (
 	DWORD baseAddress,
+	DWORD sizeOfModule,
 	DWORD hudChatInstance
 );
 
@@ -41,12 +43,14 @@ HudChat_new (
  * Description : Initialize an allocated HudChat structure.
  * HudChat *this : An allocated HudChat to initialize.
  * DWORD baseAddress : Base address of the module
+ * DWORD sizeOfModule : Size of the module
  * DWORD hudChatInstance : The address of hudChat
  */
 bool
 HudChat_init (
 	HudChat *this,
 	DWORD baseAddress,
+	DWORD sizeOfModule,
 	DWORD hudChatInstance
 );
 

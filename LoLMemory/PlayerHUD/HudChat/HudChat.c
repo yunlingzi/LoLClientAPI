@@ -15,11 +15,13 @@ static HudChat *hudChat = NULL;
  * Description 	: Allocate a new HudChat structure.
  * DWORD baseAddress : Base address of the module
  * DWORD hudChatInstance : The address of hudChat
+ * DWORD sizeOfModule : Size of the module
  * Return		: A pointer to an allocated HudChat.
  */
 HudChat *
 HudChat_new (
 	DWORD baseAddress,
+	DWORD sizeOfModule,
 	DWORD hudChatInstance
 ) {
 	HudChat *this;
@@ -27,7 +29,7 @@ HudChat_new (
 	if ((this = calloc (1, sizeof(HudChat))) == NULL)
 		return NULL;
 
-	if (!HudChat_init (this, baseAddress, hudChatInstance)) {
+	if (!HudChat_init (this, baseAddress, sizeOfModule, hudChatInstance)) {
 		HudChat_free (this);
 		return NULL;
 	}
@@ -43,21 +45,71 @@ HudChat_new (
  * HudChat *this : An allocated HudChat to initialize.
  * DWORD baseAddress : Base address of the module
  * DWORD hudChatInstance : The address of hudChat
+ * DWORD sizeOfModule : Size of the module
  * Return : true on success, false on failure.
  */
 bool
 HudChat_init (
 	HudChat *this,
 	DWORD baseAddress,
+	DWORD sizeOfModule,
 	DWORD hudChatInstance
 ) {
+
 	this->pThis = hudChatInstance;
+
+	DWORD MaxChatBufferSizeStr = memscan_string (
+		"MaxChatBufferSizeStr",
+		baseAddress, sizeOfModule,
+		"MaxChatBufferSize"
+	);
+
+	unsigned char pattern [] = {
+	/*
+		68 58DE5401   push offset 0154DE58   ; ASCII "MaxChatBufferSize"
+		68 C4555E01   push offset 015E55C4   ; ASCII "Hacks"
+		68 B4685D01   push offset 015D68B4   ; ASCII "Data/CFG/defaults/GamePermanent.cfg"
+	*/
+		0x68, '_', '_', '_', '_',
+		0x68, '?', '?', '?', '?',
+		0x68, '?', '?', '?', '?'
+	};
+
+	int replacePos = str_n_pos (pattern, "____", sizeof(pattern));
+	memcpy(&pattern[replacePos], &MaxChatBufferSizeStr, 4);
+
+	// Find a reference to HudManagerAddress
+	DWORD addMessageReference = memscan_buffer_mask ("hudManagerInstance",
+		baseAddress, sizeOfModule,
+		pattern,
+		sizeof (pattern),
+		"xxxxx"
+		"x????"
+		"x????"
+	);
+	dbg ("addMessageReference found : 0x%08X.", addMessageReference);
+
+	unsigned char startOfFunction [] = {
+		0xCC, 0xCC, 0xCC, 0xCC, 0xCC
+	};
+
+	int offset = 0;
+	while (find_pattern ((char *) addMessageReference - offset, sizeof(startOfFunction), startOfFunction, "xxxxx") == -1) {
+		offset++;
+		if (offset > 0x10000) {
+			warn ("Start of function is really too far. Something must be wrong.");
+			return false;
+		}
+	}
+
+	addMessageReference += sizeof(startOfFunction) - offset;
+	dbg ("HudChat_addMessage found : %x", addMessageReference);
 
 	// Init queue messages for client
 	bb_queue_init (&this->chatMessages);
 
 	// Hook HudChat_addMessage
-	HookEngine_hook ((ULONG_PTR) (baseAddress + 0xA07830), (ULONG_PTR) &HudChat_addMessage);
+	HookEngine_hook ((ULONG_PTR) addMessageReference, (ULONG_PTR) &HudChat_addMessage);
 
 	return true;
 }
