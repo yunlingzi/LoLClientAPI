@@ -338,6 +338,15 @@ get_chat_message (
 	void
 );
 
+/*
+ * Description : Log a message to the chat (only for you)
+ * char * message : A line of chat to send
+ * Return : void
+ */
+void
+log_chat_message (
+	char * message
+)
 
 /** =================================================================================
  ** ================================== Internal APIs ================================

@@ -751,7 +751,7 @@ get_chat_message (
 
 
 /*
- * Description : Log a message to the HudChat
+ * Description : Log a message to the chat (only for you)
  * char * message : A line of chat to send
  * Return : void
  */

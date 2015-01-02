@@ -78,8 +78,8 @@ HudChat_init (
 	int replacePos = str_n_pos (pattern, "____", sizeof(pattern));
 	memcpy(&pattern[replacePos], &MaxChatBufferSizeStr, 4);
 
-	// Find a reference to HudManagerAddress
-	DWORD addMessageReference = memscan_buffer_mask ("hudManagerInstance",
+	// Find a reference to addMessageReference
+	DWORD addMessageReference = memscan_buffer_mask ("addMessageReference",
 		baseAddress, sizeOfModule,
 		pattern,
 		sizeof (pattern),
@@ -96,7 +96,7 @@ HudChat_init (
 	int offset = 0;
 	while (find_pattern ((char *) addMessageReference - offset, sizeof(startOfFunction), startOfFunction, "xxxxx") == -1) {
 		offset++;
-		if (offset > 0x10000) {
+		if (offset > 0x1000) {
 			warn ("Start of function is really too far. Something must be wrong.");
 			return false;
 		}
@@ -127,8 +127,8 @@ HudChat_addMessage (
 	char *chatMsg,
 	int size
 ) {
-	void (__thiscall *_HudChat_addMessage) (HudChat *this, char *chatMsg, int size);
-	_HudChat_addMessage = (typeof(_HudChat_addMessage)) HookEngine_get_original_function ((ULONG_PTR) HudChat_addMessage);
+	void (__thiscall *_HudChat_addMessage) (HudChat *this, char *chatMsg, int size)
+		= (typeof(_HudChat_addMessage)) HookEngine_get_original_function ((ULONG_PTR) HudChat_addMessage);
 
 	bb_queue_add (&hudChat->chatMessages, strdup (chatMsg));
 
