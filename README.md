@@ -27,6 +27,25 @@ The APIs provided shouldn't help too much for botting and cheating in the game.
 Thus, you can't control your champion, unzoom farther than possible or use items with this API.
 
 
+![?](http://i.cubeupload.com/2md2lj.png) Installation
+------------
+
+- Download the last Beta version of LoLClientAPI.zip here : https://github.com/Spl3en/LoLClientAPI/releases Extract this archive wherever you want, e.g. on the Desktop.
+
+- Download Python 2.7.x and install it :
+    Important : Check "Add python.exe to Path" during the installation (so it is easier to launch PyLoLCamera) :
+    https://www.python.org/ftp/python/2.7.8/python-2.7.8.msi
+
+- Download and install pywin32, a module for Python : http://sourceforge.net/projects/pywin32/files/pywin32/Build%20219/pywin32-219.win32-py2.7.exe/download
+
+
+- It should recognize automatically your Python folder in the registry if everything went well. At this point, optionnally you may need to restart your computer because of your new Python environnement. Once it is done, go back to the folder where you extracted LoLClientAPI.zip
+
+- You should be able to launch "Launch PyLoLCamera.bat" during a game. If you launch it outside of the game, it's not a big deal but it just doesn't do anything until you restart it during the game.
+
+- If you want to launch another script, copy paste Launch PyLoLCamera.bat, edit it and change the script name.
+
+
 :arrow_right: Available APIs
 ------------
 If you want to take a closer look at the prototypes, all the available APIs are exported in the [LoLClientInterface header](https://github.com/Spl3en/LoLClientAPI/blob/master/LoLClientAPI/LoLClientInterface.h).
