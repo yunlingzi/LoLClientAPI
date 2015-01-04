@@ -220,7 +220,7 @@ EXPORT_FUNCTION bool
 is_left_mouse_button_pressed (
 	void
 ) {
-	return is_key_pressed (VK_LBUTTON) < 0;
+	return is_key_pressed (VK_LBUTTON);
 }
 
 
@@ -245,7 +245,7 @@ EXPORT_FUNCTION bool
 is_right_mouse_button_pressed (
 	void
 ) {
-	return is_key_pressed (VK_RBUTTON) < 0;
+	return is_key_pressed (VK_RBUTTON);
 }
 
 
