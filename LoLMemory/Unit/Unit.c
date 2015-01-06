@@ -47,6 +47,7 @@ Unit_init (
 
 	this->pThis = pThis;
 	this->thisStatic = pUnit;
+	this->teammateId = -1;
 
 	if (pThis == 0) {
 		dbg ("Unit not initialized.");

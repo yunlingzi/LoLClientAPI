@@ -20,30 +20,45 @@ Unit_test (
 	}
 
 	/* Current position test */
-	/*
-	// TODO : Find a way to identify each Unit
-
 	Position currentPosition;
 
-	printf("this->teammateId = %d\n", this->teammateId);
+	if (this->teammateId < 0) {
+		// Do not look into ennemies information
+		return true;
+	}
+
 	get_teammate_position (this->teammateId, &currentPosition.x, &currentPosition.y);
+	dbg ("Unit ally_%d position : %f %f", currentPosition.x, currentPosition.y);
 
 	if (!Position_in_map (&currentPosition)) {
 		fail ("Current position test failed : %f %f", currentPosition.x, currentPosition.y);
 	}
 
 	// Unit name test
-	char * currentSummonerName = get_current_summoner_name ();
+	char teammateSummonerName[17];
+
+	get_teammate_summoner_name (this->teammateId, teammateSummonerName);
 	for (int i = 0; i < sizeof_struct_member(HeroClient, summonerName); i++) {
-		if (currentSummonerName[i] == 0) {
+		if (teammateSummonerName[i] == 0) {
 			break; // End of string reached
 		}
 
-		if (!(isalnum ((int) currentSummonerName[i]) || isspace((int) currentSummonerName[i]))) {
-			fail ("Malformed summoner name : %s.", currentSummonerName);
+		if (!(isalnum ((int) teammateSummonerName[i]) || isspace((int) teammateSummonerName[i]))) {
+			fail ("Malformed summoner name : %s.", teammateSummonerName);
 		}
 	}
-	*/
+
+
+	/* Hp test */
+	float curHP, maxHP;
+	get_teammate_hp (this->teammateId, &curHP, &maxHP);
+
+	dbg ("Current HeroClient HP detected : %f/%f", curHP, maxHP);
+
+	// 100000 HP seems to be big enough to be reported if the current/maximum HP is bigger
+	if (curHP < 0.0 || maxHP < 0.0 || curHP > 100000.0 || maxHP > 100000.0) {
+		fail ("HP test failed : cur=%f max=%f", this->curHP, this->maxHP);
+	}
 
 	return true;
 }
