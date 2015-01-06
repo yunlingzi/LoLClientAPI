@@ -26,5 +26,7 @@ GameClock_test (
 		return false;
 	}
 
+	dbg ("Clock time detected = %f", gameTime);
+
 	return true;
 }
