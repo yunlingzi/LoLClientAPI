@@ -343,7 +343,7 @@ get_champion_hp (
 
 /*
  * Description : Retrieve the current champion team
- * Return : 0 if BLUE team, 1 if PURPLE team
+ * Return : TEAM_BLUE, TEAM_PURPLE or TEAM_UNKNOWN
  */
 EXPORT_FUNCTION int
 get_champion_team (

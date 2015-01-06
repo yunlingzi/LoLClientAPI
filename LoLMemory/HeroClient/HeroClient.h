@@ -10,10 +10,12 @@
 // ---------- Defines -------------
 #define CLIENT_TEAM_BLUE	0x64
 #define CLIENT_TEAM_PURPLE	0xC8
-#define TEAM_BLUE	0
-#define TEAM_PURPLE	1
-#define TEAM_UNKNOWN 2
 
+typedef enum _TeamId {
+	TEAM_BLUE    = 0,
+	TEAM_PURPLE  = 1,
+	TEAM_UNKNOWN = 2
+} TeamId;
 
 // ------ Structure declaration -------
 // HeroClient inherits everything from HeroClient structure
