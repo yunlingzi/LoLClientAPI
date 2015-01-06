@@ -28,8 +28,10 @@ HeroClient_test (
 	Position currentPosition;
 	get_champion_position (&currentPosition.x, &currentPosition.y);
 
+	dbg ("HeroClient position detected : %f %f", currentPosition.x, currentPosition.y);
+
 	if (!Position_in_map (&currentPosition)) {
-		fail ("Current position test failed : %f %f", currentPosition.x, currentPosition.y);
+		fail ("Current position test failed");
 	}
 
 	/* Summoner name test */
@@ -49,6 +51,8 @@ HeroClient_test (
 	/* Hp test */
 	float curHP, maxHP;
 	get_champion_hp (&curHP, &maxHP);
+
+	dbg ("Current HeroClient HP detected : %f/%f", curHP, maxHP);
 
 	// 100000 HP seems to be big enough to be reported if the current/maximum HP is bigger
 	if (curHP < 0.0 || maxHP < 0.0 || curHP > 100000.0 || maxHP > 100000.0) {
