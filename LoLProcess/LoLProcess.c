@@ -126,10 +126,10 @@ LoLProcess_scan_modules (
 		// RiotLauncher.dll
 		if (_wcsicmp (moduleEntry->BaseName.Buffer, L"RiotLauncher.dll") == 0) {
 			dbg ("Maestro module found : 0x%08X (size = 0x%08X)", baseAddress, sizeOfModule);
-			if ((this->maestro = Maestro_new (baseAddress, sizeOfModule)) == NULL) {
-				warn ("Maestro module not found");
-				return false;
-			}
+			// if ((this->maestro = Maestro_new (baseAddress, sizeOfModule)) == NULL) {
+			// 	warn ("Maestro module not found");
+			// 	return false;
+			// }
 		}
 
 		// League Of Legends.exe
