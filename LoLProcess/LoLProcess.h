@@ -28,6 +28,7 @@ typedef struct _LoLProcess
 {
 	Maestro *maestro;
 	LoLModule *lol;
+	LoLDx *dx;
 
 	// Window handle
 	HWND hwnd;

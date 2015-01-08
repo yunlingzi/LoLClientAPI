@@ -136,7 +136,7 @@ LoLProcess_scan_modules (
 		else if (_wcsicmp (moduleEntry->BaseName.Buffer, L"d3d9.dll") == 0) {
 			// Load DirectX hooks
 			dbg ("d3d9 module found : 0x%08X (size = 0x%08X)", baseAddress, sizeOfModule);
-			if (!LoLDx_new (baseAddress, sizeOfModule)) {
+			if ((this->dx = LoLDx_new (baseAddress, sizeOfModule)) == NULL) {
 				dbg ("Error when hooking d3d9 module.");
 				return false;
 			}
