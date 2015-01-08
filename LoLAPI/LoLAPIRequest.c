@@ -5,14 +5,9 @@
 #define __DEBUG_OBJECT__ "LoLAPIRequest"
 #include "dbg/dbg.h"
 
-struct LoLAPIRequestStringAssociation {
-	LoLAPIRequest request;
-	char *string;
-} association [REQUEST_API_COUNT] = {
+static EnumerationStringAssociation association [REQUEST_API_COUNT] = {
 
 	[0 ... REQUEST_API_COUNT-1] = {REQUEST_UNDEFINED, "REQUEST_UNDEFINED"},
-
-	#define associate(x) [x] = {x, STRINGIFY(x)}
 
 	// Camera APIs
 	associate (REQUEST_GET_CAMERA_POSITION),
@@ -67,8 +62,6 @@ struct LoLAPIRequestStringAssociation {
 
 	// Error status
 	associate (REQUEST_FAIL)
-
-	#undef associate
 };
 
 /*

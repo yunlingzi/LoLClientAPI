@@ -132,6 +132,16 @@ LoLProcess_scan_modules (
 			// }
 		}
 
+		// d3d9.dll
+		else if (_wcsicmp (moduleEntry->BaseName.Buffer, L"d3d9.dll") == 0) {
+			// Load DirectX hooks
+			dbg ("d3d9 module found : 0x%08X (size = 0x%08X)", baseAddress, sizeOfModule);
+			if (!LoLDx_new (baseAddress, sizeOfModule)) {
+				dbg ("Error when hooking d3d9 module.");
+				return false;
+			}
+		}
+
 		// League Of Legends.exe
 		else if (_wcsicmp (moduleEntry->BaseName.Buffer, L"League of Legends.exe") == 0) {
 			dbg ("LoL module found : 0x%08X (size = 0x%08X)", baseAddress, sizeOfModule);

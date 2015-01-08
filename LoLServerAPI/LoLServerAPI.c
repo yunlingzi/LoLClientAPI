@@ -251,8 +251,9 @@ void
 LoLServerAPI_eject (
 	LoLServerAPI *this
 ) {
-	HookEngine_unhook_all ();
+	log_chat_message ("<font color=\"#ff3333\">LoLClientAPI has been unloaded.</font>", -1);
 
+	HookEngine_unhook_all ();
 	dbg ("Functions correctly unhooked!");
 
 	this->running = false;

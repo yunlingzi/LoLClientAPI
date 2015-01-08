@@ -1,6 +1,7 @@
 #include "HudCamera.h"
 #include <stdlib.h>
 
+// Debugging
 #define __DEBUG_OBJECT__ "HudCamera"
 #include "dbg/dbg.h"
 
@@ -40,6 +41,11 @@ HudCamera_init (
 	HudCamera *this,
 	DWORD pHudCamera
 ) {
+	if (!pHudCamera) {
+		dbg ("pHudCamera is NULL");
+		return false;
+	}
+
 	this->pThis = pHudCamera;
 	this->cameraZoom.pThis = pHudCamera + offsetof (HudCamera, cameraZoom);
 

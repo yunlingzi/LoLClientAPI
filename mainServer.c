@@ -16,6 +16,7 @@ LoLServerAPI * connection = NULL;
 void startInjection (void)
 {
 	LoLProcess *LoL;
+	srand (time(NULL));
 
 	// Install LoLServerAPI inside League of Legends.exe process
 	if ((LoL = LoLProcess_new ()) == NULL) {

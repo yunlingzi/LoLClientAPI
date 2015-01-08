@@ -22,7 +22,7 @@ GUIMinimap_test (
 	Position2D screenPosition;
 	get_minimap_screen_position (&screenPosition.x, &screenPosition.y);
 
-	dbg ("Minimap screen position detected : %f %f", screenPosition.x, screenPosition.y);
+	dbg ("Minimap screen position detected : x=%d y=%d", screenPosition.x, screenPosition.y);
 
 	if (screenPosition.x == 0 && screenPosition.y == 0) {
 		fail ("GUIMinimap position test failed.");

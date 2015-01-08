@@ -9,6 +9,7 @@
 #include "LoLProcess/Maestro.h"
 #include "LoLProcess/LoLModule.h"
 #include "HookEngine/HookEngine.h"
+#include "LoLDx/LoLDx.h"
 
 // ---------- Defines -------------
 // DLL injection : read from current process

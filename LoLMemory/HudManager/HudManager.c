@@ -146,10 +146,14 @@ HudManager_init (
  */
 DWORD
 HudManager_get_object (
-	HudManager *hudManager,
+	HudManager *this,
 	HudObject object
 ) {
-	DWORD * hudObjects = *((DWORD **) hudManager->pThis);
+	DWORD * hudObjects;
+
+	if ((hudObjects = *((DWORD **) this->pThis)) == NULL) {
+		return 0;
+	}
 
 	return hudObjects [object];
 }

@@ -38,6 +38,11 @@ HudCameraSettings_init (
 	HudCameraSettings *this,
 	DWORD pHudCameraSettings
 ) {
+	if (!pHudCameraSettings) {
+		dbg ("pHudCameraSettings is NULL");
+		return false;
+	}
+
 	this->pThis = pHudCameraSettings;
 	return true;
 }

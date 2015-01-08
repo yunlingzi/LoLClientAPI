@@ -45,12 +45,16 @@
 			<Add option="-Wall" />
 			<Add option="-static-libgcc" />
 			<Add option="-static-libstdc++" />
+			<Add option="-DNTDLL_LINKED" />
 			<Add directory="../LoLClientAPI" />
 			<Add directory="../../C" />
+			<Add directory="include" />
 		</Compiler>
 		<Linker>
 			<Add library="ntdll" />
 			<Add library="ws2_32" />
+			<Add library="lib\libd3d9.a" />
+			<Add library="lib\libd3dx9.a" />
 		</Linker>
 		<Unit filename="../BbQueue/BbQueue.c">
 			<Option compilerVar="CC" />
@@ -109,6 +113,14 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="LoLAPI/LoLAPIRequest.h" />
+		<Unit filename="LoLDx/LoLDx.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="LoLDx/LoLDx.h" />
+		<Unit filename="LoLDx/LoLDxHooks.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="LoLDx/LoLDxHooks.h" />
 		<Unit filename="LoLMemory/ChampionArray/ChampionArray.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -229,6 +241,21 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Position/Position.h" />
+		<Unit filename="include/dx/d3d9.h" />
+		<Unit filename="include/dx/d3dx9.h" />
+		<Unit filename="include/dx/d3dx9anim.h" />
+		<Unit filename="include/dx/d3dx9core.h" />
+		<Unit filename="include/dx/d3dx9effect.h" />
+		<Unit filename="include/dx/d3dx9math.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="include/dx/d3dx9math.h" />
+		<Unit filename="include/dx/d3dx9math.inl" />
+		<Unit filename="include/dx/d3dx9mesh.h" />
+		<Unit filename="include/dx/d3dx9shader.h" />
+		<Unit filename="include/dx/d3dx9shape.h" />
+		<Unit filename="include/dx/d3dx9tex.h" />
+		<Unit filename="include/dx/d3dx9xof.h" />
 		<Unit filename="mainServer.c">
 			<Option compilerVar="CC" />
 		</Unit>

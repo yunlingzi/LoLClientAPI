@@ -1,6 +1,9 @@
 #include "HudCursorTarget.h"
 #include <stdlib.h>
 
+// ---------- Debugging -------------
+#define __DEBUG_OBJECT__ "HudCursorTarget"
+#include "dbg/dbg.h"
 
 /*
  * Description 	: Allocate a new HudCursorTarget structure.
@@ -37,6 +40,11 @@ HudCursorTarget_init (
 	HudCursorTarget *this,
 	DWORD pHudCursorTarget
 ) {
+	if (!pHudCursorTarget) {
+		dbg ("pHudCursorTarget is NULL");
+		return false;
+	}
+
 	this->pThis = pHudCursorTarget;
 
 	return true;
