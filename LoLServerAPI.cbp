@@ -12,7 +12,6 @@
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-O2" />
 					<Add option="-g" />
 					<Add option="-DDEBUG_ACTIVATED" />
 				</Compiler>
@@ -64,6 +63,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../Console/Console.h" />
+		<Unit filename="../D3D9Hook/D3D9Hook.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../D3D9Hook/D3D9Hook.h" />
 		<Unit filename="../EasySocket/EasySocket.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -117,9 +120,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="LoLDx/LoLDx.h" />
-		<Unit filename="LoLDx/LoLDxHooks.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="LoLDx/LoLDxHooks.h" />
 		<Unit filename="LoLMemory/ChampionArray/ChampionArray.c">
 			<Option compilerVar="CC" />
