@@ -16,6 +16,9 @@ typedef struct _LoLDx
 	D3D9Hook *d3d9Hook;
 
 
+	// Original hook functions; address
+	HRESULT WINAPI (*originalEndScene) (IDirect3DDevice9 *);
+
 }	LoLDx;
 extern LoLDx * lolDx;
 
@@ -66,7 +69,7 @@ LoLDx_test (
  */
 HRESULT WINAPI
 LoLDx_EndScene (
-	LPDIRECT3DDEVICE9 pDevice
+	IDirect3DDevice9 * pDevice
 );
 
 /*
@@ -75,7 +78,7 @@ LoLDx_EndScene (
  */
 HRESULT WINAPI
 LoLDx_DrawIndexedPrimitive (
-	LPDIRECT3DDEVICE9 pDevice,
+	IDirect3DDevice9 * pDevice,
 	D3DPRIMITIVETYPE PrimType,
 	INT BaseVertexIndex,
 	UINT MinVertexIndex,
@@ -90,7 +93,7 @@ LoLDx_DrawIndexedPrimitive (
  */
 HRESULT WINAPI
 LoLDx_Reset (
-	LPDIRECT3DDEVICE9 pDevice,
+	IDirect3DDevice9 * pDevice,
 	D3DPRESENT_PARAMETERS* pPresentationParameters
 );
 

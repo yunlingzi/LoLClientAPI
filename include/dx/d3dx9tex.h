@@ -27,14 +27,14 @@
 //      from the source image.
 //  D3DX_FILTER_LINEAR
 //      Each destination pixel is computed by linearly interpolating between
-//      the nearest pixels in the source image.  This filter works best 
+//      the nearest pixels in the source image.  This filter works best
 //      when the scale on each axis is less than 2.
 //  D3DX_FILTER_TRIANGLE
 //      Every pixel in the source image contributes equally to the
 //      destination image.  This is the slowest of all the filters.
 //  D3DX_FILTER_BOX
-//      Each pixel is computed by averaging a 2x2(x2) box pixels from 
-//      the source image. Only works when the dimensions of the 
+//      Each pixel is computed by averaging a 2x2(x2) box pixels from
+//      the source image. Only works when the dimensions of the
 //      destination are half those of the source. (as with mip maps)
 //
 // And can be OR'd with any of these optional flags:
@@ -107,7 +107,7 @@
 //  D3DX_NORMALMAP_MIRROR
 //      Same as specifying D3DX_NORMALMAP_MIRROR_U | D3DX_NORMALMAP_MIRROR_V
 //  D3DX_NORMALMAP_INVERTSIGN
-//      Inverts the direction of each normal 
+//      Inverts the direction of each normal
 //  D3DX_NORMALMAP_COMPUTE_OCCLUSION
 //      Compute the per pixel Occlusion term and encodes it into the alpha.
 //      An Alpha of 1 means that the pixel is not obscured in anyway, and
@@ -141,7 +141,7 @@
 // D3DX_CHANNEL_ALPHA
 //     Indicates the alpha channel should be used
 // D3DX_CHANNEL_LUMINANCE
-//     Indicates the luminaces of the red green and blue channels should be 
+//     Indicates the luminaces of the red green and blue channels should be
 //     used.
 //
 //----------------------------------------------------------------------------
@@ -186,10 +186,10 @@ typedef enum _D3DXIMAGE_FILEFORMAT
 // Parameters:
 //  pOut
 //      Pointer to a vector which the function uses to return its result.
-//      X,Y,Z,W will be mapped to R,G,B,A respectivly. 
+//      X,Y,Z,W will be mapped to R,G,B,A respectivly.
 //  pTexCoord
-//      Pointer to a vector containing the coordinates of the texel currently 
-//      being evaluated.  Textures and VolumeTexture texcoord components 
+//      Pointer to a vector containing the coordinates of the texel currently
+//      being evaluated.  Textures and VolumeTexture texcoord components
 //      range from 0 to 1. CubeTexture texcoord component range from -1 to 1.
 //  pTexelSize
 //      Pointer to a vector containing the dimensions of the current texel.
@@ -198,12 +198,12 @@ typedef enum _D3DXIMAGE_FILEFORMAT
 //
 //----------------------------------------------------------------------------
 
-typedef VOID (WINAPI *LPD3DXFILL2D)(D3DXVECTOR4 *pOut, 
+typedef VOID (WINAPI *LPD3DXFILL2D)(D3DXVECTOR4 *pOut,
     CONST D3DXVECTOR2 *pTexCoord, CONST D3DXVECTOR2 *pTexelSize, LPVOID pData);
 
-typedef VOID (WINAPI *LPD3DXFILL3D)(D3DXVECTOR4 *pOut, 
+typedef VOID (WINAPI *LPD3DXFILL3D)(D3DXVECTOR4 *pOut,
     CONST D3DXVECTOR3 *pTexCoord, CONST D3DXVECTOR3 *pTexelSize, LPVOID pData);
- 
+
 
 
 //----------------------------------------------------------------------------
@@ -211,7 +211,7 @@ typedef VOID (WINAPI *LPD3DXFILL3D)(D3DXVECTOR4 *pOut,
 // ---------------
 // This structure is used to return a rough description of what the
 // the original contents of an image file looked like.
-// 
+//
 //  Width
 //      Width of original image in pixels
 //  Height
@@ -274,7 +274,7 @@ extern "C" {
 //  SrcDataSize
 //      Size in bytes of file in memory.
 //  pSrcInfo
-//      Pointer to a D3DXIMAGE_INFO structure to be filled in with the 
+//      Pointer to a D3DXIMAGE_INFO structure to be filled in with the
 //      description of the data in the source image file.
 //
 //----------------------------------------------------------------------------
@@ -359,10 +359,10 @@ HRESULT WINAPI
 //  ColorKey
 //      Color to replace with transparent black, or 0 to disable colorkey.
 //      This is always a 32-bit ARGB color, independent of the source image
-//      format.  Alpha is significant, and should usually be set to FF for 
+//      format.  Alpha is significant, and should usually be set to FF for
 //      opaque colorkeys.  (ex. Opaque black == 0xff000000)
 //  pSrcInfo
-//      Pointer to a D3DXIMAGE_INFO structure to be filled in with the 
+//      Pointer to a D3DXIMAGE_INFO structure to be filled in with the
 //      description of the data in the source image file, or NULL.
 //
 //----------------------------------------------------------------------------
@@ -468,7 +468,7 @@ HRESULT WINAPI
 //  ColorKey
 //      Color to replace with transparent black, or 0 to disable colorkey.
 //      This is always a 32-bit ARGB color, independent of the source image
-//      format.  Alpha is significant, and should usually be set to FF for 
+//      format.  Alpha is significant, and should usually be set to FF for
 //      opaque colorkeys.  (ex. Opaque black == 0xff000000)
 //
 //----------------------------------------------------------------------------
@@ -514,7 +514,7 @@ HRESULT WINAPI
 //  ColorKey
 //      Color to replace with transparent black, or 0 to disable colorkey.
 //      This is always a 32-bit ARGB color, independent of the source image
-//      format.  Alpha is significant, and should usually be set to FF for 
+//      format.  Alpha is significant, and should usually be set to FF for
 //      opaque colorkeys.  (ex. Opaque black == 0xff000000)
 //
 //----------------------------------------------------------------------------
@@ -637,10 +637,10 @@ HRESULT WINAPI
 //  ColorKey
 //      Color to replace with transparent black, or 0 to disable colorkey.
 //      This is always a 32-bit ARGB color, independent of the source image
-//      format.  Alpha is significant, and should usually be set to FF for 
+//      format.  Alpha is significant, and should usually be set to FF for
 //      opaque colorkeys.  (ex. Opaque black == 0xff000000)
 //  pSrcInfo
-//      Pointer to a D3DXIMAGE_INFO structure to be filled in with the 
+//      Pointer to a D3DXIMAGE_INFO structure to be filled in with the
 //      description of the data in the source image file, or NULL.
 //
 //----------------------------------------------------------------------------
@@ -744,7 +744,7 @@ HRESULT WINAPI
 //  ColorKey
 //      Color to replace with transparent black, or 0 to disable colorkey.
 //      This is always a 32-bit ARGB color, independent of the source image
-//      format.  Alpha is significant, and should usually be set to FF for 
+//      format.  Alpha is significant, and should usually be set to FF for
 //      opaque colorkeys.  (ex. Opaque black == 0xff000000)
 //
 //----------------------------------------------------------------------------
@@ -794,7 +794,7 @@ HRESULT WINAPI
 //  ColorKey
 //      Color to replace with transparent black, or 0 to disable colorkey.
 //      This is always a 32-bit ARGB color, independent of the source image
-//      format.  Alpha is significant, and should usually be set to FF for 
+//      format.  Alpha is significant, and should usually be set to FF for
 //      opaque colorkeys.  (ex. Opaque black == 0xff000000)
 //
 //----------------------------------------------------------------------------
@@ -913,7 +913,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCheckTextureRequirements(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         UINT*                     pWidth,
         UINT*                     pHeight,
         UINT*                     pNumMipLevels,
@@ -923,7 +923,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCheckCubeTextureRequirements(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         UINT*                     pSize,
         UINT*                     pNumMipLevels,
         DWORD                     Usage,
@@ -932,7 +932,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCheckVolumeTextureRequirements(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         UINT*                     pWidth,
         UINT*                     pHeight,
         UINT*                     pDepth,
@@ -969,7 +969,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateTexture(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         UINT                      Width,
         UINT                      Height,
         UINT                      MipLevels,
@@ -980,7 +980,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateCubeTexture(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         UINT                      Size,
         UINT                      MipLevels,
         DWORD                     Usage,
@@ -990,7 +990,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateVolumeTexture(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         UINT                      Width,
         UINT                      Height,
         UINT                      Depth,
@@ -1022,15 +1022,15 @@ HRESULT WINAPI
 //  SrcDataSize
 //      Size in bytes of file in memory.
 //  Width, Height, Depth, Size
-//      Size in pixels.  If zero or D3DX_DEFAULT, the size will be taken from 
-//      the file and rounded up to a power of two.  If D3DX_DEFAULT_NONPOW2, 
+//      Size in pixels.  If zero or D3DX_DEFAULT, the size will be taken from
+//      the file and rounded up to a power of two.  If D3DX_DEFAULT_NONPOW2,
 //      and the device supports NONPOW2 textures, the size will not be rounded.
-//      If D3DX_FROM_FILE, the size will be taken exactly as it is in the file, 
+//      If D3DX_FROM_FILE, the size will be taken exactly as it is in the file,
 //      and the call will fail if this violates device capabilities.
 //  MipLevels
 //      Number of mip levels.  If zero or D3DX_DEFAULT, a complete mipmap
-//      chain will be created.  If D3DX_FROM_FILE, the size will be taken 
-//      exactly as it is in the file, and the call will fail if this violates 
+//      chain will be created.  If D3DX_FROM_FILE, the size will be taken
+//      exactly as it is in the file, and the call will fail if this violates
 //      device capabilities.
 //  Usage
 //      Texture usage flags
@@ -1052,10 +1052,10 @@ HRESULT WINAPI
 //  ColorKey
 //      Color to replace with transparent black, or 0 to disable colorkey.
 //      This is always a 32-bit ARGB color, independent of the source image
-//      format.  Alpha is significant, and should usually be set to FF for 
+//      format.  Alpha is significant, and should usually be set to FF for
 //      opaque colorkeys.  (ex. Opaque black == 0xff000000)
 //  pSrcInfo
-//      Pointer to a D3DXIMAGE_INFO structure to be filled in with the 
+//      Pointer to a D3DXIMAGE_INFO structure to be filled in with the
 //      description of the data in the source image file, or NULL.
 //  pPalette
 //      256 color palette to be filled in, or NULL
@@ -1068,13 +1068,13 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateTextureFromFileA(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         LPCSTR                    pSrcFile,
         LPDIRECT3DTEXTURE9*       ppTexture);
 
 HRESULT WINAPI
     D3DXCreateTextureFromFileW(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         LPCWSTR                   pSrcFile,
         LPDIRECT3DTEXTURE9*       ppTexture);
 
@@ -1087,13 +1087,13 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateCubeTextureFromFileA(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         LPCSTR                    pSrcFile,
         LPDIRECT3DCUBETEXTURE9*   ppCubeTexture);
 
 HRESULT WINAPI
     D3DXCreateCubeTextureFromFileW(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         LPCWSTR                   pSrcFile,
         LPDIRECT3DCUBETEXTURE9*   ppCubeTexture);
 
@@ -1106,13 +1106,13 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateVolumeTextureFromFileA(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         LPCSTR                    pSrcFile,
         LPDIRECT3DVOLUMETEXTURE9* ppVolumeTexture);
 
 HRESULT WINAPI
     D3DXCreateVolumeTextureFromFileW(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         LPCWSTR                   pSrcFile,
         LPDIRECT3DVOLUMETEXTURE9* ppVolumeTexture);
 
@@ -1127,14 +1127,14 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateTextureFromResourceA(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         HMODULE                   hSrcModule,
         LPCSTR                    pSrcResource,
         LPDIRECT3DTEXTURE9*       ppTexture);
 
 HRESULT WINAPI
     D3DXCreateTextureFromResourceW(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         HMODULE                   hSrcModule,
         LPCWSTR                   pSrcResource,
         LPDIRECT3DTEXTURE9*       ppTexture);
@@ -1148,14 +1148,14 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateCubeTextureFromResourceA(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         HMODULE                   hSrcModule,
         LPCSTR                    pSrcResource,
         LPDIRECT3DCUBETEXTURE9*   ppCubeTexture);
 
 HRESULT WINAPI
     D3DXCreateCubeTextureFromResourceW(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         HMODULE                   hSrcModule,
         LPCWSTR                   pSrcResource,
         LPDIRECT3DCUBETEXTURE9*   ppCubeTexture);
@@ -1169,14 +1169,14 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateVolumeTextureFromResourceA(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         HMODULE                   hSrcModule,
         LPCSTR                    pSrcResource,
         LPDIRECT3DVOLUMETEXTURE9* ppVolumeTexture);
 
 HRESULT WINAPI
     D3DXCreateVolumeTextureFromResourceW(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         HMODULE                   hSrcModule,
         LPCWSTR                   pSrcResource,
         LPDIRECT3DVOLUMETEXTURE9* ppVolumeTexture);
@@ -1192,7 +1192,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateTextureFromFileExA(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         LPCSTR                    pSrcFile,
         UINT                      Width,
         UINT                      Height,
@@ -1209,7 +1209,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateTextureFromFileExW(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         LPCWSTR                   pSrcFile,
         UINT                      Width,
         UINT                      Height,
@@ -1233,7 +1233,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateCubeTextureFromFileExA(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         LPCSTR                    pSrcFile,
         UINT                      Size,
         UINT                      MipLevels,
@@ -1249,7 +1249,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateCubeTextureFromFileExW(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         LPCWSTR                   pSrcFile,
         UINT                      Size,
         UINT                      MipLevels,
@@ -1272,7 +1272,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateVolumeTextureFromFileExA(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         LPCSTR                    pSrcFile,
         UINT                      Width,
         UINT                      Height,
@@ -1290,7 +1290,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateVolumeTextureFromFileExW(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         LPCWSTR                   pSrcFile,
         UINT                      Width,
         UINT                      Height,
@@ -1317,7 +1317,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateTextureFromResourceExA(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         HMODULE                   hSrcModule,
         LPCSTR                    pSrcResource,
         UINT                      Width,
@@ -1335,7 +1335,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateTextureFromResourceExW(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         HMODULE                   hSrcModule,
         LPCWSTR                   pSrcResource,
         UINT                      Width,
@@ -1360,7 +1360,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateCubeTextureFromResourceExA(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         HMODULE                   hSrcModule,
         LPCSTR                    pSrcResource,
         UINT                      Size,
@@ -1377,7 +1377,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateCubeTextureFromResourceExW(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         HMODULE                   hSrcModule,
         LPCWSTR                   pSrcResource,
         UINT                      Size,
@@ -1401,7 +1401,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateVolumeTextureFromResourceExA(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         HMODULE                   hSrcModule,
         LPCSTR                    pSrcResource,
         UINT                      Width,
@@ -1420,7 +1420,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateVolumeTextureFromResourceExW(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         HMODULE                   hSrcModule,
         LPCWSTR                   pSrcResource,
         UINT                      Width,
@@ -1448,21 +1448,21 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateTextureFromFileInMemory(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         LPCVOID                   pSrcData,
         UINT                      SrcDataSize,
         LPDIRECT3DTEXTURE9*       ppTexture);
 
 HRESULT WINAPI
     D3DXCreateCubeTextureFromFileInMemory(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         LPCVOID                   pSrcData,
         UINT                      SrcDataSize,
         LPDIRECT3DCUBETEXTURE9*   ppCubeTexture);
 
 HRESULT WINAPI
     D3DXCreateVolumeTextureFromFileInMemory(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         LPCVOID                   pSrcData,
         UINT                      SrcDataSize,
         LPDIRECT3DVOLUMETEXTURE9* ppVolumeTexture);
@@ -1472,7 +1472,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateTextureFromFileInMemoryEx(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         LPCVOID                   pSrcData,
         UINT                      SrcDataSize,
         UINT                      Width,
@@ -1490,7 +1490,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateCubeTextureFromFileInMemoryEx(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         LPCVOID                   pSrcData,
         UINT                      SrcDataSize,
         UINT                      Size,
@@ -1507,7 +1507,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateVolumeTextureFromFileInMemoryEx(
-        LPDIRECT3DDEVICE9         pDevice,
+        IDirect3DDevice9 *         pDevice,
         LPCVOID                   pSrcData,
         UINT                      SrcDataSize,
         UINT                      Width,
@@ -1607,7 +1607,7 @@ HRESULT WINAPI
 //  pPalette
 //      256 color palette to be used, or NULL for non-palettized formats
 //  SrcLevel
-//      The level whose image is used to generate the subsequent levels. 
+//      The level whose image is used to generate the subsequent levels.
 //  Filter
 //      D3DX_FILTER flags controlling how each miplevel is filtered.
 //      Or D3DX_DEFAULT for D3DX_FILTER_BOX,
@@ -1636,10 +1636,10 @@ HRESULT WINAPI
 //  pTexture, pCubeTexture, pVolumeTexture
 //      Pointer to the texture to be filled.
 //  pFunction
-//      Pointer to user provided evalutor function which will be used to 
+//      Pointer to user provided evalutor function which will be used to
 //      compute the value of each texel.
 //  pData
-//      Pointer to an arbitrary block of user defined data.  This pointer 
+//      Pointer to an arbitrary block of user defined data.  This pointer
 //      will be passed to the function provided in pFunction
 //-----------------------------------------------------------------------------
 
@@ -1665,7 +1665,7 @@ HRESULT WINAPI
 // D3DXFillTextureTX:
 // ------------------
 // Uses a TX Shader target to function to fill each texel of each mip level
-// of a given texture. The TX Shader target should be a compiled function 
+// of a given texture. The TX Shader target should be a compiled function
 // taking 2 paramters and returning a float4 color.
 //
 // Paramters:
@@ -1675,7 +1675,7 @@ HRESULT WINAPI
 //      Pointer to the texture shader to be used to fill in the texture
 //----------------------------------------------------------------------------
 
-HRESULT WINAPI 
+HRESULT WINAPI
     D3DXFillTextureTX(
         LPDIRECT3DTEXTURE9        pTexture,
         LPD3DXTEXTURESHADER       pTextureShader);
@@ -1685,9 +1685,9 @@ HRESULT WINAPI
     D3DXFillCubeTextureTX(
         LPDIRECT3DCUBETEXTURE9    pCubeTexture,
         LPD3DXTEXTURESHADER       pTextureShader);
-                                                
-                                                        
-HRESULT WINAPI 
+
+
+HRESULT WINAPI
     D3DXFillVolumeTextureTX(
         LPDIRECT3DVOLUMETEXTURE9  pVolumeTexture,
         LPD3DXTEXTURESHADER       pTextureShader);
@@ -1704,7 +1704,7 @@ HRESULT WINAPI
 //  pTexture
 //      Pointer to the destination texture
 //  pSrcTexture
-//      Pointer to the source heightmap texture 
+//      Pointer to the source heightmap texture
 //  pSrcPalette
 //      Source palette of 256 colors, or NULL
 //  Flags

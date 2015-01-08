@@ -74,7 +74,7 @@ extern "C" {
 #endif //__cplusplus
 
 UINT WINAPI
-    D3DXGetDriverLevel(LPDIRECT3DDEVICE9 pDevice);
+    D3DXGetDriverLevel(IDirect3DDevice9 * pDevice);
 
 #ifdef __cplusplus
 }
@@ -208,7 +208,7 @@ DECLARE_INTERFACE_(ID3DXSprite, IUnknown)
     STDMETHOD_(ULONG, Release)(THIS) PURE;
 
     // ID3DXSprite
-    STDMETHOD(GetDevice)(THIS_ LPDIRECT3DDEVICE9* ppDevice) PURE;
+    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice9 ** ppDevice) PURE;
 
     STDMETHOD(GetTransform)(THIS_ D3DXMATRIX *pTransform) PURE;
     STDMETHOD(SetTransform)(THIS_ CONST D3DXMATRIX *pTransform) PURE;
@@ -232,7 +232,7 @@ extern "C" {
 
 HRESULT WINAPI
     D3DXCreateSprite(
-        LPDIRECT3DDEVICE9   pDevice,
+        IDirect3DDevice9 *   pDevice,
         LPD3DXSPRITE*       ppSprite);
 
 #ifdef __cplusplus
@@ -324,7 +324,7 @@ DECLARE_INTERFACE_(ID3DXFont, IUnknown)
     STDMETHOD_(ULONG, Release)(THIS) PURE;
 
     // ID3DXFont
-    STDMETHOD(GetDevice)(THIS_ LPDIRECT3DDEVICE9 *ppDevice) PURE;
+    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice9 * *ppDevice) PURE;
     STDMETHOD(GetDescA)(THIS_ D3DXFONT_DESCA *pDesc) PURE;
     STDMETHOD(GetDescW)(THIS_ D3DXFONT_DESCW *pDesc) PURE;
     STDMETHOD_(BOOL, GetTextMetricsA)(THIS_ TEXTMETRICA *pTextMetrics) PURE;
@@ -379,7 +379,7 @@ extern "C" {
 
 HRESULT WINAPI
     D3DXCreateFontA(
-        LPDIRECT3DDEVICE9       pDevice,
+        IDirect3DDevice9 *       pDevice,
         INT                     Height,
         UINT                    Width,
         UINT                    Weight,
@@ -394,7 +394,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateFontW(
-        LPDIRECT3DDEVICE9       pDevice,
+        IDirect3DDevice9 *       pDevice,
         INT                     Height,
         UINT                    Width,
         UINT                    Weight,
@@ -416,13 +416,13 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateFontIndirectA(
-        LPDIRECT3DDEVICE9       pDevice,
+        IDirect3DDevice9 *       pDevice,
         CONST D3DXFONT_DESCA*   pDesc,
         LPD3DXFONT*             ppFont);
 
 HRESULT WINAPI
     D3DXCreateFontIndirectW(
-        LPDIRECT3DDEVICE9       pDevice,
+        IDirect3DDevice9 *       pDevice,
         CONST D3DXFONT_DESCW*   pDesc,
         LPD3DXFONT*             ppFont);
 
@@ -488,7 +488,7 @@ DECLARE_INTERFACE_(ID3DXRenderToSurface, IUnknown)
     STDMETHOD_(ULONG, Release)(THIS) PURE;
 
     // ID3DXRenderToSurface
-    STDMETHOD(GetDevice)(THIS_ LPDIRECT3DDEVICE9* ppDevice) PURE;
+    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice9 ** ppDevice) PURE;
     STDMETHOD(GetDesc)(THIS_ D3DXRTS_DESC* pDesc) PURE;
 
     STDMETHOD(BeginScene)(THIS_ LPDIRECT3DSURFACE9 pSurface, CONST D3DVIEWPORT9* pViewport) PURE;
@@ -505,7 +505,7 @@ extern "C" {
 
 HRESULT WINAPI
     D3DXCreateRenderToSurface(
-        LPDIRECT3DDEVICE9       pDevice,
+        IDirect3DDevice9 *       pDevice,
         UINT                    Width,
         UINT                    Height,
         D3DFORMAT               Format,
@@ -578,7 +578,7 @@ DECLARE_INTERFACE_(ID3DXRenderToEnvMap, IUnknown)
     STDMETHOD_(ULONG, Release)(THIS) PURE;
 
     // ID3DXRenderToEnvMap
-    STDMETHOD(GetDevice)(THIS_ LPDIRECT3DDEVICE9* ppDevice) PURE;
+    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice9 ** ppDevice) PURE;
     STDMETHOD(GetDesc)(THIS_ D3DXRTE_DESC* pDesc) PURE;
 
     STDMETHOD(BeginCube)(THIS_
@@ -609,7 +609,7 @@ extern "C" {
 
 HRESULT WINAPI
     D3DXCreateRenderToEnvMap(
-        LPDIRECT3DDEVICE9       pDevice,
+        IDirect3DDevice9 *       pDevice,
         UINT                    Size,
         UINT                    MipLevels,
         D3DFORMAT               Format,
@@ -693,7 +693,7 @@ DECLARE_INTERFACE_(ID3DXLine, IUnknown)
     STDMETHOD_(ULONG, Release)(THIS) PURE;
 
     // ID3DXLine
-    STDMETHOD(GetDevice)(THIS_ LPDIRECT3DDEVICE9* ppDevice) PURE;
+    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice9 ** ppDevice) PURE;
 
     STDMETHOD(Begin)(THIS) PURE;
 
@@ -733,7 +733,7 @@ extern "C" {
 
 HRESULT WINAPI
     D3DXCreateLine(
-        LPDIRECT3DDEVICE9   pDevice,
+        IDirect3DDevice9 *   pDevice,
         LPD3DXLINE*         ppLine);
 
 #ifdef __cplusplus
