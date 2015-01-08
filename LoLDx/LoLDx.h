@@ -15,6 +15,9 @@ typedef struct _LoLDx
 {
 	D3D9Hook *d3d9Hook;
 
+	IDirect3DTexture9 * texture;
+	ID3DXSprite * sprite;
+
 
 	// Original hook functions; address
 	HRESULT WINAPI (*originalEndScene) (IDirect3DDevice9 *);

@@ -2,6 +2,7 @@
 #include "HookEngine/HookEngine.h"
 #include "Win32Tools/Win32Tools.h"
 #include "Scanner/Scanner.h"
+#include "LoLServerAPI/LoLServerInterface.h"
 
 // ---------- Debugging -------------
 #define __DEBUG_OBJECT__ "LoLDx"
@@ -51,11 +52,13 @@ LoLDx_init (
 ) {
 	lolDx = this;
 
+	// Initialize DirectX hook engine
 	if (!(this->d3d9Hook = D3D9Hook_new (baseAddress, sizeOfModule))) {
 		dbg ("D3D9Hook cannot be initialized.");
 		return false;
 	}
 
+	// Hook DirectX functions
 	if ((this->originalEndScene = D3D9Hook_hook (this->d3d9Hook, D3D9INDEX_EndScene, (ULONG_PTR) LoLDx_EndScene)) == NULL) {
 		dbg ("Cannot hook EndScene.");
 		return false;
@@ -106,10 +109,11 @@ LoLDx_EndScene (
 ) {
 	if (!lolDx->originalEndScene) {
 		lolDx->originalEndScene = (void *) HookEngine_get_original_function ((ULONG_PTR) LoLDx_EndScene);
+		if (!lolDx->originalEndScene) {
+			fail ("EndScene is not correctly hooked.");
+			return D3D_OK;
+		}
 	}
-	/*
-	D3D9Hook_drawRect (pDevice, 13, 37, 300, 300, D3DCOLOR_ARGB (0xff, 0x88, 0x33, 0));
-	D3D9Hook_drawRect (pDevice, 13, 37, 200, 200, D3DCOLOR_ARGB (0xff, 0xff, 0xff, 0));
-	*/
+
 	return lolDx->originalEndScene (pDevice);
 }

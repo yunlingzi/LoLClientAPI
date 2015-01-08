@@ -1,4 +1,3 @@
-#include "LoLProcess/LoLProcess.h"
 #include "LoLClientAPI/LoLClientAPI.h"
 #include "LoLClientAPI/LoLClientInterface.h"
 

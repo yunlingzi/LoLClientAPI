@@ -800,7 +800,7 @@ eject_api (
 	}
 
 	// Sleep a bit so we let time for the server to exit gracefully
-	Sleep (2000);
+	Sleep (1000);
 	return true;
 }
 
