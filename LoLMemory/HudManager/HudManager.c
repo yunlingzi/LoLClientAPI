@@ -7,10 +7,10 @@
 
 
 /*
- * Description 	: Allocate a new HudManager structure.
- * DWORD baseAddress : Base address of the module
+ * Description 	      : Allocate a new HudManager structure.
+ * DWORD baseAddress  : Base address of the module
  * DWORD sizeOfModule : Size of the module
- * Return		: A pointer to an allocated HudManager.
+ * Return             : A pointer to an allocated HudManager.
  */
 HudManager *
 HudManager_new (
@@ -31,11 +31,11 @@ HudManager_new (
 }
 
 /*
- * Description : Initialize an allocated HudManager structure.
- * HudManager *this : An allocated HudManager to initialize.
- * DWORD baseAddress : Base address of the module
+ * Description        : Initialize an allocated HudManager structure.
+ * HudManager *this   : An allocated HudManager to initialize.
+ * DWORD baseAddress  : Base address of the module
  * DWORD sizeOfModule : Size of the module
- * Return : true on success, false on failure.
+ * Return             : true on success, false on failure.
  */
 bool
 HudManager_init (
@@ -138,11 +138,11 @@ HudManager_init (
 }
 
 /*
- * Description : Retrieve the address of a HUD object from the HudManager
+ * Description      : Retrieve the address of a HUD object from the HudManager
  * HudManager *this : An allocated HudManager
- * MemProc *mp : the target LoL process
+ * MemProc *mp      : the target LoL process
  * HudObject object : the object requested
- * Return : DWORD addresss of the object requested in the target process
+ * Return           : DWORD addresss of the object requested in the target process
  */
 DWORD
 HudManager_get_object (
@@ -160,7 +160,7 @@ HudManager_get_object (
 
 
 /*
- * Description : Free an allocated HudManager structure.
+ * Description      : Free an allocated HudManager structure.
  * HudManager *this : An allocated HudManager to free.
  */
 void

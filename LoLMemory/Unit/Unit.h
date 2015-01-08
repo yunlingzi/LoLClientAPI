@@ -1,4 +1,4 @@
-// --- Author : Moreau Cyril - Spl3en
+// --- Author   : Moreau Cyril - Spl3en
 #pragma once
 
 // ---------- Includes ------------
@@ -90,9 +90,9 @@ typedef struct _Unit
 
 /*
  * Description 	: Allocate a new Unit structure.
- * DWORD pUnit : The address of the Unit in the target process
+ * DWORD pUnit  : The address of the Unit in the target process
  * MemProc *mp  : Handle to the target process
- * Return		: A pointer to an allocated Unit.
+ * Return		     : A pointer to an allocated Unit.
  */
 Unit *
 Unit_new (
@@ -102,9 +102,9 @@ Unit_new (
 // ----------- Functions ------------
 
 /*
- * Description : Initialize an allocated Unit structure.
- * Unit *this : An allocated Unit to initialize.
- * DWORD pUnit : The address of the Unit in the target process
+ * Description  : Initialize an allocated Unit structure.
+ * Unit *this   : An allocated Unit to initialize.
+ * DWORD pUnit  : The address of the Unit in the target process
  */
 bool
 Unit_init (
@@ -114,9 +114,9 @@ Unit_init (
 
 
 /*
- * Description : Unit tests checking if a Unit is coherent
- * Unit *this : The instance to test
- * Return : true on success, false on failure
+ * Description  : Unit tests checking if a Unit is coherent
+ * Unit *this   : The instance to test
+ * Return       : true on success, false on failure
  */
 bool
 Unit_test (
@@ -126,8 +126,8 @@ Unit_test (
 // --------- Destructors ----------
 
 /*
- * Description : Free an allocated Unit structure.
- * Unit *this : An allocated Unit to free.
+ * Description  : Free an allocated Unit structure.
+ * Unit *this   : An allocated Unit to free.
  */
 void
 Unit_free (

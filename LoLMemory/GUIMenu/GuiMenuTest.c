@@ -6,9 +6,9 @@
 
 
 /*
- * Description : Unit tests checking if a GUIMenu is coherent
+ * Description   : Unit tests checking if a GUIMenu is coherent
  * GUIMenu *this : The instance to test
- * Return : true on success, false on failure
+ * Return        : true on success, false on failure
  */
 bool
 GUIMenu_test (

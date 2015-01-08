@@ -13,10 +13,10 @@ LoLDx *lolDx = NULL;
 
 
 /*
- * Description 	: Allocate a new LoLDx structure.
- * DWORD baseAddress : Base address of the module
+ * Description 	         : Allocate a new LoLDx structure.
+ * DWORD baseAddress     : Base address of the module
  * DWORD hudChatInstance : The address of hudChat
- * Return		: A pointer to an allocated LoLDx.
+ * Return                : A pointer to an allocated LoLDx.
  */
 LoLDx *
 LoLDx_new (
@@ -38,11 +38,11 @@ LoLDx_new (
 
 
 /*
- * Description : Initialize an allocated LoLDx structure.
- * LoLDx *this : An allocated LoLDx to initialize.
- * DWORD baseAddress : Base address of the module
+ * Description           : Initialize an allocated LoLDx structure.
+ * LoLDx *this           : An allocated LoLDx to initialize.
+ * DWORD baseAddress     : Base address of the module
  * DWORD hudChatInstance : The address of hudChat
- * Return : true on success, false on failure.
+ * Return                : true on success, false on failure.
  */
 bool
 LoLDx_init (
@@ -69,8 +69,8 @@ LoLDx_init (
 
 
 /*
- * Description : Free an allocated LoLDx structure.
- * LoLDx *this : An allocated LoLDx to free.
+ * Description           : Free an allocated LoLDx structure.
+ * LoLDx *this           : An allocated LoLDx to free.
  */
 void
 LoLDx_free (
@@ -81,9 +81,9 @@ LoLDx_free (
 
 
 /*
- * Description : Unit tests checking if a LoLDx is coherent
- * LoLDx *this : The instance to test
- * Return : true on success, false on failure
+ * Description           : Unit tests checking if a LoLDx is coherent
+ * LoLDx *this           : The instance to test
+ * Return                : true on success, false on failure
  */
 bool
 LoLDx_test (
@@ -100,8 +100,8 @@ LoLDx_test (
 
 /// ===== Hooks =====
 /*
- * Description : d3d9 EndScene hooked function.
- * Return : result of the original function
+ * Description           : d3d9 EndScene hooked function.
+ * Return                : result of the original function
  */
 HRESULT WINAPI
 LoLDx_EndScene (

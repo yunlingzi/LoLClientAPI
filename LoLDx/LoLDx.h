@@ -1,4 +1,4 @@
-// --- Author : Moreau Cyril - Spl3en
+// --- Author            : Moreau Cyril - Spl3en
 #pragma once
 
 // ---------- Includes ------------
@@ -28,10 +28,10 @@ extern LoLDx * lolDx;
 // --------- Allocators ---------
 
 /*
- * Description 	: Allocate a new LoLDx structure.
- * DWORD baseAddress : Base address of the module
+ * Description 	         : Allocate a new LoLDx structure.
+ * DWORD baseAddress     : Base address of the module
  * DWORD hudChatInstance : The address of hudChat
- * Return		: A pointer to an allocated LoLDx.
+ * Return		              : A pointer to an allocated LoLDx.
  */
 LoLDx *
 LoLDx_new (
@@ -42,9 +42,9 @@ LoLDx_new (
 // ----------- Functions ------------
 
 /*
- * Description : Initialize an allocated LoLDx structure.
- * LoLDx *this : An allocated LoLDx to initialize.
- * DWORD baseAddress : Base address of the module
+ * Description           : Initialize an allocated LoLDx structure.
+ * LoLDx *this           : An allocated LoLDx to initialize.
+ * DWORD baseAddress     : Base address of the module
  * DWORD hudChatInstance : The address of hudChat
  */
 bool
@@ -55,9 +55,9 @@ LoLDx_init (
 );
 
 /*
- * Description : Unit tests checking if a LoLDx is coherent
- * LoLDx *this : The instance to test
- * Return : true on success, false on failure
+ * Description           : Unit tests checking if a LoLDx is coherent
+ * LoLDx *this           : The instance to test
+ * Return                : true on success, false on failure
  */
 bool
 LoLDx_test (
@@ -67,8 +67,8 @@ LoLDx_test (
 /// Hooked functions
 
 /*
- * Description : d3d9 EndScene hooked function
- * Return : result of the original function
+ * Description           : d3d9 EndScene hooked function
+ * Return                : result of the original function
  */
 HRESULT WINAPI
 LoLDx_EndScene (
@@ -76,8 +76,8 @@ LoLDx_EndScene (
 );
 
 /*
- * Description : d3d9 DrawIndexedPrimitive hooked function.
- * Return : result of the original function
+ * Description           : d3d9 DrawIndexedPrimitive hooked function.
+ * Return                : result of the original function
  */
 HRESULT WINAPI
 LoLDx_DrawIndexedPrimitive (
@@ -91,8 +91,8 @@ LoLDx_DrawIndexedPrimitive (
 );
 
 /*
- * Description : d3d9 Reset hooked function.
- * Return : result of the original function
+ * Description           : d3d9 Reset hooked function.
+ * Return                : result of the original function
  */
 HRESULT WINAPI
 LoLDx_Reset (
@@ -103,8 +103,8 @@ LoLDx_Reset (
 // --------- Destructors ----------
 
 /*
- * Description : Free an allocated LoLDx structure.
- * LoLDx *this : An allocated LoLDx to free.
+ * Description           : Free an allocated LoLDx structure.
+ * LoLDx *this           : An allocated LoLDx to free.
  */
 void
 LoLDx_free (

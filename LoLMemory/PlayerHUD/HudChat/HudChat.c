@@ -12,11 +12,11 @@
 static HudChat *hudChat = NULL;
 
 /*
- * Description 	: Allocate a new HudChat structure.
- * DWORD baseAddress : Base address of the module
+ * Description 	         : Allocate a new HudChat structure.
+ * DWORD baseAddress     : Base address of the module
  * DWORD hudChatInstance : The address of hudChat
- * DWORD sizeOfModule : Size of the module
- * Return		: A pointer to an allocated HudChat.
+ * DWORD sizeOfModule    : Size of the module
+ * Return                : A pointer to an allocated HudChat.
  */
 HudChat *
 HudChat_new (
@@ -41,12 +41,12 @@ HudChat_new (
 
 
 /*
- * Description : Initialize an allocated HudChat structure.
- * HudChat *this : An allocated HudChat to initialize.
- * DWORD baseAddress : Base address of the module
+ * Description           : Initialize an allocated HudChat structure.
+ * HudChat *this         : An allocated HudChat to initialize.
+ * DWORD baseAddress     : Base address of the module
  * DWORD hudChatInstance : The address of hudChat
- * DWORD sizeOfModule : Size of the module
- * Return : true on success, false on failure.
+ * DWORD sizeOfModule    : Size of the module
+ * Return                : true on success, false on failure.
  */
 bool
 HudChat_init (
@@ -115,11 +115,11 @@ HudChat_init (
 }
 
 /*
- * Description : Function called when a message is received.
+ * Description     : Function called when a message is received.
  *  It is called before the message is displayed in the chat, so it is possible to modify the chatMsg string
  *	HudChat *_this : An allocated HudChat from the client, not the LoLClientAPI structure
- *	char *chatMsg : A string containing the line of the chat added
- * 	int size : The size of the string
+ *	char *chatMsg  : A string containing the line of the chat added
+ * 	int size       : The size of the string
  */
 void __thiscall
 HudChat_addMessage (
@@ -137,7 +137,7 @@ HudChat_addMessage (
 
 
 /*
- * Description : Free an allocated HudChat structure.
+ * Description   : Free an allocated HudChat structure.
  * HudChat *this : An allocated HudChat to free.
  */
 void
@@ -152,9 +152,9 @@ HudChat_free (
 
 
 /*
- * Description : Unit tests checking if a HudChat is coherent
+ * Description   : Unit tests checking if a HudChat is coherent
  * HudChat *this : The instance to test
- * Return : true on success, false on failure
+ * Return        : true on success, false on failure
  */
 bool
 HudChat_test (

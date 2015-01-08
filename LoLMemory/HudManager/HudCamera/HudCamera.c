@@ -7,9 +7,9 @@
 
 
 /*
- * Description 	: Allocate a new HudCamera structure.
+ * Description 	    : Allocate a new HudCamera structure.
  * DWORD pHudCamera : Address of HudCamera in the target process
- * Return		: A pointer to an allocated HudCamera.
+ * Return		         : A pointer to an allocated HudCamera.
  */
 HudCamera *
 HudCamera_new (
@@ -31,10 +31,10 @@ HudCamera_new (
 
 
 /*
- * Description : Initialize an allocated HudCamera structure.
- * HudCamera *this : An allocated HudCamera to initialize.
+ * Description      : Initialize an allocated HudCamera structure.
+ * HudCamera *this  : An allocated HudCamera to initialize.
  * DWORD pHudCamera : Address of HudCamera in the target process
- * Return : true on success, false on failure.
+ * Return           : true on success, false on failure.
  */
 bool
 HudCamera_init (
@@ -54,8 +54,8 @@ HudCamera_init (
 
 
 /*
- * Description : Free an allocated HudCamera structure.
- * HudCamera *this : An allocated HudCamera to free.
+ * Description      : Free an allocated HudCamera structure.
+ * HudCamera *this  : An allocated HudCamera to free.
  */
 void
 HudCamera_free (

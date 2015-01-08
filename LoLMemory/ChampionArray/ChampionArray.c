@@ -6,11 +6,11 @@
 #include "dbg/dbg.h"
 
 /*
- * Description 	: Allocate a new ChampionArray structure.
+ * Description 	          : Allocate a new ChampionArray structure.
  * HeroClient *heroClient : The HeroClient instance
- * DWORD baseAddress : Base address of the module
- * DWORD sizeOfModule : Size of the module
- * Return		: A pointer to an allocated ChampionArray.
+ * DWORD baseAddress      : Base address of the module
+ * DWORD sizeOfModule     : Size of the module
+ * Return                 : A pointer to an allocated ChampionArray.
  */
 ChampionArray *
 ChampionArray_new (
@@ -38,11 +38,11 @@ ChampionArray_new (
 
 
 /*
- * Description : Initialize an allocated ChampionArray structure.
- * ChampionArray *this : An allocated ChampionArray to initialize.
+ * Description            : Initialize an allocated ChampionArray structure.
+ * ChampionArray *this    : An allocated ChampionArray to initialize.
  * HeroClient *heroClient : The HeroClient instance
- * DWORD baseAddress : Base address of the module
- * DWORD sizeOfModule : Size of the module
+ * DWORD baseAddress      : Base address of the module
+ * DWORD sizeOfModule     : Size of the module
  */
 bool
 ChampionArray_init (
@@ -54,9 +54,9 @@ ChampionArray_init (
 	this->heroClient = heroClient;
 
 	unsigned char pattern[] =
-	/*	A1 8808CA03       mov eax, [dword ds:League_of_Legends.HeroClientInstance]
+	/*	A1 8808CA03       mov eax, [HeroClientInstance]
 		47                inc edi
-		8B15 F058C803     mov edx, [dword ds:League_of_Legends.ChampionArrayEnd]
+		8B15 F058C803     mov edx, [ChampionArrayEnd]
 		83C6 04           add esi, 4
 		3BF2              cmp esi, edx
 	*/  {
@@ -138,7 +138,7 @@ ChampionArray_init (
 
 
 /*
- * Description : Free an allocated ChampionArray structure.
+ * Description         : Free an allocated ChampionArray structure.
  * ChampionArray *this : An allocated ChampionArray to free.
  */
 void

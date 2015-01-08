@@ -6,9 +6,9 @@
 
 
 /*
- * Description : Unit tests checking if a HudCursorTarget is coherent
+ * Description           : Unit tests checking if a HudCursorTarget is coherent
  * HudCursorTarget *this : The instance to test
- * Return : true on success, false on failure
+ * Return                : true on success, false on failure
  */
 bool
 HudCursorTarget_test (

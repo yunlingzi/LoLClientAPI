@@ -1,4 +1,4 @@
-// --- Author : Moreau Cyril - Spl3en <spl3en.contact@gmail.com>
+// --- Author         : Moreau Cyril - Spl3en <spl3en.contact@gmail.com>
 #pragma once
 
 // ---------- Includes ------------
@@ -29,9 +29,9 @@ typedef struct _NetAPIClient
 // --------- Constructors ---------
 
 /*
- * Description 	: Allocate a new NetAPIClient structure.
- * MemProc *mp  : Address of an allocated and running MemProc target process
- * Return		: A pointer to an allocated NetAPIClient.
+ * Description 	      : Allocate a new NetAPIClient structure.
+ * MemProc *mp        : Address of an allocated and running MemProc target process
+ * Return             : A pointer to an allocated NetAPIClient.
  */
 NetAPIClient *
 NetAPIClient_new (
@@ -42,10 +42,10 @@ NetAPIClient_new (
 // ----------- Functions ------------
 
 /*
- * Description : Initialize an allocated NetAPIClient structure.
+ * Description        : Initialize an allocated NetAPIClient structure.
  * NetAPIClient *this : An allocated NetAPIClient to initialize.
- * MemProc *mp : The target LoL process
- * Return : true on success, false on failure.
+ * MemProc *mp        : The target LoL process
+ * Return             : true on success, false on failure.
  */
 bool
 NetAPIClient_init (
@@ -54,9 +54,9 @@ NetAPIClient_init (
 );
 
 /*
- * Description : Unit tests checking if a NetAPIClient is coherent
+ * Description        : Unit tests checking if a NetAPIClient is coherent
  * NetAPIClient *this : The instance to test
- * Return : true on success, false on failure
+ * Return             : true on success, false on failure
  */
 bool
 NetAPIClient_test (
@@ -66,7 +66,7 @@ NetAPIClient_test (
 // --------- Destructors ----------
 
 /*
- * Description : Free an allocated NetAPIClient structure.
+ * Description        : Free an allocated NetAPIClient structure.
  * NetAPIClient *this : An allocated NetAPIClient to free.
  */
 void

@@ -6,9 +6,9 @@
 #include "dbg/dbg.h"
 
 /*
- * Description 	: Allocate a new GUIMinimap structure.
+ * Description 	     : Allocate a new GUIMinimap structure.
  * DWORD pGuiMinimap : Address of the GUIMinimap in the target process
- * Return		: A pointer to an allocated GUIMinimap.
+ * Return		          : A pointer to an allocated GUIMinimap.
  */
 GUIMinimap *
 GUIMinimap_new (
@@ -29,8 +29,8 @@ GUIMinimap_new (
 
 
 /*
- * Description : Initialize an allocated GUIMinimap structure.
- * GUIMinimap *this : An allocated GUIMinimap to initialize.
+ * Description       : Initialize an allocated GUIMinimap structure.
+ * GUIMinimap *this  : An allocated GUIMinimap to initialize.
  * DWORD pGuiMinimap : Address of the GUIMinimap in the target process
  */
 bool
@@ -45,8 +45,8 @@ GUIMinimap_init (
 
 
 /*
- * Description : Free an allocated GUIMinimap structure.
- * GUIMinimap *this : An allocated GUIMinimap to free.
+ * Description       : Free an allocated GUIMinimap structure.
+ * GUIMinimap *this  : An allocated GUIMinimap to free.
  */
 void
 GUIMinimap_free (

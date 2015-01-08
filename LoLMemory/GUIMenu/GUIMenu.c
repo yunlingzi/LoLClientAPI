@@ -7,10 +7,10 @@
 #include "dbg/dbg.h"
 
 /*
- * Description 	: Allocate a new GUIMenu structure.
- * DWORD baseAddress : Base address of the module
+ * Description 	      : Allocate a new GUIMenu structure.
+ * DWORD baseAddress  : Base address of the module
  * DWORD sizeOfModule : Size of the module
- * Return		: A pointer to an allocated GUIMenu.
+ * Return             : A pointer to an allocated GUIMenu.
  */
 GUIMenu *
 GUIMenu_new (
@@ -32,11 +32,11 @@ GUIMenu_new (
 
 
 /*
- * Description : Initialize an allocated GUIMenu structure.
- * GUIMenu *this : An allocated GUIMenu to initialize.
- * DWORD baseAddress : Base address of the module
+ * Description        : Initialize an allocated GUIMenu structure.
+ * GUIMenu *this      : An allocated GUIMenu to initialize.
+ * DWORD baseAddress  : Base address of the module
  * DWORD sizeOfModule : Size of the module
- * Return : true on success, false on failure.
+ * Return             : true on success, false on failure.
  */
 bool
 GUIMenu_init (
@@ -131,7 +131,7 @@ GUIMenu_init (
 
 
 /*
- * Description : Free an allocated GUIMenu structure.
+ * Description   : Free an allocated GUIMenu structure.
  * GUIMenu *this : An allocated GUIMenu to free.
  */
 void

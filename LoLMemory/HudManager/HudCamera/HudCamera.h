@@ -1,4 +1,4 @@
-// --- Author : Moreau Cyril - Spl3en
+// --- Author       : Moreau Cyril - Spl3en
 #pragma once
 
 // ---------- Includes ------------
@@ -82,9 +82,9 @@ typedef struct _HudCamera
 // --------- Allocators ---------
 
 /*
- * Description 	: Allocate a new HudCamera structure.
+ * Description 	    : Allocate a new HudCamera structure.
  * DWORD pHudCamera : Address of HudCamera in the target process
- * Return		: A pointer to an allocated HudCamera.
+ * Return		         : A pointer to an allocated HudCamera.
  */
 HudCamera *
 HudCamera_new (
@@ -94,10 +94,10 @@ HudCamera_new (
 // ----------- Functions ------------
 
 /*
- * Description : Initialize an allocated HudCamera structure.
- * HudCamera *this : An allocated HudCamera to initialize.
+ * Description      : Initialize an allocated HudCamera structure.
+ * HudCamera *this  : An allocated HudCamera to initialize.
  * DWORD pHudCamera : Address of HudCamera in the target process
- * Return : true on success, false on failure.
+ * Return           : true on success, false on failure.
  */
 bool
 HudCamera_init (
@@ -106,8 +106,8 @@ HudCamera_init (
 );
 
 /*
- * Description : Unit tests checking if a HudCamera is coherent
- * Return : true on success, false on failure
+ * Description      : Unit tests checking if a HudCamera is coherent
+ * Return           : true on success, false on failure
  */
 bool
 HudCamera_test (
@@ -117,8 +117,8 @@ HudCamera_test (
 // --------- Destructors ----------
 
 /*
- * Description : Free an allocated HudCamera structure.
- * HudCamera *this : An allocated HudCamera to free.
+ * Description      : Free an allocated HudCamera structure.
+ * HudCamera *this  : An allocated HudCamera to free.
  */
 void
 HudCamera_free (

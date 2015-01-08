@@ -1,4 +1,4 @@
-// --- Author : Moreau Cyril - Spl3en
+// --- Author         : Moreau Cyril - Spl3en
 #pragma once
 
 // ---------- Includes ------------
@@ -151,10 +151,10 @@ typedef struct _GUIMenu
 // --------- Allocators ---------
 
 /*
- * Description 	: Allocate a new GUIMenu structure.
- * DWORD baseAddress : Base address of the module
+ * Description 	      : Allocate a new GUIMenu structure.
+ * DWORD baseAddress  : Base address of the module
  * DWORD sizeOfModule : Size of the module
- * Return		: A pointer to an allocated GUIMenu.
+ * Return		           : A pointer to an allocated GUIMenu.
  */
 GUIMenu *
 GUIMenu_new (
@@ -165,11 +165,11 @@ GUIMenu_new (
 // ----------- Functions ------------
 
 /*
- * Description : Initialize an allocated GUIMenu structure.
- * GUIMenu *this : An allocated GUIMenu to initialize.
- * DWORD baseAddress : Base address of the module
+ * Description        : Initialize an allocated GUIMenu structure.
+ * GUIMenu *this      : An allocated GUIMenu to initialize.
+ * DWORD baseAddress  : Base address of the module
  * DWORD sizeOfModule : Size of the module
- * Return : true on success, false on failure.
+ * Return             : true on success, false on failure.
  */
 bool
 GUIMenu_init (
@@ -179,9 +179,9 @@ GUIMenu_init (
 );
 
 /*
- * Description : Unit tests checking if a GUIMenu is coherent
- * GUIMenu *this : The instance to test
- * Return : true on success, false on failure
+ * Description        : Unit tests checking if a GUIMenu is coherent
+ * GUIMenu *this      : The instance to test
+ * Return             : true on success, false on failure
  */
 bool
 GUIMenu_test (
@@ -191,8 +191,8 @@ GUIMenu_test (
 // --------- Destructors ----------
 
 /*
- * Description : Free an allocated GUIMenu structure.
- * GUIMenu *this : An allocated GUIMenu to free.
+ * Description        : Free an allocated GUIMenu structure.
+ * GUIMenu *this      : An allocated GUIMenu to free.
  */
 void
 GUIMenu_free (

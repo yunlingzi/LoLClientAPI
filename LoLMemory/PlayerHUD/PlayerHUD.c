@@ -7,10 +7,10 @@
 #include "dbg/dbg.h"
 
 /*
- * Description 	: Allocate a new PlayerHUD structure.
- * DWORD baseAddress : Base address of the module
+ * Description 	      : Allocate a new PlayerHUD structure.
+ * DWORD baseAddress  : Base address of the module
  * DWORD sizeOfModule : Size of the module
- * Return		: A pointer to an allocated PlayerHUD.
+ * Return             : A pointer to an allocated PlayerHUD.
  */
 PlayerHUD *
 PlayerHUD_new (
@@ -32,11 +32,11 @@ PlayerHUD_new (
 
 
 /*
- * Description : Initialize an allocated PlayerHUD structure.
- * PlayerHUD *this : An allocated PlayerHUD to initialize.
- * DWORD baseAddress : Base address of the module
+ * Description        : Initialize an allocated PlayerHUD structure.
+ * PlayerHUD *this    : An allocated PlayerHUD to initialize.
+ * DWORD baseAddress  : Base address of the module
  * DWORD sizeOfModule : Size of the module
- * Return : true on success, false on failure.
+ * Return             : true on success, false on failure.
  */
 bool
 PlayerHUD_init (
@@ -102,7 +102,7 @@ PlayerHUD_init (
 
 
 /*
- * Description : Free an allocated PlayerHUD structure.
+ * Description     : Free an allocated PlayerHUD structure.
  * PlayerHUD *this : An allocated PlayerHUD to free.
  */
 void
@@ -117,9 +117,9 @@ PlayerHUD_free (
 
 
 /*
- * Description : Unit tests checking if a PlayerHUD is coherent
+ * Description     : Unit tests checking if a PlayerHUD is coherent
  * PlayerHUD *this : The instance to test
- * Return : true on success, false on failure
+ * Return          : true on success, false on failure
  */
 bool
 PlayerHUD_test (

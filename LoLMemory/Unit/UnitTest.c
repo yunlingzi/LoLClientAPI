@@ -7,8 +7,8 @@
 
 /*
  * Description : Unit tests checking if a Unit is coherent
- * Unit *this : The instance to test
- * Return : true on success, false on failure
+ * Unit *this  : The instance to test
+ * Return      : true on success, false on failure
  */
 bool
 Unit_test (

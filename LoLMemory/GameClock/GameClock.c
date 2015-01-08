@@ -7,10 +7,10 @@
 
 
 /*
- * Description 	: Allocate a new GameClock structure.
- * DWORD baseAddress : Base address of the module
+ * Description 	      : Allocate a new GameClock structure.
+ * DWORD baseAddress  : Base address of the module
  * DWORD sizeOfModule : Size of the module
- * Return		: A pointer to an allocated GameClock.
+ * Return             : A pointer to an allocated GameClock.
  */
 GameClock *
 GameClock_new (
@@ -31,11 +31,11 @@ GameClock_new (
 }
 
 /*
- * Description : Initialize an allocated GameClock structure.
- * GameClock *this : An allocated GameClock to initialize.
- * DWORD baseAddress : Base address of the module
+ * Description        : Initialize an allocated GameClock structure.
+ * GameClock *this    : An allocated GameClock to initialize.
+ * DWORD baseAddress  : Base address of the module
  * DWORD sizeOfModule : Size of the module
- * Return : true on success, false on failure.
+ * Return             : true on success, false on failure.
  */
 bool
 GameClock_init (
@@ -92,7 +92,7 @@ GameClock_init (
 
 
 /*
- * Description : Free an allocated GameClock structure.
+ * Description     : Free an allocated GameClock structure.
  * GameClock *this : An allocated GameClock to free.
  */
 void

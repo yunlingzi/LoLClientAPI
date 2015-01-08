@@ -1,4 +1,4 @@
-// --- Author : Moreau Cyril - Spl3en
+// --- Author         : Moreau Cyril - Spl3en
 #pragma once
 
 // ---------- Includes ------------
@@ -36,8 +36,8 @@ typedef struct _LoLServerAPI
 // --------- Allocators ---------
 
 /*
- * Description 	: Allocate a new LoLServerAPI structure.
- * Return		: A pointer to an allocated LoLServerAPI.
+ * Description 	      : Allocate a new LoLServerAPI structure.
+ * Return		           : A pointer to an allocated LoLServerAPI.
  */
 LoLServerAPI *
 LoLServerAPI_new (void);
@@ -45,7 +45,7 @@ LoLServerAPI_new (void);
 // ----------- Functions ------------
 
 /*
- * Description : Initialize an allocated LoLServerAPI structure.
+ * Description        : Initialize an allocated LoLServerAPI structure.
  * LoLServerAPI *this : An allocated LoLServerAPI to initialize.
  */
 bool
@@ -54,9 +54,9 @@ LoLServerAPI_init (
 );
 
 /*
- * Description : Main loop of the API server
+ * Description        : Main loop of the API server
  * LoLServerAPI *this : An allocated LoLServerAPI
- * Return : void
+ * Return             : void
  */
 void
 LoLServerAPI_main (
@@ -64,9 +64,9 @@ LoLServerAPI_main (
 );
 
 /*
- * Description : Unit tests checking if a LoLServerAPI is coherent
+ * Description        : Unit tests checking if a LoLServerAPI is coherent
  * LoLServerAPI *this : The instance to test
- * Return : true on success, false on failure
+ * Return             : true on success, false on failure
  */
 bool
 LoLServerAPI_test (
@@ -74,9 +74,9 @@ LoLServerAPI_test (
 );
 
 /*
- * Description : Clean the memory from the LoLProcess before ejecting the server DLL
+ * Description        : Clean the memory from the LoLProcess before ejecting the server DLL
  * LoLServerAPI *this : An allocated LoLServerAPI
- * Return : void
+ * Return             : void
  */
 void
 LoLServerAPI_eject (
@@ -86,7 +86,7 @@ LoLServerAPI_eject (
 // --------- Destructors ----------
 
 /*
- * Description : Free an allocated LoLServerAPI structure.
+ * Description        : Free an allocated LoLServerAPI structure.
  * LoLServerAPI *this : An allocated LoLServerAPI to free.
  */
 void

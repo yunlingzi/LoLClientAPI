@@ -1,4 +1,4 @@
-// --- Author : Moreau Cyril - Spl3en
+// --- Author                  : Moreau Cyril - Spl3en
 #pragma once
 
 // ---------- Includes ------------
@@ -22,10 +22,10 @@ typedef struct _MaestroGameController
 // --------- Allocators ---------
 
 /*
- * Description 	: Allocate a new MaestroGameController structure.
- * DWORD baseAddress : Base address of the module
- * DWORD sizeOfModule : Size of the module
- * Return		: A pointer to an allocated MaestroGameController.
+ * Description 	               : Allocate a new MaestroGameController structure.
+ * DWORD baseAddress           : Base address of the module
+ * DWORD sizeOfModule          : Size of the module
+ * Return		                    : A pointer to an allocated MaestroGameController.
  */
 MaestroGameController *
 MaestroGameController_new (
@@ -36,11 +36,11 @@ MaestroGameController_new (
 // ----------- Functions ------------
 
 /*
- * Description : Initialize an allocated MaestroGameController structure.
+ * Description                 : Initialize an allocated MaestroGameController structure.
  * MaestroGameController *this : An allocated MaestroGameController to initialize.
- * DWORD baseAddress : Base address of the module
- * DWORD sizeOfModule : Size of the module
- * Return : true on success, false on failure.
+ * DWORD baseAddress           : Base address of the module
+ * DWORD sizeOfModule          : Size of the module
+ * Return                      : true on success, false on failure.
  */
 bool
 MaestroGameController_init (
@@ -50,9 +50,9 @@ MaestroGameController_init (
 );
 
 /*
- * Description : Unit tests checking if a MaestroGameController is coherent
+ * Description                 : Unit tests checking if a MaestroGameController is coherent
  * MaestroGameController *this : The instance to test
- * Return : true on success, false on failure
+ * Return                      : true on success, false on failure
  */
 bool
 MaestroGameController_test (
@@ -62,7 +62,7 @@ MaestroGameController_test (
 // --------- Destructors ----------
 
 /*
- * Description : Free an allocated MaestroGameController structure.
+ * Description                 : Free an allocated MaestroGameController structure.
  * MaestroGameController *this : An allocated MaestroGameController to free.
  */
 void

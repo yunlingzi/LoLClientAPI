@@ -50,9 +50,9 @@ LoLProcess_new (void)
 
 
 /*
- * Description : Set the LoLprocess to a given state
+ * Description      : Set the LoLprocess to a given state
  * LoLProcess *this : An allocated LoLProcess
- * Return : void
+ * Return           : void
  */
 void
 LoLProcess_setState (
@@ -77,9 +77,9 @@ LoLProcess_setState (
 
 
 /*
- * Description : Load the Hook Engine into the LoL process
+ * Description      : Load the Hook Engine into the LoL process
  * LoLProcess *this : An allocated LoLProcess
- * Return : void
+ * Return           : void
  */
 bool
 LoLProcess_load_hook_engine (
@@ -100,9 +100,9 @@ LoLProcess_load_hook_engine (
 
 
 /*
- * Description : Scan different modules of the League of Legends.exe process
+ * Description      : Scan different modules of the League of Legends.exe process
  * LoLProcess *this : An allocated LoLProcess
- * Return : true on success, false otherwise
+ * Return           : true on success, false otherwise
  */
 bool
 LoLProcess_scan_modules (
@@ -156,10 +156,10 @@ LoLProcess_scan_modules (
 }
 
 /*
- * Description :	Initialize an allocated LoLProcess structure.
- *					Read the game structures
+ * Description      :	Initialize an allocated LoLProcess structure.
+ *					    Read the game structures
  * LoLProcess *this : An allocated LoLProcess to initialize.
- * Return : true on success, false on failure.
+ * Return           : true on success, false on failure.
  */
 bool
 LoLProcess_init (
@@ -211,9 +211,9 @@ LoLProcess_init (
 
 
 /*
- * Description : Export current memory addresses to CheatEngine
+ * Description      : Export current memory addresses to CheatEngine
  * LoLProcess *this : An allocated LoLProcess
- * Return : void
+ * Return           : void
  */
 void
 LoLProcess_exportToCE (void)
@@ -271,7 +271,7 @@ LoLProcess_exportToCE (void)
 
 
 /*
- * Description : Free an allocated LoLProcess structure.
+ * Description      : Free an allocated LoLProcess structure.
  * LoLProcess *this : An allocated LoLProcess to free.
  */
 void

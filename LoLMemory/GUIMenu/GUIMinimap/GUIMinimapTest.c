@@ -6,9 +6,9 @@
 
 
 /*
- * Description : Unit tests checking if a GUIMinimap is coherent
+ * Description      : Unit tests checking if a GUIMinimap is coherent
  * GUIMinimap *this : The instance to test
- * Return : true on success, false on failure
+ * Return           : true on success, false on failure
  */
 bool
 GUIMinimap_test (

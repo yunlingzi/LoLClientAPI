@@ -6,9 +6,9 @@
 
 
 /*
- * Description : Unit tests checking if a HeroClient is coherent
+ * Description      : Unit tests checking if a HeroClient is coherent
  * HeroClient *this : The instance to test
- * Return : true on success, false on failure
+ * Return           : true on success, false on failure
  */
 bool
 HeroClient_test (

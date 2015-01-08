@@ -6,10 +6,10 @@
 #include "dbg/dbg.h"
 
 /*
- * Description 	: Allocate a new MaestroGameController structure.
- * DWORD baseAddress : Base address of the module
+ * Description 	      : Allocate a new MaestroGameController structure.
+ * DWORD baseAddress  : Base address of the module
  * DWORD sizeOfModule : Size of the module
- * Return		: A pointer to an allocated MaestroGameController.
+ * Return             : A pointer to an allocated MaestroGameController.
  */
 MaestroGameController *
 MaestroGameController_new (
@@ -32,11 +32,11 @@ MaestroGameController_new (
 
 
 /*
- * Description : Initialize an allocated MaestroGameController structure.
+ * Description                 : Initialize an allocated MaestroGameController structure.
  * MaestroGameController *this : An allocated MaestroGameController to initialize.
- * DWORD baseAddress : Base address of the module
- * DWORD sizeOfModule : Size of the module
- * Return : true on success, false on failure.
+ * DWORD baseAddress           : Base address of the module
+ * DWORD sizeOfModule          : Size of the module
+ * Return                      : true on success, false on failure.
  */
 bool
 MaestroGameController_init (
@@ -131,7 +131,7 @@ MaestroGameController_init (
 
 
 /*
- * Description : Free an allocated MaestroGameController structure.
+ * Description                 : Free an allocated MaestroGameController structure.
  * MaestroGameController *this : An allocated MaestroGameController to free.
  */
 void
@@ -146,9 +146,9 @@ MaestroGameController_free (
 
 
 /*
- * Description : Unit tests checking if a MaestroGameController is coherent
+ * Description                 : Unit tests checking if a MaestroGameController is coherent
  * MaestroGameController *this : The instance to test
- * Return : true on success, false on failure
+ * Return                      : true on success, false on failure
  */
 bool
 MaestroGameController_test (

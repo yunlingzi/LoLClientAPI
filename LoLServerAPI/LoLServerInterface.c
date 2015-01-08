@@ -17,9 +17,9 @@ LoLProcess * lolClient = NULL;
 
 
 /*
- * Description : Retrieve the current camera position
- * __out__ float * x : A pointer to the X position
- * __out__ float * y : A pointer to the Y position
+ * Description            : Retrieve the current camera position
+ * __out__ float * x      : A pointer to the X position
+ * __out__ float * y      : A pointer to the Y position
  */
 EXPORT_FUNCTION void
 get_camera_position (
@@ -37,9 +37,9 @@ get_camera_position (
 
 
 /*
- * Description : Set the current camera position
- * __in__ float x : New X position
- * __in__ float y : New Y position
+ * Description     : Set the current camera position
+ * __in__ float x  : New X position
+ * __in__ float y  : New Y position
  */
 EXPORT_FUNCTION void
 set_camera_position (
@@ -57,10 +57,10 @@ set_camera_position (
 
 
 /*a
- * Description : Toggle the built-in client default camera movements
- *               For instance, camera movements when the cursor is on the border of the screen
- * __in__ bool enabled : If true, the camera client movements are enabled. False otherwise.
- * Return : void
+ * Description            : Toggle the built-in client default camera movements
+ *                          For instance, camera movements when the cursor is on the border of the screen
+ * __in__ bool enabled    : If true, the camera client movements are enabled. False otherwise.
+ * Return                 : void
  */
 EXPORT_FUNCTION void
 set_default_camera_enabled (
@@ -76,7 +76,7 @@ set_default_camera_enabled (
 
 
 /*
- * Description : Retrieve the current camera angle in degrees
+ * Description            : Retrieve the current camera angle in degrees
  * __out__ float * angleX : A pointer to the X camera angle in degrees
  * __out__ float * angleY : A pointer to the Y camera angle in degrees
  */
@@ -96,9 +96,9 @@ get_camera_angle (
 
 
 /*
- * Description : Set the current camera angle in degrees
- * __in__ float * angleX : A pointer to the X camera angle in degrees
- * __in__ float * angleY : A pointer to the Y camera angle in degrees
+ * Description            : Set the current camera angle in degrees
+ * __in__ float * angleX  : A pointer to the X camera angle in degrees
+ * __in__ float * angleY  : A pointer to the Y camera angle in degrees
  */
 EXPORT_FUNCTION void
 set_camera_angle (
@@ -116,8 +116,8 @@ set_camera_angle (
 
 
 /*
- * Description : Retrieve the current camera zoom value
- * Return : The zoom value
+ * Description  : Retrieve the current camera zoom value
+ * Return       : The zoom value
  */
 EXPORT_FUNCTION float
 get_camera_zoom (
@@ -133,7 +133,7 @@ get_camera_zoom (
 
 
 /*
- * Description : Set the current camera zoom (1000.0 min, 2250.0 max)
+ * Description            : Set the current camera zoom (1000.0 min, 2250.0 max)
  * __in__ float zoomValue : New zoom value
  */
 EXPORT_FUNCTION void
@@ -155,7 +155,7 @@ set_camera_zoom (
 
 
 /*
- * Description : Retrieve the current cursor position
+ * Description       : Retrieve the current cursor position
  * __out__ float * x : A pointer to the X position
  * __out__ float * y : A pointer to the Y position
  */
@@ -175,9 +175,9 @@ get_cursor_position (
 
 
 /*
- * Description : Retrieve the position of the cursor on the screen
- * __out__ int * x : A pointer to the X position
- * __out__ int * y : A pointer to the Y position
+ * Description      : Retrieve the position of the cursor on the screen
+ * __out__ int * x  : A pointer to the X position
+ * __out__ int * y  : A pointer to the Y position
  */
 EXPORT_FUNCTION void
 get_cursor_screen_position (
@@ -193,7 +193,7 @@ get_cursor_screen_position (
 
 
 /*
- * Description : Retrieve the destination position (right click)
+ * Description       : Retrieve the destination position (right click)
  * __out__ float * x : A pointer to the X position
  * __out__ float * y : A pointer to the Y position
  */
@@ -214,7 +214,7 @@ get_destination_position (
 
 /*
  * Description : Check if the left mouse button is pressed
- * Returns : true if pressed, false otherwise
+ * Returns     : true if pressed, false otherwise
  */
 EXPORT_FUNCTION bool
 is_left_mouse_button_pressed (
@@ -226,7 +226,7 @@ is_left_mouse_button_pressed (
 
 /*
  * Description : Check if the left mouse button is clicked
- * Returns : true if pressed, false otherwise
+ * Returns     : true if pressed, false otherwise
  */
 EXPORT_FUNCTION bool
 is_left_mouse_button_click (
@@ -239,7 +239,7 @@ is_left_mouse_button_click (
 
 /*
  * Description : Check if the right mouse button is pressed
- * Returns : true if pressed, false otherwise
+ * Returns     : true if pressed, false otherwise
  */
 EXPORT_FUNCTION bool
 is_right_mouse_button_pressed (
@@ -251,7 +251,7 @@ is_right_mouse_button_pressed (
 
 /*
  * Description : Check if the right mouse button is clicked
- * Returns : true if pressed, false otherwise
+ * Returns     : true if pressed, false otherwise
  */
 EXPORT_FUNCTION bool
 is_right_mouse_button_click (
@@ -267,10 +267,10 @@ is_right_mouse_button_click (
  ** ======================================================================================= **/
 
 /*
- * Description : Check if the given key has been pressed and released
+ * Description       : Check if the given key has been pressed and released
  * unsigned char key : ASCII code of the character typed.
  *                     For special characters, please refer to http://www.kbdedit.com/manual/low_level_vk_list.html
- * Returns : true if typed, false otherwise
+ * Returns           : true if typed, false otherwise
  */
 EXPORT_FUNCTION bool
 is_key_typed (
@@ -280,10 +280,10 @@ is_key_typed (
 }
 
 /*
- * Description : Check if the given key is pressed
+ * Description       : Check if the given key is pressed
  * unsigned char key : ASCII code of the character pressed.
  *                     For special characters, please refer to http://www.kbdedit.com/manual/low_level_vk_list.html
- * Returns : true if pressed, false otherwise
+ * Returns           : true if pressed, false otherwise
  */
 EXPORT_FUNCTION bool
 is_key_pressed (
@@ -301,7 +301,7 @@ is_key_pressed (
 // === Self champion ===
 
 /*
- * Description : Retrieve the current champion position
+ * Description       : Retrieve the current champion position
  * __out__ float * x : A pointer to the X position
  * __out__ float * y : A pointer to the Y position
  */
@@ -321,7 +321,7 @@ get_champion_position (
 
 
 /*
- * Description : Retrieve the current champion position
+ * Description               : Retrieve the current champion position
  * __out__ float * currentHP : A pointer to the current HP
  * __out__ float * maximumHP : A pointer to the maximum HP
  */
@@ -343,7 +343,7 @@ get_champion_hp (
 
 /*
  * Description : Retrieve the current champion team
- * Return : TEAM_BLUE, TEAM_PURPLE or TEAM_UNKNOWN
+ * Return      : TEAM_BLUE, TEAM_PURPLE or TEAM_UNKNOWN
  */
 EXPORT_FUNCTION int
 get_champion_team (
@@ -369,7 +369,7 @@ get_champion_team (
 
 /*
  * Description : Retrieve the number of allies
- * Return : The number of allies in your team
+ * Return      : The number of allies in your team
  */
 EXPORT_FUNCTION int
 get_teammates_count (
@@ -384,9 +384,9 @@ get_teammates_count (
 
 
 /*
- * Description : Check if the target teammate ID is valid
+ * Description            : Check if the target teammate ID is valid
  * __in__  int teammateId : The target teammate ID
- * Return : true on success, false otherwise
+ * Return                 : true on success, false otherwise
  */
 EXPORT_FUNCTION bool
 check_teammate_id (
@@ -407,10 +407,10 @@ check_teammate_id (
 
 
 /*
- * Description : Retrieve the teammate champion position
+ * Description            : Retrieve the teammate champion position
  * __in__  int teammateId : The target teammate ID
- * __out__ float * x : A pointer to the X position
- * __out__ float * y : A pointer to the Y position
+ * __out__ float * x      : A pointer to the X position
+ * __out__ float * y      : A pointer to the Y position
  */
 EXPORT_FUNCTION void
 get_teammate_position (
@@ -433,8 +433,8 @@ get_teammate_position (
 
 
 /*
- * Description : Retrieve teammate champion health points information
- * __in__  int teammateId : The target teammate ID
+ * Description               : Retrieve teammate champion health points information
+ * __in__  int teammateId    : The target teammate ID
  * __out__ float * currentHP : A pointer to the current HP
  * __out__ float * maximumHP : A pointer to the maximum HP
  */
@@ -461,10 +461,10 @@ get_teammate_hp (
 
 
 /*
- * Description : Retrieve teammate summoner name.
- * __in__  int teammateId : The target teammate ID
+ * Description                : Retrieve teammate summoner name.
+ * __in__  int teammateId     : The target teammate ID
  * __in__ char * summonerName : A sequence of bytes containing the summoner name of the
- *                              target teammate (16 bytes maximum)
+ *                                 target teammate (16 bytes maximum)
  */
 EXPORT_FUNCTION void
 get_teammate_summoner_name (
@@ -489,7 +489,7 @@ get_teammate_summoner_name (
  ** ================================================================================= **/
 
 /*
- * Description : Retrieve the position of the minimap on the screen
+ * Description     : Retrieve the position of the minimap on the screen
  * __out__ int * x : A pointer to the X position
  * __out__ int * y : A pointer to the Y position
  */
@@ -513,7 +513,7 @@ get_minimap_screen_position (
 
 /*
  * Description : Check if the mouse is hovering the minimap
- * Return : bool True on success, false otherwise.
+ * Return      : bool True on success, false otherwise.
  */
 EXPORT_FUNCTION bool
 is_cursor_hovering_minimap (
@@ -561,7 +561,7 @@ get_current_summoner_name (
 
 /*
  * Description : Get the current game time (as seconds)
- * Return : float the current time as seconds
+ * Return      : float the current time as seconds
  */
 EXPORT_FUNCTION float
 get_game_time (
@@ -582,7 +582,7 @@ get_game_time (
 
 /*
  * Description : Get the next line of the chat received since the last time called.
- * Return : char * : A line of chat, or NULL if no message has been posted since the last time called.
+ * Return      : char * : A line of chat, or NULL if no message has been posted since the last time called.
  */
 char *
 get_chat_message (
@@ -602,8 +602,8 @@ get_chat_message (
 }
 
 /*
- * Description : Log a message to the HudChat
- * char * message : A message to add in the chat
+ * Description       : Log a message to the HudChat
+ * char * message    : A message to add in the chat
  * int messageLength : The length of the message
  */
 void
@@ -635,7 +635,7 @@ log_chat_message (
 
 /*
  * Description : Check if the API has been correctly injected into LoL process
- * Return : true on successfully injected, false on failure
+ * Return      : true on successfully injected, false on failure
  */
 EXPORT_FUNCTION bool
 check_api (
@@ -661,9 +661,9 @@ wait_api (
 }
 
 /*
- * Description : Set the current used lolClient instance
+ * Description                 : Set the current used lolClient instance
  * __in__ LoLProcess *instance : Set the global lolClient value to this argument
- * Note : /!\ Use it only if you know what you are doing !
+ * Note                        : /!\ Use it only if you know what you are doing !
  */
 void
 set_LoLProcess (
@@ -674,9 +674,9 @@ set_LoLProcess (
 
 
 /*
- * Description : Get the current used lolClient instance
+ * Description         : Get the current used lolClient instance
  * Return LoLProcess * : A pointer to the current lolClient instance
- * Note : /!\ Use it only if you know what you are doing !
+ * Note                : /!\ Use it only if you know what you are doing !
  */
 LoLProcess *
 get_LoLProcess (

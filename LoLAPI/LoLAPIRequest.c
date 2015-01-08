@@ -65,9 +65,9 @@ static EnumerationStringAssociation association [REQUEST_API_COUNT] = {
 };
 
 /*
- * Description : Check if a LoLAPIRequest is valid
- * LoLAPIRequest *this : An allocated LoLAPIRequest
- * Return : bool true on success, false otherwise
+ * Description           : Check if a LoLAPIRequest is valid
+ * LoLAPIRequest *this   : An allocated LoLAPIRequest
+ * Return                : bool true on success, false otherwise
  */
 bool
 LoLAPIRequest_is_valid (
@@ -78,9 +78,9 @@ LoLAPIRequest_is_valid (
 }
 
 /*
- * Description : Convert a LoLAPIRequest to string
+ * Description           : Convert a LoLAPIRequest to string
  * LoLAPIRequest request : The LoLApiRequest to convert
- * Return : char * the string
+ * Return                : char * the string
  */
 char *
 LoLAPIRequest_to_string (

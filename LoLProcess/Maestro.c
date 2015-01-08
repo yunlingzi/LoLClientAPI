@@ -7,10 +7,10 @@
 #include "dbg/dbg.h"
 
 /*
- * Description 	: Allocate a new Maestro structure.
- * DWORD baseAddress : Base address of the Maestro module
+ * Description 	      : Allocate a new Maestro structure.
+ * DWORD baseAddress  : Base address of the Maestro module
  * DWORD sizeOfModule : Size of the Maestro module
- * Return		: A pointer to an allocated Maestro.
+ * Return             : A pointer to an allocated Maestro.
  */
 Maestro *
 Maestro_new (
@@ -32,11 +32,11 @@ Maestro_new (
 
 
 /*
- * Description : Initialize an allocated Maestro structure.
- * Maestro *this : An allocated Maestro to initialize.
- * DWORD baseAddress : Base address of the module
+ * Description        : Initialize an allocated Maestro structure.
+ * Maestro *this      : An allocated Maestro to initialize.
+ * DWORD baseAddress  : Base address of the module
  * DWORD sizeOfModule : Size of the module
- * Return : true on success, false on failure.
+ * Return             : true on success, false on failure.
  */
 bool
 Maestro_init (
@@ -60,8 +60,8 @@ Maestro_init (
 
 
 /*
- * Description : Remove hooks in Maestro module
- * Return : true on success, false on failure.
+ * Description   : Remove hooks in Maestro module
+ * Return        : true on success, false on failure.
  */
 void
 Maestro_unhook (
@@ -72,7 +72,7 @@ Maestro_unhook (
 
 
 /*
- * Description : Free an allocated Maestro structure.
+ * Description   : Free an allocated Maestro structure.
  * Maestro *this : An allocated Maestro to free.
  */
 void
@@ -87,9 +87,9 @@ Maestro_free (
 
 
 /*
- * Description : Unit tests checking if a Maestro is coherent
+ * Description   : Unit tests checking if a Maestro is coherent
  * Maestro *this : The instance to test
- * Return : true on success, false on failure
+ * Return        : true on success, false on failure
  */
 bool
 Maestro_test (

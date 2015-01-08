@@ -1,4 +1,4 @@
-// --- Author : Moreau Cyril - Spl3en
+// --- Author                : Moreau Cyril - Spl3en
 #pragma once
 
 // ---------- Includes ------------
@@ -32,8 +32,8 @@ typedef struct _MaestroMessageAgent
 // --------- Allocators ---------
 
 /*
- * Description 	: Allocate a new MaestroMessageAgent structure.
- * Return		: A pointer to an allocated MaestroMessageAgent.
+ * Description 	             : Allocate a new MaestroMessageAgent structure.
+ * Return		                  : A pointer to an allocated MaestroMessageAgent.
  */
 MaestroMessageAgent *
 MaestroMessageAgent_new (void);
@@ -41,7 +41,7 @@ MaestroMessageAgent_new (void);
 // ----------- Functions ------------
 
 /*
- * Description : Initialize an allocated MaestroMessageAgent structure.
+ * Description               : Initialize an allocated MaestroMessageAgent structure.
  * MaestroMessageAgent *this : An allocated MaestroMessageAgent to initialize.
  */
 bool
@@ -50,9 +50,9 @@ MaestroMessageAgent_init (
 );
 
 /*
- * Description : Unit tests checking if a MaestroMessageAgent is coherent
+ * Description               : Unit tests checking if a MaestroMessageAgent is coherent
  * MaestroMessageAgent *this : The instance to test
- * Return : true on success, false on failure
+ * Return                    : true on success, false on failure
  */
 bool
 MaestroMessageAgent_test (
@@ -62,7 +62,7 @@ MaestroMessageAgent_test (
 // --------- Destructors ----------
 
 /*
- * Description : Free an allocated MaestroMessageAgent structure.
+ * Description               : Free an allocated MaestroMessageAgent structure.
  * MaestroMessageAgent *this : An allocated MaestroMessageAgent to free.
  */
 void

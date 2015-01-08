@@ -6,9 +6,9 @@
 #include "dbg/dbg.h"
 
 /*
- * Description 	: Allocate a new HudCameraSettings structure.
+ * Description 	            : Allocate a new HudCameraSettings structure.
  * DWORD pHudCameraSettings : Address of HudCameraSettings in the target process
- * Return		: A pointer to an allocated HudCameraSettings.
+ * Return		                 : A pointer to an allocated HudCameraSettings.
  */
 HudCameraSettings *
 HudCameraSettings_new (
@@ -29,8 +29,8 @@ HudCameraSettings_new (
 
 
 /*
- * Description : Initialize an allocated HudCameraSettings structure.
- * HudCameraSettings *this : An allocated HudCameraSettings to initialize.
+ * Description              : Initialize an allocated HudCameraSettings structure.
+ * HudCameraSettings *this  : An allocated HudCameraSettings to initialize.
  * DWORD pHudCameraSettings : Address of HudCameraSettings in the target process
  */
 bool
@@ -49,8 +49,8 @@ HudCameraSettings_init (
 
 
 /*
- * Description : Free an allocated HudCameraSettings structure.
- * HudCameraSettings *this : An allocated HudCameraSettings to free.
+ * Description              : Free an allocated HudCameraSettings structure.
+ * HudCameraSettings *this  : An allocated HudCameraSettings to free.
  */
 void
 HudCameraSettings_free (

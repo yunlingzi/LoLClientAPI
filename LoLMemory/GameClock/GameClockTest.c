@@ -6,9 +6,9 @@
 
 
 /*
- * Description : Unit tests checking if a GameClock is coherent
+ * Description     : Unit tests checking if a GameClock is coherent
  * GameClock *this : The instance to test
- * Return : true on success, false on failure
+ * Return          : true on success, false on failure
  */
 bool
 GameClock_test (

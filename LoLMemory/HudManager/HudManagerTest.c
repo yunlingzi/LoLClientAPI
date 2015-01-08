@@ -6,9 +6,9 @@
 
 
 /*
- * Description : Unit tests checking if a HudManager is coherent
+ * Description      : Unit tests checking if a HudManager is coherent
  * HudManager *this : The instance to test
- * Return : true on success, false on failure
+ * Return           : true on success, false on failure
  */
 bool
 HudManager_test (

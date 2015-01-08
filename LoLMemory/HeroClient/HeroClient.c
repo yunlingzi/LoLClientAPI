@@ -7,10 +7,10 @@
 
 
 /*
- * Description 	: Allocate a new HeroClient structure.
- * DWORD baseAddress : Base address of the module
+ * Description 	      : Allocate a new HeroClient structure.
+ * DWORD baseAddress  : Base address of the module
  * DWORD sizeOfModule : Size of the module
- * Return		: A pointer to an allocated HeroClient.
+ * Return             : A pointer to an allocated HeroClient.
  */
 HeroClient *
 HeroClient_new (
@@ -32,9 +32,9 @@ HeroClient_new (
 
 
 /*
- * Description : Initialize an allocated HeroClient structure.
- * HeroClient *this : An allocated HeroClient to initialize.
- * DWORD baseAddress : Base address of the module
+ * Description        : Initialize an allocated HeroClient structure.
+ * HeroClient *this   : An allocated HeroClient to initialize.
+ * DWORD baseAddress  : Base address of the module
  * DWORD sizeOfModule : Size of the module
  */
 bool
@@ -148,7 +148,7 @@ HeroClient_init (
 
 
 /*
- * Description : Free an allocated HeroClient structure.
+ * Description      : Free an allocated HeroClient structure.
  * HeroClient *this : An allocated HeroClient to free.
  */
 void

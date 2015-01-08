@@ -12,7 +12,7 @@ LoLServerAPI * serverAPI = NULL;
 
 
 /*
- * Description 	: Handle a request from the client
+ * Description 	              : Handle a request from the client
  * EasySocketListened *client : A pointer to the client data
  */
 void
@@ -208,7 +208,7 @@ LoLServerAPI_handle_request (
 }
 
 /*
- * Description 	: Free the client that just disconnected
+ * Description 	              : Free the client that just disconnected
  * EasySocketListened *client : A pointer to the client data
  */
 void LoLServerAPI_client_finish (
@@ -220,8 +220,8 @@ void LoLServerAPI_client_finish (
 
 
 /*
- * Description 	: Allocate a new LoLServerAPI structure.
- * Return		: A pointer to an allocated LoLServerAPI.
+ * Description 	  : Allocate a new LoLServerAPI structure.
+ * Return		  : A pointer to an allocated LoLServerAPI.
  */
 LoLServerAPI *
 LoLServerAPI_new (void)
@@ -243,9 +243,9 @@ LoLServerAPI_new (void)
 
 
 /*
- * Description : Clean the memory from the LoLProcess before ejecting the server DLL
+ * Description        : Clean the memory from the LoLProcess before ejecting the server DLL
  * LoLServerAPI *this : An allocated LoLServerAPI
- * Return : void
+ * Return             : void
  */
 void
 LoLServerAPI_eject (
@@ -261,9 +261,9 @@ LoLServerAPI_eject (
 
 
 /*
- * Description : Initialize an allocated LoLServerAPI structure.
- * LoLServerAPI *this : An allocated LoLServerAPI to initialize.
- * Return : true on success, false on failure.
+ * Description         : Initialize an allocated LoLServerAPI structure.
+ * LoLServerAPI *this  : An allocated LoLServerAPI to initialize.
+ * Return              : true on success, false on failure.
  */
 bool
 LoLServerAPI_init (
@@ -284,9 +284,9 @@ LoLServerAPI_init (
 
 
 /*
- * Description : Main loop of the API server
- * LoLServerAPI *this : An allocated LoLServerAPI
- * Return : void
+ * Description          : Main loop of the API server
+ * LoLServerAPI *this   : An allocated LoLServerAPI
+ * Return               : void
  */
 void
 LoLServerAPI_main (
@@ -310,8 +310,8 @@ LoLServerAPI_main (
 
 
 /*
- * Description : Free an allocated LoLServerAPI structure.
- * LoLServerAPI *this : An allocated LoLServerAPI to free.
+ * Description         : Free an allocated LoLServerAPI structure.
+ * LoLServerAPI *this  : An allocated LoLServerAPI to free.
  */
 void
 LoLServerAPI_free (
@@ -329,9 +329,9 @@ LoLServerAPI_free (
 
 
 /*
- * Description : Unit tests checking if a LoLServerAPI is coherent
- * LoLServerAPI *this : The instance to test
- * Return : true on success, false on failure
+ * Description         : Unit tests checking if a LoLServerAPI is coherent
+ * LoLServerAPI *this  : The instance to test
+ * Return              : true on success, false on failure
  */
 bool
 LoLServerAPI_test (

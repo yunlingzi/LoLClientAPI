@@ -29,10 +29,10 @@ NetAPIClient_new (
 }
 
 /*
- * Description : Initialize an allocated NetAPIClient structure.
+ * Description        : Initialize an allocated NetAPIClient structure.
  * NetAPIClient *this : An allocated NetAPIClient to initialize.
- * MemProc *mp : The target LoL process
- * Return : true on success, false on failure.
+ * MemProc *mp        : The target LoL process
+ * Return             : true on success, false on failure.
  */
 bool
 NetAPIClient_init (
@@ -127,7 +127,7 @@ NetAPIClient_init (
 
 
 /*
- * Description : Free an allocated NetAPIClient structure.
+ * Description        : Free an allocated NetAPIClient structure.
  * NetAPIClient *this : An allocated NetAPIClient to free.
  */
 void

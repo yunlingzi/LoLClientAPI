@@ -6,9 +6,9 @@
 
 
 /*
- * Description : Unit tests checking if a HudCameraSettings is coherent
+ * Description             : Unit tests checking if a HudCameraSettings is coherent
  * HudCameraSettings *this : The instance to test
- * Return : true on success, false on failure
+ * Return                  : true on success, false on failure
  */
 bool
 HudCameraSettings_test (

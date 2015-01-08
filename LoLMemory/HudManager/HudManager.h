@@ -1,5 +1,5 @@
-// --- Author : Moreau Cyril - Spl3en
-// --- Date   : 2014-09-30-20.37.58
+// --- Author         : Moreau Cyril - Spl3en
+// --- Date           : 2014-09-30-20.37.58
 #pragma once
 
 // ---------- Includes ------------
@@ -38,10 +38,10 @@ typedef struct _HudManager
 // --------- Constructors ---------
 
 /*
- * Description 	: Allocate a new HudManager structure.
- * DWORD baseAddress : Base address of the module
+ * Description 	      : Allocate a new HudManager structure.
+ * DWORD baseAddress  : Base address of the module
  * DWORD sizeOfModule : Size of the module
- * Return		: A pointer to an allocated HudManager.
+ * Return		           : A pointer to an allocated HudManager.
  */
 HudManager *
 HudManager_new (
@@ -53,11 +53,11 @@ HudManager_new (
 // ----------- Functions ------------
 
 /*
- * Description : Initialize an allocated HudManager structure.
- * HudManager *this : An allocated HudManager to initialize.
- * DWORD baseAddress : Base address of the module
+ * Description        : Initialize an allocated HudManager structure.
+ * HudManager *this   : An allocated HudManager to initialize.
+ * DWORD baseAddress  : Base address of the module
  * DWORD sizeOfModule : Size of the module
- * Return : true on success, false on failure.
+ * Return             : true on success, false on failure.
  */
 bool
 HudManager_init (
@@ -67,10 +67,10 @@ HudManager_init (
 );
 
 /*
- * Description : Retrieve the address of a HUD object from the HudManager
- * HudManager *this : An allocated HudManager
- * HudObject object : the object requested
- * Return : DWORD addresss of the object requested in the target process
+ * Description        : Retrieve the address of a HUD object from the HudManager
+ * HudManager *this   : An allocated HudManager
+ * HudObject object   : the object requested
+ * Return             : DWORD addresss of the object requested in the target process
  */
 DWORD
 HudManager_get_object (
@@ -79,9 +79,9 @@ HudManager_get_object (
 );
 
 /*
- * Description : Unit tests checking if a HudManager is coherent
- * HudManager *this : The instance to test
- * Return : true on success, false on failure
+ * Description        : Unit tests checking if a HudManager is coherent
+ * HudManager *this   : The instance to test
+ * Return             : true on success, false on failure
  */
 bool
 HudManager_test (

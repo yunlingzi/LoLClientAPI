@@ -30,11 +30,11 @@ LoLModule_new (
 
 
 /*
- * Description : Initialize an allocated LoLModule structure.
- * LoLModule *this : An allocated LoLModule to initialize.
- * DWORD baseAddress : Base address of the module
+ * Description        : Initialize an allocated LoLModule structure.
+ * LoLModule *this    : An allocated LoLModule to initialize.
+ * DWORD baseAddress  : Base address of the module
  * DWORD sizeOfModule : Size of the module
- * Return : true on success, false on failure.
+ * Return             : true on success, false on failure.
  */
 bool
 LoLModule_init (
@@ -86,7 +86,7 @@ LoLModule_init (
 
 
 /*
- * Description : Free an allocated LoLModule structure.
+ * Description     : Free an allocated LoLModule structure.
  * LoLModule *this : An allocated LoLModule to free.
  */
 void
@@ -108,9 +108,9 @@ LoLModule_free (
 
 
 /*
- * Description : Unit tests checking if a LoLModule is coherent
+ * Description     : Unit tests checking if a LoLModule is coherent
  * LoLModule *this : The instance to test
- * Return : true on success, false on failure
+ * Return          : true on success, false on failure
  */
 bool
 LoLModule_test (

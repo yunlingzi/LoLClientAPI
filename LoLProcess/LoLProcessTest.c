@@ -6,9 +6,9 @@
 
 
 /*
- * Description : Unit tests checking if a LoLProcess is coherent
+ * Description      : Unit tests checking if a LoLProcess is coherent
  * LoLProcess *this : The instance to test
- * Return : true on success, false on failure
+ * Return           : true on success, false on failure
  */
 bool
 LoLProcess_test (

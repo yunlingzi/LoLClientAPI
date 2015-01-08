@@ -1,4 +1,4 @@
-// --- Author : Moreau Cyril - Spl3en
+// --- Author         : Moreau Cyril - Spl3en
 #pragma once
 
 // ---------- Includes ------------
@@ -24,10 +24,10 @@ typedef Unit HeroClient;
 // --------- Allocators ---------
 
 /*
- * Description 	: Allocate a new HeroClient structure.
- * DWORD baseAddress : Base address of the module
+ * Description 	      : Allocate a new HeroClient structure.
+ * DWORD baseAddress  : Base address of the module
  * DWORD sizeOfModule : Size of the module
- * Return		: A pointer to an allocated HeroClient.
+ * Return		           : A pointer to an allocated HeroClient.
  */
 HeroClient *
 HeroClient_new (
@@ -39,9 +39,9 @@ HeroClient_new (
 // ----------- Functions ------------
 
 /*
- * Description : Initialize an allocated HeroClient structure.
- * HeroClient *this : An allocated HeroClient to initialize.
- * DWORD baseAddress : Base address of the module
+ * Description        : Initialize an allocated HeroClient structure.
+ * HeroClient *this   : An allocated HeroClient to initialize.
+ * DWORD baseAddress  : Base address of the module
  * DWORD sizeOfModule : Size of the module
  */
 bool
@@ -52,9 +52,9 @@ HeroClient_init (
 );
 
 /*
- * Description : Unit tests checking if a HeroClient is coherent
- * HeroClient *this : The instance to test
- * Return : true on success, false on failure
+ * Description        : Unit tests checking if a HeroClient is coherent
+ * HeroClient *this   : The instance to test
+ * Return             : true on success, false on failure
  */
 bool
 HeroClient_test (
@@ -64,8 +64,8 @@ HeroClient_test (
 // --------- Destructors ----------
 
 /*
- * Description : Free an allocated HeroClient structure.
- * HeroClient *this : An allocated HeroClient to free.
+ * Description        : Free an allocated HeroClient structure.
+ * HeroClient *this   : An allocated HeroClient to free.
  */
 void
 HeroClient_free (
