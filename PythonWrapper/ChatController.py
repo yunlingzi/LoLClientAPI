@@ -13,7 +13,7 @@ api.log_chat_message ('<font color="#ffffff">LoLClientAPI : White message</font>
 
 while True:
 	message = api.get_chat_message ();
-	if message not None:
+	if message != None:
 		print "Message received > %s" % message;
 		
 	time.sleep (1);
