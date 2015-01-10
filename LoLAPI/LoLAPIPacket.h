@@ -78,16 +78,18 @@ typedef struct _RectanglePacket
 typedef struct _TextPacket
 {
 	int x, y;
-	int w, h;
 	byte r, g, b;
+	int fontSize;
+	int stringLen;
+	int fontFamilyLen;
 
 }	TextPacket;
 
 typedef struct _SpritePacket
 {
 	int x, y;
-	int w, h;
-	byte r, g, b;
+	float opacity;
+	int filePathLen;
 
 }	SpritePacket;
 

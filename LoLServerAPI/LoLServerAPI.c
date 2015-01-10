@@ -178,6 +178,35 @@ LoLServerAPI_handle_request (
 			);
 		} break;
 
+		case REQUEST_CREATE_TEXT: {
+			// Receive the string the next packet
+			// Receive the font family in the next one
+			char * string = calloc (1, packet.textPacket.stringLen + 1);
+			es_recv_buffer (EASY_SOCKET (client), string, packet.textPacket.stringLen);
+			char * fontFamily = calloc (1, packet.textPacket.fontFamilyLen + 1);
+			es_recv_buffer (EASY_SOCKET (client), fontFamily, packet.textPacket.fontFamilyLen);
+
+			packet.intPacket.value = create_text (
+				string,
+				packet.textPacket.x, packet.textPacket.y,
+				packet.textPacket.r, packet.textPacket.g, packet.textPacket.b,
+				packet.textPacket.fontSize,
+				fontFamily
+			);
+		} break;
+
+		case REQUEST_CREATE_SPRITE: {
+			// Receive the file path in the next packet
+			char * filePath = calloc (1, packet.spritePacket.filePathLen + 1);
+			es_recv_buffer (EASY_SOCKET (client), filePath, packet.spritePacket.filePathLen);
+
+			packet.intPacket.value = create_sprite (
+				filePath,
+				packet.spritePacket.x, packet.spritePacket.y,
+				packet.spritePacket.opacity
+			);
+		} break;
+
 		case REQUEST_DELETE_OBJECT:
 			delete_object (packet.intPacket.value);
 		break;

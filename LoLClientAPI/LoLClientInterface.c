@@ -749,7 +749,6 @@ get_chat_message (
 	return NULL;
 }
 
-
 /*
  * Description : Log a message to the chat (only for you)
  * char * message : A line of chat to send
@@ -794,18 +793,124 @@ create_rectangle (
 
 	LoLAPIPacket packet = {
 		.request = REQUEST_CREATE_RECTANGLE,
-		.rectPacket.x = x,
-		.rectPacket.y = y,
-		.rectPacket.w = w,
-		.rectPacket.h = h,
-		.rectPacket.r = r,
-		.rectPacket.g = g,
-		.rectPacket.b = b
+		.rectPacket = {
+			.x = x,
+			.y = y,
+			.w = w,
+			.h = h,
+			.r = r,
+			.g = g,
+			.b = b
+		}
 	};
 
 	if (LoLClientAPI_send (api, &packet, sizeof(packet))
 	 && LoLClientAPI_recv (api, &packet, sizeof(packet))) {
+		if (packet.intPacket.value == -1) {
+			dbg ("Cannot create rectangle <x=%d | y=%d | w=%d | h=%d | r=%d | g=%d | b=%d",
+				x, y, w, h, r, g ,b
+			);
+		}
+
 		return packet.intPacket.value;
+	}
+
+	return -1;
+}
+
+/*
+ * Description            : Create a new text displayed on the screen
+ * char * string          : String of the text
+ * int x, y               : {x, y} position of the text
+ * byte r, byte g, byte b : color of the text
+ * int fontSize           : the size of the font
+ * char * fontFamily      : The name of the family font. If NULL, "Arial" is used.
+ * Return                 : A unique ID handle of your text object
+ */
+EXPORT_FUNCTION int
+create_text (
+	char * string,
+	int x, int y,
+	byte r, byte g, byte b,
+	int fontSize,
+	char * fontFamily
+) {
+	wait_api ();
+
+	// Optional parameters
+	if (!fontFamily) {
+		fontFamily = "Arial";
+	}
+
+	int stringLen = strlen (string);
+	int fontFamilyLen = strlen (fontFamily);
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_CREATE_TEXT,
+		.textPacket = {
+			.x = x,
+			.y = y,
+			.r = r,
+			.g = g,
+			.b = b,
+			.fontSize = fontSize,
+			.stringLen = stringLen,
+			.fontFamilyLen = fontFamilyLen
+		}
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		es_send (api->clientSocket, string, stringLen);
+		es_send (api->clientSocket, fontFamily, fontFamilyLen);
+		if (LoLClientAPI_recv (api, &packet, sizeof(packet))) {
+			if (packet.intPacket.value == -1) {
+				dbg ("Cannot create text <string=<%s>, x=%d | y=%d | r=%d | g=%d | b=%d | fontSize=%d | fontFamily=<%s>",
+					string, x, y, r, g ,b, fontSize, fontFamily
+				);
+			}
+			return packet.intPacket.value;
+		}
+	}
+
+	return -1;
+}
+
+/*
+ * Description     : Create a new sprite displayed on the screen
+ * char * filePath : Absolute or relative path of the image
+ * int x, y        : {x, y} position of the text
+ # float opacity   : opacity of the image, value between 0.0 and 1.0
+ * Return          : A unique ID handle of your sprite object
+ */
+EXPORT_FUNCTION int
+create_sprite (
+	char *filePath,
+	int x, int y,
+	float opacity
+) {
+	wait_api ();
+	int filePathLen = strlen (filePath);
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_CREATE_SPRITE,
+		.spritePacket = {
+			.x = x,
+			.y = y,
+			.opacity = opacity,
+			.filePathLen = filePathLen
+		}
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		es_send (api->clientSocket, filePath, filePathLen);
+		if (LoLClientAPI_recv (api, &packet, sizeof(packet))) {
+			if (packet.intPacket.value == -1) {
+				dbg ("Cannot create sprite <filePath=<%s>, x=%d | y=%d",
+					filePath, x, y
+				);
+			}
+			return packet.intPacket.value;
+		}
 	}
 
 	return -1;

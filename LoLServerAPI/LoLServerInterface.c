@@ -650,24 +650,27 @@ create_rectangle (
 	wait_directx ();
 
 	D3D9Object * object = D3D9ObjectFactory_createD3D9Object (D3D9_OBJECT_RECTANGLE);
-	D3D9ObjectRect_init (object, x, y, w, h, r, g, b);
+	if (!D3D9ObjectRect_init (object, x, y, w, h, r, g, b)) {
+		return -1;
+	}
+
 	return object->id;
 }
 
 /*
  * Description            : Create a new text displayed on the screen
+ * char * string          : String of the text
  * int x, y               : {x, y} position of the text
  * byte r, byte g, byte b : color of the text
- * char * string          : String of the text
  * int fontSize           : the size of the font
  * char * fontFamily      : The name of the family font. If NULL, "Arial" is used.
  * Return                 : A unique ID handle of your text object
  */
 EXPORT_FUNCTION int
 create_text (
+	char * string,
 	int x, int y,
 	byte r, byte g, byte b,
-	char * string,
 	int fontSize,
 	char * fontFamily
 ) {
@@ -677,30 +680,36 @@ create_text (
 	D3D9Object * object = D3D9ObjectFactory_createD3D9Object (D3D9_OBJECT_TEXT);
 	IDirect3DDevice9 * pDevice = lolClient->dx->pDevice;
 
-	D3D9ObjectText_init (object, pDevice, x, y, r, g, b, string, fontSize, fontFamily);
+	if (!D3D9ObjectText_init (object, pDevice, x, y, r, g, b, string, fontSize, fontFamily)) {
+		return -1;
+	}
+
 	return object->id;
 }
 
 /*
- * Description : Create a new sprite displayed on the screen
- * char * filePath             : Absolute or relative path of the image
- * int x, y                    : {x, y} position of the text
- * int w, h                    : width and height
- * Return      : A unique ID handle of your sprite object
+ * Description     : Create a new sprite displayed on the screen
+ * char * filePath : Absolute or relative path of the image (.bmp, .dds, .dib, .hdr, .jpg, .pfm, .png, .ppm, and .tga)
+ * int x, y        : {x, y} position of the image
+ # float opacity   : opacity of the image, value between 0.0 and 1.0
+ * Return          : A unique ID handle of your sprite object
  */
 EXPORT_FUNCTION int
 create_sprite (
 	char *filePath,
 	int x, int y,
-	int w, int h
+	float opacity
 ) {
 	wait_api ();
 	wait_directx ();
 
-	D3D9Object * object = D3D9ObjectFactory_createD3D9Object (D3D9_OBJECT_RECTANGLE);
+	D3D9Object * object = D3D9ObjectFactory_createD3D9Object (D3D9_OBJECT_SPRITE);
 	IDirect3DDevice9 * pDevice = lolClient->dx->pDevice;
 
-	D3D9ObjectSprite_init (object, pDevice, filePath, x, y, w, h);
+	if (!D3D9ObjectSprite_init (object, pDevice, filePath, x, y, opacity)) {
+		return -1;
+	}
+
 	return object->id;
 }
 

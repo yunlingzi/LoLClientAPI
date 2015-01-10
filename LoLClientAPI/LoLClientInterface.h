@@ -370,34 +370,34 @@ create_rectangle (
 
 /*
  * Description            : Create a new text displayed on the screen
+ * char * string          : String of the text
  * int x, y               : {x, y} position of the text
  * byte r, byte g, byte b : color of the text
- * char * string          : String of the text
  * int fontSize           : the size of the font
  * char * fontFamily      : The name of the family font. If NULL, "Arial" is used.
  * Return                 : A unique ID handle of your text object
  */
 int
 create_text (
+	char * string,
 	int x, int y,
 	byte r, byte g, byte b,
-	char * string,
 	int fontSize,
 	char * fontFamily
 );
 
 /*
- * Description : Create a new sprite displayed on the screen
- * char * filePath             : Absolute or relative path of the image
- * int x, y                    : {x, y} position of the text
- * int w, h                    : width and height
- * Return      : A unique ID handle of your sprite object
+ * Description     : Create a new sprite displayed on the screen
+ * char * filePath : Absolute or relative path of the image
+ * int x, y        : {x, y} position of the text
+ # float opacity   : opacity of the image, value between 0.0 and 1.0
+ * Return          : A unique ID handle of your sprite object
  */
-int
+EXPORT_FUNCTION int
 create_sprite (
 	char *filePath,
 	int x, int y,
-	int w, int h
+	float opacity
 );
 
 
