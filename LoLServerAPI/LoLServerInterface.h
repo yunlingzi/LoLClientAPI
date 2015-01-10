@@ -366,6 +366,118 @@ log_chat_message (
 	int messageLength
 );
 
+
+/** =======================================================================================
+ ** ==================================== Drawing APIs =====================================
+ ** ======================================================================================= **/
+
+
+/*
+ * Description : Create a new rectangle displayed on the screen
+ * int x, y                    : {x, y} position of the text
+ * int w, h                    : width and height
+ * byte r, byte g, byte b      : color of the rectangle
+ * Return      : A unique ID handle of your rectangle object
+ */
+int
+create_rectangle (
+	int x, int y,
+	int w, int h,
+	byte r, byte g, byte b
+);
+
+/*
+ * Description            : Create a new text displayed on the screen
+ * int x, y               : {x, y} position of the text
+ * byte r, byte g, byte b : color of the text
+ * char * string          : String of the text
+ * int fontSize           : the size of the font
+ * char * fontFamily      : The name of the family font. If NULL, "Arial" is used.
+ * Return                 : A unique ID handle of your text object
+ */
+int
+create_text (
+	int x, int y,
+	byte r, byte g, byte b,
+	char * string,
+	int fontSize,
+	char * fontFamily
+);
+
+/*
+ * Description : Create a new sprite displayed on the screen
+ * char * filePath             : Absolute or relative path of the image
+ * int x, y                    : {x, y} position of the text
+ * int w, h                    : width and height
+ * Return      : A unique ID handle of your sprite object
+ */
+int
+create_sprite (
+	char *filePath,
+	int x, int y,
+	int w, int h
+);
+
+
+/*
+ * Description : Show a hidden object. If it wasn't hidden, nothing happens.
+ * int id      : The unique handle of the object to delete
+ * Return      : void
+ */
+void
+show_object (
+	int id
+);
+
+/*
+ * Description : Show all hidden objects. Don't do anything with those already shown.
+ * Return      : void
+ */
+void
+show_all_objects (
+	void
+);
+
+/*
+ * Description : Hide a visible object.
+				It isn't deleted, so you can use show_object if you want to make it appear again.
+ * int id      : The unique handle of the object to delete
+ * Return      : void
+ */
+void
+hide_object (
+	int id
+);
+
+
+/*
+ * Description : Show all hidden objects. Don't do anything with those already shown.
+ * Return      : void
+ */
+void
+hide_all_objects (
+	void
+);
+
+/*
+ * Description : Delete all the previously created objects on the screen
+ * Return      : void
+ */
+void
+delete_all_objects (
+	void
+);
+
+/*
+ * Description : Delete a specific object on the screen
+ * int id      : The unique handle of the object to delete
+ * Return      : void
+ */
+void
+delete_object (
+	int id
+);
+
 /** =======================================================================================
  ** ================================== LoLServerAPI APIs ==================================
  ** ======================================================================================= **/
@@ -380,10 +492,27 @@ check_api (
 );
 
 /*
+ * Description : Check if the API has retrieved the directx handle
+ * Return      : true on success, false otherwise
+ */
+bool
+check_directx (
+	void
+);
+
+/*
  * Description : Wait for the API to be in a ready state (blocking)
  */
 void
 wait_api (
+	void
+);
+
+/*
+ * Description : Wait for the DirectX handle to be in a ready state (blocking)
+ */
+void
+wait_directx (
 	void
 );
 

@@ -129,8 +129,8 @@ LoLClientAPI_init (
 	int answerSize;
 	unsigned char * answer = es_recv (this->clientSocket, &answerSize);
 
-	if (answerSize <= 0 || strcmp (answer, LOLAPI_STATUS_READY) != 0) {
-		warn ("Malformed LoLAPIServer status response.");
+	if (answerSize <= 0 || strncmp (answer, LOLAPI_STATUS_READY, answerSize) != 0) {
+		warn ("Malformed LoLAPIServer status response. (answerSize = %d, answer = <%s>)", answerSize, answer);
 		return false;
 	}
 

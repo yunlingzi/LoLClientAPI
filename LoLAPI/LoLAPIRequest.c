@@ -57,6 +57,17 @@ static EnumerationStringAssociation association [REQUEST_API_COUNT] = {
 	associate (REQUEST_GET_CHAT_MESSAGE),
 	associate (REQUEST_LOG_CHAT_MESSAGE),
 
+	// Drawing APIs
+	associate (REQUEST_CREATE_RECTANGLE),
+	associate (REQUEST_CREATE_TEXT),
+	associate (REQUEST_CREATE_SPRITE),
+	associate (REQUEST_DELETE_OBJECT),
+	associate (REQUEST_DELETE_ALL_OBJECTS),
+	associate (REQUEST_SHOW_OBJECT),
+	associate (REQUEST_SHOW_ALL_OBJECTS),
+	associate (REQUEST_HIDE_OBJECT),
+	associate (REQUEST_HIDE_ALL_OBJECTS),
+
 	// Internal APIs
 	associate (REQUEST_EJECT_API),
 

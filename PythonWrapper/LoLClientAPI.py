@@ -439,6 +439,25 @@ class LoLClientAPI:
 		return self.hAPI.log_chat_message (c_char_p (message));
 
 	
+	# =================================================================================
+	# ================================= Drawing APIs ==================================
+	# =================================================================================
+
+	# Create a new colored rectangle displayed on the screen
+	# Return : A unique handle of your rectangle object, or -1 if an error occurred
+	def create_rectangle (self, x, y, w, h, r, g, b):
+
+		# C API declaration :
+		# int create_rectangle (
+		# 	int x, int y,
+		# 	int w, int h,
+		# 	byte r, byte g, byte b
+		# )
+		return self.hAPI.create_rectangle (
+			c_int (x), c_int (y), 
+			c_int (w), c_int (h), 
+			c_uchar (r), c_uchar (g), c_uchar (b)
+		);
 		
 	# =================================================================================
 	# ================================= Internal APIs =================================

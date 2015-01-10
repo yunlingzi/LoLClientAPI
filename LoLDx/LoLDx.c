@@ -3,6 +3,7 @@
 #include "Win32Tools/Win32Tools.h"
 #include "Scanner/Scanner.h"
 #include "LoLServerAPI/LoLServerInterface.h"
+#include "D3D9Hook/D3D9Object.h"
 
 // ---------- Debugging -------------
 #define __DEBUG_OBJECT__ "LoLDx"
@@ -107,12 +108,36 @@ HRESULT WINAPI
 LoLDx_EndScene (
 	IDirect3DDevice9 * pDevice
 ) {
+	lolDx->pDevice = pDevice;
+
 	if (!lolDx->originalEndScene) {
 		lolDx->originalEndScene = (void *) HookEngine_get_original_function ((ULONG_PTR) LoLDx_EndScene);
 		if (!lolDx->originalEndScene) {
 			fail ("EndScene is not correctly hooked.");
 			return D3D_OK;
 		}
+	}
+
+	// Draw D3D9Objects
+	BbQueue * d3d9Objects = D3D9ObjectFactory_get_objects ();
+	foreach_bbqueue_item (d3d9Objects, D3D9Object *object)
+	{
+		WaitForSingleObject (object->mutex, INFINITE);
+		switch (object->type)
+		{
+			case D3D9_OBJECT_RECTANGLE:
+				D3D9ObjectRect_draw (&object->rect, pDevice);
+			break;
+
+			case D3D9_OBJECT_TEXT:
+				D3D9ObjectText_draw (&object->text, pDevice);
+			break;
+
+			case D3D9_OBJECT_SPRITE:
+				D3D9ObjectSprite_draw (&object->sprite);
+			break;
+		}
+		ReleaseMutex (object->mutex);
 	}
 
 	return lolDx->originalEndScene (pDevice);

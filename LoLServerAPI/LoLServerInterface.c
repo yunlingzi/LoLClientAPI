@@ -1,6 +1,7 @@
 #include "LoLServerAPI/LoLServerInterface.h"
 #include "LoLProcess/LoLProcess.h"
 #include "Keyboard/Keyboard.h"
+#include "D3D9Hook/D3D9Object.h"
 #include <stdint.h>
 
 #define __DEBUG_OBJECT__ "LoLServerInterface"
@@ -584,7 +585,7 @@ get_game_time (
  * Description : Get the next line of the chat received since the last time called.
  * Return      : char * : A line of chat, or NULL if no message has been posted since the last time called.
  */
-char *
+EXPORT_FUNCTION char *
 get_chat_message (
 	void
 ) {
@@ -606,7 +607,7 @@ get_chat_message (
  * char * message    : A message to add in the chat
  * int messageLength : The length of the message
  */
-void
+EXPORT_FUNCTION void
 log_chat_message (
 	char * message,
 	int messageLength
@@ -629,6 +630,173 @@ log_chat_message (
 }
 
 /** =======================================================================================
+ ** ==================================== Drawing APIs =====================================
+ ** ======================================================================================= **/
+
+/*
+ * Description : Create a new rectangle displayed on the screen
+ * int x, y                    : {x, y} position of the text
+ * int w, h                    : width and height
+ * byte r, byte g, byte b      : color of the rectangle
+ * Return      : A unique ID handle of your rectangle object
+ */
+EXPORT_FUNCTION int
+create_rectangle (
+	int x, int y,
+	int w, int h,
+	byte r, byte g, byte b
+) {
+	wait_api ();
+	wait_directx ();
+
+	D3D9Object * object = D3D9ObjectFactory_createD3D9Object (D3D9_OBJECT_RECTANGLE);
+	D3D9ObjectRect_init (object, x, y, w, h, r, g, b);
+	return object->id;
+}
+
+/*
+ * Description            : Create a new text displayed on the screen
+ * int x, y               : {x, y} position of the text
+ * byte r, byte g, byte b : color of the text
+ * char * string          : String of the text
+ * int fontSize           : the size of the font
+ * char * fontFamily      : The name of the family font. If NULL, "Arial" is used.
+ * Return                 : A unique ID handle of your text object
+ */
+EXPORT_FUNCTION int
+create_text (
+	int x, int y,
+	byte r, byte g, byte b,
+	char * string,
+	int fontSize,
+	char * fontFamily
+) {
+	wait_api ();
+	wait_directx ();
+
+	D3D9Object * object = D3D9ObjectFactory_createD3D9Object (D3D9_OBJECT_TEXT);
+	IDirect3DDevice9 * pDevice = lolClient->dx->pDevice;
+
+	D3D9ObjectText_init (object, pDevice, x, y, r, g, b, string, fontSize, fontFamily);
+	return object->id;
+}
+
+/*
+ * Description : Create a new sprite displayed on the screen
+ * char * filePath             : Absolute or relative path of the image
+ * int x, y                    : {x, y} position of the text
+ * int w, h                    : width and height
+ * Return      : A unique ID handle of your sprite object
+ */
+EXPORT_FUNCTION int
+create_sprite (
+	char *filePath,
+	int x, int y,
+	int w, int h
+) {
+	wait_api ();
+	wait_directx ();
+
+	D3D9Object * object = D3D9ObjectFactory_createD3D9Object (D3D9_OBJECT_RECTANGLE);
+	IDirect3DDevice9 * pDevice = lolClient->dx->pDevice;
+
+	D3D9ObjectSprite_init (object, pDevice, filePath, x, y, w, h);
+	return object->id;
+}
+
+/*
+ * Description : Show a hidden object. If it wasn't hidden, nothing happens.
+ * int id      : The unique handle of the object to delete
+ * Return      : void
+ */
+EXPORT_FUNCTION void
+show_object (
+	int id
+) {
+	wait_api ();
+	wait_directx ();
+
+	D3D9ObjectFactory_show (id);
+}
+
+
+/*
+ * Description : Show all hidden objects. Don't do anything with those already shown.
+ * Return      : void
+ */
+EXPORT_FUNCTION void
+show_all_objects (
+	void
+) {
+	wait_api ();
+	wait_directx ();
+
+	D3D9ObjectFactory_show_all ();
+}
+
+
+/*
+ * Description : Hide a visible object.
+				It isn't deleted, so you can use show_object if you want to make it appear again.
+ * int id      : The unique handle of the object to delete
+ * Return      : void
+ */
+EXPORT_FUNCTION void
+hide_object (
+	int id
+) {
+	wait_api ();
+	wait_directx ();
+
+	D3D9ObjectFactory_hide (id);
+}
+
+
+/*
+ * Description : Show all hidden objects. Don't do anything with those already shown.
+ * Return      : void
+ */
+EXPORT_FUNCTION void
+hide_all_objects (
+	void
+) {
+	wait_api ();
+	wait_directx ();
+
+	D3D9ObjectFactory_hide_all ();
+}
+
+/*
+ * Description : Delete a specific object on the screen
+ * int id      : The unique handle of the object to delete
+ * Return      : void
+ */
+EXPORT_FUNCTION void
+delete_object (
+	int id
+) {
+	wait_api ();
+	wait_directx ();
+
+	D3D9ObjectFactory_delete (id);
+}
+
+/*
+ * Description : Delete all the previously created objects on the screen
+ * Return      : void
+ */
+EXPORT_FUNCTION void
+delete_all_objects (
+	void
+) {
+	wait_api ();
+	wait_directx ();
+
+	D3D9ObjectFactory_delete_all ();
+}
+
+
+/** =======================================================================================
  ** ==================================== Internal APIs ====================================
  ** ======================================================================================= **/
 
@@ -646,6 +814,17 @@ check_api (
 	&&  (lolClient->state == STATE_READY || lolClient->state == STATE_TESTING));
 }
 
+/*
+ * Description : Check if the API has retrieved the directx handle
+ * Return      : true on success, false otherwise
+ */
+EXPORT_FUNCTION bool
+check_directx (
+	void
+) {
+	return (lolClient->dx->pDevice != NULL);
+}
+
 
 /*
  * Description : Wait for the API to be in a ready state (blocking)
@@ -655,7 +834,20 @@ wait_api (
 	void
 ) {
 	while (!check_api ()) {
-		dbg ("lolClient is injecting LoLProcess. Please wait...");
+		dbg ("LoLClient is injecting LoLProcess. Please wait...");
+		Sleep (100);
+	}
+}
+
+/*
+ * Description : Wait for the DirectX handle to be in a ready state (blocking)
+ */
+EXPORT_FUNCTION void
+wait_directx (
+	void
+) {
+	while (!check_directx ()) {
+		dbg ("LoLClient is waiting for DirectX. Please wait...");
 		Sleep (100);
 	}
 }

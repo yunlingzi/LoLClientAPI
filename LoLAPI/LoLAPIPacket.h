@@ -10,6 +10,7 @@
 
 
 // ------ Structure declaration -------
+#pragma pack(push, 1)
 typedef struct _GamePositionPacket{
 	Position pos;
 
@@ -66,6 +67,32 @@ typedef struct _BooleanPacket{
 
 }	BooleanPacket;
 
+typedef struct _RectanglePacket
+{
+	int x, y;
+	int w, h;
+	byte r, g, b;
+
+}	RectanglePacket;
+
+typedef struct _TextPacket
+{
+	int x, y;
+	int w, h;
+	byte r, g, b;
+
+}	TextPacket;
+
+typedef struct _SpritePacket
+{
+	int x, y;
+	int w, h;
+	byte r, g, b;
+
+}	SpritePacket;
+
+
+#pragma pack(pop)
 
 typedef struct _LoLAPIPacket
 {
@@ -83,6 +110,9 @@ typedef struct _LoLAPIPacket
 		ObjectPacket objectPacket;
 		HpPacket hpPacket;
 		BooleanPacket booleanPacket;
+		RectanglePacket rectPacket;
+		TextPacket textPacket;
+		SpritePacket spritePacket;
 	};
 
 }	LoLAPIPacket;

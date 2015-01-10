@@ -8,6 +8,7 @@
 #include "LoLAPI/LoLAPI.h"
 #include "LoLAPI/LoLAPIPacket.h"
 #include "LoLAPI/LoLAPIRequest.h"
+#include "D3D9Hook/D3D9Object.h"
 
 int _WSASendTo (
      SOCKET s,

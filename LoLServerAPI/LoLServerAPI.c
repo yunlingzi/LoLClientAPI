@@ -169,6 +169,40 @@ LoLServerAPI_handle_request (
 		} break;
 
 
+		// Drawing APIs
+		case REQUEST_CREATE_RECTANGLE: {
+			packet.intPacket.value = create_rectangle (
+				packet.rectPacket.x, packet.rectPacket.y,
+				packet.rectPacket.w, packet.rectPacket.h,
+				packet.rectPacket.r, packet.rectPacket.g, packet.rectPacket.b
+			);
+		} break;
+
+		case REQUEST_DELETE_OBJECT:
+			delete_object (packet.intPacket.value);
+		break;
+
+		case REQUEST_DELETE_ALL_OBJECTS:
+			delete_all_objects ();
+		break;
+
+		case REQUEST_SHOW_OBJECT:
+			show_object (packet.intPacket.value);
+		break;
+
+		case REQUEST_SHOW_ALL_OBJECTS:
+			show_all_objects ();
+		break;
+
+		case REQUEST_HIDE_OBJECT:
+			hide_object (packet.intPacket.value);
+		break;
+
+		case REQUEST_HIDE_ALL_OBJECTS:
+			hide_all_objects ();
+		break;
+
+
 		// Game APIs
 		case REQUEST_GET_GAME_TIME:
 			packet.floatPacket.value = get_game_time ();

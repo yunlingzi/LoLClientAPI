@@ -773,6 +773,162 @@ log_chat_message (
 	LoLClientAPI_recv (api, &packet, sizeof(packet));
 }
 
+/** =======================================================================================
+ ** ==================================== Drawing APIs =====================================
+ ** ======================================================================================= **/
+
+/*
+ * Description            : Create a new colored rectangle displayed on the screen
+ * int x, y               : {x, y} position of the text
+ * int w, h               : width and height
+ * byte r, byte g, byte b : color of the rectangle
+ * Return                 : A unique handle of your rectangle object, or -1 if an error occurred
+ */
+EXPORT_FUNCTION int
+create_rectangle (
+	int x, int y,
+	int w, int h,
+	byte r, byte g, byte b
+) {
+	wait_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_CREATE_RECTANGLE,
+		.rectPacket.x = x,
+		.rectPacket.y = y,
+		.rectPacket.w = w,
+		.rectPacket.h = h,
+		.rectPacket.r = r,
+		.rectPacket.g = g,
+		.rectPacket.b = b
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))
+	 && LoLClientAPI_recv (api, &packet, sizeof(packet))) {
+		return packet.intPacket.value;
+	}
+
+	return -1;
+}
+
+/*
+ * Description : Show a hidden object. If it wasn't hidden, nothing happens.
+ * int id      : The unique handle of the object to delete
+ * Return      : void
+ */
+EXPORT_FUNCTION void
+show_object (
+	int id
+) {
+	wait_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_SHOW_OBJECT,
+		.intPacket.value = id
+	};
+
+	LoLClientAPI_send (api, &packet, sizeof(packet));
+	LoLClientAPI_recv (api, &packet, sizeof(packet));
+}
+
+
+/*
+ * Description : Show all hidden objects. Don't do anything with those already shown.
+ * Return      : void
+ */
+EXPORT_FUNCTION void
+show_all_objects (
+	void
+) {
+	wait_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_SHOW_ALL_OBJECTS
+	};
+
+	LoLClientAPI_send (api, &packet, sizeof(packet));
+	LoLClientAPI_recv (api, &packet, sizeof(packet));
+}
+
+
+/*
+ * Description : Hide a visible object.
+				 It isn't deleted, so you can use show_object if you want to make it appear again.
+ * int id      : The unique handle of the object to delete
+ * Return      : void
+ */
+EXPORT_FUNCTION void
+hide_object (
+	int id
+) {
+	wait_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_HIDE_OBJECT,
+		.intPacket.value = id
+	};
+
+	LoLClientAPI_send (api, &packet, sizeof(packet));
+	LoLClientAPI_recv (api, &packet, sizeof(packet));
+}
+
+
+/*
+ * Description : Hide all hidden objects. Don't do anything with those already hidden.
+ * Return      : void
+ */
+EXPORT_FUNCTION void
+hide_all_objects (
+	void
+) {
+	wait_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_HIDE_ALL_OBJECTS
+	};
+
+	LoLClientAPI_send (api, &packet, sizeof(packet));
+	LoLClientAPI_recv (api, &packet, sizeof(packet));
+}
+
+/*
+ * Description : Delete all the previously created objects on the screen
+ * Return      : void
+ */
+EXPORT_FUNCTION void
+delete_object (
+	int id
+) {
+	wait_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_DELETE_OBJECT,
+		.intPacket.value = id
+	};
+
+	LoLClientAPI_send (api, &packet, sizeof(packet));
+	LoLClientAPI_recv (api, &packet, sizeof(packet));
+}
+
+/*
+ * Description : Delete all the previously created objects on the screen
+ * Return      : void
+ */
+EXPORT_FUNCTION void
+delete_all_objects (
+	void
+) {
+	wait_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_DELETE_ALL_OBJECTS
+	};
+
+	LoLClientAPI_send (api, &packet, sizeof(packet));
+	LoLClientAPI_recv (api, &packet, sizeof(packet));
+}
+
+
 /** =================================================================================
  ** ================================== Internal APIs ================================
  ** ================================================================================= **/
