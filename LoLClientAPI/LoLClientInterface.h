@@ -373,15 +373,17 @@ create_rectangle (
  * char * string          : String of the text
  * int x, y               : {x, y} position of the text
  * byte r, byte g, byte b : color of the text
+ * float opacity          : The opacity of the text.
  * int fontSize           : the size of the font
  * char * fontFamily      : The name of the family font. If NULL, "Arial" is used.
  * Return                 : A unique ID handle of your text object
  */
-int
+EXPORT_FUNCTION int
 create_text (
 	char * string,
 	int x, int y,
 	byte r, byte g, byte b,
+	float opacity,
 	int fontSize,
 	char * fontFamily
 );
@@ -393,17 +395,45 @@ create_text (
  # float opacity   : opacity of the image, value between 0.0 and 1.0
  * Return          : A unique ID handle of your sprite object
  */
-EXPORT_FUNCTION int
+int
 create_sprite (
 	char *filePath,
 	int x, int y,
 	float opacity
 );
 
+/*
+ * Description  : Change the position of the object on the screen.
+ * int id       : The unique handle of the object to move
+ # int x, int y : The new position on the screen of the object
+ * Return       : void
+ */
+void
+move_object (
+	int id,
+	int x, int y
+);
 
 /*
- * Description : Show a hidden object. If it wasn't hidden, nothing happens.
- * int id      : The unique handle of the object to delete
+ * Description            : Show a hidden object. If it wasn't hidden, put it to the foreground of the screen.
+ * int id                 : The unique handle of the text object to modify
+ * char * string          : The new string of the text
+ * byte r, byte g, byte b : The new color of the next
+ * float opacity          : The new opacity of the text
+ * Return                 : void
+ */
+void
+text_object_set (
+	int id,
+	char * string,
+	byte r, byte g, byte b,
+	float opacity
+);
+
+
+/*
+ * Description : Show a hidden object. If it wasn't hidden, put it to the foreground of the screen.
+ * int id      : The unique handle of the object to show
  * Return      : void
  */
 void
@@ -412,14 +442,32 @@ show_object (
 );
 
 /*
+ * Description : Show all hidden objects. Don't do anything with those already shown.
+ * Return      : void
+ */
+void
+show_all_objects (
+	void
+);
+
+/*
  * Description : Hide a visible object.
-				It isn't deleted, so you can use show_object if you want to make it appear again.
- * int id      : The unique handle of the object to delete
+				 It isn't deleted, so you can use show_object if you want to make it appear again.
+ * int id      : The unique handle of the object to hide
  * Return      : void
  */
 void
 hide_object (
 	int id
+);
+
+/*
+ * Description : Hide all hidden objects. Don't do anything with those already hidden.
+ * Return      : void
+ */
+void
+hide_all_objects (
+	void
 );
 
 /*

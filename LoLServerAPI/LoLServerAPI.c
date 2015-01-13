@@ -121,19 +121,19 @@ LoLServerAPI_handle_request (
 		break;
 
 		case REQUEST_CHECK_TEAMMATE_ID:
-			packet.booleanPacket.value = check_teammate_id (packet.teammateId);
+			packet.booleanPacket.value = check_teammate_id (packet.id);
 		break;
 
 		case REQUEST_GET_TEAMMATE_POSITION:
-			get_teammate_position (packet.teammateId, &packet.gamePositionPacket.pos.x, &packet.gamePositionPacket.pos.y);
+			get_teammate_position (packet.id, &packet.gamePositionPacket.pos.x, &packet.gamePositionPacket.pos.y);
 		break;
 
 		case REQUEST_GET_TEAMMATE_HP:
-			get_teammate_hp (packet.teammateId, &packet.hpPacket.curHP, &packet.hpPacket.maxHP);
+			get_teammate_hp (packet.id, &packet.hpPacket.curHP, &packet.hpPacket.maxHP);
 		break;
 
 		case REQUEST_GET_TEAMMATE_SUMMONER_NAME:
-			get_teammate_summoner_name (packet.teammateId, packet.bufferPacket.buffer);
+			get_teammate_summoner_name (packet.id, packet.bufferPacket.buffer);
 		break;
 
 
@@ -190,9 +190,13 @@ LoLServerAPI_handle_request (
 				string,
 				packet.textPacket.x, packet.textPacket.y,
 				packet.textPacket.r, packet.textPacket.g, packet.textPacket.b,
+				packet.textPacket.opacity,
 				packet.textPacket.fontSize,
 				fontFamily
 			);
+
+			free (string);
+			free (fontFamily);
 		} break;
 
 		case REQUEST_CREATE_SPRITE: {
@@ -205,6 +209,21 @@ LoLServerAPI_handle_request (
 				packet.spritePacket.x, packet.spritePacket.y,
 				packet.spritePacket.opacity
 			);
+
+			free (filePath);
+		} break;
+
+		case REQUEST_MOVE_OBJECT:
+			move_object (packet.id, packet.screenPositionPacket.x, packet.screenPositionPacket.y);
+		break;
+
+		case REQUEST_TEXT_OBJECT_SET: {
+			// Receive the string the next packet
+			char * string = calloc (1, packet.textPacket.stringLen + 1);
+			es_recv_buffer (EASY_SOCKET (client), string, packet.textPacket.stringLen);
+			dbg ("packet.textPacket.opacity = %f", packet.textPacket.opacity);
+			text_object_set (packet.id, string, packet.textPacket.r, packet.textPacket.g, packet.textPacket.b, packet.textPacket.opacity);
+			free (string);
 		} break;
 
 		case REQUEST_DELETE_OBJECT:
@@ -334,7 +353,7 @@ LoLServerAPI_init (
 ) {
 	es_init ();
 
-	if ((this->serverSocket = es_server_new (LOLAPI_PORT, 1000)) == NULL) {
+	if ((this->serverSocket = es_server_new (LOLAPI_PORT, 1337)) == NULL) {
         warn ("Cannot create API server.");
         return false;
 	}

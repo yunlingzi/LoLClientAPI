@@ -137,7 +137,7 @@ LoLProcess_scan_modules (
 			// Load DirectX hooks
 			dbg ("d3d9 module found : 0x%08X (size = 0x%08X)", baseAddress, sizeOfModule);
 			if ((this->dx = LoLDx_new (baseAddress, sizeOfModule)) == NULL) {
-				dbg ("Error when hooking d3d9 module.");
+				fail ("Error when hooking d3d9 module.");
 				return false;
 			}
 		}
@@ -146,7 +146,7 @@ LoLProcess_scan_modules (
 		else if (_wcsicmp (moduleEntry->BaseName.Buffer, L"League of Legends.exe") == 0) {
 			dbg ("LoL module found : 0x%08X (size = 0x%08X)", baseAddress, sizeOfModule);
 			if ((this->lol = LoLModule_new (baseAddress, sizeOfModule)) == NULL) {
-				warn ("LoL base image module not found");
+				fail ("LoL base image module not initialized correctly.");
 				return false;
 			}
 		}
@@ -188,7 +188,7 @@ LoLProcess_init (
 
 	// Get time and start logging
 	struct tm now = *localtime ((time_t[]) {time(NULL)});
-	dbg ("====== Injection started at %d-%d-%d %02d:%02d:%02d ======",
+	dbg ("====== Injection started at %4d-%02d-%02d %02d:%02d:%02d ======",
 		now.tm_year + 1900, now.tm_mon + 1, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec);
 
 	// Detect window
@@ -216,8 +216,9 @@ LoLProcess_init (
  * Return           : void
  */
 void
-LoLProcess_exportToCE (void)
-{
+LoLProcess_exportToCE (
+	LoLProcess *this
+) {
 	#ifdef EXPORT_TO_CHEATENGINE
 	LoLProcess *this = get_LoLProcess ();
 

@@ -10,18 +10,6 @@
 #include "LoLAPI/LoLAPIRequest.h"
 #include "D3D9Hook/D3D9Object.h"
 
-int _WSASendTo (
-     SOCKET s,
-     LPWSABUF lpBuffers,
-     DWORD dwBufferCount,
-    LPDWORD lpNumberOfBytesSent,
-     DWORD dwFlags,
-     const struct sockaddr *lpTo,
-     int iToLen,
-     LPWSAOVERLAPPED lpOverlapped,
-     LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine
-);
-
 // ---------- Defines -------------
 
 // ------ Structure declaration -------

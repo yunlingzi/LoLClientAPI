@@ -67,6 +67,8 @@ static EnumerationStringAssociation association [REQUEST_API_COUNT] = {
 	associate (REQUEST_SHOW_ALL_OBJECTS),
 	associate (REQUEST_HIDE_OBJECT),
 	associate (REQUEST_HIDE_ALL_OBJECTS),
+	associate (REQUEST_MOVE_OBJECT),
+	associate (REQUEST_TEXT_OBJECT_SET),
 
 	// Internal APIs
 	associate (REQUEST_EJECT_API),

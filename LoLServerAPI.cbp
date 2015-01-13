@@ -13,7 +13,6 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add option="-DDEBUG_ACTIVATED" />
 				</Compiler>
 			</Target>
 			<Target title="Executable">
@@ -24,7 +23,6 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-DAPI_EXECUTABLE" />
-					<Add option="-DDEBUG_ACTIVATED" />
 					<Add option="-DEXPORT_TO_CHEATENGINE" />
 				</Compiler>
 			</Target>
@@ -35,7 +33,6 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add option="-DDEBUG_ACTIVATED" />
 					<Add option="-DEXPORT_TO_CHEATENGINE" />
 				</Compiler>
 			</Target>
@@ -45,6 +42,7 @@
 			<Add option="-static-libgcc" />
 			<Add option="-static-libstdc++" />
 			<Add option="-DNTDLL_LINKED" />
+			<Add option="-D__DBG_ACTIVATED__" />
 			<Add directory="../LoLClientAPI" />
 			<Add directory="../../C" />
 			<Add directory="include" />
@@ -112,8 +110,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../dbg/dbg.h" />
-		<Unit filename="HookEngine/HookEngine.h" />
-		<Unit filename="Keyboard/KeyState.h" />
 		<Unit filename="LoLAPI/LoLAPI.h" />
 		<Unit filename="LoLAPI/LoLAPIPacket.h" />
 		<Unit filename="LoLAPI/LoLAPIRequest.c">
@@ -124,7 +120,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="LoLDx/LoLDx.h" />
-		<Unit filename="LoLDx/LoLDxHooks.h" />
 		<Unit filename="LoLMemory/ChampionArray/ChampionArray.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -254,7 +249,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="include/dx/d3dx9math.h" />
-		<Unit filename="include/dx/d3dx9math.inl" />
 		<Unit filename="include/dx/d3dx9mesh.h" />
 		<Unit filename="include/dx/d3dx9shader.h" />
 		<Unit filename="include/dx/d3dx9shape.h" />

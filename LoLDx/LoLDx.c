@@ -110,6 +110,7 @@ LoLDx_EndScene (
 ) {
 	lolDx->pDevice = pDevice;
 
+	// Get original function pointer
 	if (!lolDx->originalEndScene) {
 		lolDx->originalEndScene = (void *) HookEngine_get_original_function ((ULONG_PTR) LoLDx_EndScene);
 		if (!lolDx->originalEndScene) {
@@ -118,27 +119,32 @@ LoLDx_EndScene (
 		}
 	}
 
+	// Initialize D3D9ObjectSprite objects
+	D3D9ObjectFactory_lock ();
+	D3D9ObjectSprite_init_directx (pDevice);
+	D3D9ObjectFactory_release ();
+
 	// Draw D3D9Objects
 	BbQueue * d3d9Objects = D3D9ObjectFactory_get_objects ();
+	D3D9ObjectFactory_lock ();
 	foreach_bbqueue_item (d3d9Objects, D3D9Object *object)
 	{
-		WaitForSingleObject (object->mutex, INFINITE);
 		switch (object->type)
 		{
 			case D3D9_OBJECT_RECTANGLE:
-				D3D9ObjectRect_draw (&object->rect, pDevice);
+				D3D9ObjectRect_draw (&object->rect, object->x, object->y, pDevice);
 			break;
 
 			case D3D9_OBJECT_TEXT:
-				D3D9ObjectText_draw (&object->text, pDevice);
+				D3D9ObjectText_draw (&object->text, object->x, object->y, pDevice);
 			break;
 
 			case D3D9_OBJECT_SPRITE:
-				D3D9ObjectSprite_draw (&object->sprite);
+				D3D9ObjectSprite_draw (&object->sprite, object->x, object->y);
 			break;
 		}
-		ReleaseMutex (object->mutex);
 	}
+	D3D9ObjectFactory_release ();
 
 	return lolDx->originalEndScene (pDevice);
 }

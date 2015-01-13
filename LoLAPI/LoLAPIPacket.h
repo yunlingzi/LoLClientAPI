@@ -79,9 +79,10 @@ typedef struct _TextPacket
 {
 	int x, y;
 	byte r, g, b;
-	int fontSize;
+	float opacity;
+	byte fontSize;
 	int stringLen;
-	int fontFamilyLen;
+	byte fontFamilyLen;
 
 }	TextPacket;
 
@@ -90,16 +91,13 @@ typedef struct _SpritePacket
 	int x, y;
 	float opacity;
 	int filePathLen;
-
 }	SpritePacket;
-
-
 #pragma pack(pop)
 
 typedef struct _LoLAPIPacket
 {
 	LoLAPIRequest request;
-	int teammateId;
+	int id;
 
 	union {
 		GamePositionPacket gamePositionPacket;

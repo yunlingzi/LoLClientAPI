@@ -14,7 +14,6 @@
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-g" />
-					<Add option="-DDEBUG_ACTIVATED" />
 				</Compiler>
 			</Target>
 			<Target title="Executable">
@@ -25,7 +24,6 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-DAPI_EXECUTABLE" />
-					<Add option="-DDEBUG_ACTIVATED" />
 					<Add option="-DEXPORT_TO_CHEATENGINE" />
 				</Compiler>
 			</Target>
@@ -37,7 +35,6 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-DAPI_EXECUTABLE" />
-					<Add option="-DDEBUG_ACTIVATED" />
 					<Add option="-DEXPORT_TO_CHEATENGINE" />
 				</Compiler>
 			</Target>
@@ -46,6 +43,7 @@
 			<Add option="-Wall" />
 			<Add option="-static-libgcc" />
 			<Add option="-static-libstdc++" />
+			<Add option="-D__DBG_ACTIVATED__" />
 			<Add directory="../LoLClientAPI" />
 			<Add directory="../../C" />
 		</Compiler>

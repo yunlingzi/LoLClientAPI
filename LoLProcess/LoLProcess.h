@@ -90,12 +90,16 @@ LoLProcess_setState (
 	LoLProcessState state
 );
 
+
 /*
- * Description : Export current memory addresses to CheatEngine
- * Return : void
+ * Description      : Export current memory addresses to CheatEngine
+ * LoLProcess *this : An allocated LoLProcess
+ * Return           : void
  */
 void
-LoLProcess_exportToCE (void);
+LoLProcess_exportToCE (
+	LoLProcess *this
+);
 
 /*
  * Description : Load the Hook Engine into the LoL process

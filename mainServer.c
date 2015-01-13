@@ -25,7 +25,7 @@ void startInjection (void)
 	}
 
 	// Create CheatEngine file (optional)
-	LoLProcess_exportToCE ();
+	LoLProcess_exportToCE (LoL);
 
 	// Instanciate and listen to a connection
 	if ((connection = LoLServerAPI_new ()) == NULL) {
