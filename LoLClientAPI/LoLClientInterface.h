@@ -416,7 +416,7 @@ move_object (
 
 /*
  * Description            : Change the attributes of the text object.
- * int id                 : The unique handle of the object to delete
+ * int id                 : The unique handle of the object to modify
  * char * string          : The new string of the text
  * byte r, byte g, byte b : The new color of the next
  * float opacity          : The new opacity of the text

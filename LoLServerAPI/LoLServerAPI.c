@@ -221,9 +221,12 @@ LoLServerAPI_handle_request (
 			// Receive the string the next packet
 			char * string = calloc (1, packet.textPacket.stringLen + 1);
 			es_recv_buffer (EASY_SOCKET (client), string, packet.textPacket.stringLen);
-			dbg ("packet.textPacket.opacity = %f", packet.textPacket.opacity);
 			text_object_set (packet.id, string, packet.textPacket.r, packet.textPacket.g, packet.textPacket.b, packet.textPacket.opacity);
 			free (string);
+		} break;
+
+		case REQUEST_SPRITE_OBJECT_SET: {
+			sprite_object_set (packet.id, packet.spritePacket.opacity);
 		} break;
 
 		case REQUEST_DELETE_OBJECT:

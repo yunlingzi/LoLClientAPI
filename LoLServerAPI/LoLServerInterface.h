@@ -434,13 +434,13 @@ move_object (
 
 /*
  * Description            : Change the attributes of the text object.
- * int id                 : The unique handle of the object to delete
+ * int id                 : The unique handle of the object to modify
  * char * string          : The new string of the text
  * byte r, byte g, byte b : The new color of the next
  * float opacity          : The new opacity of the text
  * Return                 : void
  */
-EXPORT_FUNCTION void
+void
 text_object_set (
 	int id,
 	char * string,
@@ -449,8 +449,20 @@ text_object_set (
 );
 
 /*
+ * Description            : Change the attributes of the sprite object.
+ * int id                 : The unique handle of the object to modify
+ * float opacity          : The new opacity of the sprite
+ * Return                 : void
+ */
+void
+sprite_object_set (
+	int id,
+	float opacity
+);
+
+/*
  * Description : Show a hidden object. If it wasn't hidden, put it to the foreground of the screen.
- * int id      : The unique handle of the object to delete
+ * int id      : The unique handle of the object to show
  * Return      : void
  */
 void

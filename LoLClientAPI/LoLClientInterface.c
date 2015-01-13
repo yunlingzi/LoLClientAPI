@@ -949,7 +949,7 @@ move_object (
 
 /*
  * Description            : Change the attributes of the text object.
- * int id                 : The unique handle of the object to delete
+ * int id                 : The unique handle of the object to modify
  * char * string          : The new string of the text
  * byte r, byte g, byte b : The new color of the next
  * float opacity          : The new opacity of the text
@@ -979,6 +979,32 @@ text_object_set (
 
 	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
 		es_send (api->clientSocket, string, stringLen);
+		LoLClientAPI_recv (api, &packet, sizeof(packet));
+	}
+}
+
+/*
+ * Description            : Change the attributes of the sprite object.
+ * int id                 : The unique handle of the object to modify
+ * float opacity          : The new opacity of the sprite
+ * Return                 : void
+ */
+EXPORT_FUNCTION void
+sprite_object_set (
+	int id,
+	float opacity
+) {
+	wait_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_SPRITE_OBJECT_SET,
+		.id = id,
+		.spritePacket = {
+			.opacity = opacity
+		}
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
 		LoLClientAPI_recv (api, &packet, sizeof(packet));
 	}
 }

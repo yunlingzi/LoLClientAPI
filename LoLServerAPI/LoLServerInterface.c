@@ -751,7 +751,7 @@ move_object (
 
 /*
  * Description            : Change the attributes of the text object.
- * int id                 : The unique handle of the object to delete
+ * int id                 : The unique handle of the object to modify
  * char * string          : The new string of the text
  * byte r, byte g, byte b : The new color of the next
  * float opacity          : The new opacity of the text
@@ -773,14 +773,47 @@ text_object_set (
 		return;
 	}
 
-	dbg ("packet.textPacket.opacity = %f", opacity);
+	if (object->type != D3D9_OBJECT_SPRITE) {
+		warn ("Received wrong object type for object ID=%d, text expected.", id);
+		return;
+	}
+
 	D3D9ObjectText_set (&object->text, string, r, b, g, opacity);
 }
 
 
 /*
+ * Description            : Change the attributes of the sprite object.
+ * int id                 : The unique handle of the object to modify
+ * float opacity          : The new opacity of the sprite
+ * Return                 : void
+ */
+EXPORT_FUNCTION void
+sprite_object_set (
+	int id,
+	float opacity
+) {
+	wait_api ();
+	wait_directx ();
+
+	D3D9Object *object = D3D9ObjectFactory_get (id);
+	if (!object) {
+		warn ("Object ID=%d not found.", id);
+		return;
+	}
+
+	if (object->type != D3D9_OBJECT_SPRITE) {
+		warn ("Received wrong object type for object ID=%d, sprite expected.", id);
+		return;
+	}
+
+	D3D9ObjectSprite_set (&object->sprite, opacity);
+}
+
+
+/*
  * Description : Show a hidden object. If it wasn't hidden, put it to the foreground of the screen.
- * int id      : The unique handle of the object to delete
+ * int id      : The unique handle of the object to show
  * Return      : void
  */
 EXPORT_FUNCTION void
