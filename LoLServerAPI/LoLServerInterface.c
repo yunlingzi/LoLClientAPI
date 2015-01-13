@@ -750,6 +750,37 @@ move_object (
 
 
 /*
+ * Description            : Change the attributes of the rectangle object.
+ * int id                 : The unique handle of the object to modify
+ * byte r, byte g, byte b : The new color of the next
+ * int w, int h           : Width and height of the rectangle
+ * Return                 : void
+ */
+EXPORT_FUNCTION void
+rect_object_set (
+	int id,
+	byte r, byte g, byte b,
+	int w, int h
+) {
+	wait_api ();
+	wait_directx ();
+
+	D3D9Object *object = D3D9ObjectFactory_get (id);
+	if (!object) {
+		warn ("Object ID=%d not found.", id);
+		return;
+	}
+
+	if (object->type != D3D9_OBJECT_RECTANGLE) {
+		warn ("Received wrong object type for object ID=%d, rectangle expected (type = %d).", id, object->type);
+		return;
+	}
+
+	D3D9ObjectRect_set (&object->rect, r, b, g, w, h);
+}
+
+
+/*
  * Description            : Change the attributes of the text object.
  * int id                 : The unique handle of the object to modify
  * char * string          : The new string of the text
@@ -773,8 +804,8 @@ text_object_set (
 		return;
 	}
 
-	if (object->type != D3D9_OBJECT_SPRITE) {
-		warn ("Received wrong object type for object ID=%d, text expected.", id);
+	if (object->type != D3D9_OBJECT_TEXT) {
+		warn ("Received wrong object type for object ID=%d, text expected (type = %d).", id, object->type);
 		return;
 	}
 
@@ -804,7 +835,7 @@ sprite_object_set (
 	}
 
 	if (object->type != D3D9_OBJECT_SPRITE) {
-		warn ("Received wrong object type for object ID=%d, sprite expected.", id);
+		warn ("Received wrong object type for object ID=%d, sprite expected (type = %d).", id, object->type);
 		return;
 	}
 
@@ -903,9 +934,29 @@ delete_all_objects (
 	D3D9ObjectFactory_delete_all ();
 }
 
+/*
+ * Description : Return the object hovered by the mouse, or INVALID_OBJECT_HANDLE if no object is hovered
+ * Return      : void
+ */
+EXPORT_FUNCTION int
+get_hovered_object (
+	void
+) {
+	wait_api ();
+	wait_directx ();
+
+	D3D9Object *object;
+
+	if (!(object = D3D9ObjectFactory_get_hovered_object (lolClient->hwnd))) {
+		// No object is hovered
+		return -1;
+	}
+
+	return object->id;
+}
 
 /** =======================================================================================
- ** ==================================== Internal APIs ====================================
+ ** ================================= LoLServerAPI APIs ====================================
  ** ======================================================================================= **/
 
 

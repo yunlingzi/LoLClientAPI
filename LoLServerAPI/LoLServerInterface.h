@@ -433,6 +433,21 @@ move_object (
 );
 
 /*
+ * Description            : Change the attributes of the rectangle object.
+ * int id                 : The unique handle of the object to modify
+ * byte r, byte g, byte b : The new color of the next
+ * int w, int h           : Width and height of the rectangle
+ * Return                 : void
+ */
+void
+rect_object_set (
+	int id,
+	byte r, byte g, byte b,
+	int w, int h
+);
+
+
+/*
  * Description            : Change the attributes of the text object.
  * int id                 : The unique handle of the object to modify
  * char * string          : The new string of the text
@@ -517,6 +532,15 @@ delete_all_objects (
 void
 delete_object (
 	int id
+);
+
+/*
+ * Description : Return the object hovered by the mouse, or INVALID_OBJECT_HANDLE if no object is hovered
+ * Return      : void
+ */
+int
+get_hovered_object (
+	void
 );
 
 /** =======================================================================================

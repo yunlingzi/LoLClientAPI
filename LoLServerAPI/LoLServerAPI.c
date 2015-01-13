@@ -217,6 +217,11 @@ LoLServerAPI_handle_request (
 			move_object (packet.id, packet.screenPositionPacket.x, packet.screenPositionPacket.y);
 		break;
 
+		case REQUEST_RECT_OBJECT_SET: {
+			rect_object_set (packet.id, packet.rectPacket.r, packet.rectPacket.g, packet.rectPacket.b, packet.rectPacket.w, packet.rectPacket.h);
+		} break;
+
+
 		case REQUEST_TEXT_OBJECT_SET: {
 			// Receive the string the next packet
 			char * string = calloc (1, packet.textPacket.stringLen + 1);
@@ -253,6 +258,9 @@ LoLServerAPI_handle_request (
 			hide_all_objects ();
 		break;
 
+		case REQUEST_GET_HOVERED_OBJECT:
+			packet.intPacket.value = get_hovered_object ();
+		break;
 
 		// Game APIs
 		case REQUEST_GET_GAME_TIME:

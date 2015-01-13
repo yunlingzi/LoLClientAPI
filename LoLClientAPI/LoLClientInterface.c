@@ -781,7 +781,7 @@ log_chat_message (
  * int x, y               : {x, y} position of the text
  * int w, h               : width and height
  * byte r, byte g, byte b : color of the rectangle
- * Return                 : A unique handle of your rectangle object, or -1 if an error occurred
+ * Return                 : A unique handle of your rectangle object, or INVALID_OBJECT_HANDLE if an error occurred
  */
 EXPORT_FUNCTION int
 create_rectangle (
@@ -815,7 +815,7 @@ create_rectangle (
 		return packet.intPacket.value;
 	}
 
-	return -1;
+	return INVALID_OBJECT_HANDLE;
 }
 
 /*
@@ -875,7 +875,7 @@ create_text (
 		}
 	}
 
-	return -1;
+	return INVALID_OBJECT_HANDLE;
 }
 
 /*
@@ -907,7 +907,7 @@ create_sprite (
 	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
 		es_send (api->clientSocket, filePath, filePathLen);
 		if (LoLClientAPI_recv (api, &packet, sizeof(packet))) {
-			if (packet.intPacket.value == -1) {
+			if (packet.intPacket.value == INVALID_OBJECT_HANDLE) {
 				dbg ("Cannot create sprite <filePath=<%s>, x=%d | y=%d",
 					filePath, x, y
 				);
@@ -916,7 +916,7 @@ create_sprite (
 		}
 	}
 
-	return -1;
+	return INVALID_OBJECT_HANDLE;
 }
 
 /*
@@ -938,6 +938,39 @@ move_object (
 		.screenPositionPacket = {
 			.x = x,
 			.y = y
+		}
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		LoLClientAPI_recv (api, &packet, sizeof(packet));
+	}
+}
+
+
+/*
+ * Description            : Change the attributes of the rectangle object.
+ * int id                 : The unique handle of the object to modify
+ * byte r, byte g, byte b : The new color of the next
+ * int w, int h           : Width and height of the rectangle
+ * Return                 : void
+ */
+EXPORT_FUNCTION void
+rect_object_set (
+	int id,
+	byte r, byte g, byte b,
+	int w, int h
+) {
+	wait_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_RECT_OBJECT_SET,
+		.id = id,
+		.rectPacket = {
+			.r = r,
+			.g = g,
+			.b = b,
+			.w = w,
+			.h = h
 		}
 	};
 
@@ -1124,6 +1157,30 @@ delete_all_objects (
 
 	LoLClientAPI_send (api, &packet, sizeof(packet));
 	LoLClientAPI_recv (api, &packet, sizeof(packet));
+}
+
+
+/*
+ * Description : Return the object hovered by the mouse, or INVALID_OBJECT_HANDLE if no object is hovered
+ * Return      : void
+ */
+EXPORT_FUNCTION int
+get_hovered_object (
+	void
+) {
+	wait_api ();
+
+	LoLAPIPacket packet = {
+		.request = REQUEST_GET_HOVERED_OBJECT
+	};
+
+	if (LoLClientAPI_send (api, &packet, sizeof(packet))) {
+		if (LoLClientAPI_recv (api, &packet, sizeof(packet))) {
+			return packet.intPacket.value;
+		}
+	}
+
+	return INVALID_OBJECT_HANDLE;
 }
 
 

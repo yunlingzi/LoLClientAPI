@@ -22,7 +22,7 @@ LoLProcess_new (void)
 	}
 
 	if (!LoLProcess_init (this)) {
-		dbg ("Initialization failed.");
+		warn ("Initialization failed.");
 		LoLProcess_free (this);
 		return NULL;
 	}
@@ -34,7 +34,7 @@ LoLProcess_new (void)
 
 	// Unit testing
 	if (!LoLProcess_test (this)) {
-		dbg ("LoLProcess unit test failed.");
+		warn ("LoLProcess unit test failed.");
 	}
 	else {
 		dbg ("[OK] LoLProcess test success.");
@@ -91,7 +91,7 @@ LoLProcess_load_hook_engine (
 	free (hookEngineDllPath);
 
 	if (!this->hookEngine) {
-		dbg ("Hook Engine didn't initialize correctly");
+		fail ("Hook Engine didn't initialize correctly");
 		return false;
 	}
 
@@ -196,7 +196,7 @@ LoLProcess_init (
 
 	// Load Hook Engine
 	if (!LoLProcess_load_hook_engine (this)) {
-		dbg ("Error when loading NtHookEngine.");
+		fail ("Error when loading NtHookEngine.");
 		return false;
 	}
 
