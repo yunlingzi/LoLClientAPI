@@ -415,21 +415,20 @@ move_object (
 );
 
 /*
- * Description            : Show a hidden object. If it wasn't hidden, put it to the foreground of the screen.
- * int id                 : The unique handle of the text object to modify
+ * Description            : Change the attributes of the text object.
+ * int id                 : The unique handle of the object to delete
  * char * string          : The new string of the text
  * byte r, byte g, byte b : The new color of the next
  * float opacity          : The new opacity of the text
  * Return                 : void
  */
-void
+EXPORT_FUNCTION void
 text_object_set (
 	int id,
 	char * string,
 	byte r, byte g, byte b,
 	float opacity
 );
-
 
 /*
  * Description : Show a hidden object. If it wasn't hidden, put it to the foreground of the screen.
