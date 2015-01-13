@@ -797,6 +797,7 @@ sprite_object_set (
 	wait_directx ();
 
 	D3D9Object *object = D3D9ObjectFactory_get (id);
+
 	if (!object) {
 		warn ("Object ID=%d not found.", id);
 		return;
