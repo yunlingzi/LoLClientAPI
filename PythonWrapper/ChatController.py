@@ -3,13 +3,11 @@ import time
 
 api = LoLClientAPI.LoLClientAPI ();
 
-api.log_chat_message ('<font color="#00ff00">LoLClientAPI initialization ...</font>');
-
-api.log_chat_message ('<font color="#ff0000">LoLClientAPI : Red message</font>');
-api.log_chat_message ('<font color="#00ff00">LoLClientAPI : Green message</font>');
-api.log_chat_message ('<font color="#0000ff">LoLClientAPI : Blue message</font>');
-api.log_chat_message ('<font color="#000000">LoLClientAPI : Black message</font>');
-api.log_chat_message ('<font color="#ffffff">LoLClientAPI : White message</font>');
+api.log_chat_message ('<font family="Courier New" color="#BE00EE">Hi there, </font><font color="#006EBF" size="37">stranger !</font>');
+time.sleep(1);
+api.log_chat_message ('<font color="#DDAA33">LoLClientAPI</font> <font color="#ffffff">lets you modify <font color="#00ff00">a lot of things :-)</font>');
+time.sleep(1);
+api.log_chat_message ('<font color="#ffffff">Let\'s have</font> <font color="#ff0000">some fun programming things :D</font>');
 
 while True:
 	message = api.get_chat_message ();

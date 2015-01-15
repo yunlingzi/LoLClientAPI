@@ -23,8 +23,8 @@ class CameraRotate:
 		while True:
 			champX, champY = self.api.get_champion_position ();
 			angleX, angleY = self.api.get_camera_angle ();
-			cameraController.translate (champX, champY, angleX + 1, angleY, 10);
-
+			if (self.api.is_right_mouse_button_pressed ()):
+				cameraController.translate (champX, champY, angleX + 1, angleY, 10);
 	
 if __name__ == '__main__':
 	CameraRotate ();

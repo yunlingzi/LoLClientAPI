@@ -6,6 +6,9 @@ class LoLClientAPI:
 	# LoLClientAPI DLL handle
 	hAPI = None;
 	
+	# Constants
+	INVALID_OBJECT_HANDLE = -1;
+	
 	# =================================================================================
 	# ================================== Camera APIs ==================================
 	# =================================================================================
@@ -356,12 +359,12 @@ class LoLClientAPI:
 	
 		# C API declaration :
 		# void get_minimap_screen_position (
-		# 	__out__ float * x,
-		# 	__out__ float * y
+		# 	__out__ int * x,
+		# 	__out__ int * y
 		# ) 
 		
-		x = c_float()
-		y = c_float()
+		x = c_int()
+		y = c_int()
 		self.hAPI.get_minimap_screen_position (byref(x), byref(y));
 		return (x.value, y.value);
 		
@@ -443,8 +446,11 @@ class LoLClientAPI:
 	# ================================= Drawing APIs ==================================
 	# =================================================================================
 
-	# Create a new colored rectangle displayed on the screen
-	# Return : A unique handle of your rectangle object, or -1 if an error occurred
+	# Create a new colored rectangle object displayed on the screen
+	# {x, y} : position of the rectangle
+	# {w, h} : width and height of the rectangle
+	# {r, g, b} : color of the rectangle
+	# Return : A unique handle of your rectangle object, or INVALID_OBJECT_HANDLE if an error occurred
 	def create_rectangle (self, x, y, w, h, r, g, b):
 
 		# C API declaration :
@@ -456,9 +462,190 @@ class LoLClientAPI:
 		return self.hAPI.create_rectangle (
 			c_int (x), c_int (y), 
 			c_int (w), c_int (h), 
-			c_uchar (r), c_uchar (g), c_uchar (b)
+			c_ubyte (r), c_ubyte (g), c_ubyte (b)
 		);
 		
+	# Create a new sprite object displayed on the screen
+	# filePath : The path of the sprite you want to create. Supported formats are the following : 
+	#            .bmp, .dds, .dib, .hdr, .jpg, .pfm, .png, .ppm, and .tga
+	# {x, y} : position of the image
+	# opacity : opacity of the image, value between 0.0 and 1.0 (optional, 1.0 by default)
+	# Return : A unique handle of your sprite object, or INVALID_OBJECT_HANDLE if an error occurred
+	def create_sprite (self, filePath, x, y, opacity=1.0):	
+
+		# C API declaration :
+		# int create_sprite (
+		#   char *filePath,
+		# 	int x, int y,
+		#   float opacity
+		# )
+		return self.hAPI.create_sprite (
+			c_char_p (filePath), c_int (x), c_int (y), c_float (opacity)
+		);
+
+	# Create a new colored text object displayed on the screen
+	# {x, y} : position of the text
+	# {r, g, b} : color of the text
+	# opacity : opacity of the text, value between 0.0 and 1.0
+	# string : String of the text
+	# fontSize : the size of the font
+	# fontFamily : The name of the family font. If NULL, "Arial" is used.
+	# Return : A unique handle of your text object, or INVALID_OBJECT_HANDLE if an error occurred
+	def create_text (self, string, x, y, r, g, b, opacity, fontSize, fontFamily):	
+
+		# C API declaration :
+		# int create_text (
+		# 	char * string,
+		# 	int x, int y,
+		# 	byte r, byte g, byte b,
+		#   float opacity,
+		# 	int fontSize,
+		# 	char * fontFamily
+		# )
+		return self.hAPI.create_text (
+			c_char_p (string), 
+			c_int (x), c_int (y), 
+			c_ubyte (r), c_ubyte (g), c_ubyte (b),
+			c_float (opacity),
+			c_int (fontSize), 
+			c_char_p (fontFamily), 
+		);
+
+	# Change the position of the object on the screen.
+	# handleObject : The unique handle of the object to move
+	# {x, y} : The new position on the screen of the object
+	def move_object (self, handleObject, x, y):
+	
+		# C API declaration :
+		# void move_object (
+		#	int id,
+		#   int x, int y
+		# )
+		return self.hAPI.move_object (c_int (handleObject), c_int (x), c_int (y));
+
+	# Change the attributes of the rectangle object.
+	# handleObject : The unique handle of the object to modify
+	# {r, g, b} : The new color of the rectangle
+	# {w, h} : Width and height of the rectangle
+	def rect_object_set (self, handleObject, r, g, b, w, h):
+	
+		# C API declaration :
+		# void rect_object_set (
+		#	int id,
+		#   byte r, byte g, byte b,
+		#	int w, int h
+		# )
+		return self.hAPI.rect_object_set (
+			c_int (handleObject), 
+			c_ubyte (r), c_ubyte (g), c_ubyte (b), 
+			c_int (w), c_int (h)
+		);
+
+	# Change the attributes of the text object.
+	# handleObject : The unique handle of the object to modify
+	# string : The new string of the text object
+	# {r, g, b} : The new color of the text
+	# opacity : opacity of the text, value between 0.0 and 1.0
+	def text_object_set (self, handleObject, string, r, g, b, opacity):
+	
+		# C API declaration :
+		# void text_object_set (
+		#	int id,
+		#   char * string,
+		#   byte r, byte g, byte b,
+		#   float opacity
+		# )
+		return self.hAPI.text_object_set (
+			c_int (handleObject), 
+			c_char_p (string), 
+			c_ubyte (r), c_ubyte (g), c_ubyte (b), 
+			c_float (opacity)
+		);
+
+	# Change the attributes of the sprite object.
+	# handleObject : The unique handle of the object to modify
+	# opacity : opacity of the text, value between 0.0 and 1.0
+	def sprite_object_set (self, handleObject, opacity):
+	
+		# C API declaration :
+		# void sprite_object_set (
+		#	int id,
+		#   float opacity
+		# )
+		return self.hAPI.sprite_object_set (
+			c_int (handleObject),
+			c_float (opacity)
+		);
+
+	# Show a hidden object. If it wasn't hidden, put it to the foreground.
+	# handleObject : The unique handle of the object to delete
+	def show_object (self, handleObject):
+	
+		# C API declaration :
+		# void show_object (
+		#	int id
+		# )
+		return self.hAPI.show_object (c_int (handleObject));
+	
+	# Show all hidden objects. Don't do anything with those already shown.
+	def show_all_objects (self):
+	
+		# C API declaration :
+		# void show_all_objects (
+		#	void
+		# )
+		return self.hAPI.show_all_objects ();
+	
+	# Hide a visible object.
+	# It isn't deleted, so you can use show_object if you want to make it appear again.
+	# handleObject : The unique handle of the object to delete
+	def hide_object (self, handleObject):
+	
+		# C API declaration :
+		# void hide_object (
+		#	int id
+		# )
+		return self.hAPI.hide_object (c_int (handleObject));
+	
+	# Hide all objects. Don't do anything with those already hidden.
+	def hide_all_objects (self):
+	
+		# C API declaration :
+		# void hide_all_objects (
+		#	void
+		# )
+		return self.hAPI.hide_all_objects ();
+
+	# Delete a specific object on the screen
+	# handleObject : The unique handle of the object to delete
+	def delete_object (self, handleObject):
+	
+		# C API declaration :
+		# void delete_object (
+		#	int id
+		# )
+		return self.hAPI.delete_object (c_int (handleObject));
+	
+	# Delete all the previously created objects on the screen
+	def delete_all_objects (self):
+
+		# C API declaration :
+		# void delete_all_objects (
+		#	void
+		# )
+		return self.hAPI.delete_all_objects ();
+	
+	# Return the object hovered by the mouse, or INVALID_OBJECT_HANDLE if no object is hovered
+	def get_hovered_object (self):
+
+		# C API declaration :
+		# int get_hovered_object (
+		#	void
+		# )
+		return self.hAPI.get_hovered_object ();
+		
+	
+	
 	# =================================================================================
 	# ================================= Internal APIs =================================
 	# =================================================================================
