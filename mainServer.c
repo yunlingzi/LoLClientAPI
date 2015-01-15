@@ -48,6 +48,7 @@ void startInjection (void)
  */
 void endInjection (void)
 {
+	HookEngine_unhook_all ();
 }
 
 /*

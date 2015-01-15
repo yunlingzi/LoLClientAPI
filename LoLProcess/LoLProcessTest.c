@@ -14,8 +14,6 @@ bool
 LoLProcess_test (
 	LoLProcess *this
 ) {
-	bool result = true;
-
 	if (!this) {
 		fail ("Instance is NULL");
 		return false;
@@ -23,8 +21,8 @@ LoLProcess_test (
 
 	if (!LoLModule_test (this->lol)) {
 		fail ("LoL module test fail.");
-		result = false;
+		return false;
 	}
 
-	return result;
+	return true;
 }

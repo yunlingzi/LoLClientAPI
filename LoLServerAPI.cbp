@@ -33,6 +33,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add option="-O0" />
 					<Add option="-DEXPORT_TO_CHEATENGINE" />
 				</Compiler>
 			</Target>
@@ -43,6 +44,7 @@
 			<Add option="-static-libstdc++" />
 			<Add option="-DNTDLL_LINKED" />
 			<Add option="-D__DBG_ACTIVATED__" />
+			<Add option="-DEXPORT_TO_CHEATENGINE" />
 			<Add directory="../LoLClientAPI" />
 			<Add directory="../../C" />
 			<Add directory="include" />

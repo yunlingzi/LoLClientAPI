@@ -20,6 +20,12 @@ GUIMinimap_test (
 	}
 
 	Position2D screenPosition;
+
+	if (!this->pThis) {
+		fail ("GUIMinimap offset isn't correct.");
+		return false;
+	}
+
 	get_minimap_screen_position (&screenPosition.x, &screenPosition.y);
 
 	dbg ("Minimap screen position detected : x=%d y=%d", screenPosition.x, screenPosition.y);

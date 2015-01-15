@@ -21,7 +21,8 @@
 typedef enum {
 	STATE_INITIALIZING,
 	STATE_TESTING,
-	STATE_READY
+	STATE_READY,
+	STATE_ERROR
 } LoLProcessState;
 
 typedef struct _LoLProcess

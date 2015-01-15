@@ -20,7 +20,7 @@ GUIMenu_test (
 	}
 
 	if (!(GUIMinimap_test (this->guiMinimap))) {
-		dbg ("GUIMinimap test unit failed.");
+		fail ("GUIMinimap test unit failed.");
 		return false;
 	}
 	dbg ("[OK] GUIMinimap test success.");

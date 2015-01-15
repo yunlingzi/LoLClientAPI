@@ -34,7 +34,10 @@ LoLProcess_new (void)
 
 	// Unit testing
 	if (!LoLProcess_test (this)) {
-		warn ("LoLProcess unit test failed.");
+		fail ("LoLProcess unit test failed.");
+		log_chat_message ("<font color=\"#ff3333\">LoLClientAPI failed to start.</font>", -1);
+		LoLProcess_setState (this, STATE_ERROR);
+		return NULL;
 	}
 	else {
 		dbg ("[OK] LoLProcess test success.");
@@ -69,6 +72,9 @@ LoLProcess_setState (
 		break;
 		case STATE_INITIALIZING:
 			dbg ("====== API State : INITIALIZING... ====== ");
+		break;
+		case STATE_ERROR:
+			dbg ("====== API State : ERROR! ====== ");
 		break;
 	}
 
@@ -220,8 +226,6 @@ LoLProcess_exportToCE (
 	LoLProcess *this
 ) {
 	#ifdef EXPORT_TO_CHEATENGINE
-	LoLProcess *this = get_LoLProcess ();
-
 	char * cheatEngineXmlFormat = file_get_contents("C:/Users/Spl3en/Desktop/C/LoLClientAPI/LCAPIFormat.ct");
 	if (!cheatEngineXmlFormat) {
 		return;

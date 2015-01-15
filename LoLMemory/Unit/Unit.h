@@ -15,7 +15,7 @@
 typedef struct _Unit
 {
 	void * (*vftable)();
-	char gap_4[20];
+	char gap_4[16];
 	int team;
 	char gap_1C[8];
 	char summonerName[16];

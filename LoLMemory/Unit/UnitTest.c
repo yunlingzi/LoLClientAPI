@@ -28,7 +28,7 @@ Unit_test (
 	}
 
 	get_teammate_position (this->teammateId, &currentPosition.x, &currentPosition.y);
-	dbg ("Unit ally_%d position : %f %f", currentPosition.x, currentPosition.y);
+	dbg ("Unit ally_%d position : %f %f", this->teammateId, currentPosition.x, currentPosition.y);
 
 	if (!Position_in_map (&currentPosition)) {
 		fail ("Current position test failed : %f %f", currentPosition.x, currentPosition.y);

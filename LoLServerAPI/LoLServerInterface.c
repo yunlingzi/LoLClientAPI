@@ -614,6 +614,11 @@ log_chat_message (
 ) {
 	wait_api ();
 
+	if (!(lolClient && lolClient->lol && lolClient->lol->playerHUD && lolClient->lol->playerHUD->hudChat)) {
+		fail ("Cannot find correctly the hudChat pointer.");
+		return;
+	}
+
 	HudChat * hudChat = lolClient->lol->playerHUD->hudChat;
 
 	// Check if the HudChat pointer is correct

@@ -40,6 +40,7 @@ typedef struct _GUIMenu
 	int field_22;
 	int field_23;
 	int field_24;
+	int field_24_2;
 	GUIMinimap * guiMinimap;
 	int field_26;
 	int field_27;
