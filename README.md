@@ -112,6 +112,25 @@ API Prototype | Description
 ```get_chat_message``` | Get the next line of the chat received since the last time called
 ```log_chat_message``` | Log a message to the HudChat (only for you)
     
+##### Drawing APIs
+API Prototype | Description
+-------- | -------------
+```create_rectangle``` | Create a new colored rectangle object displayed on the screen.
+```create_sprite``` | Create a new sprite object displayed on the screen
+```create_text``` | Create a new colored text object displayed on the screen
+```move_object``` | Change the position of the object on the screen.
+```rect_object_set``` | Change the attributes of the rectangle object.
+```text_object_set``` | Change the attributes of the text object.
+```sprite_object_set``` | Change the attributes of the sprite object.
+```show_object``` | Show a hidden object. If it wasn't hidden, put it to the foreground.
+```show_all_objects``` | Show all hidden objects. Don't do anything with those already shown.
+```hide_object``` | Hide a visible object. It isn't deleted, so you can use `show_object` if you want to make it appear again.
+```hide_all_objects``` | Hide all objects. Don't do anything with those already hidden.
+```delete_object``` | Delete a specific object on the screen
+```delete_all_objects``` | Delete all the previously created objects on the screen
+```get_hovered_object``` | Return the object hovered by the mouse, or INVALID_OBJECT_HANDLE if no object is hovered
+
+    
 ##### Internal APIs
 API Prototype | Description
 -------- | -------------
@@ -122,7 +141,7 @@ API Prototype | Description
     
 ![?](http://i.cubeupload.com/UvkfRQ.png) Internal representation of LoLClientAPI system
 ------------
-![LoLClientAPI Overview](http://i.cubeupload.com/I3xY3Q.png)
+![LoLClientAPI Overview](http://i.cubeupload.com/V9fuUE.png)
 
 :+1: Credits
 -------------
