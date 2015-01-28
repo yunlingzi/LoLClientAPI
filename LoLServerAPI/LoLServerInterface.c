@@ -612,6 +612,7 @@ log_chat_message (
 	char * message,
 	int messageLength
 ) {
+    return;
 	wait_api ();
 
 	if (!(lolClient && lolClient->lol && lolClient->lol->playerHUD && lolClient->lol->playerHUD->hudChat)) {
@@ -631,7 +632,7 @@ log_chat_message (
 		messageLength = strlen (message);
 	}
 
-	HudChat_addMessage ((void *) hudChat->pThis, message, messageLength);
+	HudChat_addMessage ((void *) hudChat->pThis, message, 1, 0xA2669FF8);
 }
 
 /** =======================================================================================

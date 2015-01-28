@@ -88,18 +88,18 @@ HeroClient_init (
 	dbg ("HeroClientStr found : 0x%08X", heroClientStr);
 
 	unsigned char pattern [] = {
-		/*	68 047CFF01       push offset League_of_Legends.01FF7C04        ; ASCII "MINIONS_KILLED"
-			8D4D D8           lea ecx, [ebp-28]
-			E8 A257FFFF       call League_of_Legends.014D48A0
-			C745 FC 00000000  mov [dword ss:ebp-4], 0
-			8D45 D8           lea eax, [ebp-28]
-			8B0D 487FCE03     mov ecx, [dword ds:League_of_Legends.3CE7F48] */
-		0x68, '_', '_', '_', '_',
-		'?', '?', '?',
-		0xE8, '?', '?', '?', '?',
-		'?', '?', '?', '?', '?', '?', '?',
-		'?', '?', '?',
-		0x8B, 0x0D, '?', '?', '?', '?'
+		/*	68 FCEC1F01       push offset League_of_Legends.011FECFC        ; ASCII "MINIONS_KILLED"
+            8D8C24 B0000000   lea ecx, [esp+0B0]
+            E8 54DB1700       call League_of_Legends.008B3820
+            C78424 E8000000 0 mov [dword ss:esp+0E8], 0
+            8D8424 AC000000   lea eax, [esp+0AC]
+            8B0D A4874901     mov ecx, [dword ds:League_of_Legends.14987A4] */
+            0x68, '_',  '_',  '_',  '_',
+            0x8D, '?', '?', '?',  '?',  '?',  '?',
+            0xE8, '?', '?', '?', '?',
+            0xC7, '?', '?', '?', '?', '?', '?', '?', '?', '?', '?',
+            0x8D, '?', '?', '?', '?', '?', '?',
+            0x8B, '?', '?', '?', '?', '?'
 	};
 
 	// Replace ____ with HeroClientStr address
@@ -111,19 +111,19 @@ HeroClient_init (
 		baseAddress, sizeOfModule,
 		pattern,
 
-		"xxxxx"
-		"???"
-		"x????"
-		"???????"
-		"???"
-		"xx????",
+        "xxxxx"
+        "x??????"
+        "x????"
+        "x??????????"
+        "x??????"
+        "x?????",
 
-		"xxxxx"
-		"xxx"
-		"xxxxx"
-		"xxxxxxx"
-		"xxx"
-		"xx????"
+        "xxxxx"
+        "xxxxxxx"
+        "xxxxx"
+        "xxxxxxxxxxx"
+        "xxxxxxx"
+        "xx????"
 	);
 
 	if (heroClientInstance)

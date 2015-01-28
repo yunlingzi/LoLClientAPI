@@ -109,7 +109,7 @@ HudChat_init (
 	bb_queue_init (&this->chatMessages);
 
 	// Hook HudChat_addMessage
-	HookEngine_hook ((ULONG_PTR) addMessageReference, (ULONG_PTR) &HudChat_addMessage);
+	// HookEngine_hook ((ULONG_PTR) addMessageReference, (ULONG_PTR) &HudChat_addMessage);
 
 	return true;
 }
@@ -118,6 +118,7 @@ HudChat_init (
  * Description     : Function called when a message is received.
  *  It is called before the message is displayed in the chat, so it is possible to modify the chatMsg string
  *	HudChat *_this : An allocated HudChat from the client, not the LoLClientAPI structure
+ *  float a3       : Currently unknown
  *	char *chatMsg  : A string containing the line of the chat added
  * 	int size       : The size of the string
  */
@@ -125,14 +126,15 @@ void __thiscall
 HudChat_addMessage (
 	void *_this,
 	char *chatMsg,
+	int a3,
 	int size
 ) {
-	void (__thiscall *_HudChat_addMessage) (HudChat *this, char *chatMsg, int size)
+	void (__thiscall *_HudChat_addMessage) (HudChat *this, char *chatMsg, int a3, int size)
 		= (typeof(_HudChat_addMessage)) HookEngine_get_original_function ((ULONG_PTR) HudChat_addMessage);
 
 	bb_queue_add (&hudChat->chatMessages, strdup (chatMsg));
 
-	_HudChat_addMessage (_this, chatMsg, size);
+	_HudChat_addMessage (_this, chatMsg, a3, size);
 }
 
 

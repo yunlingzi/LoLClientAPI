@@ -42,6 +42,7 @@
 			<Add option="-Wall" />
 			<Add option="-static-libgcc" />
 			<Add option="-static-libstdc++" />
+			<Add option="-std=gnu99" />
 			<Add option="-DNTDLL_LINKED" />
 			<Add option="-D__DBG_ACTIVATED__" />
 			<Add option="-DEXPORT_TO_CHEATENGINE" />

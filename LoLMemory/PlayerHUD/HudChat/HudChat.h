@@ -75,6 +75,7 @@ void __thiscall
 HudChat_addMessage (
 	void *_this,
 	char *chatMsg,
+	int a3,
 	int size
 );
 

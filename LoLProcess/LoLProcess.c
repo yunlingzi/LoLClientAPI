@@ -46,7 +46,7 @@ LoLProcess_new (void)
 	LoLProcess_setState (this, STATE_READY);
 
 	// Send a ready message to the chat log
-	log_chat_message ("<font color=\"#33ff33\">LoLClientAPI is ready.</font>", -1);
+	// log_chat_message ("<font color=\"#33ff33\">LoLClientAPI is ready.</font>", -1);
 
 	return this;
 }
