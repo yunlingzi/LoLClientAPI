@@ -11,6 +11,10 @@ class PyLoLCamera:
 	cameraScrollSpeedBottom = 1.5
 	sleepSecondsAfterMinimapClick = 3
 	toggleLoLCameraKey = win32con.VK_F11
+	
+	# Temporary fix
+	minimapX = 1600
+	minimapY = 900
 
 	# Weights
 	championWeight = 1.0
@@ -48,9 +52,12 @@ class PyLoLCamera:
 			# Check if LoLCamera is running
 			if not self.running:
 				continue;
-
+				
+			cursorScreenX, cursorScreenY = self.api.get_cursor_screen_position ();
+				
 			# Don't do anything if the cursor is hovering the minimap
-			if self.api.is_cursor_hovering_minimap ():
+			# if self.api.is_cursor_hovering_minimap ():
+			if cursorScreenX > self.minimapX and cursorScreenY > self.minimapY:
 				# Handle the event and go back to sleep
 				self.hover_minimap_behavior (cameraX, cameraY);
 				continue;

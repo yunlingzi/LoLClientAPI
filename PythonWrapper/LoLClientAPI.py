@@ -264,7 +264,7 @@ class LoLClientAPI:
 		self.hAPI.get_champion_hp (byref(currentHP), byref(maximumHP));
 		return (currentHP.value, maximumHP.value)
 
-	# Get the position of the current champion
+	# Get the team of the current champion
 	# Return : 0 if BLUE team, 1 if PURPLE team 
 	def get_champion_team (self):
 	
