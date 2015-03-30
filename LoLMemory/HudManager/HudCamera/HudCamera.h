@@ -39,11 +39,11 @@ typedef struct _HudCameraAngle
 #pragma pack(push, 1)
 typedef struct _HudCamera
 {
-	char field_0[272];
+	char field_0[288];
 	Position cameraPosition;
 	char gap_110[16];
 	HudCameraAngle cameraAngle;
-	char gap_128[128];
+	char gap_128[80];
 	HudCameraZoom cameraZoom;
 
 	DWORD pThis;
